@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/mucsci-students/2023sp-420-Maryjane/issues"
   },
-  "homepage": "https://github.com/mucsci-students/2023sp-420-Maryjane#readme"
+  "homepage": "https://github.com/mucsci-students/2023sp-420-Maryjane#readme",
+  "dependencies": {
+    "mongodb": "^4.13.0"
+  }
 }
