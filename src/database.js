@@ -6,7 +6,7 @@ async function main() {
    * See https://docs.mongodb.com/ecosystem/drivers/node/ for more details
    */
   const uri =
-    "mongodb+srv://marryjane:Spring420@maryjane.mnwjy4u.mongodb.net/test?retryWrites=true&w=majority";
+    "mongodb+srv://marryjane:Spring420@maryjane.mnwjy4u.mongodb.net/?retryWrites=true&w=majority";
 
   const client = new MongoClient(uri);
 
