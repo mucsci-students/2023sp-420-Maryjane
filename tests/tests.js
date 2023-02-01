@@ -26,9 +26,10 @@ function testGuessCommand() {
     Commands.guess("pina", gameManager);
     // Success
     Commands.guess("pine", gameManager);
-    // Success
-    Commands.guess("pinewood", gameManager);
-
+    // Check that you can't make the same guess twice
+    Commands.guess("pine", gameManager);
+    // Check that the word exists in the dictionary
+    Commands.guess("woodi", gameManager);
 
 }   
 

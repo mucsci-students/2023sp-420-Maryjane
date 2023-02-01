@@ -37,7 +37,7 @@ vorpal
 vorpal
   .command('guess <input>', 'Allows user to input a guess')
   .action(function(args, callback) {
-    Commands.guess(args.input, GameManager);
+    Commands.guess(args.input.toString(), GameManager);
     callback();
   });
 
