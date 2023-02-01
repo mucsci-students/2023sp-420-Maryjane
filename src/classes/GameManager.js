@@ -13,6 +13,9 @@ class GameManager {
   // Stores the seven letter puzzle
   pangram = "";
 
+  // Stores the letter that is required in the puzzle
+  requiredLetter = "";
+
   // Stores the users points
   userPoints = 0;
 

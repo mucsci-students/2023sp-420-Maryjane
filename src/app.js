@@ -3,8 +3,11 @@
 // cli object
 var vorpal = require('vorpal')();
 
-//GameManager object
+//GameManager object created from the file specified below.
 var GameManager = new (require('./classes/GameManager.js'))();
+
+//Commands class
+var Commands = require('./classes/Commands.js');
 
 // This function will start before the cli starts. Use it to setup vars.
 function setup() {
@@ -27,6 +30,14 @@ vorpal
   .command('duck', 'Outputs "rabbit"')
   .action(function(args, callback) {
     console.log('wumbo');
+    callback();
+  });
+
+// The guess command that requires the field <input>
+vorpal
+  .command('guess <input>', 'Allows user to input a guess')
+  .action(function(args, callback) {
+    Commands.guess(args.input, GameManager);
     callback();
   });
 
