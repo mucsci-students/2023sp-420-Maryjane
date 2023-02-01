@@ -1,6 +1,19 @@
 /* Entry point of the program defined by package.json */
 
+// cli object
 var vorpal = require('vorpal')();
+
+//GameManager object
+var GameManager = new (require('./classes/GameManager.js'))();
+
+// This function will start before the cli starts. Use it to setup vars.
+function setup() {
+  console.log(GameManager.isPuzzleOpen);
+  console.log("hello there");
+}
+
+// Call the setup method before you start interacting with the cli
+setup();
 
 //Initializes the CLI input stream and changes the text to show 
 //custom text.
@@ -11,19 +24,10 @@ vorpal
 //An example custom vorpal command that uses 'duck' as the input text
 //and outputs 'Wabbit' as the response.
 vorpal
-      .command('duck', 'Outputs "rabbit"')
-      .action(function(args, callback) {
-        this.log('Wabbit');
-        callback();
-      });
+  .command('duck', 'Outputs "rabbit"')
+  .action(function(args, callback) {
+    console.log('wumbo');
+    callback();
+  });
 
-// ======  Commented out due to breaking added functionality.======
-// function main() {
-//     console.log("hello there");
-    
-// }
 
-// //Invokes the main method
-// if (require.main === module) {
-//     main();
-// }
