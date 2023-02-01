@@ -6,6 +6,9 @@ var vorpal = require('vorpal')();
 //GameManager object
 var GameManager = new (require('./classes/GameManager.js'))();
 
+//GameManager object
+var Commands = require('./classes/Commands.js');
+
 // This function will start before the cli starts. Use it to setup vars.
 function setup() {
   console.log(GameManager.isPuzzleOpen);
@@ -27,6 +30,13 @@ vorpal
   .command('duck', 'Outputs "rabbit"')
   .action(function(args, callback) {
     console.log('wumbo');
+    callback();
+  });
+
+vorpal
+  .command('guess <input>', 'Allows user to input a guess')
+  .action(function(args, callback) {
+    Commands.guess(args.input, GameManager);
     callback();
   });
 
