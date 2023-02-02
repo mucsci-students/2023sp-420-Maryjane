@@ -41,4 +41,21 @@ vorpal
     callback();
   });
 
+// Generates new puzzle. At the moment, it is the same puzzle
+vorpal
+  .command('new-puzzle', 'Allows user to start a new puzzle')
+  .action(function(args, callback) {
+    Commands.newPuzzle(GameManager);
+    callback();
+  });
+
+// Hidden command that shows everything related to the gamemanager
+vorpal
+  .command('debug', '')
+  .hidden()
+  .action(function(args, callback) {
+    console.log(GameManager);
+    callback();
+  });
+
 
