@@ -58,6 +58,7 @@ vorpal
     callback();
   });
 
+  // Command to shuffle puzzle
   vorpal
   .command('shuffle', 'Allows user to shuffle puzzle')
   .action(function(args, callback) {
@@ -65,6 +66,7 @@ vorpal
     callback();
   });
   
+  // Command to show found words 
   vorpal
   .command('show-found-words', 'Allows user to show found words')
   .action(function(args, callback) {

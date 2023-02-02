@@ -92,6 +92,9 @@ class Commands {
   static updatePuzzleRank() {
 
   }
+  static shuffle(GameManager) {
+
+  }
 
 }
 
