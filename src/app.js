@@ -64,4 +64,10 @@ vorpal
     //Commands.shuffle(GameManager);
     callback();
   });
-
+  
+  vorpal
+  .command('show-found-words', 'Allows user to show found words')
+  .action(function(args, callback) {
+    //Commands.shuffle(GameManager);
+    callback();
+  });
