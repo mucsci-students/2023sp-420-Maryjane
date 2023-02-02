@@ -66,6 +66,28 @@ class Commands {
 
   }
 
+  /**
+   * Generates a new puzzle. At the moment, it is always the same puzzle
+   * @param {GameManager} GameManager - object used to keep track of the game/player
+   * @returns null
+   */
+  static newPuzzle(GameManager) {
+    if (GameManager.isPuzzleOpen) {
+      console.log("game is in progess");
+      //promptSave();
+      return;
+    }
+
+    GameManager.isPuzzleOpen = true;
+    GameManager.pangram = "pinewood";
+    GameManager.requiredLetter = "I";
+
+    //TODO - SHUFFLE WORD AND STORE IN NEW GAMEMANAGER VAR
+    //TODO - SHOW SHUFFLED WORD/LETTERS
+
+    console.log("New puzzle started");
+  }
+
   //TODO
   static updatePuzzleRank() {
 
