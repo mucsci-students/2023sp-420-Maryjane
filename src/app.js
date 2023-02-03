@@ -1,5 +1,12 @@
 /* Entry point of the program defined by package.json */
 
+//file system module
+var fs = require('fs');
+
+var obj = {
+  table: []
+};
+
 // cli object
 var vorpal = require('vorpal')();
 
@@ -71,5 +78,28 @@ vorpal
   .command('show-found-words', 'Allows user to show found words')
   .action(function(args, callback) {
     //Commands.shuffle(GameManager);
+    callback();
+  });
+
+
+  vorpal
+  .command('save <filename>', 'Allows user to save')
+  .action(function(args, callback) 
+  {
+    var filename = args.filename;
+
+    //if you want to appened do obj.table.push
+    obj.table = 
+    ({
+      words: GameManager.foundWords,
+      pangram: GameManager.pangram,
+      requiredLetter: GameManager.requiredLetter,
+      userPoints: GameManager.userPoints
+    });
+
+    var json = JSON.stringify(obj);
+
+    fs.writeFile(filename + '.json', json, 'utf8', callback);
+    
     callback();
   });
