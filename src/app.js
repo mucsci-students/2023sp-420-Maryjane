@@ -1,5 +1,8 @@
 /* Entry point of the program defined by package.json */
 
+//file system module
+var fs = require('fs');
+
 /*****************************************************************************/
 /*                                Global Vars                                */
 /*****************************************************************************/
@@ -91,6 +94,26 @@ vorpal
     //Commands.shuffle(GameManager);
     callback();
   });
+
+  // Command to save games
+  vorpal
+  .command('save <filename>', 'Allows user to save')
+  .action(function(args, callback) 
+  {
+    let filename = args.filename;
+    let table = 
+    ({
+      words: GameManager.foundWords,
+      pangram: GameManager.pangram,
+      requiredLetter: GameManager.requiredLetter,
+      userPoints: GameManager.userPoints
+    });
+    
+    let jsonFile = JSON.stringify(table);
+    fs.writeFile(filename + '.json', jsonFile, 'utf8', callback);
+    callback();
+  });
+
 
 /*****************************************************************************/
 /*                                Exit Function                              */
