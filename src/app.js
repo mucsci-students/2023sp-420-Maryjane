@@ -1,5 +1,9 @@
 /* Entry point of the program defined by package.json */
 
+/*****************************************************************************/
+/*                                Global Vars                                */
+/*****************************************************************************/
+
 // cli object
 var vorpal = require('vorpal')();
 
@@ -9,20 +13,34 @@ var GameManager = new (require('./classes/GameManager.js'))();
 //Commands class
 var Commands = require('./classes/Commands.js');
 
+//Database object created from the file specified below
+var Database = new (require('./classes/Database.js'))();
+
+/*****************************************************************************/
+/*                                Setup Function                             */
+/*****************************************************************************/
+
 // This function will start before the cli starts. Use it to setup vars.
 function setup() {
-  console.log(GameManager.isPuzzleOpen);
-  console.log("hello there");
+  Database.connect();
 }
 
 // Call the setup method before you start interacting with the cli
 setup();
+
+/*****************************************************************************/
+/*                                CLI Initializtion                          */
+/*****************************************************************************/
 
 //Initializes the CLI input stream and changes the text to show 
 //custom text.
 vorpal
   .delimiter('SpellingBee>')
   .show();
+
+/*****************************************************************************/
+/*                                Vorpal Commands                            */
+/*****************************************************************************/
 
 //An example custom vorpal command that uses 'duck' as the input text
 //and outputs 'Wabbit' as the response.
@@ -58,18 +76,27 @@ vorpal
     callback();
   });
 
-  // Command to shuffle puzzle
-  vorpal
+// Command to shuffle puzzle
+vorpal
   .command('shuffle', 'Allows user to shuffle puzzle')
   .action(function(args, callback) {
     //Commands.shuffle(GameManager);
     callback();
   });
   
-  // Command to show found words 
-  vorpal
+// Command to show found words 
+vorpal
   .command('show-found-words', 'Allows user to show found words')
   .action(function(args, callback) {
     //Commands.shuffle(GameManager);
     callback();
   });
+
+/*****************************************************************************/
+/*                                Exit Function                              */
+/*****************************************************************************/
+
+// Node calls this function automatically when the process ends
+process.on("exit", function () { 
+  console.log('end');
+})
