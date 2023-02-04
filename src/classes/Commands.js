@@ -106,8 +106,18 @@ class Commands {
   static updatePuzzleRank() {
 
   }
-  static shuffle(GameManager) {
+  static async shuffle(GameManager, Database) {
+    if (!GameManager.isPuzzleOpen) {
+      console.log("game is not in progess");
+      return;
+    }
 
+    let pangram = await GameManager.pangram;
+    let pangramLetters = pangram.split('');
+
+    // Converts pangram into array of letters
+    GameManager.currentPuzzle = pangramLetters.sort((a, b) => 0.5 - Math.random()).sort((a, b) => 0.5 - Math.random());
+    console.log(GameManager.currentPuzzle);
   }
 
 }

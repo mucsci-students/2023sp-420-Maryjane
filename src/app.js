@@ -83,7 +83,7 @@ vorpal
 vorpal
   .command('shuffle', 'Allows user to shuffle puzzle')
   .action(function(args, callback) {
-    //Commands.shuffle(GameManager);
+    Commands.shuffle(GameManager, Database);
     callback();
   });
   
