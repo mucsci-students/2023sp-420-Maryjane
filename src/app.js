@@ -100,6 +100,12 @@ vorpal
   .command('save <filename>', 'Allows user to save')
   .action(function(args, callback) 
   {
+    if(GameManager.isPuzzleOpen == false)
+    {
+      console.log("SpellingBee> No puzzle open");
+      callback();
+    }
+
     let filename = args.filename;
     let table = 
     ({
