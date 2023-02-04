@@ -1,6 +1,7 @@
 
 // Import the ckeck word class for validating user guesses
 const wordsClass = require('check-word');
+const Database = require('./Database');
 
 // dictionary object used to check whether a word is valid or not
 const dictionary = wordsClass('en');
@@ -69,23 +70,36 @@ class Commands {
   /**
    * Generates a new puzzle. At the moment, it is always the same puzzle
    * @param {GameManager} GameManager - object used to keep track of the game/player
+   * @param {Database} Database - object used to keep track of the game/player
    * @returns null
    */
-  static newPuzzle(GameManager) {
+  static async newPuzzle(GameManager, Database) {
     if (GameManager.isPuzzleOpen) {
       console.log("game is in progess");
       //promptSave();
       return;
     }
 
+    let pangram = await Database.getRandomWord();
+
+    // Converts pangram into array of letters
+    let pangramLetters = pangram.split('');
+    GameManager.currentPuzzle = pangramLetters.sort((a, b) => 0.5 - Math.random()).sort((a, b) => 0.5 - Math.random());
+
+    // Method will not choose these letters when finding random required letter
+    let toRemove = ['j', 'q', 'x', 'z'];
+
+    // Filter out letters from above
+    pangramLetters = pangramLetters.filter( ( element ) => !toRemove.includes( element ) );
+
     GameManager.isPuzzleOpen = true;
-    GameManager.pangram = "pinewood";
-    GameManager.requiredLetter = "I";
+    GameManager.pangram = pangram;
+    GameManager.requiredLetter = pangramLetters[Math.floor(Math.random() * pangramLetters.length)];
 
-    //TODO - SHUFFLE WORD AND STORE IN NEW GAMEMANAGER VAR
-    //TODO - SHOW SHUFFLED WORD/LETTERS
+    console.log("New puzzle started, below is for testing purposes only");
+    console.log(GameManager.currentPuzzle);
 
-    console.log("New puzzle started");
+    //showPuzzle()
   }
 
   //TODO

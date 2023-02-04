@@ -13,6 +13,9 @@ class GameManager {
   // Stores the seven letter puzzle
   pangram = "";
 
+  // Stores the puzzle as an array of letters in a random order
+  currentPuzzle = [];
+
   // Stores the letter that is required in the puzzle
   requiredLetter = "";
 
