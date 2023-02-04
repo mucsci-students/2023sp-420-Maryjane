@@ -3,9 +3,6 @@
 //file system module
 var fs = require('fs');
 
-var obj = {
-  table: []
-};
 /*****************************************************************************/
 /*                                Global Vars                                */
 /*****************************************************************************/
@@ -104,7 +101,6 @@ vorpal
   .action(function(args, callback) 
   {
     let filename = args.filename;
-    
     let table = 
     ({
       words: GameManager.foundWords,
@@ -113,10 +109,8 @@ vorpal
       userPoints: GameManager.userPoints
     });
     
-    let json = JSON.stringify(table);
-
-    fs.writeFile(filename + '.json', json, 'utf8', callback);
-    
+    let jsonFile = JSON.stringify(table);
+    fs.writeFile(filename + '.json', jsonFile, 'utf8', callback);
     callback();
   });
 
