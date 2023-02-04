@@ -24,8 +24,8 @@ var Database = new (require('./classes/Database.js'))();
 /*****************************************************************************/
 
 // This function will start before the cli starts. Use it to setup vars.
-function setup() {
-  Database.connect();
+async function setup() {
+  await Database.connect();
 }
 
 // Call the setup method before you start interacting with the cli
@@ -66,7 +66,7 @@ vorpal
 vorpal
   .command('new-puzzle', 'Allows user to start a new puzzle')
   .action(function(args, callback) {
-    Commands.newPuzzle(GameManager);
+    Commands.newPuzzle(GameManager, Database);
     callback();
   });
 
