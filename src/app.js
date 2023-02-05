@@ -99,25 +99,11 @@ vorpal
     callback();
   });
 
-// Command to save games
+  // Command to save the game
 vorpal
-  .command("save <filename>", "Allows user to save")
+  .command("save <filename>", "Allows a user to save their game")
   .action(function (args, callback) {
-    if (GameManager.isPuzzleOpen == false) {
-      console.log("SpellingBee> No puzzle open");
-      callback();
-    }
-
-    let filename = args.filename;
-    let table = {
-      words: GameManager.foundWords,
-      pangram: GameManager.pangram,
-      requiredLetter: GameManager.requiredLetter,
-      userPoints: GameManager.userPoints,
-    };
-
-    let jsonFile = JSON.stringify(table);
-    fs.writeFile(filename + ".json", jsonFile, "utf8", callback);
+    Commands.save(args.filename.toString(), GameManager);
     callback();
   });
 
