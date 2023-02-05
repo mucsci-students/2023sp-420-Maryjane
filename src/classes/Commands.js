@@ -115,6 +115,7 @@ class Commands {
       return;
     }
 
+<<<<<<< HEAD
     let pangram = await GameManager.pangram;
     let pangramLetters = pangram.split("");
 
@@ -122,6 +123,20 @@ class Commands {
     GameManager.currentPuzzle = pangramLetters
       .sort((a, b) => 0.5 - Math.random())
       .sort((a, b) => 0.5 - Math.random());
+=======
+  }
+  static async shuffle(GameManager, Database) {
+    if (!GameManager.isPuzzleOpen) {
+      console.log("game is not in progess");
+      return;
+    }
+
+    let pangram = await GameManager.pangram;
+    let pangramLetters = pangram.split('');
+
+    // Converts pangram into array of letters
+    GameManager.currentPuzzle = pangramLetters.sort((a, b) => 0.5 - Math.random()).sort((a, b) => 0.5 - Math.random());
+>>>>>>> f4efa2f1e8f84d81022e20371ed71ea3df9910de
     console.log(GameManager.currentPuzzle);
   }
 
