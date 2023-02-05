@@ -1,16 +1,14 @@
-
 // Import the ckeck word class for validating user guesses
-const wordsClass = require('check-word');
-const Database = require('./Database');
+const wordsClass = require("check-word");
+const Database = require("./Database");
 
 // dictionary object used to check whether a word is valid or not
-const dictionary = wordsClass('en');
+const dictionary = wordsClass("en");
 
 /**
  * Commands class used to store static helper methods for the cli.
  */
 class Commands {
-
   /**
    * Used to check if a users guess is valid. If it is, the word gets inserted into GameManager.foundWords
    * @param {string} input - The input/guess the user made.
@@ -19,22 +17,25 @@ class Commands {
    */
   static guess(input, GameManager) {
     //Converts input to a string
-    input = input + '';
+    input = input + "";
     input = input.toLowerCase();
 
     if (!GameManager.isPuzzleOpen) {
-      console.log('No puzzle in progress');
+      console.log("No puzzle in progress");
       return;
     }
 
     if (input.length < 4) {
-      console.log('Guess must be at least 4 characters');
+      console.log("Guess must be at least 4 characters");
       return;
     }
 
     // Check that the input has the required lettter
     if (input.search(GameManager.requiredLetter.toLowerCase()) === -1) {
-      console.log('Guess must contain required character\nThe required character is', GameManager.requiredLetter);
+      console.log(
+        "Guess must contain required character\nThe required character is",
+        GameManager.requiredLetter
+      );
       return;
     }
 
@@ -61,10 +62,9 @@ class Commands {
     // Insert the guess into list of found words and increase user points
     GameManager.foundWords.push(input);
 
-    Commands.updatePuzzleRank()
+    Commands.updatePuzzleRank();
 
-    console.log('success');
-
+    console.log("success");
   }
 
   /**
@@ -83,18 +83,23 @@ class Commands {
     let pangram = await Database.getRandomWord();
 
     // Converts pangram into array of letters
-    let pangramLetters = pangram.split('');
-    GameManager.currentPuzzle = pangramLetters.sort((a, b) => 0.5 - Math.random()).sort((a, b) => 0.5 - Math.random());
+    let pangramLetters = pangram.split("");
+    GameManager.currentPuzzle = pangramLetters
+      .sort((a, b) => 0.5 - Math.random())
+      .sort((a, b) => 0.5 - Math.random());
 
     // Method will not choose these letters when finding random required letter
-    let toRemove = ['j', 'q', 'x', 'z'];
+    let toRemove = ["j", "q", "x", "z"];
 
     // Filter out letters from above
-    pangramLetters = pangramLetters.filter( ( element ) => !toRemove.includes( element ) );
+    pangramLetters = pangramLetters.filter(
+      (element) => !toRemove.includes(element)
+    );
 
     GameManager.isPuzzleOpen = true;
     GameManager.pangram = pangram;
-    GameManager.requiredLetter = pangramLetters[Math.floor(Math.random() * pangramLetters.length)];
+    GameManager.requiredLetter =
+      pangramLetters[Math.floor(Math.random() * pangramLetters.length)];
 
     console.log("New puzzle started, below is for testing purposes only");
     console.log(GameManager.currentPuzzle);
@@ -103,13 +108,89 @@ class Commands {
   }
 
   //TODO
-  static updatePuzzleRank() {
+  static updatePuzzleRank() {}
+  static async shuffle(GameManager, Database) {
+    if (!GameManager.isPuzzleOpen) {
+      console.log("game is not in progess");
+      return;
+    }
 
+    let pangram = await GameManager.pangram;
+    let pangramLetters = pangram.split("");
+
+    // Converts pangram into array of letters
+    GameManager.currentPuzzle = pangramLetters
+      .sort((a, b) => 0.5 - Math.random())
+      .sort((a, b) => 0.5 - Math.random());
+    console.log(GameManager.currentPuzzle);
   }
-  static shuffle(GameManager) {
 
+  /**
+   * Generates a new puzzle based on user inputted word
+   * @param {GameManager} GameManager - object used to keep track of the game/player
+   * @param {input} input - users inputted word
+   * @returns null
+   */
+  static identifyBaseWord(input, GameManager) {
+    input = input + "";
+    input = input.toLowerCase();
+
+    // Checks user's word to have correct length and no spaces
+    if (input.length != 7) {
+      console.log("The new word must have 7 unique letters and no spaces");
+      return;
+    }
+
+    // Checks user's word to be an actual word in the dictionary
+    if (!dictionary.check(input)) {
+      console.log(input + " was not found in the dictionary");
+      return;
+    }
+
+    // Converts pangram into array of letters
+    let pangram = input;
+    let pangramLetters = pangram.split("");
+    GameManager.currentPuzzle = pangramLetters
+      .sort((a, b) => 0.5 - Math.random())
+      .sort((a, b) => 0.5 - Math.random());
+
+    // Method will not choose these letters when finding random required letter
+    let toRemove = ["j", "q", "x", "z"];
+
+    // Filter out letters from above
+    pangramLetters = pangramLetters.filter(
+      (element) => !toRemove.includes(element)
+    );
+
+    GameManager.isPuzzleOpen = true;
+    GameManager.pangram = pangram;
+    GameManager.requiredLetter =
+      pangramLetters[Math.floor(Math.random() * pangramLetters.length)];
+
+    console.log("New puzzle started, below is for testing purposes only");
+    console.log(GameManager.currentPuzzle);
   }
 
+  /**
+   * Shows current found word in puzzle
+   * @param {GameManager} GameManager - object used to keep track of the game/player
+   * @returns null
+   */
+  static showFoundWords(GameManager) {
+    // If no current puzzle
+    if (!GameManager.isPuzzleOpen) {
+      console.log("No puzzle in progress");
+      return;
+    }
+
+    // If no words found yet
+    if (GameManager.foundWords.length <= 0) {
+      console.log("No words found");
+      return;
+    }
+
+    console.log(GameManager.foundWords);
+  }
 }
 
 module.exports = Commands;
