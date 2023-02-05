@@ -120,6 +120,13 @@ vorpal
     callback();
   });
 
+vorpal
+  .command('show-puzzle-rank', 'Shows the user their puzzle rank')
+  .action(function(args, callback) {
+    Commands.showPuzzleRank(GameManager);
+    callback();
+  });
+
 
 /*****************************************************************************/
 /*                                Exit Function                              */

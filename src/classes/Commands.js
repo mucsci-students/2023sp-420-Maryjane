@@ -61,7 +61,7 @@ class Commands {
     // Insert the guess into list of found words and increase user points
     GameManager.foundWords.push(input);
 
-    Commands.updatePuzzleRank()
+    Commands.updatePuzzleRank(input, GameManager);
 
     console.log('success');
 
@@ -103,9 +103,30 @@ class Commands {
   }
 
   //TODO
-  static updatePuzzleRank() {
+  static updatePuzzleRank(word, GameManager) {
+
+    //Shifts it so you get 1 point for a 4 letter word, 2 points for 5 letters, etc.
+    let score = word.length - 3;
+    let USED_ALL_LETTERS_BONUS = 7;
+
+    if (word === GameManager.pangram) {
+      score += USED_ALL_LETTERS_BONUS;
+    }
+
+    GameManager.userPoints += score;
 
   }
+
+  static showPuzzleRank(GameManager) {
+    if (!GameManager.isPuzzleOpen) {
+      console.log ('No puzzle in progress');
+      return;
+    }
+
+    console.log (GameManager.userPoints + "/100 points");
+    console.log ("Your rank: " + rank);
+  }
+
   static shuffle(GameManager) {
 
   }
