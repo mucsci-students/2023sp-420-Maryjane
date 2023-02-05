@@ -212,17 +212,28 @@ class Commands {
     }
     else
     {
-      let table = {
-        words: GameManager.foundWords,
-        pangram: GameManager.pangram,
-        requiredLetter: GameManager.requiredLetter,
-        userPoints: GameManager.userPoints,
-      };
-      let jsonFile = JSON.stringify(table);
-      fs.writeFile(fileName + ".json", jsonFile, 'utf8', (err) => {if (err) throw err;});
-      console.log('SpellingBee> The file has been saved!');
-      GameManager.isPuzzleOpen = false;
-      return;
+      if(!fs.existsSync(fileName + ".json")){
+        let table = {
+          words: GameManager.foundWords,
+          pangram: GameManager.pangram,
+          requiredLetter: GameManager.requiredLetter,
+          userPoints: GameManager.userPoints,
+        };
+        let jsonFile = JSON.stringify(table);
+        fs.writeFile(fileName + ".json", jsonFile, 'utf8', (err) => {if (err) throw err;});
+        console.log('SpellingBee> The file has been saved!');
+        GameManager.isPuzzleOpen = false;
+        return;
+      }
+      else{
+         //NOTE: What if the user wants to overwrite the file?
+            //should I allow them to overwrite the file?
+            //or should I just tell them to choose another name?
+         //scenario: user saves a file, then they want to save the same file again (updating their progress)
+         //NOTE: I think im just gonna tell them to choose another name for now
+        console.log("SpellingBee> File already exists, please choose another name and try again");
+        return;
+      }
     }
   }
 
@@ -233,7 +244,7 @@ class Commands {
       this.save(fileName, GameManager);
     }
     else{
-      console.log("SpellingBee> Game not saved");
+      console.log("SpellingBee> The game has not been saved and is now be closed");
       GameManager.isPuzzleOpen = false;
       return;
     }
