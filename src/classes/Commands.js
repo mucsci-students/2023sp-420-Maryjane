@@ -113,7 +113,7 @@ class Commands {
   }
 
   //TODO
-  static updatePuzzleRank() {}
+  static updatePuzzleRank() { }
 
   static async shuffle(GameManager, Database) {
     if (!GameManager.isPuzzleOpen) {
@@ -204,15 +204,13 @@ class Commands {
    * @param {fileName} fileName - users inputted file name
    * @returns null
    */
-  static save(fileName, GameManager){
-    if(GameManager.isPuzzleOpen == false)
-    {
+  static save(fileName, GameManager) {
+    if (GameManager.isPuzzleOpen == false) {
       console.log("SpellingBee> No puzzle open, you can not save");
       return;
     }
-    else
-    {
-      if(!fs.existsSync(fileName + ".json")){
+    else {
+      if (!fs.existsSync(fileName + ".json")) {
         let table = {
           words: GameManager.foundWords,
           pangram: GameManager.pangram,
@@ -220,12 +218,12 @@ class Commands {
           userPoints: GameManager.userPoints,
         };
         let jsonFile = JSON.stringify(table);
-        fs.writeFile(fileName + ".json", jsonFile, 'utf8', (err) => {if (err) throw err;});
+        fs.writeFile(fileName + ".json", jsonFile, 'utf8', (err) => { if (err) throw err; });
         console.log('SpellingBee> The file has been saved!');
         GameManager.isPuzzleOpen = false;
         return;
       }
-      else{
+      else {
         console.log("SpellingBee> File already exists, please choose another name and try again");
         return;
       }
@@ -237,13 +235,19 @@ class Commands {
    * @param {GameManager} GameManager - object used to keep track of the game/player
    * @returns null
    */
-  static promptSave(GameManager){
-    let save = prompt('SpellingBee> Would you like to save your current game? (y/n) ');
-    if(save == 'y'){
+  static promptSave(GameManager) {
+    let save = prompt('SpellingBee> Would you like to save your current game? (yes/no) ');
+    save = save.toString().toLowerCase();
+    while (save !== 'yes' && save !== 'no') {
+      console.log("SpellingBee> You must type either yes or no");
+      save = prompt('SpellingBee> Would you like to save your current game? (yes/no) ');
+      save = save.toString().toLowerCase();
+    }
+    if (save === 'yes') {
       let fileName = prompt('SpellingBee> Enter a file name: ');
       this.save(fileName, GameManager);
     }
-    else{
+    else {
       console.log("SpellingBee> The game has been discarded");
       GameManager.isPuzzleOpen = false;
       return;
