@@ -1,23 +1,23 @@
 /* Entry point of the program defined by package.json */
 
 //file system module
-var fs = require('fs');
+var fs = require("fs");
 
 /*****************************************************************************/
 /*                                Global Vars                                */
 /*****************************************************************************/
 
 // cli object
-var vorpal = require('vorpal')();
+var vorpal = require("vorpal")();
 
 //GameManager object created from the file specified below.
-var GameManager = new (require('./classes/GameManager.js'))();
+var GameManager = new (require("./classes/GameManager.js"))();
 
 //Commands class
-var Commands = require('./classes/Commands.js');
+var Commands = require("./classes/Commands.js");
 
 //Database object created from the file specified below
-var Database = new (require('./classes/Database.js'))();
+var Database = new (require("./classes/Database.js"))();
 
 /*****************************************************************************/
 /*                                Setup Function                             */
@@ -35,11 +35,9 @@ setup();
 /*                                CLI Initializtion                          */
 /*****************************************************************************/
 
-//Initializes the CLI input stream and changes the text to show 
+//Initializes the CLI input stream and changes the text to show
 //custom text.
-vorpal
-  .delimiter('SpellingBee>')
-  .show();
+vorpal.delimiter("SpellingBee>").show();
 
 /*****************************************************************************/
 /*                                Vorpal Commands                            */
@@ -47,76 +45,79 @@ vorpal
 
 //An example custom vorpal command that uses 'duck' as the input text
 //and outputs 'Wabbit' as the response.
-vorpal
-  .command('duck', 'Outputs "rabbit"')
-  .action(function(args, callback) {
-    console.log('wumbo');
-    callback();
-  });
+vorpal.command("duck", 'Outputs "rabbit"').action(function (args, callback) {
+  console.log("wumbo");
+  callback();
+});
 
 // The guess command that requires the field <input>
 vorpal
-  .command('guess <input>', 'Allows user to input a guess')
-  .action(function(args, callback) {
+  .command("guess <input>", "Allows user to input a guess")
+  .action(function (args, callback) {
     Commands.guess(args.input.toString(), GameManager);
     callback();
   });
 
 // Generates new puzzle. At the moment, it is the same puzzle
 vorpal
-  .command('new-puzzle', 'Allows user to start a new puzzle')
-  .action(function(args, callback) {
+  .command("new-puzzle", "Allows user to start a new puzzle")
+  .action(function (args, callback) {
     Commands.newPuzzle(GameManager, Database);
     callback();
   });
 
 // Hidden command that shows everything related to the gamemanager
 vorpal
-  .command('debug', '')
+  .command("debug", "")
   .hidden()
-  .action(function(args, callback) {
+  .action(function (args, callback) {
     console.log(GameManager);
     callback();
   });
 
 // Command to shuffle puzzle
 vorpal
-  .command('shuffle', 'Allows user to shuffle puzzle')
-  .action(function(args, callback) {
-    //Commands.shuffle(GameManager);
+  .command("shuffle", "Allows user to shuffle puzzle")
+  .action(function (args, callback) {
+    Commands.shuffle(GameManager, Database);
     callback();
   });
-  
-// Command to show found words 
+
+// Command to show found words
 vorpal
-  .command('show-found-words', 'Allows user to show found words')
-  .action(function(args, callback) {
+  .command("show-found-words", "Allows user to show found words")
+  .action(function (args, callback) {
     //Commands.shuffle(GameManager);
     callback();
   });
 
-  // Command to save games
-  vorpal
-  .command('save <filename>', 'Allows user to save')
-  .action(function(args, callback) 
-  {
-    if(GameManager.isPuzzleOpen == false)
-    {
+// Command to show found words
+vorpal
+  .command("show-found-words", "Allows user to show found words")
+  .action(function (args, callback) {
+    Commands.showFoundWords(GameManager);
+    callback();
+  });
+
+// Command to save games
+vorpal
+  .command("save <filename>", "Allows user to save")
+  .action(function (args, callback) {
+    if (GameManager.isPuzzleOpen == false) {
       console.log("SpellingBee> No puzzle open");
       callback();
     }
 
     let filename = args.filename;
-    let table = 
-    ({
+    let table = {
       words: GameManager.foundWords,
       pangram: GameManager.pangram,
       requiredLetter: GameManager.requiredLetter,
-      userPoints: GameManager.userPoints
-    });
-    
+      userPoints: GameManager.userPoints,
+    };
+
     let jsonFile = JSON.stringify(table);
-    fs.writeFile(filename + '.json', jsonFile, 'utf8', callback);
+    fs.writeFile(filename + ".json", jsonFile, "utf8", callback);
     callback();
   });
 
@@ -127,12 +128,19 @@ vorpal
     callback();
   });
 
+// Command to create puzzle with user input
+vorpal
+  .command("identify-base-word <input>", "Allows user to choose base word")
+  .action(function (args, callback) {
+    Commands.identifyBaseWord(args.input.toString(), GameManager);
+    callback();
+  });
 
 /*****************************************************************************/
 /*                                Exit Function                              */
 /*****************************************************************************/
 
 // Node calls this function automatically when the process ends
-process.on("exit", function () { 
-  console.log('end');
-})
+process.on("exit", function () {
+  console.log("end");
+});
