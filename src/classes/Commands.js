@@ -2,8 +2,13 @@
 const wordsClass = require("check-word");
 const Database = require("./Database");
 
+const prompt = require('prompt-sync')();
+
 // dictionary object used to check whether a word is valid or not
 const dictionary = wordsClass("en");
+
+//file system module
+var fs = require("fs");
 
 /**
  * Commands class used to store static helper methods for the cli.
@@ -76,7 +81,7 @@ class Commands {
   static async newPuzzle(GameManager, Database) {
     if (GameManager.isPuzzleOpen) {
       console.log("game is in progess");
-      //promptSave();
+      this.promptSave(GameManager);
       return;
     }
 
@@ -108,7 +113,7 @@ class Commands {
   }
 
   //TODO
-  static updatePuzzleRank() {}
+  static updatePuzzleRank() { }
 
   static async shuffle(GameManager, Database) {
     if (!GameManager.isPuzzleOpen) {
@@ -192,6 +197,61 @@ class Commands {
 
     console.log(GameManager.foundWords);
   }
-}
 
+  /**
+   * Saves current puzzle
+   * @param {GameManager} GameManager - object used to keep track of the game/player
+   * @param {fileName} fileName - users inputted file name
+   * @returns null
+   */
+  static save(fileName, GameManager) {
+    if (GameManager.isPuzzleOpen == false) {
+      console.log("SpellingBee> No puzzle open, you can not save");
+      return;
+    }
+    else {
+      if (!fs.existsSync(fileName + ".json")) {
+        let table = {
+          words: GameManager.foundWords,
+          pangram: GameManager.pangram,
+          requiredLetter: GameManager.requiredLetter,
+          userPoints: GameManager.userPoints,
+        };
+        let jsonFile = JSON.stringify(table);
+        fs.writeFile(fileName + ".json", jsonFile, 'utf8', (err) => { if (err) throw err; });
+        console.log('SpellingBee> The file has been saved!');
+        GameManager.isPuzzleOpen = false;
+        return;
+      }
+      else {
+        console.log("SpellingBee> File already exists, please choose another name and try again");
+        return;
+      }
+    }
+  }
+
+  /**
+   * prompts user to save current puzzle when they try to start a new one
+   * @param {GameManager} GameManager - object used to keep track of the game/player
+   * @returns null
+   */
+  static promptSave(GameManager) {
+    let save = prompt('SpellingBee> Would you like to save your current game? (yes/no) ');
+    save = save.toString().toLowerCase();
+    while (save !== 'yes' && save !== 'no') {
+      console.log("SpellingBee> You must type either yes or no");
+      save = prompt('SpellingBee> Would you like to save your current game? (yes/no) ');
+      save = save.toString().toLowerCase();
+    }
+    if (save === 'yes') {
+      let fileName = prompt('SpellingBee> Enter a file name: ');
+      this.save(fileName, GameManager);
+    }
+    else {
+      console.log("SpellingBee> The game has been discarded");
+      GameManager.isPuzzleOpen = false;
+      return;
+    }
+  }
+}
 module.exports = Commands;
