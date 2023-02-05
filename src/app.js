@@ -1,8 +1,5 @@
 /* Entry point of the program defined by package.json */
 
-//file system module
-var fs = require("fs");
-
 /*****************************************************************************/
 /*                                Global Vars                                */
 /*****************************************************************************/
@@ -87,19 +84,11 @@ vorpal
 vorpal
   .command("show-found-words", "Allows user to show found words")
   .action(function (args, callback) {
-    //Commands.shuffle(GameManager);
-    callback();
-  });
-
-// Command to show found words
-vorpal
-  .command("show-found-words", "Allows user to show found words")
-  .action(function (args, callback) {
     Commands.showFoundWords(GameManager);
     callback();
   });
 
-  // Command to save the game
+// Command to save the game
 vorpal
   .command("save <filename>", "Allows a user to save their game")
   .action(function (args, callback) {

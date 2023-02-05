@@ -226,17 +226,17 @@ class Commands {
         return;
       }
       else{
-         //NOTE: What if the user wants to overwrite the file?
-            //should I allow them to overwrite the file?
-            //or should I just tell them to choose another name?
-         //scenario: user saves a file, then they want to save the same file again (updating their progress)
-         //NOTE: I think im just gonna tell them to choose another name for now
         console.log("SpellingBee> File already exists, please choose another name and try again");
         return;
       }
     }
   }
 
+  /**
+   * prompts user to save current puzzle when they try to start a new one
+   * @param {GameManager} GameManager - object used to keep track of the game/player
+   * @returns null
+   */
   static promptSave(GameManager){
     let save = prompt('SpellingBee> Would you like to save your current game? (y/n) ');
     if(save == 'y'){
@@ -244,7 +244,7 @@ class Commands {
       this.save(fileName, GameManager);
     }
     else{
-      console.log("SpellingBee> The game has not been saved and is now be closed");
+      console.log("SpellingBee> The game has been discarded");
       GameManager.isPuzzleOpen = false;
       return;
     }
