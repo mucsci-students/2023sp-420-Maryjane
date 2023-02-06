@@ -139,15 +139,15 @@ class Commands {
    */
   static showPuzzleRank(GameManager) {
     if (!GameManager.isPuzzleOpen) {
-      console.log ('No puzzle in progress');
+      console.log('No puzzle in progress');
       return;
     }
 
     // TODO - calculate rank in the future.
     let rank = "beginner";
 
-    console.log (GameManager.userPoints + "/100 points");
-    console.log ("Your rank: " + rank);
+    console.log(GameManager.userPoints + "/100 points");
+    console.log("Your rank: " + rank);
   }
 
   static async shuffle(GameManager, Database) {
@@ -231,6 +231,62 @@ class Commands {
     }
 
     console.log(GameManager.foundWords);
+  }
+
+  /**
+   * Loads a saved puzzle
+   * @param {GameManager} GameManager - object used to keep track of the game/player
+   * @param {fileName} fileName - users inputted file name
+   */
+  static load(fileName, GameManager) {
+
+    //check if a game is already in progress, if it is dont load a new game
+    if (GameManager.isPuzzleOpen) {
+      console.log("SpellingBee> Game in progress, you must finish, save, or quit before loading a game");
+      return;
+    }
+
+    // Append ".json" to the filename if it doesn't already have it
+    if (!fileName.endsWith(".json")) {
+      fileName += ".json";
+    }
+
+    // Check if the file exists
+    if (!fs.existsSync(fileName)) {
+      console.log("SpellingBee> File does not exist or invalid file name/type");
+      return;
+    }
+
+    // Read the file contents
+    let fileContents = fs.readFileSync(fileName, "utf-8");
+
+    // Parse the file contents as JSON
+    let parsedFile;
+    try {
+      parsedFile = JSON.parse(fileContents);
+    } catch (e) {
+      console.log("SpellingBee> File is not a valid SpellingBee JSON file");
+      return;
+    }
+
+    // Check if the file is a spelling bee file
+    //I could make a save signature and check for that instead of checking for all the fields?
+    //^this would be more robust in case I add more fields to the save file, revisit this later!
+    if (!parsedFile.hasOwnProperty("words") || 
+        !parsedFile.hasOwnProperty("pangram") || 
+        !parsedFile.hasOwnProperty("requiredLetter") || 
+        !parsedFile.hasOwnProperty("userPoints")) {
+      console.log("SpellingBee> File is not a valid spelling bee file");
+      return;
+    }
+
+    // If all checks passed, update the GameManager fields with the loaded data from the file
+    this.foundWords = parsedFile.words;
+    this.pangram = parsedFile.pangram;
+    this.requiredLetter = parsedFile.requiredLetter;
+    this.userPoints = parsedFile.userPoints;
+    GameManager.isPuzzleOpen = true;
+    console.log("SpellingBee> File loaded successfully");
   }
 
   /**

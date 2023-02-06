@@ -87,6 +87,14 @@ vorpal
     Commands.showFoundWords(GameManager);
     callback();
   });
+  
+// Command to load the game
+vorpal
+  .command("load <filename>", "Allows a user to load their game")
+  .action(function (args, callback) {
+    Commands.load(args.filename.toString(), GameManager);
+    callback();
+  });
 
 // Command to save the game
 vorpal
