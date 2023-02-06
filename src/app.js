@@ -87,7 +87,7 @@ vorpal
     Commands.showFoundWords(GameManager);
     callback();
   });
-  
+
 // Command to load the game
 vorpal
   .command("load <filename>", "Allows a user to load their game")
@@ -106,7 +106,7 @@ vorpal
 
 vorpal
   .command('show-puzzle-rank', 'Shows the user their puzzle rank')
-  .action(function(args, callback) {
+  .action(function (args, callback) {
     Commands.showPuzzleRank(GameManager);
     callback();
   });
@@ -123,7 +123,13 @@ vorpal
 /*                                Exit Function                              */
 /*****************************************************************************/
 
-// Node calls this function automatically when the process ends
-process.on("exit", function () {
-  console.log("end");
-});
+// Command to Exit
+vorpal.find("exit").remove();
+vorpal
+  .command("exit", "allows user to exit")
+  .action(function (args, callback) {
+    if (GameManager.isPuzzleOpen) {
+      Commands.promptSave(GameManager);
+    }
+    process.exit();
+  });
