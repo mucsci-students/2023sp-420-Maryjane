@@ -234,6 +234,23 @@ class Commands {
   }
 
   /**
+   * Loads a saved puzzle
+   * @param {GameManager} GameManager - object used to keep track of the game/player
+   * @param {fileName} fileName - users inputted file name
+   * @returns null
+   */
+  static load(fileName, GameManager) {
+    //TODO:
+    //add check if file exists
+    //add check if puzzle is already open
+    //add check if file is empty
+    //add check if file is corrupted
+    //add check if file is not a json file
+    //add check if file is not a spelling bee file
+    console.log("SpellingBee> This feature is not yet implemented");
+  }
+
+  /**
    * Saves current puzzle
    * @param {GameManager} GameManager - object used to keep track of the game/player
    * @param {fileName} fileName - users inputted file name
@@ -241,7 +258,7 @@ class Commands {
    */
   static save(fileName, GameManager) {
     if (GameManager.isPuzzleOpen == false) {
-      console.log("SpellingBee> No puzzle open, you can not save");
+      console.log("SpellingBee> No puzzle open, you can not save ;)");
       return;
     }
     else {
