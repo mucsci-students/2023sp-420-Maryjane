@@ -1,6 +1,7 @@
 // Import the ckeck word class for validating user guesses
 const wordsClass = require("check-word");
 const Database = require("./Database");
+const GameManager = require("./GameManager");
 
 const prompt = require('prompt-sync')();
 
@@ -67,7 +68,7 @@ class Commands {
     // Insert the guess into list of found words and increase user points
     GameManager.foundWords.push(input);
 
-    Commands.updatePuzzleRank();
+    Commands.updatePuzzleRank(input, GameManager);
 
     console.log("success");
   }
@@ -112,8 +113,42 @@ class Commands {
     //showPuzzle()
   }
 
-  //TODO
-  static updatePuzzleRank() { }
+  /**
+   * Uses the algorithm that the SpellingBee.org website uses to update the players rank/score.
+   * @param {String} word - the user guess
+   * @param {GameManager} GameManager - the gamemanager object
+   */
+  static updatePuzzleRank(word, GameManager) {
+
+    //Shifts it so you get 1 point for a 4 letter word, 2 points for 5 letters, etc.
+    let score = word.length - 3;
+    let USED_ALL_LETTERS_BONUS = 7;
+
+    if (word === GameManager.pangram) {
+      score += USED_ALL_LETTERS_BONUS;
+    }
+
+    GameManager.userPoints += score;
+
+  }
+
+  /**
+   * Displays the users currect 
+   * @param {GameManager} GameManager - GameMangager object used to check if puzzle is open and to show the puzzle rank
+   * @returns 
+   */
+  static showPuzzleRank(GameManager) {
+    if (!GameManager.isPuzzleOpen) {
+      console.log ('No puzzle in progress');
+      return;
+    }
+
+    // TODO - calculate rank in the future.
+    let rank = "beginner";
+
+    console.log (GameManager.userPoints + "/100 points");
+    console.log ("Your rank: " + rank);
+  }
 
   static async shuffle(GameManager, Database) {
     if (!GameManager.isPuzzleOpen) {

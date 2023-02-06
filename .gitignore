@@ -1,2 +1,3 @@
 # Use this file to specify which files/folders should be hidden from git
 node_modules/*
+*.json

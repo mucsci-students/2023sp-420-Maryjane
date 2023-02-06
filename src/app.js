@@ -96,6 +96,13 @@ vorpal
     callback();
   });
 
+vorpal
+  .command('show-puzzle-rank', 'Shows the user their puzzle rank')
+  .action(function(args, callback) {
+    Commands.showPuzzleRank(GameManager);
+    callback();
+  });
+
 // Command to create puzzle with user input
 vorpal
   .command("identify-base-word <input>", "Allows user to choose base word")
