@@ -281,10 +281,10 @@ class Commands {
     }
 
     // If all checks passed, update the GameManager fields with the loaded data from the file
-    this.foundWords = parsedFile.words;
-    this.pangram = parsedFile.pangram;
-    this.requiredLetter = parsedFile.requiredLetter;
-    this.userPoints = parsedFile.userPoints;
+    GameManager.foundWords = parsedFile.words;
+    GameManager.pangram = parsedFile.pangram;
+    GameManager.requiredLetter = parsedFile.requiredLetter;
+    GameManager.userPoints = parsedFile.userPoints;
     GameManager.isPuzzleOpen = true;
     console.log("SpellingBee> File loaded successfully");
   }
