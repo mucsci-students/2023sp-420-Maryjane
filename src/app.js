@@ -42,14 +42,14 @@ vorpal.delimiter("SpellingBee>").show();
 
 //An example custom vorpal command that uses 'duck' as the input text
 //and outputs 'Wabbit' as the response.
-vorpal.command("duck", 'Outputs "rabbit"').hidden().action(function (args, callback) {
+vorpal.command("duck", 'Outputs "wumbo", is a example command for testing.').hidden().action(function (args, callback) {
   console.log("wumbo");
   callback();
 });
 
 // The guess command that requires the field <input>
 vorpal
-  .command("guess <input>", "Allows user to input a guess")
+  .command("guess <input>", "Command to let user to submit the following word as a guess.")
   .action(function (args, callback) {
     Commands.guess(args.input.toString(), GameManager);
     callback();
@@ -57,7 +57,7 @@ vorpal
 
 // Generates new puzzle. At the moment, it is the same puzzle
 vorpal
-  .command("new-puzzle [baseWord]", "Start a random puzzle or provide a valid pangram(baseWord) to start a new puzzle")
+  .command("new-puzzle [baseWord]", "Start a random puzzle with or without a specified pangram(baseword).")
   .action(function (args, callback) {
     if (args.baseWord) {
       Commands.identifyBaseWord(args.baseWord.toString(), GameManager);
@@ -65,7 +65,6 @@ vorpal
     else {
       Commands.newPuzzle(GameManager, Database);
     }
-
     callback();
   });
 
@@ -80,7 +79,7 @@ vorpal
 
 // Command to shuffle puzzle
 vorpal
-  .command("shuffle", "Allows user to shuffle puzzle")
+  .command("shuffle", "Shuffles the displayed guessable letters. Helps with seeing new patterns.")
   .action(function (args, callback) {
     Commands.shuffle(GameManager, Database);
     callback();
@@ -88,7 +87,7 @@ vorpal
 
 // Command to show found words
 vorpal
-  .command("found-words", "Allows user to show found words")
+  .command("found-words", "Shows the user the words they have already guessed correctly.")
   .action(function (args, callback) {
     Commands.showFoundWords(GameManager);
     callback();
@@ -96,7 +95,7 @@ vorpal
 
 // Command to load the game
 vorpal
-  .command("load <filename>", "Allows a user to load their game")
+  .command("load <filename>", "Loads the specified save file.")
   .action(function (args, callback) {
     Commands.load(args.filename.toString(), GameManager);
     callback();
@@ -104,14 +103,14 @@ vorpal
 
 // Command to save the game
 vorpal
-  .command("save <filename>", "Allows a user to save their game")
+  .command("save <filename>", "Saves the current game. Allows user to name save files.")
   .action(function (args, callback) {
     Commands.save(args.filename.toString(), GameManager);
     callback();
   });
 
 vorpal
-  .command('rank', 'Shows the user their puzzle rank')
+  .command('rank', 'Shows the user their puzzle rank.')
   .action(function(args, callback) {
     Commands.showPuzzleRank(GameManager);
     callback();
@@ -124,7 +123,7 @@ vorpal
 // Command to Exit
 vorpal.find("exit").remove();
 vorpal
-  .command("exit", "allows user to exit")
+  .command("exit", "Exits the program gracefully.")
   .action(function (args, callback) {
     if (GameManager.isPuzzleOpen) {
       Commands.promptSave(GameManager);
