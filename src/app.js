@@ -130,3 +130,4 @@ vorpal
     }
     process.exit();
   });
+  
