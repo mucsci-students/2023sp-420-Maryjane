@@ -32,6 +32,33 @@ setup();
 /*                                CLI Initializtion                          */
 /*****************************************************************************/
 
+//Initilize start up logo
+console.log(
+  "\x1b[33m%s\x1b[0m",
+  "  ,-.                                                                             ,-."
+);
+console.log(
+  "\x1b[33m%s\x1b[0m",
+  "  \\_/   .   ..  . .      .   S  P  E  L  L  I  N  G   .    ..      . .      .     \\_/"
+);
+console.log(
+  "\x1b[33m%s\x1b[0m",
+  " {|||)< . .   ..     ..          B     E     E           ..   ..     ..         >(|||}"
+);
+console.log(
+  "\x1b[33m%s\x1b[0m",
+  "  / \\                                                                             / \\"
+);
+console.log(
+  "\x1b[33m%s\x1b[0m",
+  "  `-'                                                                             `-'"
+);
+
+//Intilize start up description
+console.log(
+  "\x1b[33m%s\x1b[0m",
+  "Welcome to Spelling BEE! A game all about Words and Honey.\nType new-puzzle to begin a new puzzle\nor\nFor more info type help"
+);
 //Initializes the CLI input stream and changes the text to show
 //custom text.
 vorpal.delimiter("SpellingBee>").show();
@@ -42,14 +69,20 @@ vorpal.delimiter("SpellingBee>").show();
 
 //An example custom vorpal command that uses 'duck' as the input text
 //and outputs 'Wabbit' as the response.
-vorpal.command("duck", 'Outputs "wumbo", is a example command for testing.').hidden().action(function (args, callback) {
-  console.log("wumbo");
-  callback();
-});
+vorpal
+  .command("duck", 'Outputs "wumbo", is a example command for testing.')
+  .hidden()
+  .action(function (args, callback) {
+    console.log("wumbo");
+    callback();
+  });
 
 // The guess command that requires the field <input>
 vorpal
-  .command("guess <input>", "Command to let user to submit the following word as a guess.")
+  .command(
+    "guess <input>",
+    "Command to let user to submit the following word as a guess."
+  )
   .action(function (args, callback) {
     Commands.guess(args.input.toString(), GameManager);
     callback();
@@ -57,12 +90,14 @@ vorpal
 
 // Generates new puzzle. At the moment, it is the same puzzle
 vorpal
-  .command("new-puzzle [baseWord]", "Start a random puzzle with or without a specified pangram(baseword).")
+  .command(
+    "new-puzzle [baseWord]",
+    "Start a random puzzle with or without a specified pangram(baseword)."
+  )
   .action(function (args, callback) {
     if (args.baseWord) {
       Commands.identifyBaseWord(args.baseWord.toString(), GameManager);
-    } 
-    else {
+    } else {
       Commands.newPuzzle(GameManager, Database);
     }
     callback();
@@ -79,7 +114,10 @@ vorpal
 
 // Command to shuffle puzzle
 vorpal
-  .command("shuffle", "Shuffles the displayed guessable letters. Helps with seeing new patterns.")
+  .command(
+    "shuffle",
+    "Shuffles the displayed guessable letters. Helps with seeing new patterns."
+  )
   .action(function (args, callback) {
     Commands.shuffle(GameManager, Database);
     callback();
@@ -87,7 +125,10 @@ vorpal
 
 // Command to show found words
 vorpal
-  .command("found-words", "Shows the user the words they have already guessed correctly.")
+  .command(
+    "found-words",
+    "Shows the user the words they have already guessed correctly."
+  )
   .action(function (args, callback) {
     Commands.showFoundWords(GameManager);
     callback();
@@ -103,15 +144,18 @@ vorpal
 
 // Command to save the game
 vorpal
-  .command("save <filename>", "Saves the current game. Allows user to name save files.")
+  .command(
+    "save <filename>",
+    "Saves the current game. Allows user to name save files."
+  )
   .action(function (args, callback) {
     Commands.save(args.filename.toString(), GameManager);
     callback();
   });
 
 vorpal
-  .command('rank', 'Shows the user their puzzle rank.')
-  .action(function(args, callback) {
+  .command("rank", "Shows the user their puzzle rank.")
+  .action(function (args, callback) {
     Commands.showPuzzleRank(GameManager);
     callback();
   });
@@ -130,4 +174,3 @@ vorpal
     }
     process.exit();
   });
-  
