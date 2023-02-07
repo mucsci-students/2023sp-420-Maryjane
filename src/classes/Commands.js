@@ -84,7 +84,6 @@ class Commands {
     if (GameManager.isPuzzleOpen) {
       console.log("game is in progess");
       this.promptSave(GameManager);
-      return;
     }
 
     let pangram = await Database.getRandomWord();
@@ -140,7 +139,7 @@ class Commands {
    */
   static showPuzzleRank(GameManager) {
     if (!GameManager.isPuzzleOpen) {
-      console.log ('No puzzle in progress');
+      console.log('No puzzle in progress');
       return;
     }
 
@@ -269,34 +268,92 @@ class Commands {
   }
 
   /**
+   * Loads a saved puzzle
+   * @param {GameManager} GameManager - object used to keep track of the game/player
+   * @param {fileName} fileName - users inputted file name
+   */
+  static load(fileName, GameManager) {
+
+    //check if a game is already in progress, if it is dont load a new game
+    if (GameManager.isPuzzleOpen) {
+      this.promptSave(GameManager);
+    }
+
+    // Append ".json" to the filename if it doesn't already have it
+    //note: you can change the .BEE to .JSON if you want
+    if (!fileName.endsWith(".BEE")) {
+      fileName += ".BEE";
+    }
+
+    // Check if the file exists
+    if (!fs.existsSync(fileName)) {
+      console.log("SpellingBee> File does not exist or invalid file name/type");
+      return;
+    }
+
+    // Read the file contents
+    let fileContents = fs.readFileSync(fileName, "utf-8");
+
+    // Parse the file contents as JSON
+    let parsedFile;
+    try {
+      parsedFile = JSON.parse(fileContents);
+    } catch (e) {
+      console.log("SpellingBee> File is not a valid SpellingBee JSON file");
+      return;
+    }
+
+    // Check if the file is a spelling bee file
+    //I could make a save signature and check for that instead of checking for all the fields?
+    //^this would be more robust in case I add more fields to the save file, revisit this later!
+    if (!parsedFile.hasOwnProperty("words") ||
+      !parsedFile.hasOwnProperty("pangram") ||
+      !parsedFile.hasOwnProperty("requiredLetter") ||
+      !parsedFile.hasOwnProperty("userPoints")) {
+      console.log("SpellingBee> File is not a valid spelling bee file");
+      return;
+    }
+
+    // If all checks passed, update the GameManager fields with the loaded data from the file
+    GameManager.foundWords = parsedFile.words;
+    GameManager.pangram = parsedFile.pangram;
+    GameManager.requiredLetter = parsedFile.requiredLetter;
+    GameManager.userPoints = parsedFile.userPoints;
+    GameManager.isPuzzleOpen = true;
+    console.log("SpellingBee> File loaded successfully");
+  }
+
+  /**
    * Saves current puzzle
    * @param {GameManager} GameManager - object used to keep track of the game/player
    * @param {fileName} fileName - users inputted file name
    * @returns null
    */
   static save(fileName, GameManager) {
-    if (GameManager.isPuzzleOpen == false) {
+
+    if (!GameManager.isPuzzleOpen) {
       console.log("SpellingBee> No puzzle open, you can not save");
       return;
     }
+
+     //note: you can change the .BEE to .JSON if you want
+    if (!fs.existsSync(fileName + ".BEE")) {
+
+      let table = {
+        words: GameManager.foundWords,
+        pangram: GameManager.pangram,
+        requiredLetter: GameManager.requiredLetter,
+        userPoints: GameManager.userPoints,
+      };
+
+      let jsonFile = JSON.stringify(table);
+       //note: you can change the .BEE to .JSON if you want
+      fs.writeFileSync(fileName + ".BEE", jsonFile, 'utf8', (err) => { if (err) throw err; });
+      console.log('SpellingBee> The file has been saved!');
+      GameManager.isPuzzleOpen = false;
+    }
     else {
-      if (!fs.existsSync(fileName + ".json")) {
-        let table = {
-          words: GameManager.foundWords,
-          pangram: GameManager.pangram,
-          requiredLetter: GameManager.requiredLetter,
-          userPoints: GameManager.userPoints,
-        };
-        let jsonFile = JSON.stringify(table);
-        fs.writeFile(fileName + ".json", jsonFile, 'utf8', (err) => { if (err) throw err; });
-        console.log('SpellingBee> The file has been saved!');
-        GameManager.isPuzzleOpen = false;
-        return;
-      }
-      else {
-        console.log("SpellingBee> File already exists, please choose another name and try again");
-        return;
-      }
+      console.log("SpellingBee> File already exists, please call save command with another file name");
     }
   }
 
@@ -307,12 +364,15 @@ class Commands {
    */
   static promptSave(GameManager) {
     let save = prompt('SpellingBee> Would you like to save your current game? (yes/no) ');
+
     save = save.toString().toLowerCase();
+
     while (save !== 'yes' && save !== 'no') {
       console.log("SpellingBee> You must type either yes or no");
       save = prompt('SpellingBee> Would you like to save your current game? (yes/no) ');
       save = save.toString().toLowerCase();
     }
+
     if (save === 'yes') {
       let fileName = prompt('SpellingBee> Enter a file name: ');
       this.save(fileName, GameManager);
@@ -320,7 +380,6 @@ class Commands {
     else {
       console.log("SpellingBee> The game has been discarded");
       GameManager.isPuzzleOpen = false;
-      return;
     }
   }
 }

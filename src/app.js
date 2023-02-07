@@ -94,6 +94,14 @@ vorpal
     callback();
   });
 
+// Command to load the game
+vorpal
+  .command("load <filename>", "Allows a user to load their game")
+  .action(function (args, callback) {
+    Commands.load(args.filename.toString(), GameManager);
+    callback();
+  });
+
 // Command to save the game
 vorpal
   .command("save <filename>", "Allows a user to save their game")
@@ -113,7 +121,13 @@ vorpal
 /*                                Exit Function                              */
 /*****************************************************************************/
 
-// Node calls this function automatically when the process ends
-process.on("exit", function () {
-  console.log("end");
-});
+// Command to Exit
+vorpal.find("exit").remove();
+vorpal
+  .command("exit", "allows user to exit")
+  .action(function (args, callback) {
+    if (GameManager.isPuzzleOpen) {
+      Commands.promptSave(GameManager);
+    }
+    process.exit();
+  });
