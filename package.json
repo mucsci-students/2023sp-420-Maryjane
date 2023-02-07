@@ -21,6 +21,7 @@
     "check-word": "^1.1.0",
     "mongodb": "^4.13.0",
     "prompt-sync": "^4.2.0",
+    "scrabble": "^1.0.13",
     "vorpal": "^1.12.0"
   }
 }

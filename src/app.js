@@ -42,7 +42,7 @@ vorpal.delimiter("SpellingBee>").show();
 
 //An example custom vorpal command that uses 'duck' as the input text
 //and outputs 'Wabbit' as the response.
-vorpal.command("duck", 'Outputs "rabbit"').action(function (args, callback) {
+vorpal.command("duck", 'Outputs "rabbit"').hidden().action(function (args, callback) {
   console.log("wumbo");
   callback();
 });
@@ -57,9 +57,15 @@ vorpal
 
 // Generates new puzzle. At the moment, it is the same puzzle
 vorpal
-  .command("new-puzzle", "Allows user to start a new puzzle")
+  .command("new-puzzle [baseWord]", "Start a random puzzle or provide a valid pangram(baseWord) to start a new puzzle")
   .action(function (args, callback) {
-    Commands.newPuzzle(GameManager, Database);
+    if (args.baseWord) {
+      Commands.identifyBaseWord(args.baseWord.toString(), GameManager);
+    } 
+    else {
+      Commands.newPuzzle(GameManager, Database);
+    }
+
     callback();
   });
 
@@ -82,7 +88,7 @@ vorpal
 
 // Command to show found words
 vorpal
-  .command("show-found-words", "Allows user to show found words")
+  .command("found-words", "Allows user to show found words")
   .action(function (args, callback) {
     Commands.showFoundWords(GameManager);
     callback();
@@ -97,17 +103,9 @@ vorpal
   });
 
 vorpal
-  .command('show-puzzle-rank', 'Shows the user their puzzle rank')
+  .command('rank', 'Shows the user their puzzle rank')
   .action(function(args, callback) {
     Commands.showPuzzleRank(GameManager);
-    callback();
-  });
-
-// Command to create puzzle with user input
-vorpal
-  .command("identify-base-word <input>", "Allows user to choose base word")
-  .action(function (args, callback) {
-    Commands.identifyBaseWord(args.input.toString(), GameManager);
     callback();
   });
 

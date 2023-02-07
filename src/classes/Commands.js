@@ -9,12 +9,13 @@ const prompt = require('prompt-sync')();
 const dictionary = wordsClass("en");
 
 //file system module
-var fs = require("fs");
+const fs = require("fs");
 
 /**
  * Commands class used to store static helper methods for the cli.
  */
 class Commands {
+
   /**
    * Used to check if a users guess is valid. If it is, the word gets inserted into GameManager.foundWords
    * @param {string} input - The input/guess the user made.
@@ -135,7 +136,7 @@ class Commands {
   /**
    * Displays the users currect 
    * @param {GameManager} GameManager - GameMangager object used to check if puzzle is open and to show the puzzle rank
-   * @returns 
+   * @returns null
    */
   static showPuzzleRank(GameManager) {
     if (!GameManager.isPuzzleOpen) {
@@ -143,11 +144,45 @@ class Commands {
       return;
     }
 
-    // TODO - calculate rank in the future.
-    let rank = "beginner";
+    const MAX_POINTS = 150;
+    
+    // Ranking system: https://freebee.fun/api.html
 
-    console.log (GameManager.userPoints + "/100 points");
-    console.log ("Your rank: " + rank);
+    let score = GameManager.userPoints / MAX_POINTS;
+
+    let rank = this.getRankName(score);
+
+    console.log(GameManager.userPoints + `/${MAX_POINTS} points`);
+    console.log("Your rank: " + rank);
+  }
+
+  /**
+   * Calculates the users rank name based on scorePercentage
+   * @param {number} score 
+   * @returns Your name as rank
+   */
+  static getRankName(score) {
+    if (score < 0.02) {
+      return "Newbie";
+    } else if (score < 0.05) {
+      return "Novice";
+    } else if (score < 0.08) {
+      return "Fine";
+    } else if (score < 0.15) {
+      return "Skilled";
+    } else if (score < 0.25) {
+      return "Excellent";
+    } else if (score < 0.40) {
+      return "Superb";
+    } else if (score < 0.50) {
+      return "Marvellous";
+    } else if (score < 0.7) {
+      return "Outstanding";
+    } else if (score <= 1) {
+      return "Queen Bee";
+    } 
+
+    return "Something went wrong";
   }
 
   static async shuffle(GameManager, Database) {
@@ -177,7 +212,7 @@ class Commands {
     input = input.toLowerCase();
 
     // Checks user's word to have correct length and no spaces
-    if (input.length != 7) {
+    if (String.prototype.concat.call(...new Set(input)).length != 7) {
       console.log("The new word must have 7 unique letters and no spaces");
       return;
     }
@@ -289,4 +324,5 @@ class Commands {
     }
   }
 }
+
 module.exports = Commands;
