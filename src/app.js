@@ -117,6 +117,13 @@ vorpal
     callback();
   });
 
+vorpal
+.command('show-puzzle', 'Shows the user the current puzzle and the required letter.')
+.action(function(args, callback) {
+  Commands.showPuzzle(GameManager);
+  callback();
+});
+
 /*****************************************************************************/
 /*                                Exit Function                              */
 /*****************************************************************************/

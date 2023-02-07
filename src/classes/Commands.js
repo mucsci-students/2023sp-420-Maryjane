@@ -268,6 +268,24 @@ class Commands {
   }
 
   /**
+   * Shows the current puzzle and the required letter
+   * @param {*} GameManager 
+   * @returns null
+   */
+  static showPuzzle(GameManager) {
+    // If no current puzzle
+    if (!GameManager.isPuzzleOpen) {
+      console.log("No puzzle in progress");
+      return;
+    }
+
+    //prints out the currnet puzzle and the required letter in the console
+    console.log(GameManager.currentPuzzle,"\nRequired Letter: " + GameManager.requiredLetter);
+  }
+
+
+
+  /**
    * Loads a saved puzzle
    * @param {GameManager} GameManager - object used to keep track of the game/player
    * @param {fileName} fileName - users inputted file name
