@@ -282,9 +282,8 @@ class Commands {
     }
 
     // Append ".json" to the filename if it doesn't already have it
-    //note: you can change the .BEE to .JSON if you want
-    if (!fileName.endsWith(".BEE")) {
-      fileName += ".BEE";
+    if (!fileName.endsWith(".json")) {
+      fileName += ".json";
     }
 
     // Check if the file exists
@@ -338,8 +337,7 @@ class Commands {
       return;
     }
 
-     //note: you can change the .BEE to .JSON if you want
-    if (!fs.existsSync(fileName + ".BEE")) {
+    if (!fs.existsSync(fileName + ".json")) {
 
       let table = {
         words: GameManager.foundWords,
@@ -349,8 +347,7 @@ class Commands {
       };
 
       let jsonFile = JSON.stringify(table);
-       //note: you can change the .BEE to .JSON if you want
-      fs.writeFileSync(fileName + ".BEE", jsonFile, 'utf8', (err) => { if (err) throw err; });
+      fs.writeFileSync(fileName + ".json", jsonFile, 'utf8', (err) => { if (err) throw err; });
       console.log('SpellingBee> The file has been saved!');
       GameManager.isPuzzleOpen = false;
     }
