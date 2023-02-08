@@ -110,12 +110,21 @@ vorpal
     callback();
   });
 
+// Command to show user puzzle rank
 vorpal
   .command('rank', 'Shows the user their puzzle rank.')
   .action(function(args, callback) {
     Commands.showPuzzleRank(GameManager);
     callback();
   });
+
+  //Command to show the active puzzle and required letter
+vorpal
+.command('show-puzzle', 'Shows the user the current puzzle and the required letter.')
+.action(function(args, callback) {
+  Commands.showPuzzle(GameManager);
+  callback();
+});
 
 /*****************************************************************************/
 /*                                Exit Function                              */
