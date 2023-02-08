@@ -81,7 +81,7 @@ vorpal
 vorpal
   .command("shuffle", "Shuffles the displayed guessable letters. Helps with seeing new patterns.")
   .action(function (args, callback) {
-    Commands.shuffle(GameManager, Database);
+    Commands.shuffle(GameManager);
     callback();
   });
 
