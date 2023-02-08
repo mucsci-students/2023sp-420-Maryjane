@@ -124,17 +124,12 @@ vorpal
 // Command to Exit
 vorpal.find("exit").remove();
 
-function createCLICommands () {
+vorpal
+  .command("exit", "Exits the program gracefully.")
+  .action(function (args, callback) {
+    if (GameManager.isPuzzleOpen) {
+      Commands.promptSave(GameManager);
+    }
+    process.exit();
+  });
 
-  vorpal
-    .command("exit", "Exits the program gracefully.")
-    .action(function (args, callback) {
-      if (GameManager.isPuzzleOpen) {
-        Commands.promptSave(GameManager);
-      }
-      process.exit();
-    });
-
-}
-  
-createCLICommands();
