@@ -24,7 +24,7 @@ describe ("Test Guess Function", () => {
     });
 
     test("When the guess is an empty string, return false", () => {
-        expect(Commands.guess("", GameManager)).toEqual(true)
+        expect(Commands.guess("", GameManager)).toEqual(false)
     });
 
     test("When the guess does not contain the required letter, return false", () => {
