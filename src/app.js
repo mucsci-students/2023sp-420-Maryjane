@@ -5,7 +5,7 @@
 /*****************************************************************************/
 
 // cli object
-var vorpal = require("vorpal")();
+var vorpal = require("@moleculer/vorpal")();
 
 //GameManager object created from the file specified below.
 var GameManager = new (require("./classes/GameManager.js"))();
