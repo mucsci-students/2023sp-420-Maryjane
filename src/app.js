@@ -58,6 +58,7 @@ vorpal
 // Generates new puzzle. At the moment, it is the same puzzle
 vorpal
   .command("new-puzzle [baseWord]", "Start a random puzzle with or without a specified pangram(baseword).")
+  .alias("new")
   .action(function (args, callback) {
     if (args.baseWord) {
       Commands.identifyBaseWord(args.baseWord.toString(), GameManager);
@@ -122,12 +123,18 @@ vorpal
 
 // Command to Exit
 vorpal.find("exit").remove();
-vorpal
-  .command("exit", "Exits the program gracefully.")
-  .action(function (args, callback) {
-    if (GameManager.isPuzzleOpen) {
-      Commands.promptSave(GameManager);
-    }
-    process.exit();
-  });
+
+function createCLICommands () {
+
+  vorpal
+    .command("exit", "Exits the program gracefully.")
+    .action(function (args, callback) {
+      if (GameManager.isPuzzleOpen) {
+        Commands.promptSave(GameManager);
+      }
+      process.exit();
+    });
+
+}
   
+createCLICommands();

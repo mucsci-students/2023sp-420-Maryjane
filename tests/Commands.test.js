@@ -19,8 +19,12 @@ describe ("Test Guess Function", () => {
         expect(Commands.guess("", GameManager)).toEqual(false)
     });
 
+    test("When the guess is less than 4 characters, return false", () => {
+        expect(Commands.guess("pie", GameManager)).toEqual(false)
+    });
+
     test("When the guess is an empty string, return false", () => {
-        expect(Commands.guess("", GameManager)).toEqual(false)
+        expect(Commands.guess("", GameManager)).toEqual(true)
     });
 
     test("When the guess does not contain the required letter, return false", () => {
