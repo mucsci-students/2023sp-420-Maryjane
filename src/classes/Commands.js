@@ -3,7 +3,7 @@ const wordsClass = require("check-word");
 const Database = require("./Database");
 const GameManager = require("./GameManager");
 
-const prompt = require('prompt-sync')();
+//const prompt = require('prompt-sync')();
 
 // dictionary object used to check whether a word is valid or not
 const dictionary = wordsClass("en");
@@ -15,7 +15,6 @@ const fs = require("fs");
  * Commands class used to store static helper methods for the cli.
  */
 class Commands {
-
   /**
    * Used to check if a users guess is valid. If it is, the word gets inserted into GameManager.foundWords
    * @param {string} input - The input/guess the user made.
@@ -121,7 +120,6 @@ class Commands {
    * @param {GameManager} GameManager - the gamemanager object
    */
   static updatePuzzleRank(word, GameManager) {
-
     //Shifts it so you get 1 point for a 4 letter word, 2 points for 5 letters, etc.
     let score = word.length - 3;
     let USED_ALL_LETTERS_BONUS = 7;
@@ -131,22 +129,21 @@ class Commands {
     }
 
     GameManager.userPoints += score;
-
   }
 
   /**
-   * Displays the users currect 
+   * Displays the users currect
    * @param {GameManager} GameManager - GameMangager object used to check if puzzle is open and to show the puzzle rank
    * @returns null
    */
   static showPuzzleRank(GameManager) {
     if (!GameManager.isPuzzleOpen) {
-      console.log('No puzzle in progress');
+      console.log("No puzzle in progress");
       return;
     }
 
     const MAX_POINTS = 150;
-    
+
     // Ranking system: https://freebee.fun/api.html
 
     let score = GameManager.userPoints / MAX_POINTS;
@@ -159,7 +156,7 @@ class Commands {
 
   /**
    * Calculates the users rank name based on scorePercentage
-   * @param {number} score 
+   * @param {number} score
    * @returns Your name as rank
    */
   static #getRankName(score) {
@@ -173,15 +170,15 @@ class Commands {
       return "Skilled";
     } else if (score < 0.25) {
       return "Excellent";
-    } else if (score < 0.40) {
+    } else if (score < 0.4) {
       return "Superb";
-    } else if (score < 0.50) {
+    } else if (score < 0.5) {
       return "Marvellous";
     } else if (score < 0.7) {
       return "Outstanding";
     } else if (score <= 1) {
       return "Queen Bee";
-    } 
+    }
 
     return "Something went wrong";
   }
@@ -271,7 +268,7 @@ class Commands {
 
   /**
    * Shows the current puzzle and the required letter
-   * @param {*} GameManager 
+   * @param {*} GameManager
    * @returns null
    */
   static showPuzzle(GameManager) {
@@ -282,10 +279,11 @@ class Commands {
     }
 
     //prints out the currnet puzzle and the required letter in the console
-    console.log(GameManager.currentPuzzle,"\nRequired Letter: " + GameManager.requiredLetter);
+    console.log(
+      GameManager.currentPuzzle,
+      "\nRequired Letter: " + GameManager.requiredLetter
+    );
   }
-
-
 
   /**
    * Loads a saved puzzle
@@ -293,7 +291,6 @@ class Commands {
    * @param {fileName} fileName - users inputted file name
    */
   static load(fileName, GameManager) {
-
     //check if a game is already in progress, if it is dont load a new game
     if (GameManager.isPuzzleOpen) {
       this.promptSave(GameManager);
@@ -325,10 +322,12 @@ class Commands {
     // Check if the file is a spelling bee file
     //I could make a save signature and check for that instead of checking for all the fields?
     //^this would be more robust in case I add more fields to the save file, revisit this later!
-    if (!parsedFile.hasOwnProperty("words") ||
+    if (
+      !parsedFile.hasOwnProperty("words") ||
       !parsedFile.hasOwnProperty("pangram") ||
       !parsedFile.hasOwnProperty("requiredLetter") ||
-      !parsedFile.hasOwnProperty("userPoints")) {
+      !parsedFile.hasOwnProperty("userPoints")
+    ) {
       console.log("SpellingBee> File is not a valid spelling bee file");
       return;
     }
@@ -349,14 +348,12 @@ class Commands {
    * @returns null
    */
   static save(fileName, GameManager) {
-
     if (!GameManager.isPuzzleOpen) {
       console.log("SpellingBee> No puzzle open, you can not save");
       return;
     }
 
     if (!fs.existsSync(fileName + ".json")) {
-
       let table = {
         words: GameManager.foundWords,
         pangram: GameManager.pangram,
@@ -365,12 +362,15 @@ class Commands {
       };
 
       let jsonFile = JSON.stringify(table);
-      fs.writeFileSync(fileName + ".json", jsonFile, 'utf8', (err) => { if (err) throw err; });
-      console.log('SpellingBee> The file has been saved!');
+      fs.writeFileSync(fileName + ".json", jsonFile, "utf8", (err) => {
+        if (err) throw err;
+      });
+      console.log("SpellingBee> The file has been saved!");
       GameManager.isPuzzleOpen = false;
-    }
-    else {
-      console.log("SpellingBee> File already exists, please call save command with another file name");
+    } else {
+      console.log(
+        "SpellingBee> File already exists, please call save command with another file name"
+      );
     }
   }
 
@@ -380,21 +380,24 @@ class Commands {
    * @returns null
    */
   static promptSave(GameManager) {
-    let save = prompt('SpellingBee> Would you like to save your current game? (yes/no) ');
+    let save = prompt(
+      "SpellingBee> Would you like to save your current game? (yes/no) "
+    );
 
     save = save.toString().toLowerCase();
 
-    while (save !== 'yes' && save !== 'no') {
+    while (save !== "yes" && save !== "no") {
       console.log("SpellingBee> You must type either yes or no");
-      save = prompt('SpellingBee> Would you like to save your current game? (yes/no) ');
+      save = prompt(
+        "SpellingBee> Would you like to save your current game? (yes/no) "
+      );
       save = save.toString().toLowerCase();
     }
 
-    if (save === 'yes') {
-      let fileName = prompt('SpellingBee> Enter a file name: ');
+    if (save === "yes") {
+      let fileName = prompt("SpellingBee> Enter a file name: ");
       this.save(fileName, GameManager);
-    }
-    else {
+    } else {
       console.log("SpellingBee> The game has been discarded");
       GameManager.isPuzzleOpen = false;
     }
