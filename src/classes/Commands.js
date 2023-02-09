@@ -210,12 +210,17 @@ class Commands {
     input = input + "";
     input = input.toLowerCase();
 
+    if (GameManager.isPuzzleOpen) {
+      console.log("game is in progess");
+      this.promptSave(GameManager);
+    }
     // Checks user's word to have correct length and no spaces
     if (String.prototype.concat.call(...new Set(input)).length != 7) {
       console.log("The new word must have 7 unique letters and no spaces");
       return;
     }
-
+    // remove duplicate letters from input
+    
     // Checks user's word to be an actual word in the dictionary
     if (!dictionary.check(input)) {
       console.log(input + " was not found in the dictionary");
@@ -224,7 +229,7 @@ class Commands {
 
     // Converts pangram into array of letters
     let pangram = input;
-    let pangramLetters = pangram.split("");
+    let pangramLetters = String.prototype.concat.call(...new Set(input)).split("");
     GameManager.currentPuzzle = pangramLetters
       .sort((a, b) => 0.5 - Math.random())
       .sort((a, b) => 0.5 - Math.random());
@@ -242,8 +247,7 @@ class Commands {
     GameManager.requiredLetter =
       pangramLetters[Math.floor(Math.random() * pangramLetters.length)];
 
-    console.log("New puzzle started, below is for testing purposes only");
-    console.log(GameManager.currentPuzzle);
+    this.showPuzzle(GameManager);
   }
 
   /**
@@ -280,10 +284,8 @@ class Commands {
     }
 
     //prints out the currnet puzzle and the required letter in the console
-    console.log(
-      GameManager.currentPuzzle,
-      "\nRequired Letter: " + GameManager.requiredLetter
-    );
+    console.log("Use the letters below to make a guess");
+    console.log(GameManager.currentPuzzle,"\nRequired Letter: " + GameManager.requiredLetter);
   }
 
   /**
