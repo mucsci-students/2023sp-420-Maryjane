@@ -3,7 +3,7 @@ const wordsClass = require("check-word");
 const Database = require("./Database");
 const GameManager = require("./GameManager");
 
-//const prompt = require('prompt-sync')();
+const prompt = require('prompt-sync')();
 
 // dictionary object used to check whether a word is valid or not
 const dictionary = wordsClass("en");
@@ -108,10 +108,9 @@ class Commands {
     GameManager.requiredLetter =
       pangramLetters[Math.floor(Math.random() * pangramLetters.length)];
 
-    console.log("New puzzle started, below is for testing purposes only");
-    console.log(GameManager.currentPuzzle);
+    console.log("New puzzle started below! ");
 
-    //showPuzzle()
+    this.showPuzzle(GameManager);
   }
 
   /**
@@ -196,7 +195,9 @@ class Commands {
     GameManager.currentPuzzle = pangramLetters
       .sort((a, b) => 0.5 - Math.random())
       .sort((a, b) => 0.5 - Math.random());
-    console.log(GameManager.currentPuzzle);
+    
+      
+    this.showPuzzle(GameManager);
   }
 
   /**
@@ -337,8 +338,15 @@ class Commands {
     GameManager.pangram = parsedFile.pangram;
     GameManager.requiredLetter = parsedFile.requiredLetter;
     GameManager.userPoints = parsedFile.userPoints;
+    let puzzle = GameManager.pangram.split("")
+    GameManager.currentPuzzle = puzzle
+      .sort((a, b) => 0.5 - Math.random())
+      .sort((a, b) => 0.5 - Math.random());
     GameManager.isPuzzleOpen = true;
-    console.log("SpellingBee> File loaded successfully");
+    console.log("SpellingBee> File loaded successfully\n");
+    console.log("Puzzle is shown below");
+
+    this.showPuzzle(GameManager);
   }
 
   /**
