@@ -19,7 +19,7 @@ class Commands {
    * Used to check if a users guess is valid. If it is, the word gets inserted into GameManager.foundWords
    * @param {string} input - The input/guess the user made.
    * @param {GameManager} GameManager - The gamemanager object used to keep track of the game
-   * @returns null
+   * @returns a bool that is true if the guess was valid and inserted, false if not
    */
   static guess(input, GameManager) {
     //Converts input to a string
@@ -28,12 +28,12 @@ class Commands {
 
     if (!GameManager.isPuzzleOpen) {
       console.log("No puzzle in progress");
-      return;
+      return false;
     }
 
     if (input.length < 4) {
       console.log("Guess must be at least 4 characters");
-      return;
+      return false;
     }
 
     // Check that the input has the required lettter
@@ -42,27 +42,27 @@ class Commands {
         "Guess must contain required character\nThe required character is",
         GameManager.requiredLetter
       );
-      return;
+      return false;
     }
 
     // Check that all letters of the input are allowed letters determined by the pangram
     for (let i = 0; i < input.length; i++) {
       if (GameManager.pangram.search(input.charAt(i)) === -1) {
         console.log(input.charAt(i) + " is not in the required letters");
-        return;
+        return false;
       }
     }
 
     // Check that guess is not in the found words
     if (GameManager.foundWords.includes(input)) {
       console.log("Invalid, " + input + " was already guessed");
-      return;
+      return false;
     }
 
     // Check that the guess is a real word
     if (!dictionary.check(input)) {
       console.log(input + " was not found in the dictionary");
-      return;
+      return false;
     }
 
     // Insert the guess into list of found words and increase user points
@@ -71,6 +71,8 @@ class Commands {
     Commands.updatePuzzleRank(input, GameManager);
 
     console.log("success");
+
+    return true;
   }
 
   /**
@@ -146,7 +148,7 @@ class Commands {
 
     let score = GameManager.userPoints / MAX_POINTS;
 
-    let rank = this.getRankName(score);
+    let rank = this.#getRankName(score);
 
     console.log(GameManager.userPoints + `/${MAX_POINTS} points`);
     console.log("Your rank: " + rank);
@@ -157,7 +159,7 @@ class Commands {
    * @param {number} score
    * @returns Your name as rank
    */
-  static getRankName(score) {
+  static #getRankName(score) {
     if (score < 0.02) {
       return "Newbie";
     } else if (score < 0.05) {
@@ -181,13 +183,13 @@ class Commands {
     return "Something went wrong";
   }
 
-  static async shuffle(GameManager, Database) {
+  static async shuffle(GameManager) {
     if (!GameManager.isPuzzleOpen) {
       console.log("game is not in progess");
       return;
     }
 
-    let pangram = await GameManager.pangram;
+    let pangram = GameManager.pangram;
     let pangramLetters = pangram.split("");
 
     // Converts pangram into array of letters
@@ -265,6 +267,25 @@ class Commands {
   }
 
   /**
+   * Shows the current puzzle and the required letter
+   * @param {*} GameManager
+   * @returns null
+   */
+  static showPuzzle(GameManager) {
+    // If no current puzzle
+    if (!GameManager.isPuzzleOpen) {
+      console.log("No puzzle in progress");
+      return;
+    }
+
+    //prints out the currnet puzzle and the required letter in the console
+    console.log(
+      GameManager.currentPuzzle,
+      "\nRequired Letter: " + GameManager.requiredLetter
+    );
+  }
+
+  /**
    * Loads a saved puzzle
    * @param {GameManager} GameManager - object used to keep track of the game/player
    * @param {fileName} fileName - users inputted file name
@@ -276,9 +297,8 @@ class Commands {
     }
 
     // Append ".json" to the filename if it doesn't already have it
-    //note: you can change the .BEE to .JSON if you want
-    if (!fileName.endsWith(".BEE")) {
-      fileName += ".BEE";
+    if (!fileName.endsWith(".json")) {
+      fileName += ".json";
     }
 
     // Check if the file exists
@@ -333,8 +353,7 @@ class Commands {
       return;
     }
 
-    //note: you can change the .BEE to .JSON if you want
-    if (!fs.existsSync(fileName + ".BEE")) {
+    if (!fs.existsSync(fileName + ".json")) {
       let table = {
         words: GameManager.foundWords,
         pangram: GameManager.pangram,
@@ -343,8 +362,7 @@ class Commands {
       };
 
       let jsonFile = JSON.stringify(table);
-      //note: you can change the .BEE to .JSON if you want
-      fs.writeFileSync(fileName + ".BEE", jsonFile, "utf8", (err) => {
+      fs.writeFileSync(fileName + ".json", jsonFile, "utf8", (err) => {
         if (err) throw err;
       });
       console.log("SpellingBee> The file has been saved!");
