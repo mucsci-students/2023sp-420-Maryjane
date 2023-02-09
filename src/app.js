@@ -182,6 +182,7 @@ vorpal.find("exit").remove();
 
 vorpal
   .command("exit", "Exits the program gracefully.")
+  .alias("quit")
   .action(function (args, callback) {
     if (GameManager.isPuzzleOpen) {
       Commands.promptSave(GameManager);
