@@ -10,12 +10,13 @@ describe ("Test Guess Function", () => {
     GameManager.requiredLetter = 'i';
 
     test("When a puzzle is not open, return false", () => {
+        GameManager.isPuzzleOpen = false;
         expect(Commands.guess("", GameManager)).toEqual(false)
+        expect(Commands.guess("pine", GameManager)).toEqual(false)
     });
 
-    GameManager.isPuzzleOpen = true;
-
     test("When the guess is an empty string, return false", () => {
+        GameManager.isPuzzleOpen = true;
         expect(Commands.guess("", GameManager)).toEqual(false)
     });
 
@@ -24,7 +25,7 @@ describe ("Test Guess Function", () => {
     });
 
     test("When the guess is an empty string, return false", () => {
-        expect(Commands.guess("", GameManager)).toEqual(true)
+        expect(Commands.guess("", GameManager)).toEqual(false)
     });
 
     test("When the guess does not contain the required letter, return false", () => {
@@ -48,7 +49,7 @@ describe ("Test Guess Function", () => {
 
     test("When the user makes a guess that is not from the dictionary, return false", () => {
         let prevLength = GameManager.foundWords.length;
-        expect(Commands.guess("noen", GameManager)).toEqual(false);
+        expect(Commands.guess("ninen", GameManager)).toEqual(false);
         expect(GameManager.foundWords.length).toEqual(prevLength);
     });
 
