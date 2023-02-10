@@ -323,8 +323,6 @@ class Commands {
     }
 
     // Check if the file is a spelling bee file
-    //I could make a save signature and check for that instead of checking for all the fields?
-    //^this would be more robust in case I add more fields to the save file, revisit this later!
     if (
       !parsedFile.hasOwnProperty("words") ||
       !parsedFile.hasOwnProperty("pangram") ||
@@ -378,9 +376,9 @@ class Commands {
       console.log("SpellingBee> The file has been saved!");
       GameManager.isPuzzleOpen = false;
     } else {
-      console.log(
-        "SpellingBee> File already exists, please call save command with another file name"
-      );
+      console.log("SpellingBee> File already exists");
+      let fileName = prompt("SpellingBee> Enter another file name: ");
+      this.save(fileName, GameManager);
     }
   }
 
