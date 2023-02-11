@@ -358,10 +358,16 @@ class Commands {
   static save(fileName, GameManager) {
     if (!GameManager.isPuzzleOpen) {
       console.log("SpellingBee> No puzzle open, you can not save");
-      return;
+      return false;
+    }
+    
+    if (fileName == "") {
+      console.log("SpellingBee> File name cannot be empty");
+      return false;
     }
 
     if (!fs.existsSync(fileName + ".json")) {
+
       let table = {
         words: GameManager.foundWords,
         pangram: GameManager.pangram,
@@ -370,17 +376,18 @@ class Commands {
       };
 
       let jsonFile = JSON.stringify(table);
-      fs.writeFileSync(fileName + ".json", jsonFile, "utf8", (err) => {
-        if (err) throw err;
-      });
+
+      fs.writeFileSync(fileName + ".json", jsonFile, "utf8", (err) => {if (err) throw err;});
       console.log("SpellingBee> The file has been saved!");
       GameManager.isPuzzleOpen = false;
-    } else {
-      console.log(
-        "SpellingBee> File already exists"
-      );
+      return true;
+    } 
+    
+    else {
+      console.log("SpellingBee> File already exists");
       let fileName = prompt("SpellingBee> Enter another file name: ");
       this.save(fileName, GameManager);
+      //no return value because the function will be called again
     }
   }
 
