@@ -1,0 +1,28 @@
+{
+  "name": "2023sp-420-maryjane",
+  "version": "1.0.0",
+  "description": "Jonathan Rivera\r Justin Stevens",
+  "main": "app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mucsci-students/2023sp-420-Maryjane.git"
+  },
+  "author": "",
+  "license": "SEE LICENSE IN LICENSE",
+  "bugs": {
+    "url": "https://github.com/mucsci-students/2023sp-420-Maryjane/issues"
+  },
+  "homepage": "https://github.com/mucsci-students/2023sp-420-Maryjane#readme",
+  "dependencies": {
+    "check-word": "^1.1.0",
+    "jest": "^29.4.2",
+    "mongodb": "^4.13.0",
+    "prompt-sync": "^4.2.0",
+    "scrabble": "^1.0.13",
+    "@moleculer/vorpal": "^1.11.5"
+  }
+}
