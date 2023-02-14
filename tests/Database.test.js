@@ -1,7 +1,7 @@
 const { MongoClient } = require("mongodb");
 const DatabaseClass = require("../src/classes/Database.js");
 
-describe ("Test Guess Function", () => {
+describe ("Test DataBase Class", () => {
 
     let database = new DatabaseClass();
 
