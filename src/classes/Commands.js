@@ -290,8 +290,7 @@ class Commands {
     //check where required letter is in array
     if (GameManager.currentPuzzle[3] != GameManager.requiredLetter) {
       for (let index = 0; index < 7; index++) {
-        const element = GameManager.currentPuzzle[index];
-        if (element == GameManager.requiredLetter) {
+        if (GameManager.currentPuzzle[index] == GameManager.requiredLetter) {
           //swaps where required letter is to the center of the array
           [GameManager.currentPuzzle[index], GameManager.currentPuzzle[3]] = [GameManager.currentPuzzle[3], GameManager.currentPuzzle[index]]
         }
