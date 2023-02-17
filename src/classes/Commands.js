@@ -10,6 +10,7 @@ const dictionary = wordsClass("en");
 
 //file system module
 const fs = require("fs");
+const { LongWithoutOverridesClass } = require("bson");
 
 /**
  * Commands class used to store static helper methods for the cli.
@@ -158,7 +159,7 @@ class Commands {
    * @param {number} score
    * @returns Your name as rank
    */
-  static #getRankName(score) {
+  static #getRankName(score) {            //Maybe make this a switch statement sometime? -Michael
     if (score < 0.02) {
       return "Newbie";
     } else if (score < 0.05) {
@@ -195,8 +196,8 @@ class Commands {
     GameManager.currentPuzzle = pangramLetters
       .sort((a, b) => 0.5 - Math.random())
       .sort((a, b) => 0.5 - Math.random());
-    
-      
+
+
     this.showPuzzle(GameManager);
   }
 
@@ -220,7 +221,7 @@ class Commands {
       return;
     }
     // remove duplicate letters from input
-    
+
     // Checks user's word to be an actual word in the dictionary
     if (!dictionary.check(input)) {
       console.log(input + " was not found in the dictionary");
@@ -284,8 +285,26 @@ class Commands {
     }
 
     //prints out the currnet puzzle and the required letter in the console
-    console.log("Use the letters below to make a guess");
-    console.log(GameManager.currentPuzzle,"\nRequired Letter: " + GameManager.requiredLetter);
+    console.log("Use the letters below to make a guess, required letter is \x1b[93mYellow.\x1b[0m");
+
+    //check where required letter is in array
+    if (GameManager.currentPuzzle[3] != GameManager.requiredLetter) {
+      for (let index = 0; index < 7; index++) {
+        if (GameManager.currentPuzzle[index] == GameManager.requiredLetter) {
+          //swaps where required letter is to the center of the array
+          [GameManager.currentPuzzle[index], GameManager.currentPuzzle[3]] = [GameManager.currentPuzzle[3], GameManager.currentPuzzle[index]]
+        }
+      }
+    }
+
+    //changes output letters to ALLCAPS.
+    for (let index = 0; index < GameManager.currentPuzzle.length; index++) {
+      GameManager.currentPuzzle[index] = GameManager.currentPuzzle[index].toUpperCase();
+    }
+    let reqLetter = GameManager.currentPuzzle[3];
+
+    //formatted output in a hex shape. 
+    console.log("   %s     %s\n\n%s   \x1b[93m{ %s }\x1b[0m   %s\n\n   %s     %s", GameManager.currentPuzzle[0], GameManager.currentPuzzle[1], GameManager.currentPuzzle[2], reqLetter, GameManager.currentPuzzle[4], GameManager.currentPuzzle[5], GameManager.currentPuzzle[6]);
   }
 
   /**
@@ -360,7 +379,7 @@ class Commands {
       console.log("SpellingBee> No puzzle open, you can not save");
       return false;
     }
-    
+
     if (fileName == "") {
       console.log("SpellingBee> File name cannot be empty");
       return false;
@@ -377,12 +396,12 @@ class Commands {
 
       let jsonFile = JSON.stringify(table);
 
-      fs.writeFileSync(fileName + ".json", jsonFile, "utf8", (err) => {if (err) throw err;});
+      fs.writeFileSync(fileName + ".json", jsonFile, "utf8", (err) => { if (err) throw err; });
       console.log("SpellingBee> The file has been saved!");
       GameManager.isPuzzleOpen = false;
       return true;
-    } 
-    
+    }
+
     else {
       console.log("SpellingBee> File already exists");
       let fileName = prompt("SpellingBee> Enter another file name: ");
