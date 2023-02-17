@@ -297,19 +297,14 @@ class Commands {
       }
     }
 
-    //css format for output. currently unused.
-    var normalStyle = ["color: white"];
-    var requiredStyle = ["color: red"];
-
     //changes output letters to ALLCAPS.
     for (let index = 0; index < GameManager.currentPuzzle.length; index++) {
       GameManager.currentPuzzle[index] = GameManager.currentPuzzle[index].toUpperCase();
     }
     var reqLetter = GameManager.currentPuzzle[3];
 
-    //!TODO change required letter to different color maybe.
     //formatted output in a hex shape. 
-    console.log("%c   %s     %s\n\n%s   %c{ %s }%c   %s\n\n   %s     %s", normalStyle, GameManager.currentPuzzle[0], GameManager.currentPuzzle[1], GameManager.currentPuzzle[2], requiredStyle, reqLetter, normalStyle, GameManager.currentPuzzle[4], GameManager.currentPuzzle[5], GameManager.currentPuzzle[6]);
+    console.log("   %s     %s\n\n%s   \x1b[93m{ %s }\x1b[0m   %s\n\n   %s     %s", GameManager.currentPuzzle[0], GameManager.currentPuzzle[1], GameManager.currentPuzzle[2], reqLetter, GameManager.currentPuzzle[4], GameManager.currentPuzzle[5], GameManager.currentPuzzle[6]);
   }
 
   /**
