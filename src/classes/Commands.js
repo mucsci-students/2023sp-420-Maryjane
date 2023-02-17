@@ -285,7 +285,7 @@ class Commands {
     }
 
     //prints out the currnet puzzle and the required letter in the console
-    console.log("Use the letters below to make a guess");
+    console.log("Use the letters below to make a guess, required letter is \x1b[93mYellow.\x1b[0m");
 
     //check where required letter is in array
     if (GameManager.currentPuzzle[3] != GameManager.requiredLetter) {
@@ -301,7 +301,7 @@ class Commands {
     for (let index = 0; index < GameManager.currentPuzzle.length; index++) {
       GameManager.currentPuzzle[index] = GameManager.currentPuzzle[index].toUpperCase();
     }
-    var reqLetter = GameManager.currentPuzzle[3];
+    let reqLetter = GameManager.currentPuzzle[3];
 
     //formatted output in a hex shape. 
     console.log("   %s     %s\n\n%s   \x1b[93m{ %s }\x1b[0m   %s\n\n   %s     %s", GameManager.currentPuzzle[0], GameManager.currentPuzzle[1], GameManager.currentPuzzle[2], reqLetter, GameManager.currentPuzzle[4], GameManager.currentPuzzle[5], GameManager.currentPuzzle[6]);
