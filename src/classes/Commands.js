@@ -10,7 +10,6 @@ const dictionary = wordsClass("en");
 
 //file system module
 const fs = require("fs");
-const { LongWithoutOverridesClass } = require("bson");
 
 /**
  * Commands class used to store static helper methods for the cli.

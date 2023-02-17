@@ -1,7 +1,7 @@
 {
   "name": "2023sp-420-maryjane",
   "version": "1.0.0",
-  "description": "Jonathan Rivera\r Justin Stevens",
+  "description": "A Spelling Bee App made in JavaScript for CSCI 420: Software Enginnerring at Millersville University.",
   "main": "app.js",
   "scripts": {
     "start": "node src/app.js",
@@ -23,6 +23,7 @@
     "mongodb": "^4.13.0",
     "prompt-sync": "^4.2.0",
     "scrabble": "^1.0.13",
-    "@moleculer/vorpal": "^1.11.5"
+    "@moleculer/vorpal": "^1.11.5",
+    "sqlite": "4.1.2"
   }
 }

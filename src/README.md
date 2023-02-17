@@ -58,6 +58,7 @@ https://docs.npmjs.com/cli/v9/configuring-npm/package-json
 - [prompt-sync](https://github.com/heapwolf/prompt-sync) - Used to get user input with Node.js
 - [scrabble](https://www.npmjs.com/package/scrabble) - Used to generate all possible combinations of a group of letters (currently not in use by this project)
 - [@moleculer/vorpal](https://github.com/moleculerjs/vorpal) - Vorpal without the security issues. Used to make the CLI and is highly helpful.
+- [sqlite](https://github.com/kriasoft/node-sqlite) - Database package
 
 # GIT
 
