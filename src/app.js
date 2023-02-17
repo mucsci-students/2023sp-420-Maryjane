@@ -7,13 +7,13 @@
 // cli object
 var vorpal = require("@moleculer/vorpal")();
 
-//GameManager object created from the file specified below.
-var GameManager = new (require("./classes/GameManager.js"))();
+// Model object created from the file specified below.
+var Model = new (require("./model/Model.js"))();
 
-//Commands class
+// Commands class
 var Commands = require("./classes/Commands.js");
 
-//Database object created from the file specified below
+// Database object created from the file specified below
 var Database = new (require("./classes/Database.js"))();
 
 /*****************************************************************************/
@@ -84,7 +84,7 @@ vorpal
     "Command to let user to submit the following word as a guess."
   )
   .action(function (args, callback) {
-    Commands.guess(args.input.toString(), GameManager);
+    Commands.guess(args.input.toString(), Model);
     callback();
   });
 
@@ -97,19 +97,19 @@ vorpal
   .alias("new")
   .action(function (args, callback) {
     if (args.baseWord) {
-      Commands.identifyBaseWord(args.baseWord.toString(), GameManager);
+      Commands.identifyBaseWord(args.baseWord.toString(), Model);
     } else {
-      Commands.newPuzzle(GameManager, Database);
+      Commands.newPuzzle(Model, Database);
     }
     callback();
   });
 
-// Hidden command that shows everything related to the gamemanager
+// Hidden command that shows everything related to the Model
 vorpal
   .command("debug", "")
   .hidden()
   .action(function (args, callback) {
-    console.log(GameManager);
+    console.log(Model);
     callback();
   });
 
@@ -120,7 +120,7 @@ vorpal
     "Shuffles the displayed guessable letters. Helps with seeing new patterns."
   )
   .action(function (args, callback) {
-    Commands.shuffle(GameManager);
+    Commands.shuffle(Model);
     callback();
   });
 
@@ -131,7 +131,7 @@ vorpal
     "Shows the user the words they have already guessed correctly."
   )
   .action(function (args, callback) {
-    Commands.showFoundWords(GameManager);
+    Commands.showFoundWords(Model);
     callback();
   });
 
@@ -139,7 +139,7 @@ vorpal
 vorpal
   .command("load <filename>", "Loads the specified save file.")
   .action(function (args, callback) {
-    Commands.load(args.filename.toString(), GameManager);
+    Commands.load(args.filename.toString(), Model);
     callback();
   });
 
@@ -150,7 +150,7 @@ vorpal
     "Saves the current game. Allows user to name save files."
   )
   .action(function (args, callback) {
-    Commands.save(args.filename.toString(), GameManager);
+    Commands.save(args.filename.toString(), Model);
     callback();
   });
 
@@ -158,7 +158,7 @@ vorpal
 vorpal
   .command("rank", "Shows the user their puzzle rank.")
   .action(function (args, callback) {
-    Commands.showPuzzleRank(GameManager);
+    Commands.showPuzzleRank(Model);
     callback();
   });
 
@@ -169,7 +169,7 @@ vorpal
     "Shows the user the current puzzle and the required letter."
   )
   .action(function (args, callback) {
-    Commands.showPuzzle(GameManager);
+    Commands.showPuzzle(Model);
     callback();
   });
 
@@ -184,8 +184,8 @@ vorpal
   .command("exit", "Exits the program gracefully.")
   .alias("quit")
   .action(function (args, callback) {
-    if (GameManager.isPuzzleOpen) {
-      Commands.promptSave(GameManager);
+    if (Model.isPuzzleOpen) {
+      Commands.promptSave(Model);
     }
     process.exit();
   });

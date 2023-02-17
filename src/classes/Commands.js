@@ -1,7 +1,7 @@
 // Import the ckeck word class for validating user guesses
 const wordsClass = require("check-word");
 const Database = require("./Database");
-const GameManager = require("./GameManager");
+const Model = require("../model/Model");
 
 const prompt = require('prompt-sync')();
 
@@ -16,17 +16,17 @@ const fs = require("fs");
  */
 class Commands {
   /**
-   * Used to check if a users guess is valid. If it is, the word gets inserted into GameManager.foundWords
+   * Used to check if a users guess is valid. If it is, the word gets inserted into Model.foundWords
    * @param {string} input - The input/guess the user made.
-   * @param {GameManager} GameManager - The gamemanager object used to keep track of the game
+   * @param {Model} Model - The Model object used to keep track of the game
    * @returns a bool that is true if the guess was valid and inserted, false if not
    */
-  static guess(input, GameManager) {
+  static guess(input, Model) {
     //Converts input to a string
     input = input + "";
     input = input.toLowerCase();
 
-    if (!GameManager.isPuzzleOpen) {
+    if (!Model.isPuzzleOpen) {
       console.log("No puzzle in progress");
       return false;
     }
@@ -37,24 +37,24 @@ class Commands {
     }
 
     // Check that the input has the required lettter
-    if (input.search(GameManager.requiredLetter.toLowerCase()) === -1) {
+    if (input.search(Model.requiredLetter.toLowerCase()) === -1) {
       console.log(
         "Guess must contain required character\nThe required character is",
-        GameManager.requiredLetter
+        Model.requiredLetter
       );
       return false;
     }
 
     // Check that all letters of the input are allowed letters determined by the pangram
     for (let i = 0; i < input.length; i++) {
-      if (GameManager.pangram.search(input.charAt(i)) === -1) {
+      if (Model.pangram.search(input.charAt(i)) === -1) {
         console.log(input.charAt(i) + " is not in the required letters");
         return false;
       }
     }
 
     // Check that guess is not in the found words
-    if (GameManager.foundWords.includes(input)) {
+    if (Model.foundWords.includes(input)) {
       console.log("Invalid, " + input + " was already guessed");
       return false;
     }
@@ -66,9 +66,9 @@ class Commands {
     }
 
     // Insert the guess into list of found words and increase user points
-    GameManager.foundWords.push(input);
+    Model.foundWords.push(input);
 
-    Commands.updatePuzzleRank(input, GameManager);
+    Commands.updatePuzzleRank(input, Model);
 
     console.log("success");
 
@@ -77,21 +77,21 @@ class Commands {
 
   /**
    * Generates a new puzzle. At the moment, it is always the same puzzle
-   * @param {GameManager} GameManager - object used to keep track of the game/player
+   * @param {Model} Model - object used to keep track of the game/player
    * @param {Database} Database - object used to keep track of the game/player
    * @returns null
    */
-  static async newPuzzle(GameManager, Database) {
-    if (GameManager.isPuzzleOpen) {
+  static async newPuzzle(Model, Database) {
+    if (Model.isPuzzleOpen) {
       console.log("game is in progess");
-      this.promptSave(GameManager);
+      this.promptSave(Model);
     }
 
     let pangram = await Database.getRandomWord();
 
     // Converts pangram into array of letters
     let pangramLetters = pangram.split("");
-    GameManager.currentPuzzle = pangramLetters
+    Model.currentPuzzle = pangramLetters
       .sort((a, b) => 0.5 - Math.random())
       .sort((a, b) => 0.5 - Math.random());
 
@@ -103,40 +103,40 @@ class Commands {
       (element) => !toRemove.includes(element)
     );
 
-    GameManager.isPuzzleOpen = true;
-    GameManager.pangram = pangram;
-    GameManager.requiredLetter =
+    Model.isPuzzleOpen = true;
+    Model.pangram = pangram;
+    Model.requiredLetter =
       pangramLetters[Math.floor(Math.random() * pangramLetters.length)];
 
     console.log("New puzzle started below! ");
 
-    this.showPuzzle(GameManager);
+    this.showPuzzle(Model);
   }
 
   /**
    * Uses the algorithm that the SpellingBee.org website uses to update the players rank/score.
    * @param {String} word - the user guess
-   * @param {GameManager} GameManager - the gamemanager object
+   * @param {Model} Model - the Model object
    */
-  static updatePuzzleRank(word, GameManager) {
+  static updatePuzzleRank(word, Model) {
     //Shifts it so you get 1 point for a 4 letter word, 2 points for 5 letters, etc.
     let score = word.length - 3;
     let USED_ALL_LETTERS_BONUS = 7;
 
-    if (word === GameManager.pangram) {
+    if (word === Model.pangram) {
       score += USED_ALL_LETTERS_BONUS;
     }
 
-    GameManager.userPoints += score;
+    Model.userPoints += score;
   }
 
   /**
    * Displays the users currect
-   * @param {GameManager} GameManager - GameMangager object used to check if puzzle is open and to show the puzzle rank
+   * @param {Model} Model - GameMangager object used to check if puzzle is open and to show the puzzle rank
    * @returns null
    */
-  static showPuzzleRank(GameManager) {
-    if (!GameManager.isPuzzleOpen) {
+  static showPuzzleRank(Model) {
+    if (!Model.isPuzzleOpen) {
       console.log("No puzzle in progress");
       return;
     }
@@ -145,11 +145,11 @@ class Commands {
 
     // Ranking system: https://freebee.fun/api.html
 
-    let score = GameManager.userPoints / MAX_POINTS;
+    let score = Model.userPoints / MAX_POINTS;
 
     let rank = this.#getRankName(score);
 
-    console.log(GameManager.userPoints + `/${MAX_POINTS} points`);
+    console.log(Model.userPoints + `/${MAX_POINTS} points`);
     console.log("Your rank: " + rank);
   }
 
@@ -182,37 +182,37 @@ class Commands {
     return "Something went wrong";
   }
 
-  static async shuffle(GameManager) {
-    if (!GameManager.isPuzzleOpen) {
+  static async shuffle(Model) {
+    if (!Model.isPuzzleOpen) {
       console.log("game is not in progess");
       return;
     }
 
-    let pangram = GameManager.pangram;
+    let pangram = Model.pangram;
     let pangramLetters = pangram.split("");
 
     // Converts pangram into array of letters
-    GameManager.currentPuzzle = pangramLetters
+    Model.currentPuzzle = pangramLetters
       .sort((a, b) => 0.5 - Math.random())
       .sort((a, b) => 0.5 - Math.random());
 
 
-    this.showPuzzle(GameManager);
+    this.showPuzzle(Model);
   }
 
   /**
    * Generates a new puzzle based on user inputted word
-   * @param {GameManager} GameManager - object used to keep track of the game/player
+   * @param {Model} Model - object used to keep track of the game/player
    * @param {input} input - users inputted word
    * @returns null
    */
-  static identifyBaseWord(input, GameManager) {
+  static identifyBaseWord(input, Model) {
     input = input + "";
     input = input.toLowerCase();
 
-    if (GameManager.isPuzzleOpen) {
+    if (Model.isPuzzleOpen) {
       console.log("game is in progess");
-      this.promptSave(GameManager);
+      this.promptSave(Model);
     }
     // Checks user's word to have correct length and no spaces
     if (String.prototype.concat.call(...new Set(input)).length != 7) {
@@ -230,7 +230,7 @@ class Commands {
     // Converts pangram into array of letters
     let pangram = input;
     let pangramLetters = String.prototype.concat.call(...new Set(input)).split("");
-    GameManager.currentPuzzle = pangramLetters
+    Model.currentPuzzle = pangramLetters
       .sort((a, b) => 0.5 - Math.random())
       .sort((a, b) => 0.5 - Math.random());
 
@@ -242,43 +242,43 @@ class Commands {
       (element) => !toRemove.includes(element)
     );
 
-    GameManager.isPuzzleOpen = true;
-    GameManager.pangram = pangram;
-    GameManager.requiredLetter =
+    Model.isPuzzleOpen = true;
+    Model.pangram = pangram;
+    Model.requiredLetter =
       pangramLetters[Math.floor(Math.random() * pangramLetters.length)];
 
-    this.showPuzzle(GameManager);
+    this.showPuzzle(Model);
   }
 
   /**
    * Shows current found word in puzzle
-   * @param {GameManager} GameManager - object used to keep track of the game/player
+   * @param {Model} Model - object used to keep track of the game/player
    * @returns null
    */
-  static showFoundWords(GameManager) {
+  static showFoundWords(Model) {
     // If no current puzzle
-    if (!GameManager.isPuzzleOpen) {
+    if (!Model.isPuzzleOpen) {
       console.log("No puzzle in progress");
       return;
     }
 
     // If no words found yet
-    if (GameManager.foundWords.length <= 0) {
+    if (Model.foundWords.length <= 0) {
       console.log("No words found");
       return;
     }
 
-    console.log(GameManager.foundWords);
+    console.log(Model.foundWords);
   }
 
   /**
    * Shows the current puzzle and the required letter
-   * @param {*} GameManager
+   * @param {*} Model
    * @returns null
    */
-  static showPuzzle(GameManager) {
+  static showPuzzle(Model) {
     // If no current puzzle
-    if (!GameManager.isPuzzleOpen) {
+    if (!Model.isPuzzleOpen) {
       console.log("No puzzle in progress");
       return;
     }
@@ -287,34 +287,34 @@ class Commands {
     console.log("Use the letters below to make a guess, required letter is \x1b[93mYellow.\x1b[0m");
 
     //check where required letter is in array
-    if (GameManager.currentPuzzle[3] != GameManager.requiredLetter) {
+    if (Model.currentPuzzle[3] != Model.requiredLetter) {
       for (let index = 0; index < 7; index++) {
-        if (GameManager.currentPuzzle[index] == GameManager.requiredLetter) {
+        if (Model.currentPuzzle[index] == Model.requiredLetter) {
           //swaps where required letter is to the center of the array
-          [GameManager.currentPuzzle[index], GameManager.currentPuzzle[3]] = [GameManager.currentPuzzle[3], GameManager.currentPuzzle[index]]
+          [Model.currentPuzzle[index], Model.currentPuzzle[3]] = [Model.currentPuzzle[3], Model.currentPuzzle[index]]
         }
       }
     }
 
     //changes output letters to ALLCAPS.
-    for (let index = 0; index < GameManager.currentPuzzle.length; index++) {
-      GameManager.currentPuzzle[index] = GameManager.currentPuzzle[index].toUpperCase();
+    for (let index = 0; index < Model.currentPuzzle.length; index++) {
+      Model.currentPuzzle[index] = Model.currentPuzzle[index].toUpperCase();
     }
-    let reqLetter = GameManager.currentPuzzle[3];
+    let reqLetter = Model.currentPuzzle[3];
 
     //formatted output in a hex shape. 
-    console.log("   %s     %s\n\n%s   \x1b[93m{ %s }\x1b[0m   %s\n\n   %s     %s", GameManager.currentPuzzle[0], GameManager.currentPuzzle[1], GameManager.currentPuzzle[2], reqLetter, GameManager.currentPuzzle[4], GameManager.currentPuzzle[5], GameManager.currentPuzzle[6]);
+    console.log("   %s     %s\n\n%s   \x1b[93m{ %s }\x1b[0m   %s\n\n   %s     %s", Model.currentPuzzle[0], Model.currentPuzzle[1], Model.currentPuzzle[2], reqLetter, Model.currentPuzzle[4], Model.currentPuzzle[5], Model.currentPuzzle[6]);
   }
 
   /**
    * Loads a saved puzzle
-   * @param {GameManager} GameManager - object used to keep track of the game/player
+   * @param {Model} Model - object used to keep track of the game/player
    * @param {fileName} fileName - users inputted file name
    */
-  static load(fileName, GameManager) {
+  static load(fileName, Model) {
     //check if a game is already in progress, if it is dont load a new game
-    if (GameManager.isPuzzleOpen) {
-      this.promptSave(GameManager);
+    if (Model.isPuzzleOpen) {
+      this.promptSave(Model);
     }
 
     // Append ".json" to the filename if it doesn't already have it
@@ -351,30 +351,30 @@ class Commands {
       return;
     }
 
-    // If all checks passed, update the GameManager fields with the loaded data from the file
-    GameManager.foundWords = parsedFile.words;
-    GameManager.pangram = parsedFile.pangram;
-    GameManager.requiredLetter = parsedFile.requiredLetter;
-    GameManager.userPoints = parsedFile.userPoints;
-    let puzzle = GameManager.pangram.split("")
-    GameManager.currentPuzzle = puzzle
+    // If all checks passed, update the Model fields with the loaded data from the file
+    Model.foundWords = parsedFile.words;
+    Model.pangram = parsedFile.pangram;
+    Model.requiredLetter = parsedFile.requiredLetter;
+    Model.userPoints = parsedFile.userPoints;
+    let puzzle = Model.pangram.split("")
+    Model.currentPuzzle = puzzle
       .sort((a, b) => 0.5 - Math.random())
       .sort((a, b) => 0.5 - Math.random());
-    GameManager.isPuzzleOpen = true;
+    Model.isPuzzleOpen = true;
     console.log("SpellingBee> File loaded successfully\n");
     console.log("Puzzle is shown below");
 
-    this.showPuzzle(GameManager);
+    this.showPuzzle(Model);
   }
 
   /**
    * Saves current puzzle
-   * @param {GameManager} GameManager - object used to keep track of the game/player
+   * @param {Model} Model - object used to keep track of the game/player
    * @param {fileName} fileName - users inputted file name
    * @returns null
    */
-  static save(fileName, GameManager) {
-    if (!GameManager.isPuzzleOpen) {
+  static save(fileName, Model) {
+    if (!Model.isPuzzleOpen) {
       console.log("SpellingBee> No puzzle open, you can not save");
       return false;
     }
@@ -387,34 +387,34 @@ class Commands {
     if (!fs.existsSync(fileName + ".json")) {
 
       let table = {
-        words: GameManager.foundWords,
-        pangram: GameManager.pangram,
-        requiredLetter: GameManager.requiredLetter,
-        userPoints: GameManager.userPoints,
+        words: Model.foundWords,
+        pangram: Model.pangram,
+        requiredLetter: Model.requiredLetter,
+        userPoints: Model.userPoints,
       };
 
       let jsonFile = JSON.stringify(table);
 
       fs.writeFileSync(fileName + ".json", jsonFile, "utf8", (err) => { if (err) throw err; });
       console.log("SpellingBee> The file has been saved!");
-      GameManager.isPuzzleOpen = false;
+      Model.isPuzzleOpen = false;
       return true;
     }
 
     else {
       console.log("SpellingBee> File already exists");
       let fileName = prompt("SpellingBee> Enter another file name: ");
-      this.save(fileName, GameManager);
+      this.save(fileName, Model);
       //no return value because the function will be called again
     }
   }
 
   /**
    * prompts user to save current puzzle when they try to start a new one
-   * @param {GameManager} GameManager - object used to keep track of the game/player
+   * @param {Model} Model - object used to keep track of the game/player
    * @returns null
    */
-  static promptSave(GameManager) {
+  static promptSave(Model) {
     let save = prompt(
       "SpellingBee> Would you like to save your current game? (yes/no) "
     );
@@ -431,10 +431,10 @@ class Commands {
 
     if (save === "yes") {
       let fileName = prompt("SpellingBee> Enter a file name: ");
-      this.save(fileName, GameManager);
+      this.save(fileName, Model);
     } else {
       console.log("SpellingBee> The game has been discarded");
-      GameManager.isPuzzleOpen = false;
+      Model.isPuzzleOpen = false;
     }
   }
 }
