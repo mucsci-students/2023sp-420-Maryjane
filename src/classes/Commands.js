@@ -286,7 +286,6 @@ class Commands {
 
     //prints out the currnet puzzle and the required letter in the console
     console.log("Use the letters below to make a guess");
-    console.log(GameManager.currentPuzzle, "\nRequired Letter: " + GameManager.requiredLetter);
 
     //check where required letter is in array
     if (GameManager.currentPuzzle[3] != GameManager.requiredLetter) {
@@ -298,7 +297,6 @@ class Commands {
         }
       }
     }
-    console.log(GameManager.currentPuzzle, "\nRequired Letter: " + GameManager.requiredLetter);
 
     var normalStyle = ["color: white"];
     var requiredStyle = ["color: red"];
