@@ -81,9 +81,9 @@ class Commands {
    * @param {Database} Database - object used to keep track of the game/player
    * @returns null
    */
-  static async newPuzzle(Model, Database) {
+  static async newPuzzle(Model, Database, View) {
     if (Model.isPuzzleOpen) {
-      console.log("game is in progess");
+      View.printMessage("game is in progess");
       this.promptSave(Model);
     }
 
@@ -110,7 +110,7 @@ class Commands {
 
     console.log("New puzzle started below! ");
 
-    this.showPuzzle(Model);
+    View.showPuzzle(Model);
   }
 
   /**
@@ -130,59 +130,7 @@ class Commands {
     Model.userPoints += score;
   }
 
-  /**
-   * Displays the users currect
-   * @param {Model} Model - GameMangager object used to check if puzzle is open and to show the puzzle rank
-   * @returns null
-   */
-  static showPuzzleRank(Model) {
-    if (!Model.isPuzzleOpen) {
-      console.log("No puzzle in progress");
-      return;
-    }
-
-    const MAX_POINTS = 150;
-
-    // Ranking system: https://freebee.fun/api.html
-
-    let score = Model.userPoints / MAX_POINTS;
-
-    let rank = this.#getRankName(score);
-
-    console.log(Model.userPoints + `/${MAX_POINTS} points`);
-    console.log("Your rank: " + rank);
-  }
-
-  /**
-   * Calculates the users rank name based on scorePercentage
-   * @param {number} score
-   * @returns Your name as rank
-   */
-  static #getRankName(score) {            //Maybe make this a switch statement sometime? -Michael
-    if (score < 0.02) {
-      return "Newbie";
-    } else if (score < 0.05) {
-      return "Novice";
-    } else if (score < 0.08) {
-      return "Fine";
-    } else if (score < 0.15) {
-      return "Skilled";
-    } else if (score < 0.25) {
-      return "Excellent";
-    } else if (score < 0.4) {
-      return "Superb";
-    } else if (score < 0.5) {
-      return "Marvellous";
-    } else if (score < 0.7) {
-      return "Outstanding";
-    } else if (score <= 1) {
-      return "Queen Bee";
-    }
-
-    return "Something went wrong";
-  }
-
-  static async shuffle(Model) {
+  static async shuffle(Model, View) {
     if (!Model.isPuzzleOpen) {
       console.log("game is not in progess");
       return;
@@ -197,7 +145,7 @@ class Commands {
       .sort((a, b) => 0.5 - Math.random());
 
 
-    this.showPuzzle(Model);
+    View.showPuzzle(Model);
   }
 
   /**
@@ -247,63 +195,7 @@ class Commands {
     Model.requiredLetter =
       pangramLetters[Math.floor(Math.random() * pangramLetters.length)];
 
-    this.showPuzzle(Model);
-  }
-
-  /**
-   * Shows current found word in puzzle
-   * @param {Model} Model - object used to keep track of the game/player
-   * @returns null
-   */
-  static showFoundWords(Model) {
-    // If no current puzzle
-    if (!Model.isPuzzleOpen) {
-      console.log("No puzzle in progress");
-      return;
-    }
-
-    // If no words found yet
-    if (Model.foundWords.length <= 0) {
-      console.log("No words found");
-      return;
-    }
-
-    console.log(Model.foundWords);
-  }
-
-  /**
-   * Shows the current puzzle and the required letter
-   * @param {*} Model
-   * @returns null
-   */
-  static showPuzzle(Model) {
-    // If no current puzzle
-    if (!Model.isPuzzleOpen) {
-      console.log("No puzzle in progress");
-      return;
-    }
-
-    //prints out the currnet puzzle and the required letter in the console
-    console.log("Use the letters below to make a guess, required letter is \x1b[93mYellow.\x1b[0m");
-
-    //check where required letter is in array
-    if (Model.currentPuzzle[3] != Model.requiredLetter) {
-      for (let index = 0; index < 7; index++) {
-        if (Model.currentPuzzle[index] == Model.requiredLetter) {
-          //swaps where required letter is to the center of the array
-          [Model.currentPuzzle[index], Model.currentPuzzle[3]] = [Model.currentPuzzle[3], Model.currentPuzzle[index]]
-        }
-      }
-    }
-
-    //changes output letters to ALLCAPS.
-    for (let index = 0; index < Model.currentPuzzle.length; index++) {
-      Model.currentPuzzle[index] = Model.currentPuzzle[index].toUpperCase();
-    }
-    let reqLetter = Model.currentPuzzle[3];
-
-    //formatted output in a hex shape. 
-    console.log("   %s     %s\n\n%s   \x1b[93m{ %s }\x1b[0m   %s\n\n   %s     %s", Model.currentPuzzle[0], Model.currentPuzzle[1], Model.currentPuzzle[2], reqLetter, Model.currentPuzzle[4], Model.currentPuzzle[5], Model.currentPuzzle[6]);
+    View.showPuzzle(Model);
   }
 
   /**
@@ -311,7 +203,7 @@ class Commands {
    * @param {Model} Model - object used to keep track of the game/player
    * @param {fileName} fileName - users inputted file name
    */
-  static load(fileName, Model) {
+  static load(fileName, Model, View) {
     //check if a game is already in progress, if it is dont load a new game
     if (Model.isPuzzleOpen) {
       this.promptSave(Model);
@@ -364,7 +256,7 @@ class Commands {
     console.log("SpellingBee> File loaded successfully\n");
     console.log("Puzzle is shown below");
 
-    this.showPuzzle(Model);
+    View.showPuzzle(Model);
   }
 
   /**

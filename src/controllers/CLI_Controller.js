@@ -1,30 +1,31 @@
 /**
- * Stores CLI controller class
+ * Stores CLI Controller class
  */
 
 // cli object
-var vorpal = require("@moleculer/vorpal")();
+var Vorpal = require("@moleculer/Vorpal")();
 
 // Commands class
 var Commands = require("../classes/Commands.js");
 
 // Used for documentation
-const Model = require("../model/Model.js");
+const Model = require("../Model/Model.js");
 
 // Database object created from the file specified below
 var Database = new (require("../classes/Database.js"))();
 
 /**
- * Controller for the CLI following the MVC model
+ * Controller for the CLI following the MVC Model
  */
 class CLI_Controller {
 
   /**
-   * Sets up the controller by passing in the model
-   * @param {Model} model - The model from the MVC paradigm
+   * Sets up the controller by passing in the Model
+   * @param {Model} Model - The Model from the MVC paradigm
    */
-  constructor(model) {
-    this.model = model;
+  constructor(Model, View) {
+    this.Model = Model;
+    this.View = View;
   }
 
   /**
@@ -35,23 +36,24 @@ class CLI_Controller {
   }
 
   /**
-   * Setting CLI by starting vorpal and giving it functions
+   * Setting CLI by starting Vorpal and giving it functions
    */
   setupCLI() {
 
-    let model = this.model;
+    let Model = this.Model;
+    let View = this.View;
 
     //Initializes the CLI input stream and changes the text to show
     //custom text.
-    vorpal.delimiter("SpellingBee>").show();
+    Vorpal.delimiter("SpellingBee>").show();
 
     /*****************************************************************************/
     /*                                Vorpal Commands                            */
     /*****************************************************************************/
 
-    //An example custom vorpal command that uses 'duck' as the input text
+    //An example custom Vorpal command that uses 'duck' as the input text
     //and outputs 'Wabbit' as the response.
-    vorpal
+    Vorpal
       .command("duck", 'Outputs "wumbo", is a example command for testing.')
       .hidden()
       .action(function (args, callback) {
@@ -60,18 +62,18 @@ class CLI_Controller {
       });
 
     // The guess command that requires the field <input>
-    vorpal
+    Vorpal
       .command(
         "guess <input>",
         "Command to let user to submit the following word as a guess."
       )
       .action(function (args, callback) {
-        Commands.guess(args.input.toString(), model);
+        Commands.guess(args.input.toString(), Model);
         callback();
       });
 
     // Generates new puzzle. At the moment, it is the same puzzle
-    vorpal
+    Vorpal
       .command(
         "new-puzzle [baseWord]",
         "Start a random puzzle with or without a specified pangram(baseword)."
@@ -79,79 +81,79 @@ class CLI_Controller {
       .alias("new")
       .action(async function (args, callback) {
         if (args.baseWord) {
-          Commands.identifyBaseWord(args.baseWord.toString(), model);
+          Commands.identifyBaseWord(args.baseWord.toString(), Model, View);
         } else {
-          await Commands.newPuzzle(model, Database);
+          await Commands.newPuzzle(Model, Database, View);
         }
         callback();
       });
 
-    // Hidden command that shows everything related to the model
-    vorpal
+    // Hidden command that shows everything related to the Model
+    Vorpal
       .command("debug", "")
       .hidden()
       .action(function (args, callback) {
-        console.log(model);
+        console.log(Model);
         callback();
       });
 
     // Command to shuffle puzzle
-    vorpal
+    Vorpal
       .command(
         "shuffle",
         "Shuffles the displayed guessable letters. Helps with seeing new patterns."
       )
       .action(function (args, callback) {
-        Commands.shuffle(model);
+        Commands.shuffle(Model, View);
         callback();
       });
 
     // Command to show found words
-    vorpal
+    Vorpal
       .command(
         "found-words",
         "Shows the user the words they have already guessed correctly."
       )
       .action(function (args, callback) {
-        Commands.showFoundWords(model);
+        View.showFoundWords(Model);
         callback();
       });
 
     // Command to load the game
-    vorpal
+    Vorpal
       .command("load <filename>", "Loads the specified save file.")
       .action(function (args, callback) {
-        Commands.load(args.filename.toString(), model);
+        Commands.load(args.filename.toString(), Model, View);
         callback();
       });
 
     // Command to save the game
-    vorpal
+    Vorpal
       .command(
         "save <filename>",
         "Saves the current game. Allows user to name save files."
       )
       .action(function (args, callback) {
-        Commands.save(args.filename.toString(), model);
+        Commands.save(args.filename.toString(), Model);
         callback();
       });
 
     // Command to show user puzzle rank
-    vorpal
+    Vorpal
       .command("rank", "Shows the user their puzzle rank.")
       .action(function (args, callback) {
-        Commands.showPuzzleRank(model);
+        View.showPuzzleRank(Model);
         callback();
       });
 
     //Command to show the active puzzle and required letter
-    vorpal
+    Vorpal
       .command(
         "show-puzzle",
         "Shows the user the current puzzle and the required letter."
       )
       .action(function (args, callback) {
-        Commands.showPuzzle(model);
+        View.showPuzzle(Model);
         callback();
       });
 
@@ -160,14 +162,14 @@ class CLI_Controller {
     /*****************************************************************************/
 
     // Command to Exit
-    vorpal.find("exit").remove();
+    Vorpal.find("exit").remove();
 
-    vorpal
+    Vorpal
       .command("exit", "Exits the program gracefully.")
       .alias("quit")
       .action(function (args, callback) {
-        if (model.isPuzzleOpen) {
-          Commands.promptSave(model);
+        if (Model.isPuzzleOpen) {
+          Commands.promptSave(Model);
         }
         process.exit();
       });
