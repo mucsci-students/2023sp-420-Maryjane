@@ -10,6 +10,9 @@ var Model = new (require("./model/Model.js"))();
 // CLI_Controller Object
 var CLI_ControllerClass = require("./controllers/CLI_Controller.js");
 
+// CLI_View Object
+var CLI_ViewClass = require("./views/CLI_View.js");
+
 /*****************************************************************************/
 /*                                Setup Function                             */
 /*****************************************************************************/
@@ -44,8 +47,11 @@ console.log(
 
 // This function will start before the cli starts. Use it to setup MVC.
 function setup() {
+  // Create CLI view
+  let CLI_View = new CLI_ViewClass();
+
   // Create CLI controller
-  let CLI_Controller = new CLI_ControllerClass(Model);
+  let CLI_Controller = new CLI_ControllerClass(Model, CLI_View);
 
   CLI_Controller.setupDatabase();
   CLI_Controller.setupCLI();
