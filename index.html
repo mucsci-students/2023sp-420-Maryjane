@@ -1,31 +1,454 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Page Title</title>
-  </head>
-  <body>
-    <h1>My First Heading</h1>
-    <p>My first paragraph.</p>
-    <style>
-      button {
-        display: inline-block;
-        background-color: #7b38d8;
-        padding: 20px;
-        width: 200px;
-        color: #ffffff;
-        text-align: center;
-      }
-    </style>
-    <button type="button">Click Me!</button>
-  </body>
-</html>
+<!--
+The HTML Page for displaying our application. 
+Usage of Online Resource:
+  
+-->
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body></body>
+<!--Meta data included from website Spelling Bee-->
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spelling Bee</title>
+</head>
+<!--End of Meta Data-->
+
+<body>
+  <div class="Testhexagon">
+    <a class="TesthexagonLink" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
+      <p>c</p>
+    </a>
+  </div>
+  <div class="Testhexagon2">
+    <a class="TesthexagonLink" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
+      <p>B</p>
+    </a>
+  </div>
+  <div class="Testhexagon3">
+    <a class="TesthexagonLink" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
+      <p>D</p>
+    </a>
+  </div>
+  <div class="Testhexagon4">
+    <a class="TesthexagonLink" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
+      <p>D</p>
+    </a>
+  </div>
+  <div class="Testhexagon5">
+    <a class="TesthexagonLink" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
+      <p>G</p>
+    </a>
+  </div>
+  <div class="Testhexagon6">
+    <a class="TesthexagonLink" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
+      <p>D</p>
+    </a>
+  </div>
+  <div class="Testhexagon7">
+    <a class="TesthexagonLink" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
+      <p>D</p>
+    </a>
+  </div>
+  </ul>
+
+</body>
+
 </html>
+
+<style>
+  /************************* MIDDLE LEFT **************************************!*/
+  .Testhexagon {
+    top: 30.2vh;
+    left: 41%;
+    position: absolute;
+    margin: 0 auto;
+    background-color: #e6e6e6;
+    border-radius: 10px;
+    width: 100px;
+    height: 63px;
+    box-sizing: border-box;
+    transition: all 1s;
+    border: 0.4vh solid transparent;
+    z-index: -1;
+  }
+
+  /* Creating pseudo-class */
+  .Testhexagon:before,
+  .Testhexagon:after {
+    content: "";
+    border: inherit;
+    position: absolute;
+    top: -0.5vh;
+    left: -0.5vh;
+    background-color: #e6e6e6;
+    border-radius: inherit;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+  }
+
+  /* Align them in such a way
+        that they form a hexagon */
+  .Testhexagon:before {
+    transform: rotate(60deg);
+  }
+
+  .Testhexagon:after {
+    transform: rotate(-60deg);
+  }
+
+  .Testhexagon p {
+    width: 100%;
+    padding: 10%;
+    position: absolute !important;
+    background-color: transparent;
+    font-weight: 700;
+    font-size: 2.5em;
+    top: -50px;
+    left: 20px;
+    color: black;
+    text-transform: uppercase;
+    font-family: "nyt-franklin";
+  }
+
+  /************************* TOP LEFT **************************************!*/
+  .Testhexagon2 {
+    top: 18vh;
+    left: 44.2%;
+    position: absolute;
+    margin: 0 auto;
+    background-color: #e6e6e6;
+    border-radius: 10px;
+    width: 100px;
+    height: 63px;
+    box-sizing: border-box;
+    transition: all 1s;
+    border: 0.4vh solid transparent;
+    z-index: -1;
+  }
+
+  /* Creating pseudo-class */
+  .Testhexagon2:before,
+  .Testhexagon2:after {
+    content: "";
+    border: inherit;
+    position: absolute;
+    top: -0.5vh;
+    left: -0.5vh;
+    background-color: #e6e6e6;
+    border-radius: inherit;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+  }
+
+  /* Align them in such a way
+        that they form a hexagon */
+  .Testhexagon2:before {
+    transform: rotate(60deg);
+  }
+
+  .Testhexagon2:after {
+    transform: rotate(-60deg);
+  }
+
+  .Testhexagon2 p {
+    width: 100%;
+    padding: 10%;
+    position: absolute !important;
+    background-color: transparent;
+    font-weight: 700;
+    font-size: 2.5em;
+    top: -50px;
+    left: 20px;
+    color: black;
+    text-transform: uppercase;
+    font-family: "nyt-franklin";
+  }
+
+  /************************* MIDDLE **************************************!*/
+  .Testhexagon3 {
+    top: 30vh;
+    left: 48%;
+    position: absolute;
+    margin: 0 auto;
+    background-color: #f7da21;
+    border-radius: 10px;
+    width: 100px;
+    height: 63px;
+    box-sizing: border-box;
+    transition: all 1s;
+    border: 0.4vh solid transparent;
+    z-index: -1;
+  }
+
+  /* Creating pseudo-class */
+  .Testhexagon3:before,
+  .Testhexagon3:after {
+    content: "";
+    border: inherit;
+    position: absolute;
+    top: -0.5vh;
+    left: -0.5vh;
+    background-color: #f7da21;
+    border-radius: inherit;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+  }
+
+  /* Align them in such a way
+        that they form a hexagon */
+  .Testhexagon3:before {
+    transform: rotate(60deg);
+  }
+
+  .Testhexagon3:after {
+    transform: rotate(-60deg);
+  }
+
+  .Testhexagon3 p {
+    width: 100%;
+    padding: 10%;
+    position: absolute !important;
+    background-color: transparent;
+    font-weight: 700;
+    font-size: 2.5em;
+    top: -50px;
+    left: 20px;
+    color: black;
+    text-transform: uppercase;
+    font-family: "nyt-franklin";
+  }
+
+  /************************* TOP RIGHT **************************************!*/
+  .Testhexagon4 {
+    top: 18vh;
+    left: 51.6%;
+    position: absolute;
+    margin: 0 auto;
+    background-color: #e6e6e6;
+    ;
+    border-radius: 10px;
+    width: 100px;
+    height: 63px;
+    box-sizing: border-box;
+    transition: all 1s;
+    border: 0.4vh solid transparent;
+    z-index: -1;
+  }
+
+  /* Creating pseudo-class */
+  .Testhexagon4:before,
+  .Testhexagon4:after {
+    content: "";
+    border: inherit;
+    position: absolute;
+    top: -0.5vh;
+    left: -0.5vh;
+    background-color: #e6e6e6;
+    ;
+    border-radius: inherit;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+  }
+
+  /* Align them in such a way
+        that they form a hexagon */
+  .Testhexagon4:before {
+    transform: rotate(60deg);
+  }
+
+  .Testhexagon4:after {
+    transform: rotate(-60deg);
+  }
+
+  .Testhexagon4 p {
+    width: 100%;
+    padding: 10%;
+    position: absolute !important;
+    background-color: transparent;
+    font-weight: 700;
+    font-size: 2.5em;
+    top: -50px;
+    left: 20px;
+    color: black;
+    text-transform: uppercase;
+    font-family: "nyt-franklin";
+  }
+
+  /************************* BOTTOM RIGHT **************************************!*/
+  .Testhexagon5 {
+    top: 42.3vh;
+    left: 51.5%;
+    position: absolute;
+    margin: 0 auto;
+    background-color: #e6e6e6;
+    ;
+    border-radius: 10px;
+    width: 100px;
+    height: 63px;
+    box-sizing: border-box;
+    transition: all 1s;
+    border: 0.4vh solid transparent;
+    z-index: -1;
+  }
+
+  /* Creating pseudo-class */
+  .Testhexagon5:before,
+  .Testhexagon5:after {
+    content: "";
+    border: inherit;
+    position: absolute;
+    top: -0.5vh;
+    left: -0.5vh;
+    background-color: #e6e6e6;
+    ;
+    border-radius: inherit;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+  }
+
+  /* Align them in such a way
+        that they form a hexagon */
+  .Testhexagon5:before {
+    transform: rotate(60deg);
+  }
+
+  .Testhexagon5:after {
+    transform: rotate(-60deg);
+  }
+
+  .Testhexagon5 p {
+    width: 100%;
+    padding: 10%;
+    position: absolute !important;
+    background-color: transparent;
+    font-weight: 700;
+    font-size: 2.5em;
+    top: -50px;
+    left: 20px;
+    color: black;
+    text-transform: uppercase;
+    font-family: "nyt-franklin";
+  }
+
+
+  /************************* BOTTOM LEFT **************************************!*/
+  .Testhexagon6 {
+    top: 42vh;
+    left: 44.5%;
+    position: absolute;
+    margin: 0 auto;
+    background-color: #e6e6e6;
+    ;
+    border-radius: 10px;
+    width: 100px;
+    height: 63px;
+    box-sizing: border-box;
+    transition: all 1s;
+    border: 0.4vh solid transparent;
+    z-index: -1;
+  }
+
+  /* Creating pseudo-class */
+  .Testhexagon6:before,
+  .Testhexagon6:after {
+    content: "";
+    border: inherit;
+    position: absolute;
+    top: -0.5vh;
+    left: -0.5vh;
+    background-color: #e6e6e6;
+    ;
+    border-radius: inherit;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+  }
+
+  /* Align them in such a way
+        that they form a hexagon */
+  .Testhexagon6:before {
+    transform: rotate(60deg);
+  }
+
+  .Testhexagon6:after {
+    transform: rotate(-60deg);
+  }
+
+  .Testhexagon6 p {
+    width: 100%;
+    padding: 10%;
+    position: absolute !important;
+    background-color: transparent;
+    font-weight: 700;
+    font-size: 2.5em;
+    top: -50px;
+    left: 20px;
+    color: black;
+    text-transform: uppercase;
+    font-family: "nyt-franklin";
+  }
+
+  /************************* MIDDLE RIGHT **************************************!*/
+  .Testhexagon7 {
+    top: 30.2vh;
+    left: 54.8%;
+    position: absolute;
+    margin: 0 auto;
+    background-color: #e6e6e6;
+    ;
+    border-radius: 10px;
+    width: 100px;
+    height: 63px;
+    box-sizing: border-box;
+    transition: all 1s;
+    border: 0.4vh solid transparent;
+    z-index: -1;
+  }
+
+  /* Creating pseudo-class */
+  .Testhexagon7:before,
+  .Testhexagon7:after {
+    content: "";
+    border: inherit;
+    position: absolute;
+    top: -0.5vh;
+    left: -0.5vh;
+    background-color: #e6e6e6;
+    ;
+    border-radius: inherit;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+  }
+
+  /* Align them in such a way
+        that they form a hexagon */
+  .Testhexagon7:before {
+    transform: rotate(60deg);
+  }
+
+  .Testhexagon7:after {
+    transform: rotate(-60deg);
+  }
+
+  .Testhexagon7 p {
+    width: 100%;
+    padding: 10%;
+    position: absolute !important;
+    background-color: transparent;
+    font-weight: 700;
+    font-size: 2.5em;
+    top: -50px;
+    left: 20px;
+    color: black;
+    text-transform: uppercase;
+    font-family: "nyt-franklin";
+  }
+</style>
