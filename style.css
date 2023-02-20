@@ -1,0 +1,451 @@
+.MiddleLeftBlock {
+  top: 30.2vh;
+  left: 41%;
+  position: absolute;
+  margin: 0 auto;
+  background-color: #e6e6e6;
+  border-radius: 10px;
+  width: 100px;
+  height: 63px;
+  box-sizing: border-box;
+  transition: all 1s;
+  border: 0.4vh solid transparent;
+  z-index: -1;
+}
+
+/* Creating pseudo-class */
+.MiddleLeftBlock:before,
+.MiddleLeftBlock:after {
+  content: "";
+  border: inherit;
+  position: absolute;
+  top: -0.5vh;
+  left: -0.5vh;
+  background-color: #e6e6e6;
+  border-radius: inherit;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+}
+
+/* Align them in such a way
+        that they form a hexagon */
+.MiddleLeftBlock:before {
+  transform: rotate(60deg);
+}
+
+.MiddleLeftBlock:after {
+  transform: rotate(-60deg);
+}
+
+.MiddleLeftBlock p {
+  width: 100%;
+  padding: 10%;
+  position: absolute !important;
+  background-color: transparent;
+  font-weight: 700;
+  font-size: 2.5em;
+  top: -50px;
+  left: 20px;
+  color: black;
+  text-transform: uppercase;
+  font-family: "nyt-franklin";
+}
+
+/************************* TOP LEFT **************************************!*/
+.TopLeftBlock {
+  top: 18vh;
+  left: 44.2%;
+  position: absolute;
+  margin: 0 auto;
+  background-color: #e6e6e6;
+  border-radius: 10px;
+  width: 100px;
+  height: 63px;
+  box-sizing: border-box;
+  transition: all 1s;
+  border: 0.4vh solid transparent;
+  z-index: -1;
+}
+
+/* Creating pseudo-class */
+.TopLeftBlock:before,
+.TopLeftBlock:after {
+  content: "";
+  border: inherit;
+  position: absolute;
+  top: -0.5vh;
+  left: -0.5vh;
+  background-color: #e6e6e6;
+  border-radius: inherit;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+}
+
+/* Align them in such a way
+        that they form a hexagon */
+.TopLeftBlock:before {
+  transform: rotate(60deg);
+}
+
+.TopLeftBlock:after {
+  transform: rotate(-60deg);
+}
+
+.TopLeftBlock p {
+  width: 100%;
+  padding: 10%;
+  position: absolute !important;
+  background-color: transparent;
+  font-weight: 700;
+  font-size: 2.5em;
+  top: -50px;
+  left: 20px;
+  color: black;
+  text-transform: uppercase;
+  font-family: "nyt-franklin";
+}
+
+/************************* MIDDLE **************************************!*/
+.Middle {
+  top: 30vh;
+  left: 48%;
+  position: absolute;
+  margin: 0 auto;
+  background-color: #f7da21;
+  border-radius: 10px;
+  width: 100px;
+  height: 63px;
+  box-sizing: border-box;
+  transition: all 1s;
+  border: 0.4vh solid transparent;
+  z-index: -1;
+}
+
+/* Creating pseudo-class */
+.Middle:before,
+.Middle:after {
+  content: "";
+  border: inherit;
+  position: absolute;
+  top: -0.5vh;
+  left: -0.5vh;
+  background-color: #f7da21;
+  border-radius: inherit;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+}
+
+/* Align them in such a way
+        that they form a hexagon */
+.Middle:before {
+  transform: rotate(60deg);
+}
+
+.Middle:after {
+  transform: rotate(-60deg);
+}
+
+.Middle p {
+  width: 100%;
+  padding: 10%;
+  position: absolute !important;
+  background-color: transparent;
+  font-weight: 700;
+  font-size: 2.5em;
+  top: -50px;
+  left: 20px;
+  color: black;
+  text-transform: uppercase;
+  font-family: "nyt-franklin";
+}
+
+/************************* TOP RIGHT **************************************!*/
+.TopRightBlock {
+  top: 18vh;
+  left: 51.6%;
+  position: absolute;
+  margin: 0 auto;
+  background-color: #e6e6e6;
+  border-radius: 10px;
+  width: 100px;
+  height: 63px;
+  box-sizing: border-box;
+  transition: all 1s;
+  border: 0.4vh solid transparent;
+  z-index: -1;
+}
+
+/* Creating pseudo-class */
+.TopRightBlock:before,
+.TopRightBlock:after {
+  content: "";
+  border: inherit;
+  position: absolute;
+  top: -0.5vh;
+  left: -0.5vh;
+  background-color: #e6e6e6;
+  border-radius: inherit;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+}
+
+/* Align them in such a way
+        that they form a hexagon */
+.TopRightBlock:before {
+  transform: rotate(60deg);
+}
+
+.TopRightBlock:after {
+  transform: rotate(-60deg);
+}
+
+.TopRightBlock p {
+  width: 100%;
+  padding: 10%;
+  position: absolute !important;
+  background-color: transparent;
+  font-weight: 700;
+  font-size: 2.5em;
+  top: -50px;
+  left: 20px;
+  color: black;
+  text-transform: uppercase;
+  font-family: "nyt-franklin";
+}
+
+/************************* BOTTOM RIGHT **************************************!*/
+.BottomRightBlock {
+  top: 42.3vh;
+  left: 51.5%;
+  position: absolute;
+  margin: 0 auto;
+  background-color: #e6e6e6;
+  border-radius: 10px;
+  width: 100px;
+  height: 63px;
+  box-sizing: border-box;
+  transition: all 1s;
+  border: 0.4vh solid transparent;
+  z-index: -1;
+}
+
+/* Creating pseudo-class */
+.BottomRightBlock:before,
+.BottomRightBlock:after {
+  content: "";
+  border: inherit;
+  position: absolute;
+  top: -0.5vh;
+  left: -0.5vh;
+  background-color: #e6e6e6;
+  border-radius: inherit;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+}
+
+/* Align them in such a way
+        that they form a hexagon */
+.BottomRightBlock:before {
+  transform: rotate(60deg);
+}
+
+.BottomRightBlock:after {
+  transform: rotate(-60deg);
+}
+
+.BottomRightBlock p {
+  width: 100%;
+  padding: 10%;
+  position: absolute !important;
+  background-color: transparent;
+  font-weight: 700;
+  font-size: 2.5em;
+  top: -50px;
+  left: 20px;
+  color: black;
+  text-transform: uppercase;
+  font-family: "nyt-franklin";
+}
+
+/************************* BOTTOM LEFT **************************************!*/
+.BottomLeftBlock {
+  top: 42vh;
+  left: 44.5%;
+  position: absolute;
+  margin: 0 auto;
+  background-color: #e6e6e6;
+  border-radius: 10px;
+  width: 100px;
+  height: 63px;
+  box-sizing: border-box;
+  transition: all 1s;
+  border: 0.4vh solid transparent;
+  z-index: -1;
+}
+
+/* Creating pseudo-class */
+.BottomLeftBlock:before,
+.BottomLeftBlock:after {
+  content: "";
+  border: inherit;
+  position: absolute;
+  top: -0.5vh;
+  left: -0.5vh;
+  background-color: #e6e6e6;
+  border-radius: inherit;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+}
+
+/* Align them in such a way
+        that they form a hexagon */
+.BottomLeftBlock:before {
+  transform: rotate(60deg);
+}
+
+.BottomLeftBlock:after {
+  transform: rotate(-60deg);
+}
+
+.BottomLeftBlock p {
+  width: 100%;
+  padding: 10%;
+  position: absolute !important;
+  background-color: transparent;
+  font-weight: 700;
+  font-size: 2.5em;
+  top: -50px;
+  left: 20px;
+  color: black;
+  text-transform: uppercase;
+  font-family: "nyt-franklin";
+}
+
+/************************* MIDDLE RIGHT **************************************!*/
+.MiddleRightBlock {
+  top: 30.2vh;
+  left: 54.8%;
+  position: absolute;
+  margin: 0 auto;
+  background-color: #e6e6e6;
+  border-radius: 10px;
+  width: 100px;
+  height: 63px;
+  box-sizing: border-box;
+  transition: all 1s;
+  border: 0.4vh solid transparent;
+  z-index: -1;
+}
+
+/* Creating pseudo-class */
+.MiddleRightBlock:before,
+.MiddleRightBlock:after {
+  content: "";
+  border: inherit;
+  position: absolute;
+  top: -0.5vh;
+  left: -0.5vh;
+  background-color: #e6e6e6;
+  border-radius: inherit;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+}
+
+/* Align them in such a way
+        that they form a hexagon */
+.MiddleRightBlock:before {
+  transform: rotate(60deg);
+}
+
+.MiddleRightBlock:after {
+  transform: rotate(-60deg);
+}
+
+.MiddleRightBlock p {
+  width: 100%;
+  padding: 10%;
+  position: absolute !important;
+  background-color: transparent;
+  font-weight: 700;
+  font-size: 2.5em;
+  top: -50px;
+  left: 20px;
+  color: black;
+  text-transform: uppercase;
+  font-family: "nyt-franklin";
+}
+
+.Deletebtn {
+  position: absolute;
+  top: 60vh;
+  left: 40.8%;
+  background-color: #ffffff;
+  border: 2px solid rgb(209, 208, 208);
+  color: rgb(0, 0, 0);
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  border-radius: 100px;
+  width: 6%;
+}
+
+.Enterebtn {
+  position: absolute;
+  top: 60vh;
+  left: 55.9%;
+  background-color: #ffffff;
+  border: 2px solid rgb(209, 208, 208);
+  color: rgb(0, 0, 0);
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  border-radius: 100px;
+  width: 6%;
+}
+
+.Savebtn {
+  position: absolute;
+  top: 70vh;
+  left: 43.8%;
+  background-color: #ffffff;
+  border: 2px solid rgb(209, 208, 208);
+  color: rgb(0, 0, 0);
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  border-radius: 100px;
+  width: 6%;
+}
+
+.Loadbtn {
+  position: absolute;
+  top: 70vh;
+  left: 52.8%;
+  background-color: #ffffff;
+  border: 2px solid rgb(209, 208, 208);
+  color: rgb(0, 0, 0);
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  border-radius: 100px;
+  width: 6%;
+}
