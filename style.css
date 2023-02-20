@@ -1,3 +1,5 @@
+/************************* PENGRAM STYLES **************************************!*/
+/* Overall Style of Middle Left Pengram */
 .MiddleLeftBlock {
   top: 30.2vh;
   left: 41%;
@@ -13,7 +15,7 @@
   z-index: -1;
 }
 
-/* Creating pseudo-class */
+/* Creates psudeo-class for before press and after press */
 .MiddleLeftBlock:before,
 .MiddleLeftBlock:after {
   content: "";
@@ -28,16 +30,17 @@
   z-index: -1;
 }
 
-/* Align them in such a way
-        that they form a hexagon */
+/* Aligns the base-block to form a hexagon */
 .MiddleLeftBlock:before {
   transform: rotate(60deg);
 }
 
+/* Aligns the base-block to form a hexagon */
 .MiddleLeftBlock:after {
   transform: rotate(-60deg);
 }
 
+/* Style the single Letter in panagram */
 .MiddleLeftBlock p {
   width: 100%;
   padding: 10%;
@@ -53,6 +56,7 @@
 }
 
 /************************* TOP LEFT **************************************!*/
+/* Overall Style of Middle Left Pengram */
 .TopLeftBlock {
   top: 18vh;
   left: 44.2%;
@@ -68,7 +72,7 @@
   z-index: -1;
 }
 
-/* Creating pseudo-class */
+/* Creates psudeo-class for before press and after press */
 .TopLeftBlock:before,
 .TopLeftBlock:after {
   content: "";
@@ -83,16 +87,17 @@
   z-index: -1;
 }
 
-/* Align them in such a way
-        that they form a hexagon */
+/* Aligns the base-block to form a hexagon */
 .TopLeftBlock:before {
   transform: rotate(60deg);
 }
 
+/* Aligns the base-block to form a hexagon */
 .TopLeftBlock:after {
   transform: rotate(-60deg);
 }
 
+/* Style the single Letter in panagram */
 .TopLeftBlock p {
   width: 100%;
   padding: 10%;
@@ -108,6 +113,7 @@
 }
 
 /************************* MIDDLE **************************************!*/
+/* Overall Style of Middle Pengram */
 .Middle {
   top: 30vh;
   left: 48%;
@@ -123,7 +129,7 @@
   z-index: -1;
 }
 
-/* Creating pseudo-class */
+/* Creates psudeo-class for before press and after press */
 .Middle:before,
 .Middle:after {
   content: "";
@@ -138,16 +144,17 @@
   z-index: -1;
 }
 
-/* Align them in such a way
-        that they form a hexagon */
+/* Aligns the base-block to form a hexagon */
 .Middle:before {
   transform: rotate(60deg);
 }
 
+/* Aligns the base-block to form a hexagon */
 .Middle:after {
   transform: rotate(-60deg);
 }
 
+/* Style the single Letter in panagram */
 .Middle p {
   width: 100%;
   padding: 10%;
@@ -163,6 +170,7 @@
 }
 
 /************************* TOP RIGHT **************************************!*/
+/* Overall Style of Top Right Pengram */
 .TopRightBlock {
   top: 18vh;
   left: 51.6%;
@@ -178,7 +186,7 @@
   z-index: -1;
 }
 
-/* Creating pseudo-class */
+/* Creates psudeo-class for before press and after press */
 .TopRightBlock:before,
 .TopRightBlock:after {
   content: "";
@@ -193,16 +201,17 @@
   z-index: -1;
 }
 
-/* Align them in such a way
-        that they form a hexagon */
+/* Aligns the base-block to form a hexagon */
 .TopRightBlock:before {
   transform: rotate(60deg);
 }
 
+/* Aligns the base-block to form a hexagon */
 .TopRightBlock:after {
   transform: rotate(-60deg);
 }
 
+/* Style the single Letter in panagram */
 .TopRightBlock p {
   width: 100%;
   padding: 10%;
@@ -218,6 +227,7 @@
 }
 
 /************************* BOTTOM RIGHT **************************************!*/
+/* Overall Style of Bottom Right Pengram */
 .BottomRightBlock {
   top: 42.3vh;
   left: 51.5%;
@@ -233,7 +243,7 @@
   z-index: -1;
 }
 
-/* Creating pseudo-class */
+/* Creates psudeo-class for before press and after press */
 .BottomRightBlock:before,
 .BottomRightBlock:after {
   content: "";
@@ -248,16 +258,17 @@
   z-index: -1;
 }
 
-/* Align them in such a way
-        that they form a hexagon */
+/* Aligns the base-block to form a hexagon */
 .BottomRightBlock:before {
   transform: rotate(60deg);
 }
 
+/* Aligns the base-block to form a hexagon */
 .BottomRightBlock:after {
   transform: rotate(-60deg);
 }
 
+/* Style the single Letter in panagram */
 .BottomRightBlock p {
   width: 100%;
   padding: 10%;
@@ -273,6 +284,7 @@
 }
 
 /************************* BOTTOM LEFT **************************************!*/
+/* Overall Style of Bottom Left Pengram */
 .BottomLeftBlock {
   top: 42vh;
   left: 44.5%;
@@ -288,7 +300,7 @@
   z-index: -1;
 }
 
-/* Creating pseudo-class */
+/* Creates psudeo-class for before press and after press */
 .BottomLeftBlock:before,
 .BottomLeftBlock:after {
   content: "";
@@ -303,16 +315,17 @@
   z-index: -1;
 }
 
-/* Align them in such a way
-        that they form a hexagon */
+/* Aligns the base-block to form a hexagon */
 .BottomLeftBlock:before {
   transform: rotate(60deg);
 }
 
+/* Aligns the base-block to form a hexagon */
 .BottomLeftBlock:after {
   transform: rotate(-60deg);
 }
 
+/* Style the single Letter in panagram */
 .BottomLeftBlock p {
   width: 100%;
   padding: 10%;
@@ -328,6 +341,7 @@
 }
 
 /************************* MIDDLE RIGHT **************************************!*/
+/* Overall Style of Middle Right Pengram */
 .MiddleRightBlock {
   top: 30.2vh;
   left: 54.8%;
@@ -343,7 +357,7 @@
   z-index: -1;
 }
 
-/* Creating pseudo-class */
+/* Creates psudeo-class for before press and after press */
 .MiddleRightBlock:before,
 .MiddleRightBlock:after {
   content: "";
@@ -358,16 +372,17 @@
   z-index: -1;
 }
 
-/* Align them in such a way
-        that they form a hexagon */
+/* Aligns the base-block to form a hexagon */
 .MiddleRightBlock:before {
   transform: rotate(60deg);
 }
 
+/* Aligns the base-block to form a hexagon */
 .MiddleRightBlock:after {
   transform: rotate(-60deg);
 }
 
+/* Style the single Letter in panagram */
 .MiddleRightBlock p {
   width: 100%;
   padding: 10%;
@@ -382,6 +397,10 @@
   font-family: "nyt-franklin";
 }
 
+/************************* END OF PENGRAM STYLE ************************************!*/
+
+/*************************    BUTTON STYLES      **********************************!*/
+/*Style for Delete Button*/
 .Deletebtn {
   position: absolute;
   top: 60vh;
@@ -399,6 +418,7 @@
   width: 6%;
 }
 
+/*Style for Enter Button*/
 .Enterebtn {
   position: absolute;
   top: 60vh;
@@ -416,6 +436,7 @@
   width: 6%;
 }
 
+/*Style for Save Button*/
 .Savebtn {
   position: absolute;
   top: 70vh;
@@ -433,6 +454,7 @@
   width: 6%;
 }
 
+/*Style for Load Button*/
 .Loadbtn {
   position: absolute;
   top: 70vh;
@@ -449,3 +471,5 @@
   border-radius: 100px;
   width: 6%;
 }
+
+/*************************   END OF BUTTON STYLES  **********************************!*/

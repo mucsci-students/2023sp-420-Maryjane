@@ -1,62 +1,76 @@
 <!--
-The HTML Page for displaying our application. 
-Usage of Online Resource:
-I have to link a script to this html got it! TODO!
+HTML Page for Spelling Bee Display. 
+Usage of Online Resources:
+Video Src: 
+ - Rick Roll Video (Rick Astley - Never Gonna Give You Up (Official Music Video) - https://www.youtube.com/watch?v=dQw4w9WgXcQ  
+Fonts Src:
+ - nyt-franklin (From the New York Times) - https://fontsinuse.com/typefaces/12496/nyt-franklin 
+Images Src:
+ - Suffle Button img - https://emojipedia.org/search/?q=shuffle+button
 -->
+
 <!DOCTYPE html>
 <html lang="en">
-<!--Meta data included from website Spelling Bee-->
+<!--Meta data for Spelling Bee game-->
 
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8" /> <!--Displays UTF-8 character set on all devices-->
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Allows all Microsoft edge version html just in case they ask for legacy content-->
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!--Allows html elemtents to shrink as broswer shrinks-->
   <link rel='stylesheet' type='text/css' href='style.css'>
-  <title>Spelling Bee</title>
+  <!-- Reference sheet to CSS stlyes for buttons and penegram-->
+  <title>Spelling Bee</title> <!-- The tab name of page-->
 </head>
 <!--End of Meta Data-->
 
 <body>
+  <!-- Penagram Hexagons -->
   <div class="MiddleLeftBlock">
     <a class="TesthexagonLink" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
-      <p id = "MiddleLeftBlock"></p>
+      <p id="MiddleLeftBlock"></p>
     </a>
   </div>
   <div class="TopLeftBlock">
     <a class="TesthexagonLink" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
-      <p id = "TopLeftBlock"></p>
+      <p id="TopLeftBlock"></p>
     </a>
   </div>
   <div class="Middle">
     <a class="TesthexagonLink" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
-      <p id = "Middle"></p>
+      <p id="Middle"></p>
     </a>
   </div>
   <div class="TopRightBlock">
     <a class="TesthexagonLink" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
-      <p id = "TopRightBlock"></p>
+      <p id="TopRightBlock"></p>
     </a>
   </div>
   <div class="BottomRightBlock">
     <a class="TesthexagonLink" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
-      <p id = "BottomRightBlock"></p>
+      <p id="BottomRightBlock"></p>
     </a>
   </div>
   <div class="BottomLeftBlock">
     <a class="TesthexagonLink" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
-      <p id = "BottomLeftBlock"></p>
+      <p id="BottomLeftBlock"></p>
     </a>
   </div>
   <div class="MiddleRightBlock">
     <a class="TesthexagonLink" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
-      <p id = "MiddleRightBlock"></p>
+      <p id="MiddleRightBlock"></p>
     </a>
   </div>
+  <!-- End of Penagram Hexagons -->
+
+  <!-- Buttons -->
   <button class="Deletebtn">Delete</button>
-  <div style = "position:relative; left:740px; top:430px;">
+  <div style="position:relative; left:740px; top:430px;">
     <button type="Shufflebtn">
-    <img src="https://em-content.zobj.net/thumbs/120/openmoji/338/shuffle-tracks-button_1f500.png" width="60" height="60" border-radius = "50%;" />
-  </button>
+      <img src="https://em-content.zobj.net/thumbs/120/openmoji/338/shuffle-tracks-button_1f500.png" width="60"
+        height="60" border-radius="50%;" />
+    </button>
   </div>
   <button class="Enterebtn">
     Enter
@@ -64,7 +78,9 @@ I have to link a script to this html got it! TODO!
   <button class="Savebtn">Save</button>
   <button class="Loadbtn">Load</button>
   </ul>
-<script src = "src/views/GUI_View.js"> </script>
+  <!-- Enc of Buttons -->
+
+  <script src="src/views/GUI_View.js"> </script> <!-- Allowing View Acess to our HTML-->
 </body>
 
 </html>
