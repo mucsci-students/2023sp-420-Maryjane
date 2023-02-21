@@ -22,10 +22,15 @@ Images Src:
   <link rel='stylesheet' type='text/css' href='style.css'>
   <!-- Reference sheet to CSS stlyes for buttons and penegram-->
   <title>Spelling Bee</title> <!-- The tab name of page-->
+
+  <!-- TODO! -->
+  <script type = "text/javascript" src="src/views/GUI_View.js"></script> <!-- Allowing View Acess to our HTML-->
+
+
 </head>
 <!--End of Meta Data-->
 
-<body>
+<body onload = "GUI_View.newPuzzleStartUp()"> <!-- TODO! -->
   <!-- Penagram Hexagons -->
   <div class="MiddleLeftBlock">
     <a class="TesthexagonLink" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
@@ -80,7 +85,6 @@ Images Src:
   </ul>
   <!-- Enc of Buttons -->
 
-  <script src="src/views/GUI_View.js"> </script> <!-- Allowing View Acess to our HTML-->
-</body>
 
+</body>
 </html>

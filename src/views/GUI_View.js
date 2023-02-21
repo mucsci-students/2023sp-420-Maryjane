@@ -1,25 +1,32 @@
-//TODO!
 //Function to find a specifc html tasks by adding an ID for each tasks
 
 //Return the ID of element as a java script object, store all in the array and suffle and change what they say inside them This.TopLeftBlock
+class GUI_View {
+  constructor() {
+    this.MiddleLeftBlock = document.getElementById("MiddleLeftBlock");
+    this.TopLeftBlock = document.getElementById("TopLeftBlock");
+    this.Middle = document.getElementById("Middle");
+    this.TopRightBlock = document.getElementById("TopRightBlock");
+    this.BottomRightBlock = document.getElementById("BottomRightBlock");
+    this.BottomLeftBlock = document.getElementById("BottomLeftBlock");
+    this.MiddleRightBlock = document.getElementById("MiddleRightBlock");
+  }
+  //Goes View -> Controller -> Model -> Controller -> View
+  static newPuzzleStartUp() {
+    MiddleLeftBlock.innerHTML = "p"; //GUI_Controller.getArrayCharacter
 
-let MiddleLeftBlock = document.getElementById("MiddleLeftBlock");
-MiddleLeftBlock.innerHTML = "O";
+    TopLeftBlock.innerHTML = "O";
 
-let TopLeftBlock = document.getElementById("TopLeftBlock");
-TopLeftBlock.innerHTML = "O";
+    Middle.innerHTML = "O";
 
-let Middle = document.getElementById("Middle");
-Middle.innerHTML = "O";
+    TopRightBlock.innerHTML = "O";
 
-let TopRightBlock = document.getElementById("TopRightBlock");
-TopRightBlock.innerHTML = "O";
+    BottomRightBlock.innerHTML = "O";
 
-let BottomRightBlock = document.getElementById("BottomRightBlock");
-BottomRightBlock.innerHTML = "O";
+    BottomLeftBlock.innerHTML = "O";
 
-let BottomLeftBlock = document.getElementById("BottomLeftBlock");
-BottomLeftBlock.innerHTML = "O";
+    MiddleRightBlock.innerHTML = "O";
+  }
+}
 
-let MiddleRightBlock = document.getElementById("MiddleRightBlock");
-MiddleRightBlock.innerHTML = "O";
+module.exports = GUI_View;
