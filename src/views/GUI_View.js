@@ -3,23 +3,32 @@
 
 //Return the ID of element as a java script object, store all in the array and suffle and change what they say inside them This.TopLeftBlock
 
-let MiddleLeftBlock = document.getElementById("MiddleLeftBlock");
-MiddleLeftBlock.innerHTML = "O";
+class GUI_View {
+    constructor() {
+        this.MiddleLeftBlock = document.getElementById("MiddleLeftBlock");
 
-let TopLeftBlock = document.getElementById("TopLeftBlock");
-TopLeftBlock.innerHTML = "O";
+        this.TopLeftBlock = document.getElementById("TopLeftBlock")
 
-let Middle = document.getElementById("Middle");
-Middle.innerHTML = "O";
+        this.Middle = document.getElementById("Middle");
 
-let TopRightBlock = document.getElementById("TopRightBlock");
-TopRightBlock.innerHTML = "O";
+        this.TopRightBlock = document.getElementById("TopRightBlock");
 
-let BottomRightBlock = document.getElementById("BottomRightBlock");
-BottomRightBlock.innerHTML = "O";
+        this.BottomRightBlock = document.getElementById("BottomRightBlock");
 
-let BottomLeftBlock = document.getElementById("BottomLeftBlock");
-BottomLeftBlock.innerHTML = "O";
+        this.BottomLeftBlock = document.getElementById("BottomLeftBlock");
 
-let MiddleRightBlock = document.getElementById("MiddleRightBlock");
-MiddleRightBlock.innerHTML = "O";
+        this.MiddleRightBlock = document.getElementById("MiddleRightBlock");
+    }
+
+    stuff(word) {
+        this.MiddleLeftBlock.innerHTML = word.charAt(0);
+        this.TopLeftBlock.innerHTML = word.charAt(1);
+        this.Middle.innerHTML = word.charAt(2);
+        this.TopRightBlock.innerHTML = word.charAt(3);
+        this.BottomRightBlock.innerHTML = word.charAt(4);
+        this.BottomLeftBlock.innerHTML = word.charAt(5);
+        this.MiddleRightBlock.innerHTML = word.charAt(6);
+    }
+}
+
+module.exports = GUI_View;
