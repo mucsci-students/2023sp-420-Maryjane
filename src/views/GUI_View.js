@@ -27,6 +27,18 @@ class GUI_View {
 
     MiddleRightBlock.innerHTML = "O";
   }
+
+
+  newPuzzleFromBase(word) {
+    //add error checking
+    this.MiddleLeftBlock.innerHTML = word.charAt(0);
+    this.TopLeftBlock.innerHTML = word.charAt(1);
+    this.Middle.innerHTML = word.charAt(2);
+    this.TopRightBlock.innerHTML = word.charAt(3);
+    this.BottomRightBlock.innerHTML = word.charAt(4);
+    this.BottomLeftBlock.innerHTML = word.charAt(5);
+    this.MiddleRightBlock.innerHTML = word.charAt(6);
+  }
 }
 
 module.exports = GUI_View;
