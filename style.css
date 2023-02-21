@@ -418,6 +418,22 @@
   width: 6%;
 }
 
+.Shufflebtn {
+  position: absolute;
+  top: 58vh;
+  left: 48.75%;
+  background-color: #ffffff;
+  border: 2px solid rgb(209, 208, 208);
+  color: rgb(0, 0, 0);
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  border-radius: 100px;
+}
+
 /*Style for Enter Button*/
 .Enterebtn {
   position: absolute;
