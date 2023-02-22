@@ -6,8 +6,8 @@
   "scripts": {
     "start": "node src/app.js",
     "test": "jest",
-    "gui": "browserify src/gui.js > bundle.js && http-server -p 8081",
-    "build": "browserify src/gui.js > bundle.js"
+    "gui": "browserify --standalone global src/initGUI.js -o bundle.js && http-server -p 8081",
+    "build": "browserify --standalone global src/initGUI.js -o bundle.js"
   },
   "repository": {
     "type": "git",
