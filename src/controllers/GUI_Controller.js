@@ -1,11 +1,8 @@
 // Commands class
-var Commands = require("../classes/Commands.js");
+//var Commands = require("../classes/Commands.js");
 
 // Used for documentation
 const Model = require("../Model/Model.js");
-
-// Database object created from the file specified below
-var Database = new (require("../classes/Database.js"))();
 
 class GUI_Controller {
   /**
@@ -15,13 +12,6 @@ class GUI_Controller {
   constructor(Model, View) {
     this.Model = Model;
     this.View = View;
-  }
-
-  /**
-   * Connects to the database
-   */
-  setupDatabase() {
-    Database.connect();
   }
 
   setupGUI() {
