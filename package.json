@@ -22,7 +22,6 @@
   "dependencies": {
     "@moleculer/vorpal": "^1.11.5",
     "browserify": "^17.0.0",
-    "check-word": "^1.1.0",
     "http-server": "^14.1.1",
     "jest": "^29.4.2",
     "mongodb": "^4.13.0",
