@@ -22,17 +22,19 @@ Images Src:
   <link rel='stylesheet' type='text/css' href='style.css'>
   <!-- Reference sheet to CSS stlyes for buttons and penegram-->
   <title>Spelling Bee</title> <!-- The tab name of page-->
-
-
 </head>
 <!--End of Meta Data-->
 
-<body> <!-- TODO! -->
+<body>
+
+  <div class="input">
+    <input id="userInput" type="text" placeholder="ENTER A GUESS:">
+    <textarea disabled="yes" readonly="yes" id="text" rows="4" cols="50" placeholder="GUESSED WORDS:"></textarea>
+  </div>
+
   <!-- Penagram Hexagons -->
   <div class="MiddleLeftBlock">
-    <a class="TesthexagonLink" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
-      <p id="MiddleLeftBlock"></p>
-    </a>
+    <p onclick="global.click(this.innerHTML)"id="MiddleLeftBlock"></p>
   </div>
   <div class="TopLeftBlock">
     <a class="TesthexagonLink" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
@@ -60,9 +62,9 @@ Images Src:
     </a>
   </div>
   <div class="MiddleRightBlock">
-    <a class="TesthexagonLink" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
-      <p id="MiddleRightBlock"></p>
+    <a onclick="global.click(this.childNodes[0].innerHTML)" class="TesthexagonLink" href="#"><p id="MiddleRightBlock"></p>
     </a>
+
   </div>
   <!-- End of Penagram Hexagons -->
 
@@ -74,10 +76,14 @@ Images Src:
   </button>
   <button class="Savebtn">Save</button>
   <button class="Loadbtn">Load</button>
-  </ul>
 
   <script src="bundle.js"></script> <!-- Allowing View Acess to our HTML-->
 </body>
 
-</body>
 </html>
+
+<!-- 
+  COMPILE ANYTIME YOU MAKE CHANGES TO JS FILES
+
+VIA: npm run build
+-->

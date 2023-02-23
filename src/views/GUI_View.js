@@ -10,8 +10,7 @@ class GUI_View {
     this.BottomRightBlock = document.getElementById("BottomRightBlock");
     this.BottomLeftBlock = document.getElementById("BottomLeftBlock");
     this.MiddleRightBlock = document.getElementById("MiddleRightBlock");
-
-    this.Model = model;
+    this.userInput = document.getElementById("userInput");
   }
 
   showPuzzle() {
@@ -31,6 +30,11 @@ class GUI_View {
     this.BottomRightBlock.innerHTML = word[4];
     this.BottomLeftBlock.innerHTML = word[5];
     this.MiddleRightBlock.innerHTML = word[6];
+  }
+
+  buttonClickMiddleRight(i) 
+  {
+    userInput.value += i;
   }
 }
 
