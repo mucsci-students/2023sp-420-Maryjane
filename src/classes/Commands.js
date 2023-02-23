@@ -1,6 +1,6 @@
 // Import the ckeck word class for validating user guesses
 const wordsClass = require("check-word");
-const Database = require("./Database");
+//const Database = require("./Database");
 const Model = require("../model/Model");
 
 const prompt = require('prompt-sync')();
@@ -136,11 +136,8 @@ class Commands {
       return;
     }
 
-    let pangram = Model.pangram;
-    let pangramLetters = pangram.split("");
-
     // Converts pangram into array of letters
-    Model.currentPuzzle = pangramLetters
+    Model.currentPuzzle = Model.currentPuzzle
       .sort((a, b) => 0.5 - Math.random())
       .sort((a, b) => 0.5 - Math.random());
 
@@ -154,13 +151,13 @@ class Commands {
    * @param {input} input - users inputted word
    * @returns null
    */
-  static identifyBaseWord(input, Model) {
+  static identifyBaseWord(input, Model, View) {
     input = input + "";
     input = input.toLowerCase();
 
     if (Model.isPuzzleOpen) {
       console.log("game is in progess");
-      this.promptSave(Model);
+      //this.promptSave(Model);
     }
     // Checks user's word to have correct length and no spaces
     if (String.prototype.concat.call(...new Set(input)).length != 7) {
@@ -170,10 +167,10 @@ class Commands {
     // remove duplicate letters from input
 
     // Checks user's word to be an actual word in the dictionary
-    if (!dictionary.check(input)) {
-      console.log(input + " was not found in the dictionary");
-      return;
-    }
+    // if (!dictionary.check(input)) {
+    //   console.log(input + " was not found in the dictionary");
+    //   return;
+    // }
 
     // Converts pangram into array of letters
     let pangram = input;
