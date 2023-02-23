@@ -31,5 +31,6 @@ function shuffle() {
 module.exports = {
   controller: controller,
   view: view,
-  model: model
+  model: model,
+  shuffle: shuffle
 };
