@@ -1,521 +1,336 @@
-body{
-    min-height: 100vh;
-    display: flex;
+/** GLOBAL STYLES **/
+/***CHANGE THE VALUES OF THE CSS VARIABLE BELOW TO CHANGE MUTIPLE FIELDS ***/
+:root {
+  --topANDbottom-CENTER-row-gap: 15%;
+  --middle-CENTER-row-gap: 16%;
+  --gap-BETWEEN-rows: 45px;
+  --btnColor:white;
+  --btnColorsOnHover: #ffe101;
+  --navBARcolor:#232323;
+  --navBarElementsColor: #cdcdcd;
+  --navBarElementsOnHoverColor: #f8e71c;
+}
+
+body {
+  /***THIS IS TO MAKE THE FOOTER STICK TO THE BOTTOM OF THE PAGE. MAKE THIS BIGGER TO INCREASE PAGE LENGTH***/
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  font-family: Sans-Serif;
+  background-color: rgb(214, 214, 214); 
+}
+
+/************************* HEX STYLES **************************************!*/
+/*** THIS DOES NOT CURRENLTY WORK PROPERLY AND NEEDS TO BE CHANGED**/
+.topLeftBlock {
+  margin: 0 auto;
+  background-color: #e6e6e6;
+  border-radius: 10px;
+  width: 100px;
+  height: 63px;
+  border: 0.4vh solid transparent;
+  z-index: -1;
+}
+
+/************************* END OF HEX STYLE ************************************!*/
+
+
+
+/*************************    BUTTON STYLES      **********************************!*/
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+  gap: 5%;
+  margin-top: 7%;
+  margin-bottom: 4%;
+}
+
+.Shufflebtn {
+  background-color: var(--btnColor);
+  border: 2px solid rgb(209, 208, 208);
+  color: rgb(0, 0, 0);
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  border-radius: 100px;
+  padding: 10px;
+}
+
+.Shufflebtn:hover {
+  background-color: var(--btnColorsOnHover);
+  cursor: pointer;
+}
+
+.btnStyling {
+  background-color: var(--btnColor);
+  border: 2px solid rgb(209, 208, 208);
+  color: rgb(0, 0, 0);
+  padding: 4px;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 100px;
+  width: 7%;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.btnStyling:hover
+{
+  background-color: var(--btnColorsOnHover);
+  cursor: pointer;
+}
+
+/*************************   END OF BUTTON STYLES  **********************************!*/
+
+
+
+/************************* GENERAL BODY STYLES **************************************!*/
+
+.input {
+  display: grid;
+  justify-content: center;
+}
+
+h1 {
+  text-align: center;
+}
+
+h3 {
+  text-align: center;
+}
+
+#test {
+  text-align: center;
+  margin-top: 20px;
+  background-color: red;
+  margin-bottom: 20px;
+}
+
+footer {
+  margin-top: auto;
+  text-align: center;
+  background-color: red;
+}
+
+/************************* END OF GENERAL BODY STYLES ************************************!*/
+
+
+
+/************************* HEX GRID CONTAINER STYLES **************************************!*/
+
+.hexGridContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--gap-BETWEEN-rows);
+  margin-top: 2%;
+}
+
+.topRowContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: var(--topANDbottom-CENTER-row-gap);
+}
+
+.middleRowContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: var(--middle-CENTER-row-gap);
+}
+
+.bottomRowContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: var(--topANDbottom-CENTER-row-gap);
+}
+
+/************************* END OF HEX GRID CONTAINER STYLES ************************************!*/ 
+
+
+
+
+
+
+
+
+/************************* NAVIGATION BAR STYLES ***********************************************!*/
+.menu-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  background: var(--navBARcolor);
+  color: var(--navBarElementsColor);
+  padding: 20px;
+  z-index: 1;
+  -webkit-user-select: none;
+  user-select: none;
+  box-sizing: border-box;
+}
+
+.menu-logo {
+  line-height: 0;
+  margin: 0 20px;
+}
+
+.menu-logo img {
+  max-height: 40px;
+  max-width: 100px;
+  flex-shrink: 0;
+}
+
+.menu-container a {
+  text-decoration: none;
+  color: #232323;
+  transition: color 0.3s ease;
+}
+
+.menu-container a:hover {
+  color: var(--navBarElementsOnHoverColor);
+}
+
+.menu-container input {
+  display: block;
+  width: 35px;
+  height: 25px;
+  margin: 0;
+  position: absolute;
+  cursor: pointer;
+  opacity: 0; /* hide this */
+  z-index: 2; /* and place it over the hamburger */
+  -webkit-touch-callout: none;
+}
+
+/* Burger menu */
+.menu-container span {
+  display: block;
+  width: 33px;
+  height: 4px;
+  margin-bottom: 5px;
+  position: relative;
+  background: #cdcdcd;
+  border-radius: 3px;
+  z-index: 1;
+  transform-origin: 4px 0px;
+  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+              background 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+              opacity 0.55s ease;
+}
+
+.menu-container span:first-child {
+  transform-origin: 0% 0%;
+}
+
+.menu-container span:nth-child(3) {
+  transform-origin: 0% 100%;
+}
+
+.menu-container input:checked ~ span {
+  opacity: 1;
+  transform: rotate(45deg) translate(3px,-1px);
+  background: #232323;
+}
+
+.menu-container input:checked ~ span:nth-child(4) {
+  opacity: 0;
+  transform: rotate(0deg) scale(0.2, 0.2);
+}
+
+.menu-container input:checked ~ span:nth-child(3) {
+  transform: rotate(-45deg) translate(-5px,11px);
+}
+
+.menu ul {
+  list-style: none;
+}
+
+.menu li {
+  padding: 10px 0;
+  font-size: 22px;
+}
+
+/* mobile styles */
+@media only screen and (max-width: 767px) { 
+  .menu-container {
     flex-direction: column;
+    align-items: flex-end;
   }
   
-  /************************* PENGRAM STYLES **************************************!*/
-  /* Overall Style of Middle Left Pengram */
-  .MiddleLeftBlock {
-    top: 30.2vh;
-    left: 41%;
+  .menu-logo {
     position: absolute;
-    margin: 0 auto;
-    background-color: #e6e6e6;
-    border-radius: 10px;
-    width: 100px;
-    height: 63px;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .menu-logo img {
+    max-height: 30px;
+  }
+
+  .menu {
+    position: absolute;
     box-sizing: border-box;
-    transition: all 1s;
-    border: 0.4vh solid transparent;
-    z-index: -1;
+    width: 300px;
+    right: -300px;
+    top: 0;
+    margin: -20px;
+    padding: 75px 50px 50px;
+    background: #cdcdcd;
+    -webkit-font-smoothing: antialiased;
+    /* to stop flickering of text in safari */
+    transform-origin: 0% 0%;
+    transform: translateX(0%);
+    transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
   }
-  
-  /* Creates psudeo-class for before press and after press */
-  .MiddleLeftBlock:before,
-  .MiddleLeftBlock:after {
-    content: "";
-    border: inherit;
-    position: absolute;
-    top: -0.5vh;
-    left: -0.5vh;
-    background-color: #e6e6e6;
-    border-radius: inherit;
-    height: 100%;
+
+  .menu-container input:checked ~ .menu {
+    transform: translateX(-100%);
+  }
+}
+
+/* desktop styles */
+@media only screen and (min-width: 768px) { 
+  .menu-container {
     width: 100%;
-    z-index: -1;
   }
-  
-  /* Aligns the base-block to form a hexagon */
-  .MiddleLeftBlock:before {
-    transform: rotate(60deg);
+
+  .menu-container a {
+    color: #cdcdcd;
   }
-  
-  /* Aligns the base-block to form a hexagon */
-  .MiddleLeftBlock:after {
-    transform: rotate(-60deg);
+
+  .menu-container input {
+    display: none;
   }
-  
-  /* Style the single Letter in panagram */
-  .MiddleLeftBlock p {
+
+  /* Burger menu */
+  .menu-container span {
+    display: none;
+  }
+
+  .menu {
+    position: relative;
     width: 100%;
-    padding: 10%;
-    position: absolute !important;
-    background-color: transparent;
-    font-weight: 700;
-    font-size: 2.5em;
-    top: -50px;
-    left: 20px;
-    color: black;
-    text-transform: uppercase;
-    font-family: "nyt-franklin";
+    display: flex;
+    justify-content: space-between;
   }
-  
-  /************************* TOP LEFT **************************************!*/
-  /* Overall Style of Middle Left Pengram */
-  .TopLeftBlock {
-    top: 18vh;
-    left: 44.2%;
-    position: absolute;
-    margin: 0 auto;
-    background-color: #e6e6e6;
-    border-radius: 10px;
-    width: 100px;
-    height: 63px;
-    box-sizing: border-box;
-    transition: all 1s;
-    border: 0.4vh solid transparent;
-    z-index: -1;
+
+  .menu ul {
+    display: flex;
+    padding: 0;
   }
-  
-  /* Creates psudeo-class for before press and after press */
-  .TopLeftBlock:before,
-  .TopLeftBlock:after {
-    content: "";
-    border: inherit;
-    position: absolute;
-    top: -0.5vh;
-    left: -0.5vh;
-    background-color: #e6e6e6;
-    border-radius: inherit;
-    height: 100%;
-    width: 100%;
-    z-index: -1;
+
+  .menu li {
+    padding: 0 20px;
   }
-  
-  /* Aligns the base-block to form a hexagon */
-  .TopLeftBlock:before {
-    transform: rotate(60deg);
-  }
-  
-  /* Aligns the base-block to form a hexagon */
-  .TopLeftBlock:after {
-    transform: rotate(-60deg);
-  }
-  
-  /* Style the single Letter in panagram */
-  .TopLeftBlock p {
-    width: 100%;
-    padding: 10%;
-    position: absolute !important;
-    background-color: transparent;
-    font-weight: 700;
-    font-size: 2.5em;
-    top: -50px;
-    left: 20px;
-    color: black;
-    text-transform: uppercase;
-    font-family: "nyt-franklin";
-  }
-  
-  /************************* MIDDLE **************************************!*/
-  /* Overall Style of Middle Pengram */
-  .Middle {
-    top: 30vh;
-    left: 48%;
-    position: absolute;
-    margin: 0 auto;
-    background-color: #f7da21;
-    border-radius: 10px;
-    width: 100px;
-    height: 63px;
-    box-sizing: border-box;
-    transition: all 1s;
-    border: 0.4vh solid transparent;
-    z-index: -1;
-  }
-  
-  /* Creates psudeo-class for before press and after press */
-  .Middle:before,
-  .Middle:after {
-    content: "";
-    border: inherit;
-    position: absolute;
-    top: -0.5vh;
-    left: -0.5vh;
-    background-color: #f7da21;
-    border-radius: inherit;
-    height: 100%;
-    width: 100%;
-    z-index: -1;
-  }
-  
-  /* Aligns the base-block to form a hexagon */
-  .Middle:before {
-    transform: rotate(60deg);
-  }
-  
-  /* Aligns the base-block to form a hexagon */
-  .Middle:after {
-    transform: rotate(-60deg);
-  }
-  
-  /* Style the single Letter in panagram */
-  .Middle p {
-    width: 100%;
-    padding: 10%;
-    position: absolute !important;
-    background-color: transparent;
-    font-weight: 700;
-    font-size: 2.5em;
-    top: -50px;
-    left: 20px;
-    color: black;
-    text-transform: uppercase;
-    font-family: "nyt-franklin";
-  }
-  
-  /************************* TOP RIGHT **************************************!*/
-  /* Overall Style of Top Right Pengram */
-  .TopRightBlock {
-    top: 18vh;
-    left: 51.6%;
-    position: absolute;
-    margin: 0 auto;
-    background-color: #e6e6e6;
-    border-radius: 10px;
-    width: 100px;
-    height: 63px;
-    box-sizing: border-box;
-    transition: all 1s;
-    border: 0.4vh solid transparent;
-    z-index: -1;
-  }
-  
-  /* Creates psudeo-class for before press and after press */
-  .TopRightBlock:before,
-  .TopRightBlock:after {
-    content: "";
-    border: inherit;
-    position: absolute;
-    top: -0.5vh;
-    left: -0.5vh;
-    background-color: #e6e6e6;
-    border-radius: inherit;
-    height: 100%;
-    width: 100%;
-    z-index: -1;
-  }
-  
-  /* Aligns the base-block to form a hexagon */
-  .TopRightBlock:before {
-    transform: rotate(60deg);
-  }
-  
-  /* Aligns the base-block to form a hexagon */
-  .TopRightBlock:after {
-    transform: rotate(-60deg);
-  }
-  
-  /* Style the single Letter in panagram */
-  .TopRightBlock p {
-    width: 100%;
-    padding: 10%;
-    position: absolute !important;
-    background-color: transparent;
-    font-weight: 700;
-    font-size: 2.5em;
-    top: -50px;
-    left: 20px;
-    color: black;
-    text-transform: uppercase;
-    font-family: "nyt-franklin";
-  }
-  
-  /************************* BOTTOM RIGHT **************************************!*/
-  /* Overall Style of Bottom Right Pengram */
-  .BottomRightBlock {
-    top: 42.3vh;
-    left: 51.5%;
-    position: absolute;
-    margin: 0 auto;
-    background-color: #e6e6e6;
-    border-radius: 10px;
-    width: 100px;
-    height: 63px;
-    box-sizing: border-box;
-    transition: all 1s;
-    border: 0.4vh solid transparent;
-    z-index: -1;
-  }
-  
-  /* Creates psudeo-class for before press and after press */
-  .BottomRightBlock:before,
-  .BottomRightBlock:after {
-    content: "";
-    border: inherit;
-    position: absolute;
-    top: -0.5vh;
-    left: -0.5vh;
-    background-color: #e6e6e6;
-    border-radius: inherit;
-    height: 100%;
-    width: 100%;
-    z-index: -1;
-  }
-  
-  /* Aligns the base-block to form a hexagon */
-  .BottomRightBlock:before {
-    transform: rotate(60deg);
-  }
-  
-  /* Aligns the base-block to form a hexagon */
-  .BottomRightBlock:after {
-    transform: rotate(-60deg);
-  }
-  
-  /* Style the single Letter in panagram */
-  .BottomRightBlock p {
-    width: 100%;
-    padding: 10%;
-    position: absolute !important;
-    background-color: transparent;
-    font-weight: 700;
-    font-size: 2.5em;
-    top: -50px;
-    left: 20px;
-    color: black;
-    text-transform: uppercase;
-    font-family: "nyt-franklin";
-  }
-  
-  /************************* BOTTOM LEFT **************************************!*/
-  /* Overall Style of Bottom Left Pengram */
-  .BottomLeftBlock {
-    top: 42vh;
-    left: 44.5%;
-    position: absolute;
-    margin: 0 auto;
-    background-color: #e6e6e6;
-    border-radius: 10px;
-    width: 100px;
-    height: 63px;
-    box-sizing: border-box;
-    transition: all 1s;
-    border: 0.4vh solid transparent;
-    z-index: -1;
-  }
-  
-  /* Creates psudeo-class for before press and after press */
-  .BottomLeftBlock:before,
-  .BottomLeftBlock:after {
-    content: "";
-    border: inherit;
-    position: absolute;
-    top: -0.5vh;
-    left: -0.5vh;
-    background-color: #e6e6e6;
-    border-radius: inherit;
-    height: 100%;
-    width: 100%;
-    z-index: -1;
-  }
-  
-  /* Aligns the base-block to form a hexagon */
-  .BottomLeftBlock:before {
-    transform: rotate(60deg);
-  }
-  
-  /* Aligns the base-block to form a hexagon */
-  .BottomLeftBlock:after {
-    transform: rotate(-60deg);
-  }
-  
-  /* Style the single Letter in panagram */
-  .BottomLeftBlock p {
-    width: 100%;
-    padding: 10%;
-    position: absolute !important;
-    background-color: transparent;
-    font-weight: 700;
-    font-size: 2.5em;
-    top: -50px;
-    left: 20px;
-    color: black;
-    text-transform: uppercase;
-    font-family: "nyt-franklin";
-  }
-  
-  /************************* MIDDLE RIGHT **************************************!*/
-  /* Overall Style of Middle Right Pengram */
-  .MiddleRightBlock {
-    top: 30.2vh;
-    left: 54.8%;
-    position: absolute;
-    margin: 0 auto;
-    background-color: #e6e6e6;
-    border-radius: 10px;
-    width: 100px;
-    height: 63px;
-    box-sizing: border-box;
-    transition: all 1s;
-    border: 0.4vh solid transparent;
-    z-index: -1;
-  }
-  
-  /* Creates psudeo-class for before press and after press */
-  .MiddleRightBlock:before,
-  .MiddleRightBlock:after {
-    content: "";
-    border: inherit;
-    position: absolute;
-    top: -0.5vh;
-    left: -0.5vh;
-    background-color: #e6e6e6;
-    border-radius: inherit;
-    height: 100%;
-    width: 100%;
-    z-index: -1;
-  }
-  
-  /* Aligns the base-block to form a hexagon */
-  .MiddleRightBlock:before {
-    transform: rotate(60deg);
-  }
-  
-  /* Aligns the base-block to form a hexagon */
-  .MiddleRightBlock:after {
-    transform: rotate(-60deg);
-  }
-  
-  /* Style the single Letter in panagram */
-  .MiddleRightBlock p {
-    width: 100%;
-    padding: 10%;
-    position: absolute !important;
-    background-color: transparent;
-    font-weight: 700;
-    font-size: 2.5em;
-    top: -50px;
-    left: 20px;
-    color: black;
-    text-transform: uppercase;
-    font-family: "nyt-franklin";
-  }
-  
-  /************************* END OF PENGRAM STYLE ************************************!*/
-  
-  /*************************    BUTTON STYLES      **********************************!*/
-  /*Style for Delete Button*/
-  .Deletebtn {
-    position: absolute;
-    top: 60vh;
-    left: 40.8%;
-    background-color: #ffffff;
-    border: 2px solid rgb(209, 208, 208);
-    color: rgb(0, 0, 0);
-    padding: 10px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    border-radius: 100px;
-    width: 6%;
-  }
-  
-  .Shufflebtn {
-    position: absolute;
-    top: 58vh;
-    left: 48.75%;
-    background-color: #ffffff;
-    border: 2px solid rgb(209, 208, 208);
-    color: rgb(0, 0, 0);
-    padding: 10px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    border-radius: 100px;
-  }
-  
-  /*Style for Enter Button*/
-  .Enterebtn {
-    position: absolute;
-    top: 60vh;
-    left: 55.9%;
-    background-color: #ffffff;
-    border: 2px solid rgb(209, 208, 208);
-    color: rgb(0, 0, 0);
-    padding: 10px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    border-radius: 100px;
-    width: 6%;
-  }
-  
-  /*Style for Save Button*/
-  .Savebtn {
-    position: absolute;
-    top: 70vh;
-    left: 43.8%;
-    background-color: #ffffff;
-    border: 2px solid rgb(209, 208, 208);
-    color: rgb(0, 0, 0);
-    padding: 10px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    border-radius: 100px;
-    width: 6%;
-  }
-  
-  /*Style for Load Button*/
-  .Loadbtn {
-    position: absolute;
-    top: 70vh;
-    left: 52.8%;
-    background-color: #ffffff;
-    border: 2px solid rgb(209, 208, 208);
-    color: rgb(0, 0, 0);
-    padding: 10px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    border-radius: 100px;
-    width: 6%;
-  }
-  
-  /*Style for the input box*/
-  .input {
-    display: grid;
-    justify-content: center;
-  }
-  
-  /*style for header*/
-  h1 {
-    text-align: center;
-  }
-  
-  #test
-  {
-    text-align: center;
-    margin-top: 20px;
-    background-color: red;
-    margin-bottom: 20px;
-  }
-  footer{
-    margin-top: auto;
-    text-align: center;
-    background-color: red;
-  }
-  /*************************   END OF BUTTON STYLES  **********************************!*/
-  
+  /**************************************END OF NAVBAR STYLES*************************************/
+
+
+
+}

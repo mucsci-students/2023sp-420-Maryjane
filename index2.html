@@ -1,52 +1,201 @@
-<!--
-HTML Page for Spelling Bee Display. 
-Usage of Online Resources:
-Video Src: 
- - Rick Roll Video (Rick Astley - Never Gonna Give You Up (Official Music Video) - https://www.youtube.com/watch?v=dQw4w9WgXcQ  
-Fonts Src:
- - nyt-franklin (From the New York Times) - https://fontsinuse.com/typefaces/12496/nyt-franklin 
-Images Src:
- - Suffle Button img - https://emojipedia.org/search/?q=shuffle+button
--->
-
 <!DOCTYPE html>
 <html lang="en">
-<!--Meta data for Spelling Bee game-->
 
 <head>
-  <meta charset="UTF-8" /> <!--Displays UTF-8 character set on all devices-->
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <!-- Allows all Microsoft edge version html just in case they ask for legacy content-->
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <!--Allows html elemtents to shrink as broswer shrinks-->
-  <link rel='stylesheet' type='text/css' href='style2.css'>
-  <!-- Reference sheet to CSS stlyes for buttons and penegram-->
-  <title>Spelling Bee</title> <!-- The tab name of page-->
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel='stylesheet' type='text/css' href='style2.css'>
+    <title>Spelling Bee</title>
 </head>
 
 <body>
+    <!------------------------------------------ NAV BAR ------------------------------------------------->
+    <nav class="menu-container">
+        <!-- burger menu -->
+        <input type="checkbox" aria-label="Toggle menu" />
+        <span></span>
+        <span></span>
+        <span></span>
 
-  <h1>Spelling Bee...rank....other stuff</h1>
+        <!-- logo -->
+        <a href="#nowhere" class="menu-logo">
+            <img src="honey.png" alt="logo" />
+        </a>
 
-  <div class="input">
-    <input type="text" placeholder="ENTER A GUESS:">
-    <textarea disabled="yes" readonly="yes" id="text" rows="4" cols="50" placeholder="GUESSED WORDS:"></textarea>
-  </div>
+        <!-- menu items -->
+        <div class="menu">
+            <ul>
+                <li>
+                    <a href="">
 
-  <div id="test"> TEST BLOCK FOR SPACING -- PUT HEXAGON IN HERE</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#nowhere">
+                        New Puzzle
+                    </a>
+                </li>
+                <li>
+                    <a href="">
 
-<div class = "hexButtons">
-  <!-- PUT HEXAGONS HERE -->
-</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#nowhere">
+                        New Puzzle From Base
+                    </a>
+                </li>
+                <li>
+                    <a href="">
 
-<div class = " buttonGroups">
-<!-- PUT BUTTONS HERE -->
-</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#nowhere">
+                        Rank
+                    </a>
+                </li>
+                <li>
+                    <a href="">
 
-  <div id="test"> TEST BLOCK FOR SPACING -- PUT HEXAGON IN HERE </div>
-  <footer>
-    <p>FOOTER -- TEST FOR SPACING</p>
-  </footer>
-  <script src="bundle.js"> </script> <!-- Allowing View Acess to our HTML-->
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        How To Play
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+
+                    </a>
+                </li>
+            </ul>
+            <ul>
+                <li>
+                    <a href="">
+
+                    </a>
+                </li>
+                <li>
+                    <a href="#nowhere">
+                        Dark Mode
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!------------------------------------------ NAV BAR ------------------------------------------------->
+
+    <div id="test"> TEST BLOCK FOR SPACING</div>
+
+    <div class="input">
+        <input type="text" placeholder="ENTER A GUESS:">
+        <textarea disabled="yes" readonly="yes" id="text" rows="4" cols="50" placeholder="GUESSED WORDS:"></textarea>
+    </div>
+
+
+    <!------------------------------------------  HEX CONTAINER ------------------------------------------------------------>
+    <div class="hexGridContainer">
+
+        <!------------------------------------------ ROW 1 ------------------------------------------------->
+        <div class="topRowContainer">
+
+            <div class="MiddleLeftBlock"> <!--TODO--CHANGE NAMES TO MATCH POSITION-->
+                <a href="#">
+                    <p onclick="global.click(this.innerHTML)" id="MiddleLeftBlock"></p>
+                    <!--TODO--CHANGE NAMES TO MATCH POSITION-->
+                </a>
+            </div>
+
+            <div class="TopLeftBlock"> <!--TODO--CHANGE NAMES TO MATCH POSITION-->
+                <a href="#">
+                    <p id="TopLeftBlock"></p><!--TODO--CHANGE NAMES TO MATCH POSITION-->
+                </a>
+            </div>
+
+        </div>
+        <!------------------------------------------ ROW 1 ------------------------------------------------->
+
+
+        <!------------------------------------------ ROW 2 ------------------------------------------------->
+        <div class="middleRowContainer">
+
+            <div class="Middle"> <!--TODO--CHANGE NAMES TO MATCH POSITION-->
+                <a href="#">
+                    <p id="Middle"></p><!--TODO--CHANGE NAMES TO MATCH POSITION-->
+                </a>
+            </div>
+
+            <div class="TopRightBlock"> <!--TODO--CHANGE NAMES TO MATCH POSITION-->
+                <a href="#">
+                    <p id="TopRightBlock"></p><!--TODO--CHANGE NAMES TO MATCH POSITION-->
+                </a>
+            </div>
+
+            <div class="BottomRightBlock"> <!--TODO--CHANGE NAMES TO MATCH POSITION-->
+                <a href="#">
+                    <p id="BottomRightBlock"></p><!--TODO--CHANGE NAMES TO MATCH POSITION-->
+                </a>
+            </div>
+
+        </div>
+        <!------------------------------------------ ROW 2 ------------------------------------------------->
+
+
+
+        <!------------------------------------------ ROW 3 ------------------------------------------------->
+        <div class="bottomRowContainer">
+
+            <div class="BottomLeftBlock"> <!--TODO--CHANGE NAMES TO MATCH POSITION-->
+                <a href="#">
+                    <p id="BottomLeftBlock"></p> <!--TODO--CHANGE NAMES TO MATCH POSITION-->
+                </a>
+            </div>
+
+
+            <div class="MiddleRightBlock"> <!--TODO--CHANGE NAMES TO MATCH POSITION-->
+                <a onclick="global.click(this.innerHTML)" href="#">
+                    <p id="MiddleRightBlock"></p> <!--TODO--CHANGE NAMES TO MATCH POSITION-->
+                </a>
+            </div>
+
+        </div>
+        <!------------------------------------------ ROW 3 ------------------------------------------------->
+    </div>
+    <!------------------------------------------  HEX CONTAINER ------------------------------------------------------------>
+    
+    <!------------------------------------------  BUTTON CONTAINER ------------------------------------------------------------>
+    <div class=" buttonContainer">
+
+        <button class="btnStyling" class="Savebtn">Save</button>
+
+        <button class="btnStyling" class="Loadbtn">Load</button>
+
+        <img alt="shuffleBTN" id="shufflebtn" class="Shufflebtn"
+            src="https://em-content.zobj.net/thumbs/120/openmoji/338/shuffle-tracks-button_1f500.png" width="50px"
+            height="50px" onclick="global.controller.handleShuffleClick()" />
+
+        <button class="btnStyling" class="Deletebtn">Delete</button>
+
+        <button class="btnStyling" class="Enterebtn">Enter</button>
+
+    </div>
+    <!------------------------------------------  BUTTON CONTAINER ------------------------------------------------------------>
+
+    <div id="test"> TEST BLOCK FOR SPACING </div>
+    <footer>
+        <p>FOOTER -- TEST FOR SPACING</p>
+    </footer>
+
+    <script src="bundle.js"> </script>
 </body>
+
 </html>
