@@ -2,9 +2,9 @@
   "name": "2023sp-420-maryjane",
   "version": "1.0.0",
   "description": "A Spelling Bee App made in JavaScript for CSCI 420: Software Enginnerring at Millersville University.",
-  "main": "app.js",
+  "main": "initCLI.js",
   "scripts": {
-    "start": "node src/app.js",
+    "start": "node src/initCLI.js",
     "test": "jest",
     "gui": "browserify --standalone global src/initGUI.js -o bundle.js && http-server -p 8081",
     "build": "browserify --standalone global src/initGUI.js -o bundle.js"
