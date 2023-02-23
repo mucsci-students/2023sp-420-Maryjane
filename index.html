@@ -28,15 +28,13 @@ Images Src:
 <body>
 
   <div class="input">
-    <input type="text" placeholder="ENTER A GUESS:">
+    <input id="userInput" type="text" placeholder="ENTER A GUESS:">
     <textarea disabled="yes" readonly="yes" id="text" rows="4" cols="50" placeholder="GUESSED WORDS:"></textarea>
   </div>
 
   <!-- Penagram Hexagons -->
   <div class="MiddleLeftBlock">
-    <a class="TesthexagonLink" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
-      <p id="MiddleLeftBlock"></p>
-    </a>
+    <p onclick="global.click(this.innerHTML)"id="MiddleLeftBlock"></p>
   </div>
   <div class="TopLeftBlock">
     <a class="TesthexagonLink" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
@@ -64,13 +62,18 @@ Images Src:
     </a>
   </div>
   <div class="MiddleRightBlock">
-    <a class="TesthexagonLink" href="#" onclick="bundle.enterLetter()"><p id="MiddleRightBlock"></p></a>
+    <a onclick="global.click(this.childNodes[0].innerHTML)" class="TesthexagonLink" href="#">
+      <p id="MiddleRightBlock"></p>
+    </a>
+
   </div>
   <!-- End of Penagram Hexagons -->
 
   <!-- Buttons -->
   <button class="Deletebtn">Delete</button>
-  <img alt = "shuffleBTN" id="shufflebtn" class="Shufflebtn"src="https://em-content.zobj.net/thumbs/120/openmoji/338/shuffle-tracks-button_1f500.png" width="50px" height="50px"onclick="global.shuffle()" />
+  <img alt="shuffleBTN" id="shufflebtn" class="Shufflebtn"
+    src="https://em-content.zobj.net/thumbs/120/openmoji/338/shuffle-tracks-button_1f500.png" width="50px" height="50px"
+    onclick="global.shuffle()" />
   <button class="Enterebtn">
     Enter
   </button>
@@ -79,4 +82,11 @@ Images Src:
 
   <script src="bundle.js"></script> <!-- Allowing View Acess to our HTML-->
 </body>
+
 </html>
+
+<!-- 
+  COMPILE ANYTIME YOU MAKE CHANGES TO JS FILES
+
+VIA: npm run build
+-->

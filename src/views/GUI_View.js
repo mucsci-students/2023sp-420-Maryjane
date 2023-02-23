@@ -10,6 +10,7 @@ class GUI_View {
     this.BottomRightBlock = document.getElementById("BottomRightBlock");
     this.BottomLeftBlock = document.getElementById("BottomLeftBlock");
     this.MiddleRightBlock = document.getElementById("MiddleRightBlock");
+    this.userInput = document.getElementById("userInput");
   }
   //Goes View -> Controller -> Model -> Controller -> View
   static newPuzzleStartUp() {
@@ -40,13 +41,10 @@ class GUI_View {
     this.MiddleRightBlock.innerHTML = word.charAt(6);
   }
 
-  //function to simply alert user when they clicked on the button
-  enterLetter() 
+  buttonClickMiddleRight(i) 
   {
-    Middle.innerHTML = "X";
+    userInput.value += i;
   }
-
-
 }
 
 module.exports = GUI_View;
