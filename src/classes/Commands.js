@@ -1,12 +1,8 @@
-// Import the ckeck word class for validating user guesses
-const wordsClass = require("check-word");
 //const Database = require("./Database");
 const Model = require("../model/Model");
 
 const prompt = require('prompt-sync')();
 
-// dictionary object used to check whether a word is valid or not
-//const dictionary = wordsClass("en");
 const isWord = require('../dict.js');
 
 //file system module
