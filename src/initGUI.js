@@ -16,7 +16,7 @@ let controller = new GUI_Controller(model, view);
 
 function click(i) 
 {
-  view.buttonClickMiddleRight(i);
+  view.getButtonClick(i);
 }
 
 console.log(isWord("hello"));

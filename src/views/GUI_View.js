@@ -34,7 +34,7 @@ class GUI_View {
     this.MiddleRightBlock.innerHTML = word[6];
   }
 
-  buttonClickMiddleRight(i) 
+  getButtonClick(i) 
   {
     userInput.value += i;
   }
