@@ -22,12 +22,16 @@ Images Src:
   <link rel='stylesheet' type='text/css' href='style.css'>
   <!-- Reference sheet to CSS stlyes for buttons and penegram-->
   <title>Spelling Bee</title> <!-- The tab name of page-->
-
-
 </head>
 <!--End of Meta Data-->
 
-<body> <!-- TODO! -->
+<body>
+
+  <div class="input">
+    <input type="text" placeholder="ENTER A GUESS:">
+    <textarea disabled="yes" readonly="yes" id="text" rows="4" cols="50" placeholder="GUESSED WORDS:"></textarea>
+  </div>
+
   <!-- Penagram Hexagons -->
   <div class="MiddleLeftBlock">
     <a class="TesthexagonLink" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
@@ -68,16 +72,15 @@ Images Src:
 
   <!-- Buttons -->
   <button class="Deletebtn">Delete</button>
-  <img id="shufflebtn" class="Shufflebtn" src="https://em-content.zobj.net/thumbs/120/openmoji/338/shuffle-tracks-button_1f500.png" width="50px" height="50px" onclick="bundle.shuffle()" />
+  <img alt = "shuffleBTN" id="shufflebtn" class="Shufflebtn"
+    src="https://em-content.zobj.net/thumbs/120/openmoji/338/shuffle-tracks-button_1f500.png" width="50px" height="50px"
+    onclick="bundle.shuffle()" />
   <button class="Enterebtn">
     Enter
   </button>
   <button class="Savebtn">Save</button>
   <button class="Loadbtn">Load</button>
-  </ul>
 
   <script src="bundle.js"></script> <!-- Allowing View Acess to our HTML-->
-</body>
-
 </body>
 </html>

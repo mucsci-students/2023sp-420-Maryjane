@@ -1,20 +1,5 @@
 /************************* PENGRAM STYLES **************************************!*/
 /* Overall Style of Middle Left Pengram */
-body {
-  background: linear-gradient(to right, #f00, #f90, #ff0, #0f0, #0ff, #00f, #90f);
-  background-size: 200% 200%;
-  animation: rainbow 20s radial infinite;
-}
-
-@keyframes rainbow {
-  0% {
-    background-position: 0% 50%;
-  }
-  100% {
-    background-position: 100% 50%;
-  }
-}
-
 .MiddleLeftBlock {
   top: 30.2vh;
   left: 41%;
@@ -501,6 +486,11 @@ body {
   margin: 4px 2px;
   border-radius: 100px;
   width: 6%;
+}
+
+.input {
+  display: grid;
+  justify-content: center;
 }
 
 /*************************   END OF BUTTON STYLES  **********************************!*/
