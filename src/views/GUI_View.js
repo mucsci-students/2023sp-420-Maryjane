@@ -11,6 +11,8 @@ class GUI_View {
     this.BottomLeftBlock = document.getElementById("BottomLeftBlock");
     this.MiddleRightBlock = document.getElementById("MiddleRightBlock");
     this.userInput = document.getElementById("userInput");
+
+    this.Model = model;
   }
 
   showPuzzle() {
