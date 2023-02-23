@@ -11,6 +11,10 @@
   --navBarElementsOnHoverColor: #f8e71c;
 }
 
+* {
+  margin: 0;
+}
+
 body {
   /***THIS IS TO MAKE THE FOOTER STICK TO THE BOTTOM OF THE PAGE. MAKE THIS BIGGER TO INCREASE PAGE LENGTH***/
   min-height: 100vh;
