@@ -23,6 +23,5 @@ module.exports = {
   controller: controller,
   view: view,
   model: model,
-  shuffle: shuffle,
   click: click
 };
