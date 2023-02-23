@@ -10,6 +10,7 @@ class GUI_View {
     this.BottomRightBlock = document.getElementById("BottomRightBlock");
     this.BottomLeftBlock = document.getElementById("BottomLeftBlock");
     this.MiddleRightBlock = document.getElementById("MiddleRightBlock");
+    this.userInput = document.getElementById("userInput");
   }
   //Goes View -> Controller -> Model -> Controller -> View
   static newPuzzleStartUp() {
@@ -38,6 +39,11 @@ class GUI_View {
     this.BottomRightBlock.innerHTML = word.charAt(4);
     this.BottomLeftBlock.innerHTML = word.charAt(5);
     this.MiddleRightBlock.innerHTML = word.charAt(6);
+  }
+
+  buttonClickMiddleRight(i) 
+  {
+    userInput.value += i;
   }
 }
 

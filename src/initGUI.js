@@ -1,4 +1,5 @@
 //const { shuffle } = require('./classes/Commands.js');
+
 let GUI_View = require('./views/GUI_View.js');
 let Model = require('./model/Model.js');
 let GUI_Controller = require('./controllers/GUI_Controller.js');
@@ -27,10 +28,16 @@ function shuffle() {
   view.newPuzzleFromBase(a);
 }
 
+function click(i) 
+{
+  view.buttonClickMiddleRight(i);
+
+}
 // Put anything in here that you want to be able to access in the html or console.
 module.exports = {
   controller: controller,
   view: view,
   model: model,
-  shuffle: shuffle
+  shuffle: shuffle,
+  click: click
 };
