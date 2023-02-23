@@ -39,6 +39,14 @@ class GUI_View {
     this.BottomLeftBlock.innerHTML = word.charAt(5);
     this.MiddleRightBlock.innerHTML = word.charAt(6);
   }
+
+  //function to simply alert user when they clicked on the button
+  enterLetter() 
+  {
+    Middle.innerHTML = "X";
+  }
+
+
 }
 
 module.exports = GUI_View;

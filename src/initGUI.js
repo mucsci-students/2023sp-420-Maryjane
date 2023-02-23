@@ -1,4 +1,5 @@
 //const { shuffle } = require('./classes/Commands.js');
+
 let GUI_View = require('./views/GUI_View.js');
 let Model = require('./model/Model.js');
 let GUI_Controller = require('./controllers/GUI_Controller.js');
@@ -25,6 +26,11 @@ function shuffle() {
   }
   a = a.join("");
   view.newPuzzleFromBase(a);
+}
+
+function enterLetter() 
+{
+  view.enterLetter();
 }
 
 // Put anything in here that you want to be able to access in the html or console.
