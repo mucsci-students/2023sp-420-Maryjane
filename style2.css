@@ -1,9 +1,9 @@
 /** GLOBAL STYLES **/
 /***CHANGE THE VALUES OF THE CSS VARIABLE BELOW TO CHANGE MUTIPLE FIELDS ***/
 :root {
-  --topANDbottom-CENTER-row-gap: 15%;
-  --middle-CENTER-row-gap: 16%;
-  --gap-BETWEEN-rows: 45px;
+  --topANDbottom-CENTER-row-gap: 1px;
+  --middle-CENTER-row-gap: 0.5px;
+  --gap-BETWEEN-rows: 2px;
   --btnColor:white;
   --btnColorsOnHover: #ffe101;
   --navBARcolor:#232323;
@@ -23,7 +23,7 @@ body {
 
 /************************* HEX STYLES **************************************!*/
 /*** THIS DOES NOT CURRENLTY WORK PROPERLY AND NEEDS TO BE CHANGED**/
-.topLeftBlock {
+.topLeftBlockK {
   margin: 0 auto;
   background-color: #e6e6e6;
   border-radius: 10px;
@@ -32,6 +32,7 @@ body {
   border: 0.4vh solid transparent;
   z-index: -1;
 }
+
 
 /************************* END OF HEX STYLE ************************************!*/
 
@@ -43,7 +44,7 @@ body {
   display: flex;
   justify-content: center;
   gap: 5%;
-  margin-top: 7%;
+  margin-top: 1%;
   margin-bottom: 4%;
 }
 
@@ -105,15 +106,21 @@ h3 {
 
 #test {
   text-align: center;
-  margin-top: 20px;
+  margin-top: 2px;
   background-color: red;
-  margin-bottom: 20px;
+  margin-bottom: 2px;
 }
 
 footer {
   margin-top: auto;
   text-align: center;
   background-color: red;
+}
+
+#block
+{
+  z-index: 1;
+  font-size: 26px;
 }
 
 /************************* END OF GENERAL BODY STYLES ************************************!*/
@@ -165,7 +172,7 @@ footer {
   position: relative;
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 3px;
   background: var(--navBARcolor);
   color: var(--navBarElementsColor);
   padding: 20px;
