@@ -6,7 +6,8 @@ const Model = require("../model/Model");
 const prompt = require('prompt-sync')();
 
 // dictionary object used to check whether a word is valid or not
-const dictionary = wordsClass("en");
+//const dictionary = wordsClass("en");
+const isWord = require('../dict.js');
 
 //file system module
 const fs = require("fs");
@@ -60,7 +61,7 @@ class Commands {
     }
 
     // Check that the guess is a real word
-    if (!dictionary.check(input)) {
+    if (!isWord(input)) {
       console.log(input + " was not found in the dictionary");
       return false;
     }
@@ -166,11 +167,11 @@ class Commands {
     }
     // remove duplicate letters from input
 
-    // Checks user's word to be an actual word in the dictionary
-    // if (!dictionary.check(input)) {
-    //   console.log(input + " was not found in the dictionary");
-    //   return;
-    // }
+    //Checks user's word to be an actual word in the dictionary
+    if (!isWord(input)) {
+      console.log(input + " was not found in the dictionary");
+      return;
+    }
 
     // Converts pangram into array of letters
     let pangram = input;
