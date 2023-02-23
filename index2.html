@@ -97,7 +97,7 @@
     <div id="test"> TEST BLOCK FOR SPACING</div>
 
     <div class="input">
-        <input id = "userInput" type="text" placeholder="ENTER A GUESS:">
+        <input id="userInput" type="text" placeholder="ENTER A GUESS:">
         <textarea disabled="yes" readonly="yes" id="text" rows="4" cols="50" placeholder="GUESSED WORDS:"></textarea>
     </div>
 
@@ -108,28 +108,26 @@
         <!------------------------------------------ ROW 1 ------------------------------------------------->
         <div class="topRowContainer">
 
-            <div class=""> <!--TODO--CHANGE NAMES TO MATCH POSITION-->
-                <a href="#">
-                    <svg style="color: rgb(166, 165, 160);" xmlns="http://www.w3.org/2000/svg" width="100" height="100"
-                        fill="currentColor" class="bi bi-hexagon-fill" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd"
-                            d="M8.5.134a1 1 0 0 0-1 0l-6 3.577a1 1 0 0 0-.5.866v6.846a1 1 0 0 0 .5.866l6 3.577a1 1 0 0 0 1 0l6-3.577a1 1 0 0 0 .5-.866V4.577a1 1 0 0 0-.5-.866L8.5.134z"
-                            fill="#a6a5a0"></path>
-                            <text font-size="11" x="4" y="12" fill="red" id = "TopLeftBlock" onclick="global.click(this.innerHTML)"></text>
-                    </svg>
-                </a>
+            <div>
+                <svg style="cursor: pointer; color: rgb(166, 165, 160);" xmlns="http://www.w3.org/2000/svg" width="100"
+                    height="100" fill="currentColor" class="bi bi-hexagon-fill" viewBox="0 0 16 16"
+                    onclick="global.click(document.getElementById('TopLeftBlock').innerHTML)">
+                    <path fill-rule="evenodd"
+                        d="M8.5.134a1 1 0 0 0-1 0l-6 3.577a1 1 0 0 0-.5.866v6.846a1 1 0 0 0 .5.866l6 3.577a1 1 0 0 0 1 0l6-3.577a1 1 0 0 0 .5-.866V4.577a1 1 0 0 0-.5-.866L8.5.134z"
+                        fill="#a6a5a0"></path>
+                    <text font-size="11" x="4" y="12" fill="red" id="TopLeftBlock"></text>
+                </svg>
             </div>
 
-            <div class=""> <!--TODO--CHANGE NAMES TO MATCH POSITION-->
-                <a href="#">
-                    <svg style="color: rgb(166, 165, 160);" xmlns="http://www.w3.org/2000/svg" width="100" height="100"
-                        fill="currentColor" class="bi bi-hexagon-fill" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd"
-                            d="M8.5.134a1 1 0 0 0-1 0l-6 3.577a1 1 0 0 0-.5.866v6.846a1 1 0 0 0 .5.866l6 3.577a1 1 0 0 0 1 0l6-3.577a1 1 0 0 0 .5-.866V4.577a1 1 0 0 0-.5-.866L8.5.134z"
-                            fill="#a6a5a0"></path>
-                            <text font-size="11" x="4" y="12" fill="red" id = "TopRightBlock" onclick="global.click(this.innerHTML)"></text>
-                    </svg>
-                </a>
+            <div>
+                <svg style="cursor: pointer; color: rgb(166, 165, 160);" xmlns="http://www.w3.org/2000/svg" width="100"
+                    height="100" onclick="global.click(document.getElementById('TopRightBlock').innerHTML)"
+                    fill="currentColor" class="bi bi-hexagon-fill" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M8.5.134a1 1 0 0 0-1 0l-6 3.577a1 1 0 0 0-.5.866v6.846a1 1 0 0 0 .5.866l6 3.577a1 1 0 0 0 1 0l6-3.577a1 1 0 0 0 .5-.866V4.577a1 1 0 0 0-.5-.866L8.5.134z"
+                        fill="#a6a5a0"></path>
+                    <text font-size="11" x="4" y="12" fill="red" id="TopRightBlock"></text>
+                </svg>
             </div>
 
         </div>
@@ -139,40 +137,37 @@
         <!------------------------------------------ ROW 2 ------------------------------------------------->
         <div class="middleRowContainer">
 
-            <div class=""> <!--TODO--CHANGE NAMES TO MATCH POSITION-->
-                <a href="#">
-                    <svg style="color: rgb(166, 165, 160);" xmlns="http://www.w3.org/2000/svg" width="100" height="100"
-                        fill="currentColor" class="bi bi-hexagon-fill" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd"
-                            d="M8.5.134a1 1 0 0 0-1 0l-6 3.577a1 1 0 0 0-.5.866v6.846a1 1 0 0 0 .5.866l6 3.577a1 1 0 0 0 1 0l6-3.577a1 1 0 0 0 .5-.866V4.577a1 1 0 0 0-.5-.866L8.5.134z"
-                            fill="#a6a5a0"></path>
-                            <text font-size="11" x="4" y="12" fill="red" id = "MiddleLeftBlock"onclick="global.click(this.innerHTML)"></text>
-                    </svg>
-                </a>
+            <div>
+                <svg style="cursor: pointer; color: rgb(166, 165, 160);" xmlns="http://www.w3.org/2000/svg" width="100"
+                    height="100" onclick="global.click(document.getElementById('MiddleLeftBlock').innerHTML)"
+                    fill="currentColor" class="bi bi-hexagon-fill" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M8.5.134a1 1 0 0 0-1 0l-6 3.577a1 1 0 0 0-.5.866v6.846a1 1 0 0 0 .5.866l6 3.577a1 1 0 0 0 1 0l6-3.577a1 1 0 0 0 .5-.866V4.577a1 1 0 0 0-.5-.866L8.5.134z"
+                        fill="#a6a5a0"></path>
+                    <text font-size="11" x="4" y="12" fill="red" id="MiddleLeftBlock"></text>
+                </svg>
             </div>
 
-            <div class=""> <!--TODO--CHANGE NAMES TO MATCH POSITION-->
-                <a href="#">
-                    <svg style="color: rgb(238, 206, 44);" xmlns="http://www.w3.org/2000/svg" width="100" height="100"
-                        fill="currentColor" class="bi bi-hexagon-fill" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd"
-                            d="M8.5.134a1 1 0 0 0-1 0l-6 3.577a1 1 0 0 0-.5.866v6.846a1 1 0 0 0 .5.866l6 3.577a1 1 0 0 0 1 0l6-3.577a1 1 0 0 0 .5-.866V4.577a1 1 0 0 0-.5-.866L8.5.134z"
-                            fill="#a6a5a0"></path>
-                            <text font-size="11" x="4" y="12" fill="red" id = "Middle" onclick="global.click(this.innerHTML)"></text>
-                    </svg>
-                </a>
+            <div>
+                <svg style="cursor: pointer; color: rgb(166, 165, 160);" xmlns="http://www.w3.org/2000/svg" width="100"
+                    height="100" onclick="global.click(document.getElementById('Middle').innerHTML)" fill="currentColor"
+                    class="bi bi-hexagon-fill" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M8.5.134a1 1 0 0 0-1 0l-6 3.577a1 1 0 0 0-.5.866v6.846a1 1 0 0 0 .5.866l6 3.577a1 1 0 0 0 1 0l6-3.577a1 1 0 0 0 .5-.866V4.577a1 1 0 0 0-.5-.866L8.5.134z"
+                        fill="rgb(238, 206, 44)"></path>
+                    <text font-size="11" x="4" y="12" fill="red" id="Middle"></text>
+                </svg>
             </div>
 
-            <div class=""> <!--TODO--CHANGE NAMES TO MATCH POSITION-->
-                <a href="#">
-                    <svg style="color: rgb(166, 165, 160);" xmlns="http://www.w3.org/2000/svg" width="100" height="100"
-                        fill="currentColor" class="bi bi-hexagon-fill" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd"
-                            d="M8.5.134a1 1 0 0 0-1 0l-6 3.577a1 1 0 0 0-.5.866v6.846a1 1 0 0 0 .5.866l6 3.577a1 1 0 0 0 1 0l6-3.577a1 1 0 0 0 .5-.866V4.577a1 1 0 0 0-.5-.866L8.5.134z"
-                            fill="#a6a5a0"></path>
-                            <text font-size="11" x="4" y="12" fill="red" id = "MiddleRightBlock" onclick="global.click(this.innerHTML)"></text>
-                    </svg>
-                </a>
+            <div>
+                <svg style="cursor: pointer; color: rgb(166, 165, 160);" xmlns="http://www.w3.org/2000/svg" width="100"
+                    height="100" onclick="global.click(document.getElementById('MiddleRightBlock').innerHTML)"
+                    fill="currentColor" class="bi bi-hexagon-fill" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M8.5.134a1 1 0 0 0-1 0l-6 3.577a1 1 0 0 0-.5.866v6.846a1 1 0 0 0 .5.866l6 3.577a1 1 0 0 0 1 0l6-3.577a1 1 0 0 0 .5-.866V4.577a1 1 0 0 0-.5-.866L8.5.134z"
+                        fill="#a6a5a0"></path>
+                    <text font-size="11" x="4" y="12" fill="red" id="MiddleRightBlock"></text>
+                </svg>
             </div>
 
         </div>
@@ -183,29 +178,27 @@
         <!------------------------------------------ ROW 3 ------------------------------------------------->
         <div class="bottomRowContainer">
 
-            <div class=""> <!--TODO--CHANGE NAMES TO MATCH POSITION-->
-                <a href="#">
-                    <svg style="color: rgb(166, 165, 160);" xmlns="http://www.w3.org/2000/svg" width="100" height="100"
-                        fill="currentColor" class="bi bi-hexagon-fill" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd"
-                            d="M8.5.134a1 1 0 0 0-1 0l-6 3.577a1 1 0 0 0-.5.866v6.846a1 1 0 0 0 .5.866l6 3.577a1 1 0 0 0 1 0l6-3.577a1 1 0 0 0 .5-.866V4.577a1 1 0 0 0-.5-.866L8.5.134z"
-                            fill="#a6a5a0"></path>
-                            <text font-size="11" x="4" y="12" fill="red" id = "BottomLeftBlock" onclick="global.click(this.innerHTML)"></text>
-                    </svg>
-                </a>
+            <div>
+                <svg style="cursor: pointer; color: rgb(166, 165, 160);" xmlns="http://www.w3.org/2000/svg" width="100"
+                    height="100" onclick="global.click(document.getElementById('BottomLeftBlock').innerHTML)"
+                    fill="currentColor" class="bi bi-hexagon-fill" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M8.5.134a1 1 0 0 0-1 0l-6 3.577a1 1 0 0 0-.5.866v6.846a1 1 0 0 0 .5.866l6 3.577a1 1 0 0 0 1 0l6-3.577a1 1 0 0 0 .5-.866V4.577a1 1 0 0 0-.5-.866L8.5.134z"
+                        fill="#a6a5a0"></path>
+                    <text font-size="11" x="4" y="12" fill="red" id="BottomLeftBlock"></text>
+                </svg>
             </div>
 
 
-            <div class="k"> <!--TODO--CHANGE NAMES TO MATCH POSITION-->
-                <a href="#">
-                    <svg style="color: rgb(166, 165, 160);" xmlns="http://www.w3.org/2000/svg" width="100" height="100"
-                        fill="currentColor" class="bi bi-hexagon-fill" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd"
-                            d="M8.5.134a1 1 0 0 0-1 0l-6 3.577a1 1 0 0 0-.5.866v6.846a1 1 0 0 0 .5.866l6 3.577a1 1 0 0 0 1 0l6-3.577a1 1 0 0 0 .5-.866V4.577a1 1 0 0 0-.5-.866L8.5.134z"
-                            fill="#a6a5a0"></path>
-                            <text font-size="11" x="4" y="12" fill="red" id = "BottomRightBlock" onclick="global.click(this.innerHTML)"></text>
-                    </svg>
-                </a>
+            <div>
+                <svg style="cursor: pointer; color: rgb(166, 165, 160);" xmlns="http://www.w3.org/2000/svg" width="100"
+                    height="100" onclick="global.click(document.getElementById('BottomRightBlock').innerHTML)"
+                    fill="currentColor" class="bi bi-hexagon-fill" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M8.5.134a1 1 0 0 0-1 0l-6 3.577a1 1 0 0 0-.5.866v6.846a1 1 0 0 0 .5.866l6 3.577a1 1 0 0 0 1 0l6-3.577a1 1 0 0 0 .5-.866V4.577a1 1 0 0 0-.5-.866L8.5.134z"
+                        fill="#a6a5a0"></path>
+                    <text font-size="11" x="4" y="12" fill="red" id="BottomRightBlock"></text>
+                </svg>
             </div>
 
         </div>
