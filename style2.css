@@ -1,0 +1,521 @@
+body{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /************************* PENGRAM STYLES **************************************!*/
+  /* Overall Style of Middle Left Pengram */
+  .MiddleLeftBlock {
+    top: 30.2vh;
+    left: 41%;
+    position: absolute;
+    margin: 0 auto;
+    background-color: #e6e6e6;
+    border-radius: 10px;
+    width: 100px;
+    height: 63px;
+    box-sizing: border-box;
+    transition: all 1s;
+    border: 0.4vh solid transparent;
+    z-index: -1;
+  }
+  
+  /* Creates psudeo-class for before press and after press */
+  .MiddleLeftBlock:before,
+  .MiddleLeftBlock:after {
+    content: "";
+    border: inherit;
+    position: absolute;
+    top: -0.5vh;
+    left: -0.5vh;
+    background-color: #e6e6e6;
+    border-radius: inherit;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+  }
+  
+  /* Aligns the base-block to form a hexagon */
+  .MiddleLeftBlock:before {
+    transform: rotate(60deg);
+  }
+  
+  /* Aligns the base-block to form a hexagon */
+  .MiddleLeftBlock:after {
+    transform: rotate(-60deg);
+  }
+  
+  /* Style the single Letter in panagram */
+  .MiddleLeftBlock p {
+    width: 100%;
+    padding: 10%;
+    position: absolute !important;
+    background-color: transparent;
+    font-weight: 700;
+    font-size: 2.5em;
+    top: -50px;
+    left: 20px;
+    color: black;
+    text-transform: uppercase;
+    font-family: "nyt-franklin";
+  }
+  
+  /************************* TOP LEFT **************************************!*/
+  /* Overall Style of Middle Left Pengram */
+  .TopLeftBlock {
+    top: 18vh;
+    left: 44.2%;
+    position: absolute;
+    margin: 0 auto;
+    background-color: #e6e6e6;
+    border-radius: 10px;
+    width: 100px;
+    height: 63px;
+    box-sizing: border-box;
+    transition: all 1s;
+    border: 0.4vh solid transparent;
+    z-index: -1;
+  }
+  
+  /* Creates psudeo-class for before press and after press */
+  .TopLeftBlock:before,
+  .TopLeftBlock:after {
+    content: "";
+    border: inherit;
+    position: absolute;
+    top: -0.5vh;
+    left: -0.5vh;
+    background-color: #e6e6e6;
+    border-radius: inherit;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+  }
+  
+  /* Aligns the base-block to form a hexagon */
+  .TopLeftBlock:before {
+    transform: rotate(60deg);
+  }
+  
+  /* Aligns the base-block to form a hexagon */
+  .TopLeftBlock:after {
+    transform: rotate(-60deg);
+  }
+  
+  /* Style the single Letter in panagram */
+  .TopLeftBlock p {
+    width: 100%;
+    padding: 10%;
+    position: absolute !important;
+    background-color: transparent;
+    font-weight: 700;
+    font-size: 2.5em;
+    top: -50px;
+    left: 20px;
+    color: black;
+    text-transform: uppercase;
+    font-family: "nyt-franklin";
+  }
+  
+  /************************* MIDDLE **************************************!*/
+  /* Overall Style of Middle Pengram */
+  .Middle {
+    top: 30vh;
+    left: 48%;
+    position: absolute;
+    margin: 0 auto;
+    background-color: #f7da21;
+    border-radius: 10px;
+    width: 100px;
+    height: 63px;
+    box-sizing: border-box;
+    transition: all 1s;
+    border: 0.4vh solid transparent;
+    z-index: -1;
+  }
+  
+  /* Creates psudeo-class for before press and after press */
+  .Middle:before,
+  .Middle:after {
+    content: "";
+    border: inherit;
+    position: absolute;
+    top: -0.5vh;
+    left: -0.5vh;
+    background-color: #f7da21;
+    border-radius: inherit;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+  }
+  
+  /* Aligns the base-block to form a hexagon */
+  .Middle:before {
+    transform: rotate(60deg);
+  }
+  
+  /* Aligns the base-block to form a hexagon */
+  .Middle:after {
+    transform: rotate(-60deg);
+  }
+  
+  /* Style the single Letter in panagram */
+  .Middle p {
+    width: 100%;
+    padding: 10%;
+    position: absolute !important;
+    background-color: transparent;
+    font-weight: 700;
+    font-size: 2.5em;
+    top: -50px;
+    left: 20px;
+    color: black;
+    text-transform: uppercase;
+    font-family: "nyt-franklin";
+  }
+  
+  /************************* TOP RIGHT **************************************!*/
+  /* Overall Style of Top Right Pengram */
+  .TopRightBlock {
+    top: 18vh;
+    left: 51.6%;
+    position: absolute;
+    margin: 0 auto;
+    background-color: #e6e6e6;
+    border-radius: 10px;
+    width: 100px;
+    height: 63px;
+    box-sizing: border-box;
+    transition: all 1s;
+    border: 0.4vh solid transparent;
+    z-index: -1;
+  }
+  
+  /* Creates psudeo-class for before press and after press */
+  .TopRightBlock:before,
+  .TopRightBlock:after {
+    content: "";
+    border: inherit;
+    position: absolute;
+    top: -0.5vh;
+    left: -0.5vh;
+    background-color: #e6e6e6;
+    border-radius: inherit;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+  }
+  
+  /* Aligns the base-block to form a hexagon */
+  .TopRightBlock:before {
+    transform: rotate(60deg);
+  }
+  
+  /* Aligns the base-block to form a hexagon */
+  .TopRightBlock:after {
+    transform: rotate(-60deg);
+  }
+  
+  /* Style the single Letter in panagram */
+  .TopRightBlock p {
+    width: 100%;
+    padding: 10%;
+    position: absolute !important;
+    background-color: transparent;
+    font-weight: 700;
+    font-size: 2.5em;
+    top: -50px;
+    left: 20px;
+    color: black;
+    text-transform: uppercase;
+    font-family: "nyt-franklin";
+  }
+  
+  /************************* BOTTOM RIGHT **************************************!*/
+  /* Overall Style of Bottom Right Pengram */
+  .BottomRightBlock {
+    top: 42.3vh;
+    left: 51.5%;
+    position: absolute;
+    margin: 0 auto;
+    background-color: #e6e6e6;
+    border-radius: 10px;
+    width: 100px;
+    height: 63px;
+    box-sizing: border-box;
+    transition: all 1s;
+    border: 0.4vh solid transparent;
+    z-index: -1;
+  }
+  
+  /* Creates psudeo-class for before press and after press */
+  .BottomRightBlock:before,
+  .BottomRightBlock:after {
+    content: "";
+    border: inherit;
+    position: absolute;
+    top: -0.5vh;
+    left: -0.5vh;
+    background-color: #e6e6e6;
+    border-radius: inherit;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+  }
+  
+  /* Aligns the base-block to form a hexagon */
+  .BottomRightBlock:before {
+    transform: rotate(60deg);
+  }
+  
+  /* Aligns the base-block to form a hexagon */
+  .BottomRightBlock:after {
+    transform: rotate(-60deg);
+  }
+  
+  /* Style the single Letter in panagram */
+  .BottomRightBlock p {
+    width: 100%;
+    padding: 10%;
+    position: absolute !important;
+    background-color: transparent;
+    font-weight: 700;
+    font-size: 2.5em;
+    top: -50px;
+    left: 20px;
+    color: black;
+    text-transform: uppercase;
+    font-family: "nyt-franklin";
+  }
+  
+  /************************* BOTTOM LEFT **************************************!*/
+  /* Overall Style of Bottom Left Pengram */
+  .BottomLeftBlock {
+    top: 42vh;
+    left: 44.5%;
+    position: absolute;
+    margin: 0 auto;
+    background-color: #e6e6e6;
+    border-radius: 10px;
+    width: 100px;
+    height: 63px;
+    box-sizing: border-box;
+    transition: all 1s;
+    border: 0.4vh solid transparent;
+    z-index: -1;
+  }
+  
+  /* Creates psudeo-class for before press and after press */
+  .BottomLeftBlock:before,
+  .BottomLeftBlock:after {
+    content: "";
+    border: inherit;
+    position: absolute;
+    top: -0.5vh;
+    left: -0.5vh;
+    background-color: #e6e6e6;
+    border-radius: inherit;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+  }
+  
+  /* Aligns the base-block to form a hexagon */
+  .BottomLeftBlock:before {
+    transform: rotate(60deg);
+  }
+  
+  /* Aligns the base-block to form a hexagon */
+  .BottomLeftBlock:after {
+    transform: rotate(-60deg);
+  }
+  
+  /* Style the single Letter in panagram */
+  .BottomLeftBlock p {
+    width: 100%;
+    padding: 10%;
+    position: absolute !important;
+    background-color: transparent;
+    font-weight: 700;
+    font-size: 2.5em;
+    top: -50px;
+    left: 20px;
+    color: black;
+    text-transform: uppercase;
+    font-family: "nyt-franklin";
+  }
+  
+  /************************* MIDDLE RIGHT **************************************!*/
+  /* Overall Style of Middle Right Pengram */
+  .MiddleRightBlock {
+    top: 30.2vh;
+    left: 54.8%;
+    position: absolute;
+    margin: 0 auto;
+    background-color: #e6e6e6;
+    border-radius: 10px;
+    width: 100px;
+    height: 63px;
+    box-sizing: border-box;
+    transition: all 1s;
+    border: 0.4vh solid transparent;
+    z-index: -1;
+  }
+  
+  /* Creates psudeo-class for before press and after press */
+  .MiddleRightBlock:before,
+  .MiddleRightBlock:after {
+    content: "";
+    border: inherit;
+    position: absolute;
+    top: -0.5vh;
+    left: -0.5vh;
+    background-color: #e6e6e6;
+    border-radius: inherit;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+  }
+  
+  /* Aligns the base-block to form a hexagon */
+  .MiddleRightBlock:before {
+    transform: rotate(60deg);
+  }
+  
+  /* Aligns the base-block to form a hexagon */
+  .MiddleRightBlock:after {
+    transform: rotate(-60deg);
+  }
+  
+  /* Style the single Letter in panagram */
+  .MiddleRightBlock p {
+    width: 100%;
+    padding: 10%;
+    position: absolute !important;
+    background-color: transparent;
+    font-weight: 700;
+    font-size: 2.5em;
+    top: -50px;
+    left: 20px;
+    color: black;
+    text-transform: uppercase;
+    font-family: "nyt-franklin";
+  }
+  
+  /************************* END OF PENGRAM STYLE ************************************!*/
+  
+  /*************************    BUTTON STYLES      **********************************!*/
+  /*Style for Delete Button*/
+  .Deletebtn {
+    position: absolute;
+    top: 60vh;
+    left: 40.8%;
+    background-color: #ffffff;
+    border: 2px solid rgb(209, 208, 208);
+    color: rgb(0, 0, 0);
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    border-radius: 100px;
+    width: 6%;
+  }
+  
+  .Shufflebtn {
+    position: absolute;
+    top: 58vh;
+    left: 48.75%;
+    background-color: #ffffff;
+    border: 2px solid rgb(209, 208, 208);
+    color: rgb(0, 0, 0);
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    border-radius: 100px;
+  }
+  
+  /*Style for Enter Button*/
+  .Enterebtn {
+    position: absolute;
+    top: 60vh;
+    left: 55.9%;
+    background-color: #ffffff;
+    border: 2px solid rgb(209, 208, 208);
+    color: rgb(0, 0, 0);
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    border-radius: 100px;
+    width: 6%;
+  }
+  
+  /*Style for Save Button*/
+  .Savebtn {
+    position: absolute;
+    top: 70vh;
+    left: 43.8%;
+    background-color: #ffffff;
+    border: 2px solid rgb(209, 208, 208);
+    color: rgb(0, 0, 0);
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    border-radius: 100px;
+    width: 6%;
+  }
+  
+  /*Style for Load Button*/
+  .Loadbtn {
+    position: absolute;
+    top: 70vh;
+    left: 52.8%;
+    background-color: #ffffff;
+    border: 2px solid rgb(209, 208, 208);
+    color: rgb(0, 0, 0);
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    border-radius: 100px;
+    width: 6%;
+  }
+  
+  /*Style for the input box*/
+  .input {
+    display: grid;
+    justify-content: center;
+  }
+  
+  /*style for header*/
+  h1 {
+    text-align: center;
+  }
+  
+  #test
+  {
+    text-align: center;
+    margin-top: 20px;
+    background-color: red;
+    margin-bottom: 20px;
+  }
+  footer{
+    margin-top: auto;
+    text-align: center;
+    background-color: red;
+  }
+  /*************************   END OF BUTTON STYLES  **********************************!*/
+  
