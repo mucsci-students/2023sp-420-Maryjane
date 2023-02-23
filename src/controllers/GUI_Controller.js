@@ -2,7 +2,7 @@
 var Commands = require("../classes/Commands.js");
 
 // Used for documentation
-const Model = require("../Model/Model.js");
+const Model = require("../model/Model.js");
 
 class GUI_Controller {
   /**
