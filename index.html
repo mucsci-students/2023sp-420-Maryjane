@@ -98,7 +98,7 @@
 
     <div class="input">
         <input id="userInput" type="text" placeholder="ENTER A GUESS:">
-        <textarea disabled="yes" readonly="yes" id="text" rows="4" cols="50" placeholder="GUESSED WORDS:"></textarea>
+        <textarea  id = "textArea"disabled="yes" readonly="yes" id="text" rows="4" cols="50" placeholder="GUESSED WORDS:"></textarea>
     </div>
 
 
@@ -220,7 +220,7 @@
         <button class="btnStyling" onclick="global.controller.handleDeleteClick()" class="Deletebtn">Delete</button>
         
 
-        <button class="btnStyling" class="Enterebtn">Enter</button>
+        <button class="btnStyling" onclick="global.controller.handleEnterClick()" class="Enterebtn">Enter</button>
 
     </div>
     <!------------------------------------------  BUTTON CONTAINER ------------------------------------------------------------>

@@ -29,6 +29,10 @@ class GUI_Controller {
   handleHexClick(i) {
     this.View.getButtonClick(i);
   }
+
+  handleEnterClick() {
+    this.View.getEnterBtn();
+  }
 }
 
 module.exports = GUI_Controller;

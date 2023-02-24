@@ -12,6 +12,7 @@ class GUI_View {
     this.MiddleRightBlock = document.getElementById("MiddleRightBlock");
     this.userInput = document.getElementById("userInput");
     this.delete = document.getElementById("Deletebtn");
+    this.textArea = document.getElementById("textArea");
 
     this.Model = model;
   }
@@ -45,6 +46,13 @@ class GUI_View {
       const modifiedValue = currentValue.slice(0, -1);
       this.userInput.value = modifiedValue;
   }
+
+  getEnterBtn()
+  {
+    let input = this.userInput.value;
+    this.textArea.innerHTML += input + "\n";
+  }
+
 }
 
 module.exports = GUI_View;
