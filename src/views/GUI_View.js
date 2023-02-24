@@ -13,6 +13,7 @@ class GUI_View {
     this.userInput = document.getElementById("userInput");
 
     this.Model = model;
+    this.delete = document.getElementById("Deletebtn");
   }
 
   showPuzzle() {
@@ -37,6 +38,12 @@ class GUI_View {
   getButtonClick(i) 
   {
     userInput.value += i;
+  }
+  getDeleteBtn()
+  {
+    const currentValue = this.userInput.value;
+      const modifiedValue = currentValue.slice(0, -1);
+      this.userInput.value = modifiedValue;
   }
 }
 
