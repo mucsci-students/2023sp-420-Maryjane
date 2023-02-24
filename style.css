@@ -26,16 +26,8 @@ body {
 }
 
 /************************* HEX STYLES **************************************!*/
-/*** THIS DOES NOT CURRENLTY WORK PROPERLY AND NEEDS TO BE CHANGED**/
-.topLeftBlockK {
-  margin: 0 auto;
-  background-color: #e6e6e6;
-  border-radius: 10px;
-  width: 100px;
-  height: 63px;
-  border: 0.4vh solid transparent;
-  z-index: -1;
-}
+  
+
 
 
 /************************* END OF HEX STYLE ************************************!*/
@@ -94,6 +86,15 @@ body {
 
 
 /************************* GENERAL BODY STYLES **************************************!*/
+
+#userInput
+{
+  outline: none;
+  caret-color: red;
+  border: none;
+  font-size: 20px;
+  text-align: center;
+}
 
 .input {
   display: grid;

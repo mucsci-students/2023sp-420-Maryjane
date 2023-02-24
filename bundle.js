@@ -2969,6 +2969,18 @@ class GUI_View {
     this.textArea = document.getElementById("textArea");
 
     this.Model = model;
+
+    //add event listner to window to capture enter key
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        this.getEnterBtn();
+      }
+    });
+
+    //add event listner to window to set focus back on input box
+    window.addEventListener("click", () => {
+      this.userInput.focus();
+    });
   }
 
   showPuzzle() {
@@ -2990,23 +3002,28 @@ class GUI_View {
     this.MiddleRightBlock.innerHTML = word[6];
   }
 
-  getButtonClick(i) 
-  {
+  getButtonClick(i) {
     this.userInput.value += i;
   }
-  getDeleteBtn()
-  {
+  getDeleteBtn() {
     const currentValue = this.userInput.value;
-      const modifiedValue = currentValue.slice(0, -1);
-      this.userInput.value = modifiedValue;
+    const modifiedValue = currentValue.slice(0, -1);
+    this.userInput.value = modifiedValue;
   }
 
-  getEnterBtn()
-  {
+  getEnterBtn() {
     let input = this.userInput.value;
+    if (!input) {
+      alert("Input cannot be null!"); //PLEASE CHANGE THIS TO SOMETHING OTHER THAN ALERT
+      return;
+    }
+    if (input.length < 4) {
+      alert("Input must be at least 4 characters long!"); //PLEASE CHANGE THIS TO SOMETHING OTHER THAN ALERT
+      return;
+    }
     this.textArea.innerHTML += input + "\n";
+    this.userInput.value = "";
   }
-
 }
 
 module.exports = GUI_View;
