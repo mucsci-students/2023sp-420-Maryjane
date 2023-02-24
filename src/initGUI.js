@@ -14,17 +14,11 @@ Commands.identifyBaseWord('pinewood', model, view);
 
 let controller = new GUI_Controller(model, view);
 
-function click(i) 
-{
-  view.getButtonClick(i);
-}
-
 console.log(isWord("hello"));
 
 // Put anything in here that you want to be able to access in the html or console.
 module.exports = {
   controller: controller,
   view: view,
-  model: model,
-  click: click
+  model: model
 };

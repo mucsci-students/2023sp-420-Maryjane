@@ -11,9 +11,9 @@ class GUI_View {
     this.BottomLeftBlock = document.getElementById("BottomLeftBlock");
     this.MiddleRightBlock = document.getElementById("MiddleRightBlock");
     this.userInput = document.getElementById("userInput");
+    this.delete = document.getElementById("Deletebtn");
 
     this.Model = model;
-    this.delete = document.getElementById("Deletebtn");
   }
 
   showPuzzle() {
@@ -37,7 +37,7 @@ class GUI_View {
 
   getButtonClick(i) 
   {
-    userInput.value += i;
+    this.userInput.value += i;
   }
   getDeleteBtn()
   {

@@ -2832,10 +2832,14 @@ class GUI_Controller {
   handleShuffleClick() {
     Commands.shuffle(this.Model, this.View);
   }
+  
   handleDeleteClick() {
-   this.View.getDeleteBtn();
+    this.View.getDeleteBtn();
   }
 
+  handleHexClick(i) {
+    this.View.getButtonClick(i);
+  }
 }
 
 module.exports = GUI_Controller;
@@ -2870,19 +2874,13 @@ Commands.identifyBaseWord('pinewood', model, view);
 
 let controller = new GUI_Controller(model, view);
 
-function click(i) 
-{
-  view.getButtonClick(i);
-}
-
 console.log(isWord("hello"));
 
 // Put anything in here that you want to be able to access in the html or console.
 module.exports = {
   controller: controller,
   view: view,
-  model: model,
-  click: click
+  model: model
 };
 
 },{"./classes/Commands.js":9,"./controllers/GUI_Controller.js":10,"./dict.js":11,"./model/Model.js":13,"./views/GUI_View.js":14}],13:[function(require,module,exports){
@@ -2963,9 +2961,9 @@ class GUI_View {
     this.BottomLeftBlock = document.getElementById("BottomLeftBlock");
     this.MiddleRightBlock = document.getElementById("MiddleRightBlock");
     this.userInput = document.getElementById("userInput");
+    this.delete = document.getElementById("Deletebtn");
 
     this.Model = model;
-    this.delete = document.getElementById("Deletebtn");
   }
 
   showPuzzle() {
@@ -2989,7 +2987,7 @@ class GUI_View {
 
   getButtonClick(i) 
   {
-    userInput.value += i;
+    this.userInput.value += i;
   }
   getDeleteBtn()
   {
