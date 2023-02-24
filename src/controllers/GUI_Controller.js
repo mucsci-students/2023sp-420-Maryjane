@@ -21,6 +21,9 @@ class GUI_Controller {
   handleShuffleClick() {
     Commands.shuffle(this.Model, this.View);
   }
+  handleDeleteClick() {
+   this.View.getDeleteBtn();
+  }
 
 }
 
