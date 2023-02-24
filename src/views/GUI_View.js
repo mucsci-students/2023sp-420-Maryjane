@@ -11,9 +11,23 @@ class GUI_View {
     this.BottomLeftBlock = document.getElementById("BottomLeftBlock");
     this.MiddleRightBlock = document.getElementById("MiddleRightBlock");
     this.userInput = document.getElementById("userInput");
+    this.delete = document.getElementById("Deletebtn");
+    this.textArea = document.getElementById("textArea");
+    this.errorMessage = document.getElementById("errorMessage");
 
     this.Model = model;
-    this.delete = document.getElementById("Deletebtn");
+
+    //add event listner to window to capture enter key
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        this.getEnterBtn();
+      }
+    });
+
+    //add event listner to window to set focus back on input box
+    window.addEventListener("click", () => {
+      this.userInput.focus();
+    });
   }
 
   showPuzzle() {
@@ -35,15 +49,41 @@ class GUI_View {
     this.MiddleRightBlock.innerHTML = word[6];
   }
 
-  getButtonClick(i) 
-  {
-    userInput.value += i;
+  getButtonClick(i) {
+    this.userInput.value += i;
   }
-  getDeleteBtn()
-  {
+  getDeleteBtn() {
     const currentValue = this.userInput.value;
-      const modifiedValue = currentValue.slice(0, -1);
-      this.userInput.value = modifiedValue;
+    const modifiedValue = currentValue.slice(0, -1);
+    this.userInput.value = modifiedValue;
+  }
+
+  getEnterBtn() {
+    let input = this.userInput.value;
+
+    //TODO: check dictionary for vaild word and update rank accordingly ***********VERY IMPORTANT***********
+
+    if (!input || input.length < 4) //side note: is this the correct input length?
+    {
+      this.errorMessage.innerHTML = "Input too short";
+      this.userInput.value = "";
+
+      setTimeout(() => {
+        this.errorMessage.innerHTML = "&zwnj;";
+      }, 1000); // Show the error message for 1 second
+    }
+    else if (!this.userInput.value.includes(this.Model.requiredLetter)) {
+      this.errorMessage.innerHTML = "Missing center letter";
+      this.userInput.value = "";
+
+      setTimeout(() => {
+        this.errorMessage.innerHTML = "&zwnj;";
+      }, 1000); // Show the error message for 1 second
+    }
+    else {
+      this.textArea.innerHTML += input + "  ";
+      this.userInput.value = "";
+    }
   }
 }
 

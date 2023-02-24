@@ -2832,10 +2832,18 @@ class GUI_Controller {
   handleShuffleClick() {
     Commands.shuffle(this.Model, this.View);
   }
+  
   handleDeleteClick() {
-   this.View.getDeleteBtn();
+    this.View.getDeleteBtn();
   }
 
+  handleHexClick(i) {
+    this.View.getButtonClick(i);
+  }
+
+  handleEnterClick() {
+    this.View.getEnterBtn();
+  }
 }
 
 module.exports = GUI_Controller;
@@ -2870,19 +2878,13 @@ Commands.identifyBaseWord('pinewood', model, view);
 
 let controller = new GUI_Controller(model, view);
 
-function click(i) 
-{
-  view.getButtonClick(i);
-}
-
 console.log(isWord("hello"));
 
 // Put anything in here that you want to be able to access in the html or console.
 module.exports = {
   controller: controller,
   view: view,
-  model: model,
-  click: click
+  model: model
 };
 
 },{"./classes/Commands.js":9,"./controllers/GUI_Controller.js":10,"./dict.js":11,"./model/Model.js":13,"./views/GUI_View.js":14}],13:[function(require,module,exports){
@@ -2963,9 +2965,23 @@ class GUI_View {
     this.BottomLeftBlock = document.getElementById("BottomLeftBlock");
     this.MiddleRightBlock = document.getElementById("MiddleRightBlock");
     this.userInput = document.getElementById("userInput");
+    this.delete = document.getElementById("Deletebtn");
+    this.textArea = document.getElementById("textArea");
+    this.errorMessage = document.getElementById("errorMessage");
 
     this.Model = model;
-    this.delete = document.getElementById("Deletebtn");
+
+    //add event listner to window to capture enter key
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        this.getEnterBtn();
+      }
+    });
+
+    //add event listner to window to set focus back on input box
+    window.addEventListener("click", () => {
+      this.userInput.focus();
+    });
   }
 
   showPuzzle() {
@@ -2987,15 +3003,40 @@ class GUI_View {
     this.MiddleRightBlock.innerHTML = word[6];
   }
 
-  getButtonClick(i) 
-  {
-    userInput.value += i;
+  getButtonClick(i) {
+    this.userInput.value += i;
   }
-  getDeleteBtn()
-  {
+  getDeleteBtn() {
     const currentValue = this.userInput.value;
-      const modifiedValue = currentValue.slice(0, -1);
-      this.userInput.value = modifiedValue;
+    const modifiedValue = currentValue.slice(0, -1);
+    this.userInput.value = modifiedValue;
+  }
+
+  getEnterBtn() {
+    let input = this.userInput.value;
+
+    //TODO: check dictionary for vaild word and update rank accordingly
+
+    if (!input || input.length < 4) {
+      this.errorMessage.innerHTML = "Input too short";
+      this.userInput.value = "";
+
+      setTimeout(() => {
+        this.errorMessage.innerHTML = "&zwnj;";
+      }, 1000); // Show the error message for 1 second
+    } 
+    else if (!this.userInput.value.includes(this.Model.requiredLetter)) {
+      this.errorMessage.innerHTML = "Missing center letter";
+      this.userInput.value = "";
+      
+      setTimeout(() => {
+        this.errorMessage.innerHTML = "&zwnj;";
+      }, 1000); // Show the error message for 1 second
+    }
+    else {
+      this.textArea.innerHTML += input + "  ";
+      this.userInput.value = "";
+    }
   }
 }
 

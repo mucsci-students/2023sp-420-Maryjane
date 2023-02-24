@@ -21,10 +21,18 @@ class GUI_Controller {
   handleShuffleClick() {
     Commands.shuffle(this.Model, this.View);
   }
+  
   handleDeleteClick() {
-   this.View.getDeleteBtn();
+    this.View.getDeleteBtn();
   }
 
+  handleHexClick(i) {
+    this.View.getButtonClick(i);
+  }
+
+  handleEnterClick() {
+    this.View.getEnterBtn();
+  }
 }
 
 module.exports = GUI_Controller;

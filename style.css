@@ -26,16 +26,8 @@ body {
 }
 
 /************************* HEX STYLES **************************************!*/
-/*** THIS DOES NOT CURRENLTY WORK PROPERLY AND NEEDS TO BE CHANGED**/
-.topLeftBlockK {
-  margin: 0 auto;
-  background-color: #e6e6e6;
-  border-radius: 10px;
-  width: 100px;
-  height: 63px;
-  border: 0.4vh solid transparent;
-  z-index: -1;
-}
+  
+
 
 
 /************************* END OF HEX STYLE ************************************!*/
@@ -94,6 +86,38 @@ body {
 
 
 /************************* GENERAL BODY STYLES **************************************!*/
+
+#errorMessage
+{
+  text-align: center;
+  color: red;
+  font-size: 20px;
+}
+
+#textArea
+{
+  resize: none;
+}
+
+#textArea::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 7px;
+}
+
+#textArea::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(0,0,0,.5);
+  -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+}
+
+#userInput
+{
+  outline: none;
+  caret-color: red;
+  border: none;
+  font-size: 20px;
+  text-align: center;
+}
 
 .input {
   display: grid;
