@@ -87,6 +87,13 @@ body {
 
 /************************* GENERAL BODY STYLES **************************************!*/
 
+#errorMessage
+{
+  text-align: center;
+  color: red;
+  font-size: 20px;
+}
+
 #textArea
 {
   resize: none;

@@ -13,6 +13,7 @@ class GUI_View {
     this.userInput = document.getElementById("userInput");
     this.delete = document.getElementById("Deletebtn");
     this.textArea = document.getElementById("textArea");
+    this.errorMessage = document.getElementById("errorMessage");
 
     this.Model = model;
 
@@ -58,20 +59,31 @@ class GUI_View {
   }
 
   getEnterBtn() {
-
-    //ALSO ADD CASE FOR REQUIRED LETTER
-
     let input = this.userInput.value;
-    if (!input) {
-      alert("Input cannot be null!"); //PLEASE CHANGE THIS TO SOMETHING OTHER THAN ALERT
-      return;
+
+    //TODO: check dictionary for vaild word and update rank accordingly ***********VERY IMPORTANT***********
+
+    if (!input || input.length < 4) //side note: is this the correct input length?
+    {
+      this.errorMessage.innerHTML = "Input too short";
+      this.userInput.value = "";
+
+      setTimeout(() => {
+        this.errorMessage.innerHTML = "&zwnj;";
+      }, 1000); // Show the error message for 1 second
     }
-    if (input.length < 4) {
-      alert("Input must be at least 4 characters long!"); //PLEASE CHANGE THIS TO SOMETHING OTHER THAN ALERT
-      return;
+    else if (!this.userInput.value.includes(this.Model.requiredLetter)) {
+      this.errorMessage.innerHTML = "Missing center letter";
+      this.userInput.value = "";
+
+      setTimeout(() => {
+        this.errorMessage.innerHTML = "&zwnj;";
+      }, 1000); // Show the error message for 1 second
     }
-    this.textArea.innerHTML += input + "  ";
-    this.userInput.value = "";
+    else {
+      this.textArea.innerHTML += input + "  ";
+      this.userInput.value = "";
+    }
   }
 }
 
