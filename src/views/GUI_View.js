@@ -70,7 +70,7 @@ class GUI_View {
       alert("Input must be at least 4 characters long!"); //PLEASE CHANGE THIS TO SOMETHING OTHER THAN ALERT
       return;
     }
-    this.textArea.innerHTML += input + "\n";
+    this.textArea.innerHTML += input + "  ";
     this.userInput.value = "";
   }
 }

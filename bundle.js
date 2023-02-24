@@ -3012,6 +3012,9 @@ class GUI_View {
   }
 
   getEnterBtn() {
+
+    //ALSO ADD CASE FOR REQUIRED LETTER
+
     let input = this.userInput.value;
     if (!input) {
       alert("Input cannot be null!"); //PLEASE CHANGE THIS TO SOMETHING OTHER THAN ALERT
@@ -3021,7 +3024,7 @@ class GUI_View {
       alert("Input must be at least 4 characters long!"); //PLEASE CHANGE THIS TO SOMETHING OTHER THAN ALERT
       return;
     }
-    this.textArea.innerHTML += input + "\n";
+    this.textArea.innerHTML += input + "  ";
     this.userInput.value = "";
   }
 }
