@@ -38,7 +38,7 @@ npm start
 
 ### GUI
 
-[GUI](https://jsteve0.github.io/2023sp-420-Maryjane/)
+[GUI](https://mucsci-students.github.io/2023sp-420-Maryjane/)
 
 ### Run tests
 * To run the tests, you can use the following command:
