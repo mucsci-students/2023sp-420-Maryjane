@@ -12,10 +12,21 @@ class GUI_Controller {
   constructor(Model, View) {
     this.Model = Model;
     this.View = View;
+    this.setupController();
   }
 
-  setupGUI() {
-    //GetPTags(Model) = get a random from the database (Model)
+  setupController() {
+
+    window.addEventListener("click", (event) => {
+      this.View.focusOnInputField();
+    });
+
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        this.View.getEnterBtn();
+      }
+    });
+
   }
 
   handleShuffleClick() {
