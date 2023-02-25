@@ -38,7 +38,7 @@ class GUI_Controller {
   }
 
   handleHexClick(i) {
-    this.View.getButtonClick(i);
+    this.View.addLetterToInputField(i);
   }
 
   handleEnterClick() {

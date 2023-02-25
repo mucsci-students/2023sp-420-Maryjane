@@ -16,7 +16,7 @@ class Database {
   client = new MongoClient(this.uri);
   //Store database
   database;
-  //Store 7 letter word collection
+  //Store 7-letter word collection
   pangramCollection;
 
   //Default Constructor
@@ -37,7 +37,7 @@ class Database {
   }
 
   /**
-   * Disconects code to mongoDB database named 'MaryJane'
+   * Disconnects code to mongoDB database named 'MaryJane'
    */
   async disconnect() {
     await this.client.close();

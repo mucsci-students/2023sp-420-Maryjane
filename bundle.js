@@ -2515,7 +2515,7 @@ class Commands {
       return false;
     }
 
-    // Check that the input has the required lettter
+    // Check that the input has the required letter
     if (input.search(Model.requiredLetter.toLowerCase()) === -1) {
       View.showErrorMessage("Missing Required Letter");
       return false;
@@ -2565,7 +2565,7 @@ class Commands {
    */
   static async newPuzzle(Model, Database, View) {
     if (Model.isPuzzleOpen) {
-      View.printMessage("game is in progess");
+      View.printMessage("game is in progress");
       this.promptSave(Model);
     }
 
@@ -2601,7 +2601,7 @@ class Commands {
    * @param {Model} Model - the Model object
    */
   static updatePuzzleRank(word, Model) {
-    //Shifts it so you get 1 point for a 4 letter word, 2 points for 5 letters, etc.
+    //Shifts it, so you get 1 point for a 4-letter word, 2 points for 5 letters, etc.
     let score = word.length - 3;
     let USED_ALL_LETTERS_BONUS = 7;
 
@@ -2612,7 +2612,7 @@ class Commands {
     Model.userPoints += score;
   }
 
-  static async shuffle(Model, View) {
+  static shuffle(Model, View) {
     if (!Model.isPuzzleOpen) {
       console.log("game is not in progess");
       return;
@@ -2630,8 +2630,8 @@ class Commands {
   /**
    * Generates a new puzzle based on user inputted word
    * @param {Model} Model - object used to keep track of the game/player
-   * @param {input} input - users inputted word
-   * @returns null
+   * @param {string} input - users inputted word
+   * @returns
    */
   static identifyBaseWord(input, Model, View) {
     input = input + "";
@@ -2642,7 +2642,7 @@ class Commands {
       //this.promptSave(Model);
     }
     // Checks user's word to have correct length and no spaces
-    if (String.prototype.concat.call(...new Set(input)).length != 7) {
+    if (String.prototype.concat.call(...new Set(input)).length !== 7) {
       console.log("The new word must have 7 unique letters and no spaces");
       return;
     }
@@ -2680,7 +2680,7 @@ class Commands {
   /**
    * Loads a saved puzzle
    * @param {Model} Model - object used to keep track of the game/player
-   * @param {fileName} fileName - users inputted file name
+   * @param {string} fileName - users inputted file name
    */
   static load(fileName, Model, View) {
     //check if a game is already in progress, if it is dont load a new game
@@ -2741,7 +2741,7 @@ class Commands {
   /**
    * Saves current puzzle
    * @param {Model} Model - object used to keep track of the game/player
-   * @param {fileName} fileName - users inputted file name
+   * @param {string} fileName - users inputted file name
    * @returns null
    */
   static save(fileName, Model) {
@@ -2750,7 +2750,7 @@ class Commands {
       return false;
     }
 
-    if (fileName == "") {
+    if (fileName === "") {
       console.log("SpellingBee> File name cannot be empty");
       return false;
     }
@@ -2853,7 +2853,7 @@ class GUI_Controller {
   }
 
   handleHexClick(i) {
-    this.View.getButtonClick(i);
+    this.View.addLetterToInputField(i);
   }
 
   handleEnterClick() {
@@ -2871,36 +2871,34 @@ for (let i = 0; i < word.length; i++) {
     dict[word[i]] = true;
 }
 
+/**
+ * Checks if word is a real word found in the English dictionary
+ * @param {string} word - The input to check if it is a real word
+ * @return {boolean} - Returns true if the word is found in the English Dictionary, false if not
+ */
 function isWord(word) {
-    return dict[word] === true;
+    return dict[word.toLowerCase()] === true;
 }
 
 module.exports = isWord;
 },{}],12:[function(require,module,exports){
-//const { shuffle } = require('./classes/Commands.js');
 
-let GUI_View = require('./views/GUI_View.js');
-let Model = require('./model/Model.js');
-let GUI_Controller = require('./controllers/GUI_Controller.js');
 let Commands = require('./classes/Commands.js');
-let isWord = require('./dict.js');
 
-let model = new Model();
+let Model = new (require('./model/Model.js'))();
+let View = new (require('./views/GUI_View.js'))(Model);
+let Controller = new (require('./controllers/GUI_Controller.js'))(Model, View);
 
-let view = new GUI_View(model);
-
-Commands.identifyBaseWord('pinewood', model, view);
-
-let controller = new GUI_Controller(model, view);
+Commands.identifyBaseWord('pinewood', Model, View);
 
 // Put anything in here that you want to be able to access in the html or console.
 module.exports = {
-  controller: controller,
-  view: view,
-  model: model
+  Controller: Controller,
+  View: View,
+  Model: Model
 };
 
-},{"./classes/Commands.js":9,"./controllers/GUI_Controller.js":10,"./dict.js":11,"./model/Model.js":13,"./views/GUI_View.js":14}],13:[function(require,module,exports){
+},{"./classes/Commands.js":9,"./controllers/GUI_Controller.js":10,"./model/Model.js":13,"./views/GUI_View.js":14}],13:[function(require,module,exports){
 
 // Used to keep track of all things related to the puzzle/game
 class Model {
@@ -2965,9 +2963,9 @@ class Model {
 module.exports = Model;
   
 },{}],14:[function(require,module,exports){
-//Function to find a specifc html tasks by adding an ID for each tasks
+//Function to find a specific html tasks by adding an ID for each tasks
 const Commands = require("../classes/Commands.js");
-//Return the ID of element as a java script object, store all in the array and suffle and change what they say inside them This.TopLeftBlock
+//Return the ID of element as a JavaScript object, store all in the array and shuffle and change what they say inside them This.TopLeftBlock
 class GUI_View {
 
   constructor(model) {
@@ -3046,13 +3044,13 @@ class GUI_View {
     this.MiddleRightBlock.innerHTML = word[6];
   }
 
-  getButtonClick(i) {
+  addLetterToInputField(i) {
     this.userInput.value += i;
   }
+
   getDeleteBtn() {
     const currentValue = this.userInput.value;
-    const modifiedValue = currentValue.slice(0, -1);
-    this.userInput.value = modifiedValue;
+    this.userInput.value = currentValue.slice(0, -1);
   }
 
   getEnterBtn() {

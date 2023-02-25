@@ -1,18 +1,16 @@
 /**
  * Stores CLI Controller class
  */
-
-// cli object
-var Vorpal = require("@moleculer/Vorpal")();
+const Vorpal = require("@moleculer/Vorpal")();
 
 // Commands class
-var Commands = require("../classes/Commands.js");
+const Commands = require("../classes/Commands.js");
 
 // Used for documentation
 const Model = require("../Model/Model.js");
 
 // Database object created from the file specified below
-var Database = new (require("../classes/Database.js"))();
+const Database = new (require("../classes/Database.js"))();
 
 /**
  * Controller for the CLI following the MVC Model
@@ -68,7 +66,7 @@ class CLI_Controller {
         "Command to let user to submit the following word as a guess."
       )
       .action(function (args, callback) {
-        Commands.guess(args.input.toString(), Model);
+        Commands.guess(args.input.toString(), Model, View);
         callback();
       });
 

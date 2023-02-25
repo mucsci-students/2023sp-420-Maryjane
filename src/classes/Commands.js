@@ -34,7 +34,7 @@ class Commands {
       return false;
     }
 
-    // Check that the input has the required lettter
+    // Check that the input has the required letter
     if (input.search(Model.requiredLetter.toLowerCase()) === -1) {
       View.showErrorMessage("Missing Required Letter");
       return false;
@@ -84,7 +84,7 @@ class Commands {
    */
   static async newPuzzle(Model, Database, View) {
     if (Model.isPuzzleOpen) {
-      View.printMessage("game is in progess");
+      View.printMessage("game is in progress");
       this.promptSave(Model);
     }
 
@@ -120,7 +120,7 @@ class Commands {
    * @param {Model} Model - the Model object
    */
   static updatePuzzleRank(word, Model) {
-    //Shifts it so you get 1 point for a 4 letter word, 2 points for 5 letters, etc.
+    //Shifts it, so you get 1 point for a 4-letter word, 2 points for 5 letters, etc.
     let score = word.length - 3;
     let USED_ALL_LETTERS_BONUS = 7;
 
@@ -131,7 +131,7 @@ class Commands {
     Model.userPoints += score;
   }
 
-  static async shuffle(Model, View) {
+  static shuffle(Model, View) {
     if (!Model.isPuzzleOpen) {
       console.log("game is not in progess");
       return;
@@ -149,8 +149,8 @@ class Commands {
   /**
    * Generates a new puzzle based on user inputted word
    * @param {Model} Model - object used to keep track of the game/player
-   * @param {input} input - users inputted word
-   * @returns null
+   * @param {string} input - users inputted word
+   * @returns
    */
   static identifyBaseWord(input, Model, View) {
     input = input + "";
@@ -161,7 +161,7 @@ class Commands {
       //this.promptSave(Model);
     }
     // Checks user's word to have correct length and no spaces
-    if (String.prototype.concat.call(...new Set(input)).length != 7) {
+    if (String.prototype.concat.call(...new Set(input)).length !== 7) {
       console.log("The new word must have 7 unique letters and no spaces");
       return;
     }
@@ -199,7 +199,7 @@ class Commands {
   /**
    * Loads a saved puzzle
    * @param {Model} Model - object used to keep track of the game/player
-   * @param {fileName} fileName - users inputted file name
+   * @param {string} fileName - users inputted file name
    */
   static load(fileName, Model, View) {
     //check if a game is already in progress, if it is dont load a new game
@@ -260,7 +260,7 @@ class Commands {
   /**
    * Saves current puzzle
    * @param {Model} Model - object used to keep track of the game/player
-   * @param {fileName} fileName - users inputted file name
+   * @param {string} fileName - users inputted file name
    * @returns null
    */
   static save(fileName, Model) {
@@ -269,7 +269,7 @@ class Commands {
       return false;
     }
 
-    if (fileName == "") {
+    if (fileName === "") {
       console.log("SpellingBee> File name cannot be empty");
       return false;
     }

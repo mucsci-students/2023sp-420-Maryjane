@@ -5,19 +5,19 @@
 /*****************************************************************************/
 
 // Model object created from the file specified below.
-var Model = new (require("./model/Model.js"))();
+const Model = new (require("./model/Model.js"))();
 
 // CLI_Controller Object
-var CLI_ControllerClass = require("./controllers/CLI_Controller.js");
+const CLI_ControllerClass = require("./controllers/CLI_Controller.js");
 
 // CLI_View Object
-var CLI_ViewClass = require("./views/CLI_View.js");
+const CLI_ViewClass = require("./views/CLI_View.js");
 
 /*****************************************************************************/
 /*                                Setup Function                             */
 /*****************************************************************************/
 
-//Initilize start up logo
+//Initialize start up logo
 console.log(
   "\x1b[33m%s\x1b[0m",
   "  ,-.                                                                             ,-."
@@ -39,7 +39,7 @@ console.log(
   "  `-'                                                                             `-'"
 );
 
-//Intilize start up description
+//Initialize start up description
 console.log(
   "\x1b[33m%s\x1b[0m",
   "Welcome to Spelling BEE! A game all about Words and Honey.\nType new-puzzle to begin a new puzzle\nor\nFor more info type help"

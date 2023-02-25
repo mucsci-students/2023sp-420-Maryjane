@@ -1,6 +1,6 @@
-//Function to find a specifc html tasks by adding an ID for each tasks
+//Function to find a specific html tasks by adding an ID for each tasks
 const Commands = require("../classes/Commands.js");
-//Return the ID of element as a java script object, store all in the array and suffle and change what they say inside them This.TopLeftBlock
+//Return the ID of element as a JavaScript object, store all in the array and shuffle and change what they say inside them This.TopLeftBlock
 class GUI_View {
 
   constructor(model) {
@@ -79,13 +79,13 @@ class GUI_View {
     this.MiddleRightBlock.innerHTML = word[6];
   }
 
-  getButtonClick(i) {
+  addLetterToInputField(i) {
     this.userInput.value += i;
   }
+
   getDeleteBtn() {
     const currentValue = this.userInput.value;
-    const modifiedValue = currentValue.slice(0, -1);
-    this.userInput.value = modifiedValue;
+    this.userInput.value = currentValue.slice(0, -1);
   }
 
   getEnterBtn() {

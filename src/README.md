@@ -66,7 +66,7 @@ https://docs.npmjs.com/cli/v9/configuring-npm/package-json
 1. Find task/feature to work on.
 2. Get on the develop branch using `git checkout develop`
 3. Pull the most recent changes from the remote repo using `git pull`
-4. Get access to all the new branches incase you are hopping on one of those using `git fetch origin`
+4. Get access to all the new branches in case you are hopping on one of those using `git fetch origin`
 5. Go to the issues page on GitHub and click on the issue you are working on. On the right side under develop, click on the button called 'create a branch'.
 6. Copy and paste the command it gives you into the terminal when in the `2023-420-MARYJANE` folder and it will automatically put you on that branch. You can also do this manually by creating your own branch, but it is slower and probably will have a worse naming convention than the GitHub generated one.
 7. Complete your feature(s).
@@ -82,7 +82,7 @@ https://docs.npmjs.com/cli/v9/configuring-npm/package-json
 I like this pdf provided by Dr. Schwartz on D2L: https://education.github.com/git-cheat-sheet-education.pdf
 
 ## Merge Conflicts
-These can and are challenging to fix most of the time and for that reason, it is hard to answer how to solve a merge conflict. This link will help you get on the right track: https://stackoverflow.com/questions/38216541/visual-studio-code-how-to-resolve-merge-conflicts-with-git. However, I recommend reaching out to someone else on the team to walk you throught it.
+These can and are challenging to fix most of the time and for that reason, it is hard to answer how to solve a merge conflict. This link will help you get on the right track: https://stackoverflow.com/questions/38216541/visual-studio-code-how-to-resolve-merge-conflicts-with-git. However, I recommend reaching out to someone else on the team to walk you through it.
 
 # Testing
 For the best information visit: https://jestjs.io/
