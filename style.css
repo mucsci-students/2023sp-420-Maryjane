@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Nunito+Sans');
 /** GLOBAL STYLES **/
 /***CHANGE THE VALUES OF THE CSS VARIABLE BELOW TO CHANGE MUTIPLE FIELDS ***/
 :root {
@@ -5,7 +6,7 @@
   --middle-CENTER-row-gap: 0.5px;
   --gap-BETWEEN-rows: 2px;
   --btnColor:white;
-  --btnColorsOnHover: #ffe101;
+  --btnColorsOnHover: rgb(238, 206, 44);
   --navBARcolor:#232323;
   --navBarElementsColor: #cdcdcd;
   --navBarElementsOnHoverColor: #f8e71c;
@@ -21,13 +22,15 @@ body {
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
-  font-family: Sans-Serif;
-  background-color: rgb(214, 214, 214); 
+  background-color: white; 
 }
 
 /************************* HEX STYLES **************************************!*/
   
+.elementsContainer
+{
 
+}
 
 
 /************************* END OF HEX STYLE ************************************!*/
@@ -66,13 +69,16 @@ body {
   background-color: var(--btnColor);
   border: 2px solid rgb(209, 208, 208);
   color: rgb(0, 0, 0);
-  padding: 4px;
+  padding: 2px;
   text-align: center;
-  text-decoration: none;
   border-radius: 100px;
-  width: 7%;
-  font-size: 16px;
+  min-width: 8%;
+  max-width: 25%;
+  min-height: 8%;
+  font-size: 25px;
   transition: all 0.3s ease;
+  font-family: 'Nunito Sans', sans-serif;
+  font-weight: 700;
 }
 
 .btnStyling:hover
@@ -81,42 +87,51 @@ body {
   cursor: pointer;
 }
 
+
 /*************************   END OF BUTTON STYLES  **********************************!*/
 
 
 
 /************************* GENERAL BODY STYLES **************************************!*/
+#poop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  z-index: 9999;
+}
+
+text{
+  font-family: 'Nunito Sans', sans-serif;
+  font-weight: 700;
+}
 
 #errorMessage
 {
   text-align: center;
-  color: red;
-  font-size: 20px;
+  color: rgb(169, 57, 57);
+  font-size: 30px;
+  font-family: 'Nunito Sans', sans-serif;
+  font-weight: 700;
 }
 
 #textArea
 {
   resize: none;
-}
-
-#textArea::-webkit-scrollbar {
-  -webkit-appearance: none;
-  width: 7px;
-}
-
-#textArea::-webkit-scrollbar-thumb {
-  border-radius: 4px;
-  background-color: rgba(0,0,0,.5);
-  -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+  border-radius: 9px;
+  height: 50%;
 }
 
 #userInput
 {
   outline: none;
-  caret-color: red;
+  caret-color: rgb(248, 205, 5);
   border: none;
-  font-size: 20px;
+  font-size: 40px;
   text-align: center;
+  background-color: transparent;
+  font-family: 'Nunito Sans', sans-serif;
+  font-weight: 700;
 }
 
 .input {
@@ -142,7 +157,14 @@ h3 {
 footer {
   margin-top: auto;
   text-align: center;
-  background-color: red;
+  display: inline-block;
+  font-size: medium;
+}
+
+a:visited
+{
+  text-decoration: none;
+  color: black;
 }
 
 #block
@@ -162,7 +184,6 @@ footer {
   flex-direction: column;
   justify-content: center;
   gap: var(--gap-BETWEEN-rows);
-  margin-top: 2%;
 }
 
 .topRowContainer {
@@ -208,6 +229,8 @@ footer {
   -webkit-user-select: none;
   user-select: none;
   box-sizing: border-box;
+  font-family: 'Nunito Sans', sans-serif;
+  font-weight: 700;
 }
 
 .menu-logo {
@@ -365,6 +388,45 @@ footer {
     padding: 0 20px;
   }
   /**************************************END OF NAVBAR STYLES*************************************/
+
+  /* The Modal (background) */
+.modal-container {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 50%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
 
 
 
