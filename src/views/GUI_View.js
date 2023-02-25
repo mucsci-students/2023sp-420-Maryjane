@@ -30,6 +30,8 @@ class GUI_View {
     //add clicks
 
 
+    //FIX LATER 
+    /*
     const newPuzzleFromBaseBtn = document.querySelector("#newPuzzleFromBaseBtn");
     const modalContainer = document.querySelector("#modalContainer");
     const closeModalBtn = document.querySelector("#closeModal");
@@ -55,7 +57,7 @@ class GUI_View {
         modalContainer.style.display = "none";
       }
     });
-
+    */
   }
 
   showPuzzle() {
