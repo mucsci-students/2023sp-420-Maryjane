@@ -2499,47 +2499,45 @@ class Commands {
    * @param {Model} Model - The Model object used to keep track of the game
    * @returns a bool that is true if the guess was valid and inserted, false if not
    */
-  static guess(input, Model) {
+  static guess(input, Model, View) {
     //Converts input to a string
     input = input + "";
     input = input.toLowerCase();
 
     if (!Model.isPuzzleOpen) {
-      console.log("No puzzle in progress");
+      View.showErrorMessage("No puzzle in progress");
       return false;
     }
 
     if (input.length < 4) {
-      console.log("Guess must be at least 4 characters");
+      View.showErrorMessage("Guess must be at least 4 characters");
+      
       return false;
     }
 
     // Check that the input has the required lettter
     if (input.search(Model.requiredLetter.toLowerCase()) === -1) {
-      console.log(
-        "Guess must contain required character\nThe required character is",
-        Model.requiredLetter
-      );
+      View.showErrorMessage("Missing Required Letter");
       return false;
     }
 
     // Check that all letters of the input are allowed letters determined by the pangram
     for (let i = 0; i < input.length; i++) {
       if (Model.pangram.search(input.charAt(i)) === -1) {
-        console.log(input.charAt(i) + " is not in the required letters");
+        View.showErrorMessage(input.charAt(i) + " is not in the required letters");
         return false;
       }
     }
 
     // Check that guess is not in the found words
     if (Model.foundWords.includes(input)) {
-      console.log("Invalid, " + input + " was already guessed");
+      View.showErrorMessage(input + " was already guessed");
       return false;
     }
 
     // Check that the guess is a real word
     if (!isWord(input)) {
-      console.log(input + " was not found in the dictionary");
+      View.showErrorMessage(input + " is not a word");
       return false;
     }
 
@@ -2548,7 +2546,13 @@ class Commands {
 
     Commands.updatePuzzleRank(input, Model);
 
-    console.log("success");
+    if (input === Model.pangram) {
+      View.showPangramMessage(Model.pangram);
+    }
+    else
+    {
+      View.showSuccessMessage("Success!");
+    }
 
     return true;
   }
@@ -2823,10 +2827,21 @@ class GUI_Controller {
   constructor(Model, View) {
     this.Model = Model;
     this.View = View;
+    this.setupController();
   }
 
-  setupGUI() {
-    //GetPTags(Model) = get a random from the database (Model)
+  setupController() {
+
+    window.addEventListener("click", (event) => {
+      this.View.focusOnInputField();
+    });
+
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        this.View.getEnterBtn();
+      }
+    });
+
   }
 
   handleShuffleClick() {
@@ -2877,8 +2892,6 @@ let view = new GUI_View(model);
 Commands.identifyBaseWord('pinewood', model, view);
 
 let controller = new GUI_Controller(model, view);
-
-console.log(isWord("hello"));
 
 // Put anything in here that you want to be able to access in the html or console.
 module.exports = {
@@ -2953,10 +2966,14 @@ module.exports = Model;
   
 },{}],14:[function(require,module,exports){
 //Function to find a specifc html tasks by adding an ID for each tasks
-
+const Commands = require("../classes/Commands.js");
 //Return the ID of element as a java script object, store all in the array and suffle and change what they say inside them This.TopLeftBlock
 class GUI_View {
+
   constructor(model) {
+
+    this.message_Display_Time_In_Milliseconds_For_Success_And_Failure_When_User_Enters_Guess = 1700;
+
     this.MiddleLeftBlock = document.getElementById("MiddleLeftBlock");
     this.TopLeftBlock = document.getElementById("TopLeftBlock");
     this.Middle = document.getElementById("Middle");
@@ -2964,24 +2981,40 @@ class GUI_View {
     this.BottomRightBlock = document.getElementById("BottomRightBlock");
     this.BottomLeftBlock = document.getElementById("BottomLeftBlock");
     this.MiddleRightBlock = document.getElementById("MiddleRightBlock");
+
     this.userInput = document.getElementById("userInput");
     this.delete = document.getElementById("Deletebtn");
     this.textArea = document.getElementById("textArea");
     this.errorMessage = document.getElementById("errorMessage");
-
     this.Model = model;
 
-    //add event listner to window to capture enter key
-    window.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") {
-        this.getEnterBtn();
+    this.isModal = false;
+    const newPuzzleFromBaseBtn = document.querySelector("#newPuzzleFromBaseBtn");
+    const modalContainer = document.querySelector("#modalContainer");
+    const closeModalBtn = document.querySelector("#closeModal");
+    const submitNewWordBtn = document.querySelector("#submitNewWordBtn");
+    const newWordInput = document.querySelector("#newWordInput");
+
+    newPuzzleFromBaseBtn.addEventListener("click", () => {
+      this.isModal = true;
+      modalContainer.style.display = "block";
+      this.userInput.blur();
+    });
+
+    closeModalBtn.addEventListener("click", () => {
+      modalContainer.style.display = "none";
+      this.isModal = false;
+    });
+
+    submitNewWordBtn.addEventListener("click", () => {
+      const newWord = newWordInput.value.trim();
+      if (newWord) {
+        // Do something with the new word here
+        console.log("New word: ", newWord);
+        modalContainer.style.display = "none";
       }
     });
 
-    //add event listner to window to set focus back on input box
-    window.addEventListener("click", () => {
-      this.userInput.focus();
-    });
   }
 
   showPuzzle() {
@@ -3014,33 +3047,63 @@ class GUI_View {
 
   getEnterBtn() {
     let input = this.userInput.value;
-
-    //TODO: check dictionary for vaild word and update rank accordingly
-
-    if (!input || input.length < 4) {
-      this.errorMessage.innerHTML = "Input too short";
-      this.userInput.value = "";
-
-      setTimeout(() => {
-        this.errorMessage.innerHTML = "&zwnj;";
-      }, 1000); // Show the error message for 1 second
-    } 
-    else if (!this.userInput.value.includes(this.Model.requiredLetter)) {
-      this.errorMessage.innerHTML = "Missing center letter";
-      this.userInput.value = "";
-      
-      setTimeout(() => {
-        this.errorMessage.innerHTML = "&zwnj;";
-      }, 1000); // Show the error message for 1 second
-    }
-    else {
+    let success = Commands.guess(input, this.Model, this);
+    if (success) {
       this.textArea.innerHTML += input + "  ";
       this.userInput.value = "";
     }
+    else {
+      this.userInput.value = "";
+    }
+  }
+
+
+  focusOnInputField() {
+    if (!this.isModal) {
+      this.userInput.focus();
+    }
+    else {
+      this.userInput.blur();
+    }
+  }
+
+  showErrorMessage(message) {
+    this.errorMessage.style.color = "red";
+    this.errorMessage.innerHTML = message;
+    setTimeout(() => {
+      this.errorMessage.innerHTML = "&zwnj;";
+    }, this.message_Display_Time_In_Milliseconds_For_Success_And_Failure_When_User_Enters_Guess);
+  }
+
+  showSuccessMessage(message) {
+    this.errorMessage.style.color = "green";
+    this.errorMessage.innerHTML = message;
+    setTimeout(() => {
+      this.errorMessage.innerHTML = "&zwnj;";
+    }, this.message_Display_Time_In_Milliseconds_For_Success_And_Failure_When_User_Enters_Guess);
+  }
+
+  showPangramMessage(message) {
+    let color = ["red", "orange", "#f2e555", "green", "blue", "indigo", "violet"];
+    let newMessage = "YOU FOUND A PANGRAM: " + message;
+    let newMessage2 = "";
+    for (let i = 0; i < newMessage.length; i++) {
+      newMessage2 += "<span style='color:" + color[i % color.length] + "'>" + newMessage[i] + "</span>";
+    }
+    this.errorMessage.innerHTML = newMessage2;
+    this.addConfetti();
+  }
+
+  addConfetti() {
+    confetti({
+      particleCount: 100,
+      spread: 70,
+      origin: { y: 0.6 }
+    });
   }
 }
 
 module.exports = GUI_View;
 
-},{}]},{},[12])(12)
+},{"../classes/Commands.js":9}]},{},[12])(12)
 });

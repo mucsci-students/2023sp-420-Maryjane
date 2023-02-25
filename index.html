@@ -6,7 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel='stylesheet' type='text/css' href='style.css'>
+    <link href='https://fonts.googleapis.com/css?family=Nunito Sans' rel='stylesheet'>
     <title>Spelling Bee</title>
+    <script src="https://kit.fontawesome.com/01e8df5584.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.0.1"></script>
+    <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -42,7 +46,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#nowhere">
+                    <a id="newPuzzleFromBaseBtn" href="#nowhere">
                         New Puzzle From Base
                     </a>
                 </li>
@@ -94,12 +98,34 @@
 
     <!------------------------------------------ NAV BAR ------------------------------------------------->
 
-    <div id="test"> TEST BLOCK FOR SPACING</div>
+    <div class="modal-container" id="modalContainer">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Enter a new word for the puzzle</h2>
+                <span class="close" id="closeModal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <input type="text" id="newWordInput" placeholder="Enter new word here" />
+            </div>
+            <div class="modal-footer">
+                <button id="submitNewWordBtn">Submit</button>
+            </div>
+        </div>
+    </div>
+
+    <div class = "elementsContainer">
+
+
+
+    </div>
+
+    <!--<div id = "test">hey</div>-->
+    <br>
     <div id="errorMessage">&zwnj;</div>
 
     <div class="input">
         <input id="userInput" type="text" placeholder="">
-        <textarea  wrap="hard" id = "textArea"disabled="yes" readonly="yes" id="text" rows="4" cols="50" placeholder="GUESSED WORDS:"></textarea>
+        <textarea  wrap="hard" id = "textArea"disabled="yes" readonly="yes" id="text" rows="4" cols="50" placeholder="GUESSED WORDS"></textarea>
     </div>
 
     <!------------------------------------------  HEX CONTAINER ------------------------------------------------------------>
@@ -114,8 +140,8 @@
                     onclick="global.controller.handleHexClick(document.getElementById('TopLeftBlock').innerHTML)">
                     <path fill-rule="evenodd"
                         d="M8.5.134a1 1 0 0 0-1 0l-6 3.577a1 1 0 0 0-.5.866v6.846a1 1 0 0 0 .5.866l6 3.577a1 1 0 0 0 1 0l6-3.577a1 1 0 0 0 .5-.866V4.577a1 1 0 0 0-.5-.866L8.5.134z"
-                        fill="#a6a5a0"></path>
-                    <text font-size="11" x="4" y="12" fill="red" id="TopLeftBlock"></text>
+                        fill="#E6E6E6"></path>
+                    <text font-size="7" text-anchor="middle" x="50%" y="60%" fill="black" id="TopLeftBlock"></text>
                 </svg>
             </div>
 
@@ -125,8 +151,8 @@
                     fill="currentColor" class="bi bi-hexagon-fill" viewBox="0 0 16 16">
                     <path fill-rule="evenodd"
                         d="M8.5.134a1 1 0 0 0-1 0l-6 3.577a1 1 0 0 0-.5.866v6.846a1 1 0 0 0 .5.866l6 3.577a1 1 0 0 0 1 0l6-3.577a1 1 0 0 0 .5-.866V4.577a1 1 0 0 0-.5-.866L8.5.134z"
-                        fill="#a6a5a0"></path>
-                    <text font-size="11" x="4" y="12" fill="red" id="TopRightBlock"></text>
+                        fill="#E6E6E6"></path>
+                    <text font-size="7" text-anchor="middle" x="50%" y="60%" fill="black" id="TopRightBlock"></text>
                 </svg>
             </div>
 
@@ -143,8 +169,8 @@
                     fill="currentColor" class="bi bi-hexagon-fill" viewBox="0 0 16 16">
                     <path fill-rule="evenodd"
                         d="M8.5.134a1 1 0 0 0-1 0l-6 3.577a1 1 0 0 0-.5.866v6.846a1 1 0 0 0 .5.866l6 3.577a1 1 0 0 0 1 0l6-3.577a1 1 0 0 0 .5-.866V4.577a1 1 0 0 0-.5-.866L8.5.134z"
-                        fill="#a6a5a0"></path>
-                    <text font-size="11" x="4" y="12" fill="red" id="MiddleLeftBlock"></text>
+                        fill="#E6E6E6"></path>
+                    <text font-size="7" text-anchor="middle" x="50%" y="60%" fill="black" id="MiddleLeftBlock"></text>
                 </svg>
             </div>
 
@@ -155,7 +181,7 @@
                     <path fill-rule="evenodd"
                         d="M8.5.134a1 1 0 0 0-1 0l-6 3.577a1 1 0 0 0-.5.866v6.846a1 1 0 0 0 .5.866l6 3.577a1 1 0 0 0 1 0l6-3.577a1 1 0 0 0 .5-.866V4.577a1 1 0 0 0-.5-.866L8.5.134z"
                         fill="rgb(238, 206, 44)"></path>
-                    <text font-size="11" x="4" y="12" fill="red" id="Middle"></text>
+                    <text font-size="7" text-anchor="middle" x="50%" y="60%" fill="black" id="Middle"></text>
                 </svg>
             </div>
 
@@ -165,8 +191,8 @@
                     fill="currentColor" class="bi bi-hexagon-fill" viewBox="0 0 16 16">
                     <path fill-rule="evenodd"
                         d="M8.5.134a1 1 0 0 0-1 0l-6 3.577a1 1 0 0 0-.5.866v6.846a1 1 0 0 0 .5.866l6 3.577a1 1 0 0 0 1 0l6-3.577a1 1 0 0 0 .5-.866V4.577a1 1 0 0 0-.5-.866L8.5.134z"
-                        fill="#a6a5a0"></path>
-                    <text font-size="11" x="4" y="12" fill="red" id="MiddleRightBlock"></text>
+                        fill="#E6E6E6"></path>
+                    <text font-size="7" text-anchor="middle" x="50%" y="60%" fill="black" id="MiddleRightBlock"></text>
                 </svg>
             </div>
 
@@ -184,8 +210,8 @@
                     fill="currentColor" class="bi bi-hexagon-fill" viewBox="0 0 16 16">
                     <path fill-rule="evenodd"
                         d="M8.5.134a1 1 0 0 0-1 0l-6 3.577a1 1 0 0 0-.5.866v6.846a1 1 0 0 0 .5.866l6 3.577a1 1 0 0 0 1 0l6-3.577a1 1 0 0 0 .5-.866V4.577a1 1 0 0 0-.5-.866L8.5.134z"
-                        fill="#a6a5a0"></path>
-                    <text font-size="11" x="4" y="12" fill="red" id="BottomLeftBlock"></text>
+                        fill="#E6E6E6"></path>
+                    <text font-size="7" text-anchor="middle" x="50%" y="60%" fill="black" id="BottomLeftBlock"></text>
                 </svg>
             </div>
 
@@ -196,8 +222,8 @@
                     fill="currentColor" class="bi bi-hexagon-fill" viewBox="0 0 16 16">
                     <path fill-rule="evenodd"
                         d="M8.5.134a1 1 0 0 0-1 0l-6 3.577a1 1 0 0 0-.5.866v6.846a1 1 0 0 0 .5.866l6 3.577a1 1 0 0 0 1 0l6-3.577a1 1 0 0 0 .5-.866V4.577a1 1 0 0 0-.5-.866L8.5.134z"
-                        fill="#a6a5a0"></path>
-                    <text font-size="11" x="4" y="12" fill="red" id="BottomRightBlock"></text>
+                        fill="#E6E6E6"></path>
+                    <text font-size="7" text-anchor="middle" x="50%" y="60%" fill="black" id="BottomRightBlock"></text>
                 </svg>
             </div>
 
@@ -205,7 +231,7 @@
         <!------------------------------------------ ROW 3 ------------------------------------------------->
     </div>
     <!------------------------------------------  HEX CONTAINER ------------------------------------------------------------>
-
+    
     <!------------------------------------------  BUTTON CONTAINER ------------------------------------------------------------>
     <div class=" buttonContainer">
 
@@ -217,17 +243,20 @@
             src="https://em-content.zobj.net/thumbs/120/openmoji/338/shuffle-tracks-button_1f500.png" width="50px"
             height="50px" onclick="global.controller.handleShuffleClick()" />
 
-        <button class="btnStyling" onclick="global.controller.handleDeleteClick()" class="Deletebtn">Delete</button>
+        <button class="btnStyling Deletebtn" onclick="global.controller.handleDeleteClick()">Delete</button>
         
 
-        <button class="btnStyling" onclick="global.controller.handleEnterClick()" class="Enterebtn">Enter</button>
+        <button class="btnStyling Enterebtn" onclick="global.controller.handleEnterClick()">Enter</button>
 
     </div>
     <!------------------------------------------  BUTTON CONTAINER ------------------------------------------------------------>
-
-    <div id="test"> TEST BLOCK FOR SPACING </div>
     <footer>
-        <p>FOOTER -- TEST FOR SPACING</p>
+        <div class="footer-content">
+            <div class="footer-links">
+              <a href="https://github.com/mucsci-students/2023sp-420-Maryjane" target="_blank">
+                <i class="fab fa-github"></i> GitHub
+              </a>
+            </div>
     </footer>
 
     <script src="bundle.js"> </script>
