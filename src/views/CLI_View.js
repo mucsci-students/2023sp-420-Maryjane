@@ -13,7 +13,7 @@ class CLI_View {
   /**
    * Shows current found word in puzzle
    * @param {Model} Model - object used to keep track of the game/player
-   * @returns null
+   * @returns
    */
   showFoundWords(Model) {
     // If no current puzzle
@@ -33,8 +33,8 @@ class CLI_View {
 
   /**
    * Shows the current puzzle and the required letter
-   * @param {*} Model
-   * @returns null
+   * @param {Model} Model
+   * @returns
    */
   showPuzzle(Model) {
     // If no current puzzle
@@ -43,20 +43,20 @@ class CLI_View {
       return;
     }
 
-    //prints out the currnet puzzle and the required letter in the console
+    //prints out the current puzzle and the required letter in the console
     console.log("Use the letters below to make a guess, required letter is \x1b[93mYellow.\x1b[0m");
 
     //check where required letter is in array
-    if (Model.currentPuzzle[3] != Model.requiredLetter) {
+    if (Model.currentPuzzle[3] !== Model.requiredLetter) {
       for (let index = 0; index < 7; index++) {
-        if (Model.currentPuzzle[index] == Model.requiredLetter) {
+        if (Model.currentPuzzle[index] === Model.requiredLetter) {
           //swaps where required letter is to the center of the array
           [Model.currentPuzzle[index], Model.currentPuzzle[3]] = [Model.currentPuzzle[3], Model.currentPuzzle[index]]
         }
       }
     }
 
-    //changes output letters to ALLCAPS.
+    //changes output letters to ALL-CAPS.
     for (let index = 0; index < Model.currentPuzzle.length; index++) {
       Model.currentPuzzle[index] = Model.currentPuzzle[index].toUpperCase();
     }
@@ -67,9 +67,9 @@ class CLI_View {
   }
 
   /**
-   * Displays the users currect
-   * @param {Model} Model - GameMangager object used to check if puzzle is open and to show the puzzle rank
-   * @returns null
+   * Displays the users current rank in the puzzle
+   * @param {Model} Model - Model object used to check if puzzle is open and to show the puzzle rank
+   * @returns
    */
   showPuzzleRank(Model) {
     if (!Model.isPuzzleOpen) {
