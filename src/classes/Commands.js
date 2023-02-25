@@ -18,47 +18,45 @@ class Commands {
    * @param {Model} Model - The Model object used to keep track of the game
    * @returns a bool that is true if the guess was valid and inserted, false if not
    */
-  static guess(input, Model) {
+  static guess(input, Model, View) {
     //Converts input to a string
     input = input + "";
     input = input.toLowerCase();
 
     if (!Model.isPuzzleOpen) {
-      console.log("No puzzle in progress");
+      View.showErrorMessage("No puzzle in progress");
       return false;
     }
 
     if (input.length < 4) {
-      console.log("Guess must be at least 4 characters");
+      View.showErrorMessage("Guess must be at least 4 characters");
+      
       return false;
     }
 
     // Check that the input has the required lettter
     if (input.search(Model.requiredLetter.toLowerCase()) === -1) {
-      console.log(
-        "Guess must contain required character\nThe required character is",
-        Model.requiredLetter
-      );
+      View.showErrorMessage("Missing Required Letter");
       return false;
     }
 
     // Check that all letters of the input are allowed letters determined by the pangram
     for (let i = 0; i < input.length; i++) {
       if (Model.pangram.search(input.charAt(i)) === -1) {
-        console.log(input.charAt(i) + " is not in the required letters");
+        View.showErrorMessage(input.charAt(i) + " is not in the required letters");
         return false;
       }
     }
 
     // Check that guess is not in the found words
     if (Model.foundWords.includes(input)) {
-      console.log("Invalid, " + input + " was already guessed");
+      View.showErrorMessage(input + " was already guessed");
       return false;
     }
 
     // Check that the guess is a real word
     if (!isWord(input)) {
-      console.log(input + " was not found in the dictionary");
+      View.showErrorMessage(input + " is not a word");
       return false;
     }
 
@@ -67,7 +65,13 @@ class Commands {
 
     Commands.updatePuzzleRank(input, Model);
 
-    console.log("success");
+    if (input === Model.pangram) {
+      View.showPangramMessage(Model.pangram);
+    }
+    else
+    {
+      View.showSuccessMessage("Success!");
+    }
 
     return true;
   }

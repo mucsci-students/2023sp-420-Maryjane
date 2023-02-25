@@ -14,8 +14,6 @@ Commands.identifyBaseWord('pinewood', model, view);
 
 let controller = new GUI_Controller(model, view);
 
-console.log(isWord("hello"));
-
 // Put anything in here that you want to be able to access in the html or console.
 module.exports = {
   controller: controller,
