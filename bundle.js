@@ -2988,7 +2988,17 @@ class GUI_View {
     this.errorMessage = document.getElementById("errorMessage");
     this.Model = model;
 
-    this.isModal = false;
+
+    this.NORMAL_VIEW = 0;
+    this.NEW_PUZZLE_FROM_BASE_VIEW = 1;
+    this.HELP_VIEW = 2;
+    this.currentView = this.NORMAL_VIEW;
+
+    //add clicks
+
+
+    //FIX LATER 
+    /*
     const newPuzzleFromBaseBtn = document.querySelector("#newPuzzleFromBaseBtn");
     const modalContainer = document.querySelector("#modalContainer");
     const closeModalBtn = document.querySelector("#closeModal");
@@ -3014,7 +3024,7 @@ class GUI_View {
         modalContainer.style.display = "none";
       }
     });
-
+    */
   }
 
   showPuzzle() {
@@ -3046,24 +3056,35 @@ class GUI_View {
   }
 
   getEnterBtn() {
-    let input = this.userInput.value;
-    let success = Commands.guess(input, this.Model, this);
-    if (success) {
-      this.textArea.innerHTML += input + "  ";
-      this.userInput.value = "";
+
+
+    //different casses for different views
+    //new puzzle from base view
+
+    //help view
+
+    //normal view
+
+
+    if (this.currentView === this.NORMAL_VIEW) {
+      let input = this.userInput.value;
+      let success = Commands.guess(input, this.Model, this);
+      if (success) {
+        this.textArea.innerHTML += input + "  ";
+        this.userInput.value = "";
+      }
+      else {
+        this.userInput.value = "";
+      }
     }
-    else {
-      this.userInput.value = "";
-    }
+
+
   }
 
 
   focusOnInputField() {
     if (!this.isModal) {
       this.userInput.focus();
-    }
-    else {
-      this.userInput.blur();
     }
   }
 

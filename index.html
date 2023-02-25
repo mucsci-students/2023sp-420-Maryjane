@@ -97,7 +97,7 @@
     </nav>
 
     <!------------------------------------------ NAV BAR ------------------------------------------------->
-
+    <!--  COME BACK TO THIS
     <div class="modal-container" id="modalContainer">
         <div class="modal-content">
             <div class="modal-header">
@@ -112,21 +112,26 @@
             </div>
         </div>
     </div>
-
-    <div class = "elementsContainer">
+    -->
+    <div class="elementsContainer">
 
 
 
     </div>
 
-    <!--<div id = "test">hey</div>-->
     <br>
     <div id="errorMessage">&zwnj;</div>
 
     <div class="input">
-        <input id="userInput" type="text" placeholder="">
-        <textarea  wrap="hard" id = "textArea"disabled="yes" readonly="yes" id="text" rows="4" cols="50" placeholder="GUESSED WORDS"></textarea>
+        <div class="item1">
+            <input id="userInput" type="text" placeholder="">
+        </div>
+        <div class="item2">
+            <textarea wrap="hard" id="textArea" disabled="yes" readonly="yes" id="text" rows="4" cols="50"
+                placeholder="GUESSED WORDS"></textarea>
+        </div>
     </div>
+    <br>
 
     <!------------------------------------------  HEX CONTAINER ------------------------------------------------------------>
     <div class="hexGridContainer">
@@ -147,7 +152,8 @@
 
             <div>
                 <svg style="cursor: pointer; color: rgb(166, 165, 160);" xmlns="http://www.w3.org/2000/svg" width="100"
-                    height="100" onclick="global.controller.handleHexClick(document.getElementById('TopRightBlock').innerHTML)"
+                    height="100"
+                    onclick="global.controller.handleHexClick(document.getElementById('TopRightBlock').innerHTML)"
                     fill="currentColor" class="bi bi-hexagon-fill" viewBox="0 0 16 16">
                     <path fill-rule="evenodd"
                         d="M8.5.134a1 1 0 0 0-1 0l-6 3.577a1 1 0 0 0-.5.866v6.846a1 1 0 0 0 .5.866l6 3.577a1 1 0 0 0 1 0l6-3.577a1 1 0 0 0 .5-.866V4.577a1 1 0 0 0-.5-.866L8.5.134z"
@@ -165,7 +171,8 @@
 
             <div>
                 <svg style="cursor: pointer; color: rgb(166, 165, 160);" xmlns="http://www.w3.org/2000/svg" width="100"
-                    height="100" onclick="global.controller.handleHexClick(document.getElementById('MiddleLeftBlock').innerHTML)"
+                    height="100"
+                    onclick="global.controller.handleHexClick(document.getElementById('MiddleLeftBlock').innerHTML)"
                     fill="currentColor" class="bi bi-hexagon-fill" viewBox="0 0 16 16">
                     <path fill-rule="evenodd"
                         d="M8.5.134a1 1 0 0 0-1 0l-6 3.577a1 1 0 0 0-.5.866v6.846a1 1 0 0 0 .5.866l6 3.577a1 1 0 0 0 1 0l6-3.577a1 1 0 0 0 .5-.866V4.577a1 1 0 0 0-.5-.866L8.5.134z"
@@ -176,8 +183,8 @@
 
             <div>
                 <svg style="cursor: pointer; color: rgb(166, 165, 160);" xmlns="http://www.w3.org/2000/svg" width="100"
-                    height="100" onclick="global.controller.handleHexClick(document.getElementById('Middle').innerHTML)" fill="currentColor"
-                    class="bi bi-hexagon-fill" viewBox="0 0 16 16">
+                    height="100" onclick="global.controller.handleHexClick(document.getElementById('Middle').innerHTML)"
+                    fill="currentColor" class="bi bi-hexagon-fill" viewBox="0 0 16 16">
                     <path fill-rule="evenodd"
                         d="M8.5.134a1 1 0 0 0-1 0l-6 3.577a1 1 0 0 0-.5.866v6.846a1 1 0 0 0 .5.866l6 3.577a1 1 0 0 0 1 0l6-3.577a1 1 0 0 0 .5-.866V4.577a1 1 0 0 0-.5-.866L8.5.134z"
                         fill="rgb(238, 206, 44)"></path>
@@ -187,7 +194,8 @@
 
             <div>
                 <svg style="cursor: pointer; color: rgb(166, 165, 160);" xmlns="http://www.w3.org/2000/svg" width="100"
-                    height="100" onclick="global.controller.handleHexClick(document.getElementById('MiddleRightBlock').innerHTML)"
+                    height="100"
+                    onclick="global.controller.handleHexClick(document.getElementById('MiddleRightBlock').innerHTML)"
                     fill="currentColor" class="bi bi-hexagon-fill" viewBox="0 0 16 16">
                     <path fill-rule="evenodd"
                         d="M8.5.134a1 1 0 0 0-1 0l-6 3.577a1 1 0 0 0-.5.866v6.846a1 1 0 0 0 .5.866l6 3.577a1 1 0 0 0 1 0l6-3.577a1 1 0 0 0 .5-.866V4.577a1 1 0 0 0-.5-.866L8.5.134z"
@@ -206,7 +214,8 @@
 
             <div>
                 <svg style="cursor: pointer; color: rgb(166, 165, 160);" xmlns="http://www.w3.org/2000/svg" width="100"
-                    height="100" onclick="global.controller.handleHexClick(document.getElementById('BottomLeftBlock').innerHTML)"
+                    height="100"
+                    onclick="global.controller.handleHexClick(document.getElementById('BottomLeftBlock').innerHTML)"
                     fill="currentColor" class="bi bi-hexagon-fill" viewBox="0 0 16 16">
                     <path fill-rule="evenodd"
                         d="M8.5.134a1 1 0 0 0-1 0l-6 3.577a1 1 0 0 0-.5.866v6.846a1 1 0 0 0 .5.866l6 3.577a1 1 0 0 0 1 0l6-3.577a1 1 0 0 0 .5-.866V4.577a1 1 0 0 0-.5-.866L8.5.134z"
@@ -218,7 +227,8 @@
 
             <div>
                 <svg style="cursor: pointer; color: rgb(166, 165, 160);" xmlns="http://www.w3.org/2000/svg" width="100"
-                    height="100" onclick="global.controller.handleHexClick(document.getElementById('BottomRightBlock').innerHTML)"
+                    height="100"
+                    onclick="global.controller.handleHexClick(document.getElementById('BottomRightBlock').innerHTML)"
                     fill="currentColor" class="bi bi-hexagon-fill" viewBox="0 0 16 16">
                     <path fill-rule="evenodd"
                         d="M8.5.134a1 1 0 0 0-1 0l-6 3.577a1 1 0 0 0-.5.866v6.846a1 1 0 0 0 .5.866l6 3.577a1 1 0 0 0 1 0l6-3.577a1 1 0 0 0 .5-.866V4.577a1 1 0 0 0-.5-.866L8.5.134z"
@@ -231,7 +241,7 @@
         <!------------------------------------------ ROW 3 ------------------------------------------------->
     </div>
     <!------------------------------------------  HEX CONTAINER ------------------------------------------------------------>
-    
+
     <!------------------------------------------  BUTTON CONTAINER ------------------------------------------------------------>
     <div class=" buttonContainer">
 
@@ -244,7 +254,7 @@
             height="50px" onclick="global.controller.handleShuffleClick()" />
 
         <button class="btnStyling Deletebtn" onclick="global.controller.handleDeleteClick()">Delete</button>
-        
+
 
         <button class="btnStyling Enterebtn" onclick="global.controller.handleEnterClick()">Enter</button>
 
@@ -253,9 +263,9 @@
     <footer>
         <div class="footer-content">
             <div class="footer-links">
-              <a href="https://github.com/mucsci-students/2023sp-420-Maryjane" target="_blank">
-                <i class="fab fa-github"></i> GitHub
-              </a>
+                <a href="https://github.com/mucsci-students/2023sp-420-Maryjane" target="_blank">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
             </div>
     </footer>
 
