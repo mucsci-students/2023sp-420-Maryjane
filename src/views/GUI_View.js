@@ -81,7 +81,7 @@ class GUI_View {
     this.saveSubmitBtn = document.getElementById("saveSubmitBtn");
     this.loadSubmitBtn = document.getElementById("loadSubmitBtn");
 
-    //if i click on the new puzzle button, then i want an alert to pop up
+    //if i click on the new puzzle button I want to be able to type new word in
     this.newPuzzleFromBaseSubmitBtn.addEventListener("click", () => {
       Commands.identifyBaseWord(
         this.inputFieldNewPuzzleFromBase.value,
@@ -202,7 +202,7 @@ class GUI_View {
     this.BottomLeftBlock.innerHTML = word[5];
     this.MiddleRightBlock.innerHTML = word[6];
   }
-  //New Command
+  //New Command for ShowPuzzleFrom Base
   ShowPuzzleFromBase() {}
 
   addLetterToInputField(i) {
