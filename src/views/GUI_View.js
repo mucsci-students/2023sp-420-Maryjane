@@ -98,7 +98,7 @@ class GUI_View {
       alert("Load Form Submitted");
       this.userInput.focus();
     });
-    //! Mitchell Code for GUI
+    //if I type any character that is not a letter it will not accept in the input in the input tag
     this.userInput.addEventListener("keydown", (event) => {
       const allowedKeys = /[a-zA-Z]/; // Regular expression to match only letters
       const key = event.key;
