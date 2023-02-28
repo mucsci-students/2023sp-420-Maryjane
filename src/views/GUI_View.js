@@ -3,13 +3,11 @@ const Commands = require("../classes/Commands.js");
 
 //Return the ID of element as a JavaScript object, store all in the array and shuffle and change what they say inside them This.TopLeftBlock
 class GUI_View {
-
   /**
    * Sets up the view by passing in the Model
    * @param {Model} model
    */
   constructor(model) {
-
     //the model
     this.Model = model;
 
@@ -28,8 +26,6 @@ class GUI_View {
 
     //---------------------------------- HEXAGON BUTTONS ---------------------------------------------->
 
-
-
     //---------------------------------- USER INPUT --------------------------------------------------->
 
     this.errorMessage = document.getElementById("errorMessage");
@@ -38,17 +34,17 @@ class GUI_View {
 
     this.inputFieldLoad = document.getElementById("inputFieldLoad");
     this.inputFieldSave = document.getElementById("inputFieldSave");
-    this.inputFieldNewPuzzleFromBase = document.getElementById("inputFieldNewPuzzleFromBase");
+    this.inputFieldNewPuzzleFromBase = document.getElementById(
+      "inputFieldNewPuzzleFromBase"
+    );
 
     //---------------------------------- USER INPUT --------------------------------------------------->
-
-
 
     //---------------------------------- OTHER -------------------------------------------------------->
 
     //Note: add click event listeners to the buttons
 
-    //NOTE: PLEASE READ!!! -- focus is a lil buggy, so if the focus is lost just click on the input field above 
+    //NOTE: PLEASE READ!!! -- focus is a lil buggy, so if the focus is lost just click on the input field above
     // the guesssed word and it will regain focus
 
     //for adding the focus to the input field
@@ -76,10 +72,12 @@ class GUI_View {
     this.inputFieldSave.addEventListener("blur", () => {
       this.userInput.focus();
     });
-    
+
     this.userInput.focus();
 
-    this.newPuzzleFromBaseSubmitBtn = document.getElementById("newPuzzleFromBaseSubmitBtn");
+    this.newPuzzleFromBaseSubmitBtn = document.getElementById(
+      "newPuzzleFromBaseSubmitBtn"
+    );
     this.saveSubmitBtn = document.getElementById("saveSubmitBtn");
     this.loadSubmitBtn = document.getElementById("loadSubmitBtn");
 
@@ -100,10 +98,19 @@ class GUI_View {
       alert("Load Form Submitted");
       this.userInput.focus();
     });
+    //! Mitchell Code for GUI
+    this.userInput.addEventListener("keydown", (event) => {
+      const allowedKeys = /[a-zA-Z]/; // Regular expression to match only letters
+      const key = event.key;
+
+      // Check if the pressed key is an allowed letter
+      if (!allowedKeys.test(key)) {
+        // Prevent the default action of the key (i.e., typing the character)
+        event.preventDefault();
+      }
+    });
 
     //---------------------------------- OTHER --------------------------------------------------->
-
-
 
     //---------------------------------- NAV BAR ------------------------------------------------->
 
@@ -122,7 +129,9 @@ class GUI_View {
       navbarMenu
         .querySelector(".menu-dropdown.active .submenu")
         .removeAttribute("style");
-      navbarMenu.querySelector(".menu-dropdown.active").classList.remove("active");
+      navbarMenu
+        .querySelector(".menu-dropdown.active")
+        .classList.remove("active");
     };
 
     // Toggle Mobile Submenu Function
@@ -198,7 +207,7 @@ class GUI_View {
   }
 
   getEnterBtn() {
-    //NOTE: 
+    //NOTE:
     //different casses for different views
     //new puzzle from base view
     //help view
@@ -210,8 +219,7 @@ class GUI_View {
     if (success) {
       this.textArea.innerHTML += input + "  ";
       this.userInput.value = "";
-    }
-    else {
+    } else {
       this.userInput.value = "";
     }
   }
@@ -223,10 +231,7 @@ class GUI_View {
     points.innerHTML = "Points: " + this.Model.userPoints + "/150";
   }
 
-
-  focusOnInputField() {
-
-  }
+  focusOnInputField() {}
 
   showErrorMessage(message) {
     this.errorMessage.style.color = "red";
@@ -245,11 +250,24 @@ class GUI_View {
   }
 
   showPangramMessage(message) {
-    let color = ["red", "orange", "#f2e555", "green", "blue", "indigo", "violet"];
+    let color = [
+      "red",
+      "orange",
+      "#f2e555",
+      "green",
+      "blue",
+      "indigo",
+      "violet",
+    ];
     let newMessage = "YOU FOUND A PANGRAM: " + message;
     let newMessage2 = "";
     for (let i = 0; i < newMessage.length; i++) {
-      newMessage2 += "<span style='color:" + color[i % color.length] + "'>" + newMessage[i] + "</span>";
+      newMessage2 +=
+        "<span style='color:" +
+        color[i % color.length] +
+        "'>" +
+        newMessage[i] +
+        "</span>";
     }
     this.errorMessage.innerHTML = newMessage2;
     this.addConfetti();
@@ -259,7 +277,7 @@ class GUI_View {
     confetti({
       particleCount: 100,
       spread: 70,
-      origin: { y: 0.6 }
+      origin: { y: 0.6 },
     });
   }
 }
