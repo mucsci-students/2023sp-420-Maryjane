@@ -275,6 +275,9 @@ class GUI_View {
     }
     this.errorMessage.innerHTML = newMessage2;
     this.addConfetti();
+    setTimeout(() => {
+      this.errorMessage.innerHTML = "&zwnj;";
+    }, this.message_Display_Time_In_Milliseconds_For_Success_And_Failure_When_User_Enters_Guess + 800);
   }
 
   addConfetti() {
