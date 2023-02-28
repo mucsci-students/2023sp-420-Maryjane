@@ -14,252 +14,242 @@
 </head>
 
 <body>
-    <!------------------------------------------ NAV BAR ------------------------------------------------->
-    <nav class="menu-container">
-        <!-- burger menu -->
-        <input type="checkbox" aria-label="Toggle menu" />
-        <span></span>
-        <span></span>
-        <span></span>
+    <div id="test1">
+        <!------------------------------------------ NAV BAR ------------------------------------------------->
+        <header class="header" id="header">
+            <section class="wrapper container">
+                <a href="#" class="brand"
+                    style="background-image: linear-gradient(45deg, #fff201, #000000); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Spelling
+                    Bee</a>
 
-        <!-- logo -->
-        <a href="#nowhere" class="menu-logo">
-            <img src="honey.png" alt="logo" />
-        </a>
+                <div class="burger" id="burger">
+                    <span class="burger-line"></span>
+                    <span class="burger-line"></span>
+                    <span class="burger-line"></span>
+                </div>
+                <span class="overlay"></span>
+                <nav class="navbar" id="navbar">
+                    <ul class="menu" id="menu">
+                        <li class="menu-item menu-dropdown">
+                            <span class="menu-link" data-toggle="submenu">Game Modes<i
+                                    class="fa-sharp fa-solid fa-chevron-down"></i></span>
+                            <ul class="submenu">
+                                <li class="submenu-item"><a href="#" class="submenu-link">New Puzzle</a></li>
+                                <br>
+                                <li class="submenu-item">
+                                    <a href="#" class="submenu-link">
+                                        <div id="errorMessageNewPuzzleFromBase">&zwnj;</div>
+                                        <label>New Puzzle From Base: </label>
+                                        <input type="text" id="inputFieldNewPuzzleFromBase">
+                                        <button id="newPuzzleFromBaseSubmitBtn">Submit</button>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="menu-item menu-dropdown">
+                            <span class="menu-link" data-toggle="submenu">Rank<i
+                                    class="fa-sharp fa-solid fa-chevron-down"></i></span>
+                            <ul class="submenu">
+                                <li class="submenu-item"><a href="#" class="submenu-link">
+                                        <div id="displayRank">&zwnj; QUEEN BEE</div>
+                                    </a></li>
+                            </ul>
+                        </li>
+                        <li class="menu-item menu-dropdown">
+                            <span class="menu-link" data-toggle="submenu">How To play<i
+                                    class="fa-sharp fa-solid fa-chevron-down"></i></span>
+                            <ul class="submenu">
+                                <li class="submenu-item"><a href="#" class="submenu-link">&#x2022; Words must have at
+                                        least
+                                        four letters.</a></li>
+                                <li class="submenu-item"><a href="#" class="submenu-link">&#x2022; Words must include
+                                        the
+                                        center letter.</a></li>
+                                <li class="submenu-item"><a href="#" class="submenu-link">&#x2022; Letters can be used
+                                        more
+                                        than once.</a></li>
+                            </ul>
+                        </li>
+                        <li class="menu-item menu-dropdown">
+                            <span class="menu-link" data-toggle="submenu">Settings<i
+                                    class="fa-sharp fa-solid fa-chevron-down"></i></span>
+                            <ul class="submenu">
+                                <li class="submenu-item">
+                                    <a href="#" class="submenu-link">
+                                        <label>Save: </label>
+                                        <input type="text" id="inputFieldSave">
+                                        <button id="saveSubmitBtn">Submit</button>
+                                    </a>
+                                </li>
+                                <br>
+                                <li class="submenu-item">
+                                    <a href="#" class="submenu-link">
+                                        <label>Load: </label>
+                                        <input type="text" id="inputFieldLoad">
+                                        <button id="loadSubmitBtn">Submit</button>
+                                    </a>
+                                </li>
+                                <br>
+                                <li class="submenu-item"><a href="#" class="submenu-link">Dark Mode</a></li>
+                                <li class="submenu-item"><a href="#" class="submenu-link">Light Mode</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </section>
+        </header>
+        <!------------------------------------------ NAV BAR ------------------------------------------------->
 
-        <!-- menu items -->
-        <div class="menu">
-            <ul>
-                <li>
-                    <a href="">
 
-                    </a>
-                </li>
-                <li>
-                    <a href="#nowhere">
-                        New Puzzle
-                    </a>
-                </li>
-                <li>
-                    <a href="">
 
-                    </a>
-                </li>
-                <li>
-                    <a id="newPuzzleFromBaseBtn" href="#nowhere">
-                        New Puzzle From Base
-                    </a>
-                </li>
-                <li>
-                    <a href="">
+        <!------------------------------------------- INPUT AREA ----------------------------------------------->
+        <br>
+        <div id="errorMessage">&zwnj;</div>
 
-                    </a>
-                </li>
-                <li>
-                    <a href="#nowhere">
-                        Rank
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        How To Play
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-
-                    </a>
-                </li>
-            </ul>
-            <ul>
-                <li>
-                    <a href="">
-
-                    </a>
-                </li>
-                <li>
-                    <a href="#nowhere">
-                        Dark Mode
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-
-                    </a>
-                </li>
-            </ul>
+        <div class="input">
+            <div class="item1">
+                <input id="userInput" type="text" placeholder="">
+            </div>
+            <div class="item2">
+                <textarea wrap="hard" id="textArea" disabled="yes" readonly="yes" id="text" rows="4" cols="50"
+                    placeholder="GUESSED WORDS"></textarea>
+            </div>
         </div>
-    </nav>
+        <br>
+        <!------------------------------------------- INPUT AREA ----------------------------------------------->
 
-    <!------------------------------------------ NAV BAR ------------------------------------------------->
-    <!--  COME BACK TO THIS
-    <div class="modal-container" id="modalContainer">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Enter a new word for the puzzle</h2>
-                <span class="close" id="closeModal">&times;</span>
+
+
+        <!------------------------------------------  HEX CONTAINER ------------------------------------------------------------>
+        <div class="hexGridContainer">
+
+            <!------------------------------------------ ROW 1 ------------------------------------------------->
+            <div class="topRowContainer">
+
+                <div>
+                    <svg style="cursor: pointer; color: rgb(166, 165, 160);" xmlns="http://www.w3.org/2000/svg"
+                        width="100" height="100" fill="currentColor" class="bi bi-hexagon-fill" viewBox="0 0 16 16"
+                        onclick="global.Controller.handleHexClick(document.getElementById('TopLeftBlock').innerHTML)">
+                        <path fill-rule="evenodd"
+                            d="M8.5.134a1 1 0 0 0-1 0l-6 3.577a1 1 0 0 0-.5.866v6.846a1 1 0 0 0 .5.866l6 3.577a1 1 0 0 0 1 0l6-3.577a1 1 0 0 0 .5-.866V4.577a1 1 0 0 0-.5-.866L8.5.134z"
+                            fill="#E6E6E6"></path>
+                        <text font-size="7" text-anchor="middle" x="50%" y="60%" fill="black" id="TopLeftBlock"></text>
+                    </svg>
+                </div>
+
+                <div>
+                    <svg style="cursor: pointer; color: rgb(166, 165, 160);" xmlns="http://www.w3.org/2000/svg"
+                        width="100" height="100"
+                        onclick="global.Controller.handleHexClick(document.getElementById('TopRightBlock').innerHTML)"
+                        fill="currentColor" class="bi bi-hexagon-fill" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M8.5.134a1 1 0 0 0-1 0l-6 3.577a1 1 0 0 0-.5.866v6.846a1 1 0 0 0 .5.866l6 3.577a1 1 0 0 0 1 0l6-3.577a1 1 0 0 0 .5-.866V4.577a1 1 0 0 0-.5-.866L8.5.134z"
+                            fill="#E6E6E6"></path>
+                        <text font-size="7" text-anchor="middle" x="50%" y="60%" fill="black" id="TopRightBlock"></text>
+                    </svg>
+                </div>
+
             </div>
-            <div class="modal-body">
-                <input type="text" id="newWordInput" placeholder="Enter new word here" />
+            <!------------------------------------------ ROW 1 ------------------------------------------------->
+
+
+            <!------------------------------------------ ROW 2 ------------------------------------------------->
+            <div class="middleRowContainer">
+
+                <div>
+                    <svg style="cursor: pointer; color: rgb(166, 165, 160);" xmlns="http://www.w3.org/2000/svg"
+                        width="100" height="100"
+                        onclick="global.Controller.handleHexClick(document.getElementById('MiddleLeftBlock').innerHTML)"
+                        fill="currentColor" class="bi bi-hexagon-fill" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M8.5.134a1 1 0 0 0-1 0l-6 3.577a1 1 0 0 0-.5.866v6.846a1 1 0 0 0 .5.866l6 3.577a1 1 0 0 0 1 0l6-3.577a1 1 0 0 0 .5-.866V4.577a1 1 0 0 0-.5-.866L8.5.134z"
+                            fill="#E6E6E6"></path>
+                        <text font-size="7" text-anchor="middle" x="50%" y="60%" fill="black"
+                            id="MiddleLeftBlock"></text>
+                    </svg>
+                </div>
+
+                <div>
+                    <svg style="cursor: pointer; color: rgb(166, 165, 160);" xmlns="http://www.w3.org/2000/svg"
+                        width="100" height="100"
+                        onclick="global.Controller.handleHexClick(document.getElementById('Middle').innerHTML)"
+                        fill="currentColor" class="bi bi-hexagon-fill" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M8.5.134a1 1 0 0 0-1 0l-6 3.577a1 1 0 0 0-.5.866v6.846a1 1 0 0 0 .5.866l6 3.577a1 1 0 0 0 1 0l6-3.577a1 1 0 0 0 .5-.866V4.577a1 1 0 0 0-.5-.866L8.5.134z"
+                            fill="rgb(238, 206, 44)"></path>
+                        <text font-size="7" text-anchor="middle" x="50%" y="60%" fill="black" id="Middle"></text>
+                    </svg>
+                </div>
+
+                <div>
+                    <svg style="cursor: pointer; color: rgb(166, 165, 160);" xmlns="http://www.w3.org/2000/svg"
+                        width="100" height="100"
+                        onclick="global.Controller.handleHexClick(document.getElementById('MiddleRightBlock').innerHTML)"
+                        fill="currentColor" class="bi bi-hexagon-fill" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M8.5.134a1 1 0 0 0-1 0l-6 3.577a1 1 0 0 0-.5.866v6.846a1 1 0 0 0 .5.866l6 3.577a1 1 0 0 0 1 0l6-3.577a1 1 0 0 0 .5-.866V4.577a1 1 0 0 0-.5-.866L8.5.134z"
+                            fill="#E6E6E6"></path>
+                        <text font-size="7" text-anchor="middle" x="50%" y="60%" fill="black"
+                            id="MiddleRightBlock"></text>
+                    </svg>
+                </div>
+
             </div>
-            <div class="modal-footer">
-                <button id="submitNewWordBtn">Submit</button>
+            <!------------------------------------------ ROW 2 ------------------------------------------------->
+
+
+
+            <!------------------------------------------ ROW 3 ------------------------------------------------->
+            <div class="bottomRowContainer">
+
+                <div>
+                    <svg style="cursor: pointer; color: rgb(166, 165, 160);" xmlns="http://www.w3.org/2000/svg"
+                        width="100" height="100"
+                        onclick="global.Controller.handleHexClick(document.getElementById('BottomLeftBlock').innerHTML)"
+                        fill="currentColor" class="bi bi-hexagon-fill" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M8.5.134a1 1 0 0 0-1 0l-6 3.577a1 1 0 0 0-.5.866v6.846a1 1 0 0 0 .5.866l6 3.577a1 1 0 0 0 1 0l6-3.577a1 1 0 0 0 .5-.866V4.577a1 1 0 0 0-.5-.866L8.5.134z"
+                            fill="#E6E6E6"></path>
+                        <text font-size="7" text-anchor="middle" x="50%" y="60%" fill="black"
+                            id="BottomLeftBlock"></text>
+                    </svg>
+                </div>
+
+
+                <div>
+                    <svg style="cursor: pointer; color: rgb(166, 165, 160);" xmlns="http://www.w3.org/2000/svg"
+                        width="100" height="100"
+                        onclick="global.Controller.handleHexClick(document.getElementById('BottomRightBlock').innerHTML)"
+                        fill="currentColor" class="bi bi-hexagon-fill" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M8.5.134a1 1 0 0 0-1 0l-6 3.577a1 1 0 0 0-.5.866v6.846a1 1 0 0 0 .5.866l6 3.577a1 1 0 0 0 1 0l6-3.577a1 1 0 0 0 .5-.866V4.577a1 1 0 0 0-.5-.866L8.5.134z"
+                            fill="#E6E6E6"></path>
+                        <text font-size="7" text-anchor="middle" x="50%" y="60%" fill="black"
+                            id="BottomRightBlock"></text>
+                    </svg>
+                </div>
+
             </div>
+            <!------------------------------------------ ROW 3 ------------------------------------------------->
         </div>
-    </div>
-    -->
-    <div class="elementsContainer">
+        <!------------------------------------------  HEX CONTAINER ------------------------------------------------------------>
 
 
 
-    </div>
+        <!------------------------------------------  BUTTON CONTAINER ------------------------------------------------------------>
+        <div class=" buttonContainer">
+            <button class="btnStyling Deletebtn" onclick="global.Controller.handleDeleteClick()">Delete</button>
 
-    <br>
-    <div id="errorMessage">&zwnj;</div>
+            <img alt="shuffleBTN" id="shufflebtn" class="Shufflebtn"
+                src="https://em-content.zobj.net/thumbs/120/openmoji/338/shuffle-tracks-button_1f500.png" width="50px"
+                height="50px" onclick="global.Controller.handleShuffleClick()" />
 
-    <div class="input">
-        <div class="item1">
-            <input id="userInput" type="text" placeholder="">
-        </div>
-        <div class="item2">
-            <textarea wrap="hard" id="textArea" disabled="yes" readonly="yes" id="text" rows="4" cols="50"
-                placeholder="GUESSED WORDS"></textarea>
-        </div>
-    </div>
-    <br>
-
-    <!------------------------------------------  HEX CONTAINER ------------------------------------------------------------>
-    <div class="hexGridContainer">
-
-        <!------------------------------------------ ROW 1 ------------------------------------------------->
-        <div class="topRowContainer">
-
-            <div>
-                <svg style="cursor: pointer; color: rgb(166, 165, 160);" xmlns="http://www.w3.org/2000/svg" width="100"
-                    height="100" fill="currentColor" class="bi bi-hexagon-fill" viewBox="0 0 16 16"
-                    onclick="global.Controller.handleHexClick(document.getElementById('TopLeftBlock').innerHTML)">
-                    <path fill-rule="evenodd"
-                        d="M8.5.134a1 1 0 0 0-1 0l-6 3.577a1 1 0 0 0-.5.866v6.846a1 1 0 0 0 .5.866l6 3.577a1 1 0 0 0 1 0l6-3.577a1 1 0 0 0 .5-.866V4.577a1 1 0 0 0-.5-.866L8.5.134z"
-                        fill="#E6E6E6"></path>
-                    <text font-size="7" text-anchor="middle" x="50%" y="60%" fill="black" id="TopLeftBlock"></text>
-                </svg>
-            </div>
-
-            <div>
-                <svg style="cursor: pointer; color: rgb(166, 165, 160);" xmlns="http://www.w3.org/2000/svg" width="100"
-                    height="100"
-                    onclick="global.Controller.handleHexClick(document.getElementById('TopRightBlock').innerHTML)"
-                    fill="currentColor" class="bi bi-hexagon-fill" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd"
-                        d="M8.5.134a1 1 0 0 0-1 0l-6 3.577a1 1 0 0 0-.5.866v6.846a1 1 0 0 0 .5.866l6 3.577a1 1 0 0 0 1 0l6-3.577a1 1 0 0 0 .5-.866V4.577a1 1 0 0 0-.5-.866L8.5.134z"
-                        fill="#E6E6E6"></path>
-                    <text font-size="7" text-anchor="middle" x="50%" y="60%" fill="black" id="TopRightBlock"></text>
-                </svg>
-            </div>
-
-        </div>
-        <!------------------------------------------ ROW 1 ------------------------------------------------->
-
-
-        <!------------------------------------------ ROW 2 ------------------------------------------------->
-        <div class="middleRowContainer">
-
-            <div>
-                <svg style="cursor: pointer; color: rgb(166, 165, 160);" xmlns="http://www.w3.org/2000/svg" width="100"
-                    height="100"
-                    onclick="global.Controller.handleHexClick(document.getElementById('MiddleLeftBlock').innerHTML)"
-                    fill="currentColor" class="bi bi-hexagon-fill" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd"
-                        d="M8.5.134a1 1 0 0 0-1 0l-6 3.577a1 1 0 0 0-.5.866v6.846a1 1 0 0 0 .5.866l6 3.577a1 1 0 0 0 1 0l6-3.577a1 1 0 0 0 .5-.866V4.577a1 1 0 0 0-.5-.866L8.5.134z"
-                        fill="#E6E6E6"></path>
-                    <text font-size="7" text-anchor="middle" x="50%" y="60%" fill="black" id="MiddleLeftBlock"></text>
-                </svg>
-            </div>
-
-            <div>
-                <svg style="cursor: pointer; color: rgb(166, 165, 160);" xmlns="http://www.w3.org/2000/svg" width="100"
-                    height="100" onclick="global.Controller.handleHexClick(document.getElementById('Middle').innerHTML)"
-                    fill="currentColor" class="bi bi-hexagon-fill" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd"
-                        d="M8.5.134a1 1 0 0 0-1 0l-6 3.577a1 1 0 0 0-.5.866v6.846a1 1 0 0 0 .5.866l6 3.577a1 1 0 0 0 1 0l6-3.577a1 1 0 0 0 .5-.866V4.577a1 1 0 0 0-.5-.866L8.5.134z"
-                        fill="rgb(238, 206, 44)"></path>
-                    <text font-size="7" text-anchor="middle" x="50%" y="60%" fill="black" id="Middle"></text>
-                </svg>
-            </div>
-
-            <div>
-                <svg style="cursor: pointer; color: rgb(166, 165, 160);" xmlns="http://www.w3.org/2000/svg" width="100"
-                    height="100"
-                    onclick="global.Controller.handleHexClick(document.getElementById('MiddleRightBlock').innerHTML)"
-                    fill="currentColor" class="bi bi-hexagon-fill" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd"
-                        d="M8.5.134a1 1 0 0 0-1 0l-6 3.577a1 1 0 0 0-.5.866v6.846a1 1 0 0 0 .5.866l6 3.577a1 1 0 0 0 1 0l6-3.577a1 1 0 0 0 .5-.866V4.577a1 1 0 0 0-.5-.866L8.5.134z"
-                        fill="#E6E6E6"></path>
-                    <text font-size="7" text-anchor="middle" x="50%" y="60%" fill="black" id="MiddleRightBlock"></text>
-                </svg>
-            </div>
-
-        </div>
-        <!------------------------------------------ ROW 2 ------------------------------------------------->
-
-
-
-        <!------------------------------------------ ROW 3 ------------------------------------------------->
-        <div class="bottomRowContainer">
-
-            <div>
-                <svg style="cursor: pointer; color: rgb(166, 165, 160);" xmlns="http://www.w3.org/2000/svg" width="100"
-                    height="100"
-                    onclick="global.Controller.handleHexClick(document.getElementById('BottomLeftBlock').innerHTML)"
-                    fill="currentColor" class="bi bi-hexagon-fill" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd"
-                        d="M8.5.134a1 1 0 0 0-1 0l-6 3.577a1 1 0 0 0-.5.866v6.846a1 1 0 0 0 .5.866l6 3.577a1 1 0 0 0 1 0l6-3.577a1 1 0 0 0 .5-.866V4.577a1 1 0 0 0-.5-.866L8.5.134z"
-                        fill="#E6E6E6"></path>
-                    <text font-size="7" text-anchor="middle" x="50%" y="60%" fill="black" id="BottomLeftBlock"></text>
-                </svg>
-            </div>
-
-
-            <div>
-                <svg style="cursor: pointer; color: rgb(166, 165, 160);" xmlns="http://www.w3.org/2000/svg" width="100"
-                    height="100"
-                    onclick="global.Controller.handleHexClick(document.getElementById('BottomRightBlock').innerHTML)"
-                    fill="currentColor" class="bi bi-hexagon-fill" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd"
-                        d="M8.5.134a1 1 0 0 0-1 0l-6 3.577a1 1 0 0 0-.5.866v6.846a1 1 0 0 0 .5.866l6 3.577a1 1 0 0 0 1 0l6-3.577a1 1 0 0 0 .5-.866V4.577a1 1 0 0 0-.5-.866L8.5.134z"
-                        fill="#E6E6E6"></path>
-                    <text font-size="7" text-anchor="middle" x="50%" y="60%" fill="black" id="BottomRightBlock"></text>
-                </svg>
-            </div>
+            <button class="btnStyling Enterebtn" onclick="global.Controller.handleEnterClick()">Enter</button>
 
         </div>
-        <!------------------------------------------ ROW 3 ------------------------------------------------->
-    </div>
-    <!------------------------------------------  HEX CONTAINER ------------------------------------------------------------>
+        <!------------------------------------------  BUTTON CONTAINER ------------------------------------------------------------>
 
-    <!------------------------------------------  BUTTON CONTAINER ------------------------------------------------------------>
-    <div class=" buttonContainer">
-
-        <button class="btnStyling" class="Savebtn">Save</button>
-
-        <button class="btnStyling" class="Loadbtn">Load</button>
-
-        <img alt="shuffleBTN" id="shufflebtn" class="Shufflebtn"
-            src="https://em-content.zobj.net/thumbs/120/openmoji/338/shuffle-tracks-button_1f500.png" width="50px"
-            height="50px" onclick="global.Controller.handleShuffleClick()" />
-
-        <button class="btnStyling Deletebtn" onclick="global.Controller.handleDeleteClick()">Delete</button>
-
-
-        <button class="btnStyling Enterebtn" onclick="global.Controller.handleEnterClick()">Enter</button>
-
-    </div>
-    <!------------------------------------------  BUTTON CONTAINER ------------------------------------------------------------>
+        <!--
     <footer>
         <div class="footer-content">
             <div class="footer-links">
@@ -268,7 +258,9 @@
                 </a>
             </div>
     </footer>
+    -->
 
+    </div>
     <script src="bundle.js"> </script>
 </body>
 
