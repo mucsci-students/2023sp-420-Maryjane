@@ -99,7 +99,6 @@ class GUI_View {
       this.userInput.focus();
     });
 
-    //TODO!! Begin of new action handler
     //if i type any character that is not a letter it will not accept in the input in the input tag
     this.userInput.addEventListener("keydown", (event) => {
       const allowedKeys = /[a-zA-Z]/; // Regular expression to match only letters into the html
@@ -111,8 +110,6 @@ class GUI_View {
         event.preventDefault();
       }
     });
-
-    //TODO!! End of new action handler
 
     //---------------------------------- OTHER --------------------------------------------------->
 
