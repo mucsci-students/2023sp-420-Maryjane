@@ -1,11 +1,18 @@
 //Function to find a specific html tasks by adding an ID for each tasks
 const Commands = require("../classes/Commands.js");
+
 //Return the ID of element as a JavaScript object, store all in the array and shuffle and change what they say inside them This.TopLeftBlock
 class GUI_View {
 
   constructor(model) {
 
+    //the model
+    this.Model = model;
+
+    //Message display time (Funny variable made by team)
     this.message_Display_Time_In_Milliseconds_For_Success_And_Failure_When_User_Enters_Guess = 1700;
+
+    //---------------------------------- HEXAGON BUTTONS ---------------------------------------------->
 
     this.MiddleLeftBlock = document.getElementById("MiddleLeftBlock");
     this.TopLeftBlock = document.getElementById("TopLeftBlock");
@@ -15,49 +22,147 @@ class GUI_View {
     this.BottomLeftBlock = document.getElementById("BottomLeftBlock");
     this.MiddleRightBlock = document.getElementById("MiddleRightBlock");
 
-    this.userInput = document.getElementById("userInput");
-    this.delete = document.getElementById("Deletebtn");
-    this.textArea = document.getElementById("textArea");
+    //---------------------------------- HEXAGON BUTTONS ---------------------------------------------->
+
+
+
+    //---------------------------------- USER INPUT --------------------------------------------------->
+
     this.errorMessage = document.getElementById("errorMessage");
-    this.Model = model;
+    this.userInput = document.getElementById("userInput");
+    this.textArea = document.getElementById("textArea");
+
+    this.inputFieldLoad = document.getElementById("inputFieldLoad");
+    this.inputFieldSave = document.getElementById("inputFieldSave");
+    this.inputFieldNewPuzzleFromBase = document.getElementById("inputFieldNewPuzzleFromBase");
+
+    //---------------------------------- USER INPUT --------------------------------------------------->
 
 
-    this.NORMAL_VIEW = 0;
-    this.NEW_PUZZLE_FROM_BASE_VIEW = 1;
-    this.HELP_VIEW = 2;
-    this.currentView = this.NORMAL_VIEW;
 
-    //add clicks
+    //---------------------------------- OTHER -------------------------------------------------------->
 
+    //Note: add click event listeners to the buttons
 
-    //FIX LATER 
-    /*
-    const newPuzzleFromBaseBtn = document.querySelector("#newPuzzleFromBaseBtn");
-    const modalContainer = document.querySelector("#modalContainer");
-    const closeModalBtn = document.querySelector("#closeModal");
-    const submitNewWordBtn = document.querySelector("#submitNewWordBtn");
-    const newWordInput = document.querySelector("#newWordInput");
+    //NOTE: PLEASE READ!!! -- focus is a lil buggy, so if the focus is lost just click on the input field above 
+    // the guesssed word and it will regain focus
 
-    newPuzzleFromBaseBtn.addEventListener("click", () => {
-      this.isModal = true;
-      modalContainer.style.display = "block";
-      this.userInput.blur();
+    //for adding the focus to the input field
+    this.inputFieldNewPuzzleFromBase.addEventListener("click", () => {
+      this.inputFieldNewPuzzleFromBase.focus();
     });
 
-    closeModalBtn.addEventListener("click", () => {
-      modalContainer.style.display = "none";
-      this.isModal = false;
+    this.inputFieldLoad.addEventListener("click", () => {
+      this.inputFieldLoad.focus();
     });
 
-    submitNewWordBtn.addEventListener("click", () => {
-      const newWord = newWordInput.value.trim();
-      if (newWord) {
-        // Do something with the new word here
-        console.log("New word: ", newWord);
-        modalContainer.style.display = "none";
+    this.inputFieldSave.addEventListener("click", () => {
+      this.inputFieldSave.focus();
+    });
+
+    //for removing the focus from the input field
+    this.inputFieldNewPuzzleFromBase.addEventListener("blur", () => {
+      this.userInput.focus();
+    });
+
+    this.inputFieldLoad.addEventListener("blur", () => {
+      this.userInput.focus();
+    });
+
+    this.inputFieldSave.addEventListener("blur", () => {
+      this.userInput.focus();
+    });
+    
+    this.userInput.focus();
+
+    this.newPuzzleFromBaseSubmitBtn = document.getElementById("newPuzzleFromBaseSubmitBtn");
+    this.saveSubmitBtn = document.getElementById("saveSubmitBtn");
+    this.loadSubmitBtn = document.getElementById("loadSubmitBtn");
+
+    //if i click on the new puzzle button, then i want an alert to pop up
+    this.newPuzzleFromBaseSubmitBtn.addEventListener("click", () => {
+      alert("New Puzzle From Base Form Submitted");
+      this.userInput.focus();
+    });
+
+    //if i click on the save button, then i want an alert to pop up
+    this.saveSubmitBtn.addEventListener("click", () => {
+      alert("Save Form Submitted");
+      this.userInput.focus();
+    });
+
+    //if i click on the load button, then i want an alert to pop up
+    this.loadSubmitBtn.addEventListener("click", () => {
+      alert("Load Form Submitted");
+      this.userInput.focus();
+    });
+
+    //---------------------------------- OTHER --------------------------------------------------->
+
+
+
+    //---------------------------------- NAV BAR ------------------------------------------------->
+
+    const navbarMenu = document.getElementById("navbar");
+    const burgerMenu = document.getElementById("burger");
+    const overlayMenu = document.querySelector(".overlay");
+
+    // Show and Hide Navbar Function
+    const toggleMenu = () => {
+      navbarMenu.classList.toggle("active");
+      overlayMenu.classList.toggle("active");
+    };
+
+    // Collapsible Mobile Submenu Function
+    const collapseSubMenu = () => {
+      navbarMenu
+        .querySelector(".menu-dropdown.active .submenu")
+        .removeAttribute("style");
+      navbarMenu.querySelector(".menu-dropdown.active").classList.remove("active");
+    };
+
+    // Toggle Mobile Submenu Function
+    const toggleSubMenu = (e) => {
+      if (e.target.hasAttribute("data-toggle") && window.innerWidth <= 992) {
+        e.preventDefault();
+        const menuDropdown = e.target.parentElement;
+
+        // If Dropdown is Expanded, then Collapse It
+        if (menuDropdown.classList.contains("active")) {
+          collapseSubMenu();
+        } else {
+          // Collapse Existing Expanded Dropdown
+          if (navbarMenu.querySelector(".menu-dropdown.active")) {
+            collapseSubMenu();
+          }
+
+          // Expanded the New Dropdown
+          menuDropdown.classList.add("active");
+          const subMenu = menuDropdown.querySelector(".submenu");
+          subMenu.style.maxHeight = subMenu.scrollHeight + "px";
+        }
       }
-    });
-    */
+    };
+
+    // Fixed Resize Window Function
+    const resizeWindow = () => {
+      if (window.innerWidth > 992) {
+        if (navbarMenu.classList.contains("active")) {
+          toggleMenu();
+        }
+        if (navbarMenu.querySelector(".menu-dropdown.active")) {
+          collapseSubMenu();
+        }
+      }
+    };
+
+    // Initialize Event Listeners
+    burgerMenu.addEventListener("click", toggleMenu);
+    overlayMenu.addEventListener("click", toggleMenu);
+    navbarMenu.addEventListener("click", toggleSubMenu);
+    window.addEventListener("resize", resizeWindow);
+
+    //---------------------------------- NAV BAR ------------------------------------------------->
   }
 
   showPuzzle() {
@@ -89,36 +194,26 @@ class GUI_View {
   }
 
   getEnterBtn() {
-
-
+    //NOTE: 
     //different casses for different views
     //new puzzle from base view
-
     //help view
-
     //normal view
 
+    let input = this.userInput.value;
+    let success = Commands.guess(input, this.Model, this);
 
-    if (this.currentView === this.NORMAL_VIEW) {
-      let input = this.userInput.value;
-      let success = Commands.guess(input, this.Model, this);
-      if (success) {
-        this.textArea.innerHTML += input + "  ";
-        this.userInput.value = "";
-      }
-      else {
-        this.userInput.value = "";
-      }
+    if (success) {
+      this.textArea.innerHTML += input + "  ";
+      this.userInput.value = "";
     }
-
-
+    else {
+      this.userInput.value = "";
+    }
   }
 
-
   focusOnInputField() {
-    if (!this.isModal) {
-      this.userInput.focus();
-    }
+
   }
 
   showErrorMessage(message) {
