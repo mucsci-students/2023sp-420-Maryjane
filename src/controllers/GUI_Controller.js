@@ -43,6 +43,7 @@ class GUI_Controller {
 
   handleEnterClick() {
     this.View.getEnterBtn();
+    this.View.updateRank();
   }
 }
 

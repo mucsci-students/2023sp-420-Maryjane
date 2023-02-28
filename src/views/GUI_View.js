@@ -3,6 +3,10 @@ const Commands = require("../classes/Commands.js");
 //Return the ID of element as a JavaScript object, store all in the array and shuffle and change what they say inside them This.TopLeftBlock
 class GUI_View {
 
+  /**
+   * Sets up the view by passing in the Model
+   * @param {Model} model
+   */
   constructor(model) {
 
     this.message_Display_Time_In_Milliseconds_For_Success_And_Failure_When_User_Enters_Guess = 1700;
@@ -89,15 +93,10 @@ class GUI_View {
   }
 
   getEnterBtn() {
-
-
     //different casses for different views
     //new puzzle from base view
-
     //help view
-
     //normal view
-
 
     if (this.currentView === this.NORMAL_VIEW) {
       let input = this.userInput.value;
@@ -112,6 +111,11 @@ class GUI_View {
     }
 
 
+  }
+
+  updateRank() {
+    let rankDisplay = document.getElementById("rankDisplay");
+    rankDisplay.innerHTML = "Rank: " + this.Model.getRankName();
   }
 
 
