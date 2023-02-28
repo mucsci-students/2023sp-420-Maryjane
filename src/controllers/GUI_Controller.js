@@ -23,7 +23,7 @@ class GUI_Controller {
 
     window.addEventListener("keydown", (e) => {
       if (e.key === "Enter") {
-        this.View.getEnterBtn();
+        this.handleEnterClick();
       }
     });
 
@@ -43,6 +43,7 @@ class GUI_Controller {
 
   handleEnterClick() {
     this.View.getEnterBtn();
+    this.View.updateRank();
   }
 }
 

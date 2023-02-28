@@ -22,6 +22,9 @@ class Model {
   // Stores the users points
   userPoints = 0;
 
+  //
+  maxPoints = 150;
+
   // Default constructor
   constructor() {
       

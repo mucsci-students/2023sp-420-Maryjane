@@ -4,6 +4,10 @@ const Commands = require("../classes/Commands.js");
 //Return the ID of element as a JavaScript object, store all in the array and shuffle and change what they say inside them This.TopLeftBlock
 class GUI_View {
 
+  /**
+   * Sets up the view by passing in the Model
+   * @param {Model} model
+   */
   constructor(model) {
 
     //the model
@@ -211,6 +215,14 @@ class GUI_View {
       this.userInput.value = "";
     }
   }
+
+  updateRank() {
+    let rank = document.getElementById("displayRank");
+    rank.innerHTML = this.Model.getRankName(this.Model.userPoints / 150);
+    let points = document.getElementById("displayPoints");
+    points.innerHTML = "Points: " + this.Model.userPoints + "/150";
+  }
+
 
   focusOnInputField() {
 
