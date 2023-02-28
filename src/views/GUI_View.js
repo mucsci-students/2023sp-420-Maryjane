@@ -198,6 +198,8 @@ class GUI_View {
     this.MiddleRightBlock.innerHTML = word[6];
   }
 
+  newPuzzleFromBase() {}
+
   addLetterToInputField(i) {
     this.userInput.value += i;
   }
