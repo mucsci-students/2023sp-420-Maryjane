@@ -217,8 +217,10 @@ class GUI_View {
   }
 
   updateRank() {
-    let rankDisplay = document.getElementById("rankDisplay");
-    rankDisplay.innerHTML = "Rank: " + this.Model.getRankName();
+    let rank = document.getElementById("displayRank");
+    rank.innerHTML = this.Model.getRankName(this.Model.userPoints / 150);
+    let points = document.getElementById("displayPoints");
+    points.innerHTML = "Points: " + this.Model.userPoints + "/150";
   }
 
 
