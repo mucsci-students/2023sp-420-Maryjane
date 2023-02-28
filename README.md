@@ -15,6 +15,10 @@ A Spelling Bee App made in JavaScript for CSCI 420: Software Enginnerring at Mil
 
 ### Executing program
 
+### GUI
+
+[SpellingBee Graphical User Interface 🐝](https://mucsci-students.github.io/2023sp-420-Maryjane/)
+
 ### CLI
 
 * To run the program, you'll need to clone this repository to your local computer. You can do this by using the following command in your terminal or command line interface:
@@ -35,10 +39,6 @@ npm install
 ```
 npm start
 ```
-
-### GUI
-
-[GUI](https://mucsci-students.github.io/2023sp-420-Maryjane/)
 
 ### Run tests
 * To run the tests, you can use the following command:
