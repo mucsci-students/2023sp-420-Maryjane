@@ -2482,9 +2482,9 @@ module.exports.default = stripAnsi;
 //const Database = require("./Database");
 const Model = require("../model/Model");
 
-const prompt = require('prompt-sync')();
+const prompt = require("prompt-sync")();
 
-const isWord = require('../dict.js');
+const isWord = require("../dict.js");
 
 //file system module
 const fs = require("fs");
@@ -2511,7 +2511,7 @@ class Commands {
 
     if (input.length < 4) {
       View.showErrorMessage("Guess must be at least 4 characters");
-      
+
       return false;
     }
 
@@ -2524,7 +2524,9 @@ class Commands {
     // Check that all letters of the input are allowed letters determined by the pangram
     for (let i = 0; i < input.length; i++) {
       if (Model.pangram.search(input.charAt(i)) === -1) {
-        View.showErrorMessage(input.charAt(i) + " is not in the required letters");
+        View.showErrorMessage(
+          input.charAt(i) + " is not in the required letters"
+        );
         return false;
       }
     }
@@ -2548,9 +2550,7 @@ class Commands {
 
     if (input === Model.pangram) {
       View.showPangramMessage(Model.pangram);
-    }
-    else
-    {
+    } else {
       View.showSuccessMessage("Success!");
     }
 
@@ -2623,7 +2623,6 @@ class Commands {
       .sort((a, b) => 0.5 - Math.random())
       .sort((a, b) => 0.5 - Math.random());
 
-
     View.showPuzzle(Model);
   }
 
@@ -2656,7 +2655,9 @@ class Commands {
 
     // Converts pangram into array of letters
     let pangram = input;
-    let pangramLetters = String.prototype.concat.call(...new Set(input)).split("");
+    let pangramLetters = String.prototype.concat
+      .call(...new Set(input))
+      .split("");
     Model.currentPuzzle = pangramLetters
       .sort((a, b) => 0.5 - Math.random())
       .sort((a, b) => 0.5 - Math.random());
@@ -2674,7 +2675,7 @@ class Commands {
     Model.requiredLetter =
       pangramLetters[Math.floor(Math.random() * pangramLetters.length)];
 
-    View.showPuzzle(Model);
+    View.showPuzzle(); //TODO!! We removed Model param
   }
 
   /**
@@ -2727,7 +2728,7 @@ class Commands {
     Model.pangram = parsedFile.pangram;
     Model.requiredLetter = parsedFile.requiredLetter;
     Model.userPoints = parsedFile.userPoints;
-    let puzzle = Model.pangram.split("")
+    let puzzle = Model.pangram.split("");
     Model.currentPuzzle = puzzle
       .sort((a, b) => 0.5 - Math.random())
       .sort((a, b) => 0.5 - Math.random());
@@ -2756,7 +2757,6 @@ class Commands {
     }
 
     if (!fs.existsSync(fileName + ".json")) {
-
       let table = {
         words: Model.foundWords,
         pangram: Model.pangram,
@@ -2766,13 +2766,13 @@ class Commands {
 
       let jsonFile = JSON.stringify(table);
 
-      fs.writeFileSync(fileName + ".json", jsonFile, "utf8", (err) => { if (err) throw err; });
+      fs.writeFileSync(fileName + ".json", jsonFile, "utf8", (err) => {
+        if (err) throw err;
+      });
       console.log("SpellingBee> The file has been saved!");
       Model.isPuzzleOpen = false;
       return true;
-    }
-
-    else {
+    } else {
       console.log("SpellingBee> File already exists");
       let fileName = prompt("SpellingBee> Enter another file name: ");
       this.save(fileName, Model);
@@ -2831,7 +2831,6 @@ class GUI_Controller {
   }
 
   setupController() {
-
     window.addEventListener("click", (event) => {
       this.View.focusOnInputField();
     });
@@ -2841,13 +2840,12 @@ class GUI_Controller {
         this.handleEnterClick();
       }
     });
-
   }
 
   handleShuffleClick() {
     Commands.shuffle(this.Model, this.View);
   }
-  
+
   handleDeleteClick() {
     this.View.getDeleteBtn();
   }
@@ -3052,8 +3050,8 @@ class GUI_View {
 
     //if i click on the new puzzle button, then i want an alert to pop up
     this.newPuzzleFromBaseSubmitBtn.addEventListener("click", () => {
-      alert("New Puzzle From Base Form Submitted");
       this.userInput.focus();
+      this.ShowPuzzleFromBase();
     });
 
     //if i click on the save button, then i want an alert to pop up
@@ -3068,7 +3066,6 @@ class GUI_View {
       this.userInput.focus();
     });
 
-    //TODO!! Begin of new action handler
     //if i type any character that is not a letter it will not accept in the input in the input tag
     this.userInput.addEventListener("keydown", (event) => {
       const allowedKeys = /[a-zA-Z]/; // Regular expression to match only letters into the html
@@ -3080,8 +3077,6 @@ class GUI_View {
         event.preventDefault();
       }
     });
-
-    //TODO!! End of new action handler
 
     //---------------------------------- OTHER --------------------------------------------------->
 
@@ -3168,6 +3163,14 @@ class GUI_View {
     this.BottomRightBlock.innerHTML = word[4];
     this.BottomLeftBlock.innerHTML = word[5];
     this.MiddleRightBlock.innerHTML = word[6];
+  }
+  //New Command
+  ShowPuzzleFromBase() {
+    Commands.identifyBaseWord(
+      this.inputFieldNewPuzzleFromBase.value,
+      this.Model,
+      this.View
+    );
   }
 
   addLetterToInputField(i) {
