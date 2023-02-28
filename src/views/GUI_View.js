@@ -83,8 +83,13 @@ class GUI_View {
 
     //if i click on the new puzzle button, then i want an alert to pop up
     this.newPuzzleFromBaseSubmitBtn.addEventListener("click", () => {
+      Commands.identifyBaseWord(
+        this.inputFieldNewPuzzleFromBase.value,
+        this.Model,
+        this
+      );
+      this.textArea.innerHTML = "";
       this.userInput.focus();
-      this.ShowPuzzleFromBase();
     });
 
     //if i click on the save button, then i want an alert to pop up
@@ -198,13 +203,7 @@ class GUI_View {
     this.MiddleRightBlock.innerHTML = word[6];
   }
   //New Command
-  ShowPuzzleFromBase() {
-    Commands.identifyBaseWord(
-      this.inputFieldNewPuzzleFromBase.value,
-      this.Model,
-      this.View
-    );
-  }
+  ShowPuzzleFromBase() {}
 
   addLetterToInputField(i) {
     this.userInput.value += i;

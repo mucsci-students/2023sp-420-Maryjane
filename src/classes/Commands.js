@@ -194,7 +194,7 @@ class Commands {
     Model.requiredLetter =
       pangramLetters[Math.floor(Math.random() * pangramLetters.length)];
 
-    View.showPuzzle(); //TODO!! We removed Model param
+    View.showPuzzle(Model);
   }
 
   /**
