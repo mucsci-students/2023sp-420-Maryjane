@@ -1,3 +1,4 @@
+let MongoDB = require('../database/lib/mongodb.js');
 
 // Used to keep track of all things related to the puzzle/game
 class Model {
@@ -27,7 +28,7 @@ class Model {
 
   // Default constructor
   constructor() {
-      
+    this.database = new MongoDB();
   }
 
   /**
