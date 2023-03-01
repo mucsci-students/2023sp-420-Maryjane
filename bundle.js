@@ -3142,13 +3142,14 @@ class GUI_View {
       this.userInput.focus();
     });
 
-    //if i type any character that is not a letter it will not accept in the input in the input tag
+    //if I type any character that is not a letter it will not accept in the input in the input tag
     this.userInput.addEventListener("keydown", (event) => {
       const allowedKeys = /[a-zA-Z]/; // Regular expression to match only letters into the html
-      const key = event.key;
+      const key = event.key.toLowerCase();
+      console.log(key);
 
       // Check if the pressed key is an allowed letter
-      if (!allowedKeys.test(key)) {
+      if (!allowedKeys.test(key) || (!model.currentPuzzle.includes(key) && key !== 'backspace' && key !== 'delete' && key !== 'enter')) {
         // Prevent the default action of the key (i.e., typing the character)
         event.preventDefault();
       }
@@ -3242,7 +3243,7 @@ class GUI_View {
   ShowPuzzleFromBase() {}
 
   addLetterToInputField(i) {
-    this.userInput.value += i;
+    this.userInput.value += i.toUpperCase();
   }
 
   getDeleteBtn() {
