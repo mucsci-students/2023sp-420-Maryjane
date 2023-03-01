@@ -81,9 +81,14 @@ class GUI_View {
     this.saveSubmitBtn = document.getElementById("saveSubmitBtn");
     this.loadSubmitBtn = document.getElementById("loadSubmitBtn");
 
-    //if i click on the new puzzle button, then i want an alert to pop up
+    //if i click on the new puzzle button I want to be able to type new word in
     this.newPuzzleFromBaseSubmitBtn.addEventListener("click", () => {
-      alert("New Puzzle From Base Form Submitted");
+      Commands.identifyBaseWord(
+        this.inputFieldNewPuzzleFromBase.value,
+        this.Model,
+        this
+      );
+      this.textArea.innerHTML = "";
       this.userInput.focus();
     });
 
@@ -99,7 +104,6 @@ class GUI_View {
       this.userInput.focus();
     });
 
-    //TODO!! Begin of new action handler
     //if i type any character that is not a letter it will not accept in the input in the input tag
     this.userInput.addEventListener("keydown", (event) => {
       const allowedKeys = /[a-zA-Z]/; // Regular expression to match only letters into the html
@@ -111,8 +115,6 @@ class GUI_View {
         event.preventDefault();
       }
     });
-
-    //TODO!! End of new action handler
 
     //---------------------------------- OTHER --------------------------------------------------->
 
@@ -200,6 +202,8 @@ class GUI_View {
     this.BottomLeftBlock.innerHTML = word[5];
     this.MiddleRightBlock.innerHTML = word[6];
   }
+  //New Command for ShowPuzzleFrom Base
+  ShowPuzzleFromBase() {}
 
   addLetterToInputField(i) {
     this.userInput.value += i;
