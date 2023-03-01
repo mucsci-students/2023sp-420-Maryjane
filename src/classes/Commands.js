@@ -1,4 +1,4 @@
-//const Database = require("./Database");
+const MongoDB = require("../database/lib/mongodb.js");
 const Model = require("../model/Model");
 
 const prompt = require('prompt-sync')();
@@ -79,16 +79,16 @@ class Commands {
   /**
    * Generates a new puzzle. At the moment, it is always the same puzzle
    * @param {Model} Model - object used to keep track of the game/player
-   * @param {Database} Database - object used to keep track of the game/player
+   * @param {MongoDB} MongoDB - object used to keep track of the game/player
    * @returns null
    */
-  static async newPuzzle(Model, Database, View) {
+  static async newPuzzle(Model, MongoDB, View) {
     if (Model.isPuzzleOpen) {
       View.printMessage("game is in progress");
       this.promptSave(Model);
     }
 
-    let pangram = await Database.getRandomWord();
+    let pangram = MongoDB.getRandomWord();
 
     // Converts pangram into array of letters
     let pangramLetters = pangram.split("");
