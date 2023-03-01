@@ -3146,7 +3146,6 @@ class GUI_View {
     this.userInput.addEventListener("keydown", (event) => {
       const allowedKeys = /[a-zA-Z]/; // Regular expression to match only letters into the html
       const key = event.key.toLowerCase();
-      console.log(key);
 
       // Check if the pressed key is an allowed letter
       if (!allowedKeys.test(key) || (!model.currentPuzzle.includes(key) && key !== 'backspace' && key !== 'delete' && key !== 'enter')) {
