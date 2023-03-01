@@ -16,7 +16,6 @@ class GUI_Controller {
   }
 
   setupController() {
-
     window.addEventListener("click", (event) => {
       this.View.focusOnInputField();
     });
@@ -26,13 +25,12 @@ class GUI_Controller {
         this.handleEnterClick();
       }
     });
-
   }
 
   handleShuffleClick() {
     Commands.shuffle(this.Model, this.View);
   }
-  
+
   handleDeleteClick() {
     this.View.getDeleteBtn();
   }

@@ -1,9 +1,9 @@
 //const Database = require("./Database");
 const Model = require("../model/Model");
 
-const prompt = require('prompt-sync')();
+const prompt = require("prompt-sync")();
 
-const isWord = require('../dict.js');
+const isWord = require("../dict.js");
 
 //file system module
 const fs = require("fs");
@@ -30,7 +30,7 @@ class Commands {
 
     if (input.length < 4) {
       View.showErrorMessage("Guess must be at least 4 characters");
-      
+
       return false;
     }
 
@@ -43,7 +43,9 @@ class Commands {
     // Check that all letters of the input are allowed letters determined by the pangram
     for (let i = 0; i < input.length; i++) {
       if (Model.pangram.search(input.charAt(i)) === -1) {
-        View.showErrorMessage(input.charAt(i) + " is not in the required letters");
+        View.showErrorMessage(
+          input.charAt(i) + " is not in the required letters"
+        );
         return false;
       }
     }
@@ -67,9 +69,7 @@ class Commands {
 
     if (input === Model.pangram) {
       View.showPangramMessage(Model.pangram);
-    }
-    else
-    {
+    } else {
       View.showSuccessMessage("Success!");
     }
 
@@ -142,7 +142,6 @@ class Commands {
       .sort((a, b) => 0.5 - Math.random())
       .sort((a, b) => 0.5 - Math.random());
 
-
     View.showPuzzle(Model);
   }
 
@@ -175,7 +174,9 @@ class Commands {
 
     // Converts pangram into array of letters
     let pangram = input;
-    let pangramLetters = String.prototype.concat.call(...new Set(input)).split("");
+    let pangramLetters = String.prototype.concat
+      .call(...new Set(input))
+      .split("");
     Model.currentPuzzle = pangramLetters
       .sort((a, b) => 0.5 - Math.random())
       .sort((a, b) => 0.5 - Math.random());
@@ -246,7 +247,7 @@ class Commands {
     Model.pangram = parsedFile.pangram;
     Model.requiredLetter = parsedFile.requiredLetter;
     Model.userPoints = parsedFile.userPoints;
-    let puzzle = Model.pangram.split("")
+    let puzzle = Model.pangram.split("");
     Model.currentPuzzle = puzzle
       .sort((a, b) => 0.5 - Math.random())
       .sort((a, b) => 0.5 - Math.random());
@@ -275,7 +276,6 @@ class Commands {
     }
 
     if (!fs.existsSync(fileName + ".json")) {
-
       let table = {
         words: Model.foundWords,
         pangram: Model.pangram,
@@ -285,13 +285,13 @@ class Commands {
 
       let jsonFile = JSON.stringify(table);
 
-      fs.writeFileSync(fileName + ".json", jsonFile, "utf8", (err) => { if (err) throw err; });
+      fs.writeFileSync(fileName + ".json", jsonFile, "utf8", (err) => {
+        if (err) throw err;
+      });
       console.log("SpellingBee> The file has been saved!");
       Model.isPuzzleOpen = false;
       return true;
-    }
-
-    else {
+    } else {
       console.log("SpellingBee> File already exists");
       let fileName = prompt("SpellingBee> Enter another file name: ");
       this.save(fileName, Model);
