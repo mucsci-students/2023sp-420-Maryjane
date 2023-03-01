@@ -43,6 +43,10 @@ class GUI_Controller {
     this.View.getEnterBtn();
     this.View.updateRank();
   }
+
+  handleNewPuzzleClick() {
+    Commands.newPuzzle(this.Model, this.Model.database, this.View);
+  }
 }
 
 module.exports = GUI_Controller;

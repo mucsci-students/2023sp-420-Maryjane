@@ -84,14 +84,16 @@ class Commands {
    */
   static async newPuzzle(Model, MongoDB, View) {
     if (Model.isPuzzleOpen) {
-      View.printMessage("game is in progress");
-      this.promptSave(Model);
+      View.showErrorMessage("Game is in progress");
+      //this.promptSave(Model);
     }
 
     let pangram = MongoDB.getRandomWord();
 
     // Converts pangram into array of letters
-    let pangramLetters = pangram.split("");
+    let pangramLetters = String.prototype.concat
+        .call(...new Set(pangram))
+        .split("");
     Model.currentPuzzle = pangramLetters
       .sort((a, b) => 0.5 - Math.random())
       .sort((a, b) => 0.5 - Math.random());
@@ -109,7 +111,7 @@ class Commands {
     Model.requiredLetter =
       pangramLetters[Math.floor(Math.random() * pangramLetters.length)];
 
-    console.log("New puzzle started below! ");
+    View.showSuccessMessage("New puzzle started below! ");
 
     View.showPuzzle(Model);
   }
@@ -152,28 +154,38 @@ class Commands {
    * @returns
    */
   static identifyBaseWord(input, Model, View) {
+    if (input === null || input === undefined) {
+      View.showErrorMessage("No input");
+      return;
+    } else if (input.length < 7) {
+      View.showErrorMessage("Word must be at least 7 characters");
+      return;
+    }
+
+    console.log(input.length);
+
     input = input + "";
     input = input.toLowerCase();
 
     if (Model.isPuzzleOpen) {
-      console.log("game is in progess");
+      View.showErrorMessage("Game is in progress");
       //this.promptSave(Model);
     }
     // Checks user's word to have correct length and no spaces
     if (String.prototype.concat.call(...new Set(input)).length !== 7) {
-      console.log("The new word must have 7 unique letters and no spaces");
+      View.showErrorMessage("The new word must have 7 unique letters and no spaces");
       return;
     }
-    // remove duplicate letters from input
 
     //Checks user's word to be an actual word in the dictionary
     if (!isWord(input)) {
-      console.log(input + " was not found in the dictionary");
+      View.showErrorMessage(input + " was not found in the dictionary");
       return;
     }
 
     // Converts pangram into array of letters
     let pangram = input;
+    // remove duplicate letters from input
     let pangramLetters = String.prototype.concat
       .call(...new Set(input))
       .split("");

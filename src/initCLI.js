@@ -53,7 +53,7 @@ function setup() {
   // Create CLI controller
   let CLI_Controller = new CLI_ControllerClass(Model, CLI_View);
 
-  CLI_Controller.setupDatabase();
+  Model.database.connect();
   CLI_Controller.setupCLI();
 }
 

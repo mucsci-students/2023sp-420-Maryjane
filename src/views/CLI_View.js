@@ -89,11 +89,11 @@ class CLI_View {
     console.log("Your rank: " + rank);
   }
 
-  printMessage(string) {
+  showSuccessMessage(string) {
     console.log(string);
   }
 
-  printError(string) {
+  showErrorMessage(string) {
     console.error(string);
   }
 

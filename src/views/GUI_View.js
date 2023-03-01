@@ -188,8 +188,6 @@ class GUI_View {
     let word = this.Model.currentPuzzle;
     let pos = this.Model.currentPuzzle.indexOf(this.Model.requiredLetter);
 
-    console.log(this.Model.currentPuzzle);
-
     let temp = word[2];
     word[2] = this.Model.requiredLetter;
     word[pos] = temp;

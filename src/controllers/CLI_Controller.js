@@ -9,9 +9,6 @@ const Commands = require("../classes/Commands.js");
 // Used for documentation
 const Model = require("../Model/Model.js");
 
-// Database object created from the file specified below
-const Database = new (require("../classes/Database.js"))();
-
 /**
  * Controller for the CLI following the MVC Model
  */
@@ -24,13 +21,6 @@ class CLI_Controller {
   constructor(Model, View) {
     this.Model = Model;
     this.View = View;
-  }
-
-  /**
-   * Connects to the database
-   */
-  setupDatabase() {
-    Database.connect();
   }
 
   /**
@@ -81,7 +71,7 @@ class CLI_Controller {
         if (args.baseWord) {
           Commands.identifyBaseWord(args.baseWord.toString(), Model, View);
         } else {
-          await Commands.newPuzzle(Model, Database, View);
+          await Commands.newPuzzle(Model, Model.database, View);
         }
         callback();
       });
