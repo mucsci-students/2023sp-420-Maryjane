@@ -113,6 +113,7 @@ class Commands {
 
     View.showSuccessMessage("New puzzle started below! ");
     Model.userPoints = 0;
+    Model.foundWords = [];
     View.showPuzzle(Model);
   }
 
@@ -205,7 +206,8 @@ class Commands {
     Model.pangram = pangram;
     Model.requiredLetter =
       pangramLetters[Math.floor(Math.random() * pangramLetters.length)];
-
+    Model.userPoints = 0;
+    Model.foundWords = [];
     View.showPuzzle(Model);
   }
 
