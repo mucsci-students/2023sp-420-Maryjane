@@ -89,6 +89,11 @@ class CLI_View {
     console.log("Your rank: " + rank);
   }
 
+  showPangramMessage(message) {
+    console.log('\x1b[93mY\x1b[31mO\x1b[32mU \x1b[34mF\x1b[35mO\x1b[33mU\x1b[37mN\x1b[93mD \x1b[31mA \x1b[32mP\x1b[33mA\x1b[34mN\x1b[35mG\x1b[37mR\x1b[31mA\x1b[32mM\x1b[34m!\x1b[0m');
+    console.log('\x1b[93m'+message.toUpperCase()+'\x1b[0m');
+  }
+
   showSuccessMessage(string) {
     console.log(string);
   }
