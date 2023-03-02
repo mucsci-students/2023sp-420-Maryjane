@@ -112,7 +112,7 @@ class Commands {
       pangramLetters[Math.floor(Math.random() * pangramLetters.length)];
 
     View.showSuccessMessage("New puzzle started below! ");
-
+    Model.userPoints = 0;
     View.showPuzzle(Model);
   }
 
