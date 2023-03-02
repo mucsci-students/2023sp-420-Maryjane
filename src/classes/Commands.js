@@ -263,7 +263,11 @@ class Commands {
     Model.pangram = parsedFile.pangram;
     Model.requiredLetter = parsedFile.requiredLetter;
     Model.userPoints = parsedFile.userPoints;
-    let puzzle = Model.pangram.split("");
+    
+    let puzzle = String.prototype.concat
+        .call(...new Set(Model.pangram))
+        .split("");
+        
     Model.currentPuzzle = puzzle
       .sort((a, b) => 0.5 - Math.random())
       .sort((a, b) => 0.5 - Math.random());
