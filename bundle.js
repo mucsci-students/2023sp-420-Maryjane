@@ -28159,9 +28159,6 @@ class GUI_View {
       const linkElement = document.createElement('a');
       linkElement.setAttribute('href', fileData);
       linkElement.setAttribute('download', fileName);
-      for (let i = 0; i < 2; i++) {
-        linkElement.click();
-      }
       this.inputFieldSave.value = "";
     });
    
