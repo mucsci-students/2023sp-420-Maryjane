@@ -55,6 +55,7 @@ class CLI_Controller {
         "guess <input>",
         "Command to let user to submit the following word as a guess."
       )
+      .alias("g")
       .action(function (args, callback) {
         Commands.guess(args.input.toString(), Model, View);
         callback();
