@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Save and Load JSON File</title>
+  </head>
+  <body>
+    <form>
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name">
+      <br>
+      <label for="wordsGuessed">Words Guessed:</label>
+      <input type="text" id="wordsGuessed" name="wordsGuessed">
+      <br>
+      <label for="rank">Rank:</label>
+      <input type="text" id="rank" name="rank">
+      <br>
+      <button type="button" id="saveBtn">Save JSON</button>
+      <button type="button" id="loadBtn">Load JSON</button>
+    </form>
+
+    <script>
+      // Add event listener to the "Save JSON" button
+      const saveBtn = document.getElementById('saveBtn');
+      saveBtn.addEventListener('click', () => {
+        // Get form data
+        const name = document.getElementById('name').value;
+        const wordsGuessed = document.getElementById('wordsGuessed').value.split(',');
+        const rank = document.getElementById('rank').value;
+        
+        // Create JSON object
+        const userData = {
+          name,
+          wordsGuessed,
+          rank
+        };
+        
+        // Convert JSON object to string and save to file
+        const jsonData = JSON.stringify(userData);
+        const fileName = 'userData.json';
+        const fileData = `data:text/json;charset=utf-8,${encodeURIComponent(jsonData)}`;
+        const linkElement = document.createElement('a');
+        linkElement.setAttribute('href', fileData);
+        linkElement.setAttribute('download', fileName);
+        linkElement.click();
+      });
+
+      // Add event listener to the "Load JSON" button
+      const loadBtn = document.getElementById('loadBtn');
+      loadBtn.addEventListener('click', () => {
+        // Create file input element and trigger click event
+        const fileInput = document.createElement('input');
+        fileInput.setAttribute('type', 'file');
+        fileInput.addEventListener('change', () => {
+          const file = fileInput.files[0];
+          const reader = new FileReader();
+          reader.addEventListener('load', () => {
+            const jsonData = JSON.parse(reader.result);
+            // Populate form fields with loaded data
+            document.getElementById('name').value = jsonData.name;
+            document.getElementById('wordsGuessed').value = jsonData.wordsGuessed.join(',');
+            document.getElementById('rank').value = jsonData.rank;
+          });
+          reader.readAsText(file);
+        });
+        fileInput.click();
+      });
+    </script>
+  </body>
+</html>

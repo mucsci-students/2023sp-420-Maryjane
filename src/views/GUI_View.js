@@ -79,7 +79,7 @@ class GUI_View {
       "newPuzzleFromBaseSubmitBtn"
     );
     this.saveSubmitBtn = document.getElementById("saveSubmitBtn");
-    this.loadSubmitBtn = document.getElementById("loadSubmitBtn");
+    //this.loadSubmitBtn = document.getElementById("loadSubmitBtn");
 
     //if i click on the new puzzle button I want to be able to type new word in
     this.newPuzzleFromBaseSubmitBtn.addEventListener("click", () => {
@@ -92,25 +92,13 @@ class GUI_View {
       this.userInput.focus();
     });
 
-    //if i click on the save button, then i want an alert to pop up
-    this.saveSubmitBtn.addEventListener("click", () => {
-      alert("Save Form Submitted");
-      this.userInput.focus();
-    });
-
-    //if i click on the load button, then i want an alert to pop up
-    this.loadSubmitBtn.addEventListener("click", () => {
-      alert("Load Form Submitted");
-      this.userInput.focus();
-    });
-
     //if I type any character that is not a letter it will not accept in the input in the input tag
     this.userInput.addEventListener("keydown", (event) => {
       const allowedKeys = /[a-zA-Z]/; // Regular expression to match only letters into the html
-      const key = event.key.toLowerCase();
+      const key = event.key.toUpperCase();
 
       // Check if the pressed key is an allowed letter
-      if (!allowedKeys.test(key) || (!model.currentPuzzle.includes(key) && key !== 'backspace' && key !== 'delete' && key !== 'enter')) {
+      if (!allowedKeys.test(key) || (!model.currentPuzzle.includes(key) && key !== 'BACKSPACE' && key !== 'DELETE' && key !== 'enter')) {
         // Prevent the default action of the key (i.e., typing the character)
         event.preventDefault();
       }
@@ -182,6 +170,71 @@ class GUI_View {
     window.addEventListener("resize", resizeWindow);
 
     //---------------------------------- NAV BAR ------------------------------------------------->
+
+
+
+
+
+
+
+
+    //---------------------------------- LOAD -------------------------------------------------------->
+    this.inputFieldLoad.addEventListener('change', () => {
+      const file = this.inputFieldLoad.files[0];
+      const reader = new FileReader();
+      reader.addEventListener('load', (event) => {
+
+        const jsonData = JSON.parse(event.target.result);
+        // Populate form fields with loaded data
+        
+        this.Model.pangram = jsonData.pangram.toUpperCase();
+        this.Model.requiredLetter = jsonData.requiredLetter.toUpperCase();
+        this.Model.foundWords = jsonData.words;
+        this.Model.foundWords = this.Model.foundWords.map(word => word.toUpperCase());
+
+
+        console.log(this.Model.foundWords);
+
+        this.Model.isPuzzleOpen = true;
+        this.Model.userPoints = jsonData.userPoints;
+
+        let pangramLetters = String.prototype.concat
+        .call(...new Set(this.Model.pangram))
+        .split("");
+
+        this.Model.currentPuzzle = pangramLetters
+          .sort((a, b) => 0.5 - Math.random())
+          .sort((a, b) => 0.5 - Math.random());
+        this.showPuzzle();
+      });
+      reader.readAsText(file);
+    });
+    //---------------------------------- LOAD -------------------------------------------------------->
+
+    //---------------------------------- SAVE -------------------------------------------------------->
+
+    this.saveSubmitBtn.addEventListener("click", () => {
+      let userData = {
+        words: this.Model.foundWords,
+        pangram: this.Model.pangram,
+        requiredLetter: this.Model.requiredLetter,
+        userPoints: this.Model.userPoints,
+      };
+      
+      // Convert JSON object to string and save to file
+      const jsonData = JSON.stringify(userData);
+      const fileName = this.inputFieldSave.value+= '.json';
+      const fileData = `data:text/json;charset=utf-8,${encodeURIComponent(jsonData)}`;
+      const linkElement = document.createElement('a');
+      linkElement.setAttribute('href', fileData);
+      linkElement.setAttribute('download', fileName);
+      this.inputFieldSave.value = "";
+    });
+   
+
+
+    //---------------------------------- SAVE -------------------------------------------------------->
+
   }
 
   showPuzzle() {
@@ -199,9 +252,13 @@ class GUI_View {
     this.BottomRightBlock.innerHTML = word[4];
     this.BottomLeftBlock.innerHTML = word[5];
     this.MiddleRightBlock.innerHTML = word[6];
+
+    this.updateRank();
+    this.textArea.innerHTML = this.Model.foundWords.join("  ").toUpperCase();
+
   }
   //New Command for ShowPuzzleFrom Base
-  ShowPuzzleFromBase() {}
+  ShowPuzzleFromBase() { }
 
   addLetterToInputField(i) {
     this.userInput.value += i.toUpperCase();
@@ -223,7 +280,7 @@ class GUI_View {
     let success = Commands.guess(input, this.Model, this);
 
     if (success) {
-      this.textArea.innerHTML += input + "  ";
+      this.showPuzzle();
       this.userInput.value = "";
     } else {
       this.userInput.value = "";
@@ -237,7 +294,7 @@ class GUI_View {
     points.innerHTML = "Points: " + this.Model.userPoints + "/150";
   }
 
-  focusOnInputField() {}
+  focusOnInputField() { }
 
   showErrorMessage(message) {
     this.errorMessage.style.color = "red";

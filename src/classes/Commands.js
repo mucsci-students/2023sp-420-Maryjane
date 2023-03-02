@@ -21,7 +21,7 @@ class Commands {
   static guess(input, Model, View) {
     //Converts input to a string
     input = input + "";
-    input = input.toLowerCase();
+    input = input.toUpperCase();
 
     if (!Model.isPuzzleOpen) {
       View.showErrorMessage("No puzzle in progress");
@@ -35,7 +35,7 @@ class Commands {
     }
 
     // Check that the input has the required letter
-    if (input.search(Model.requiredLetter.toLowerCase()) === -1) {
+    if (input.search(Model.requiredLetter.toUpperCase()) === -1) {
       View.showErrorMessage("Missing Required Letter");
       return false;
     }
@@ -89,6 +89,7 @@ class Commands {
     }
 
     let pangram = MongoDB.getRandomWord();
+    pangram = pangram.toUpperCase();
 
     // Converts pangram into array of letters
     let pangramLetters = String.prototype.concat
@@ -166,7 +167,7 @@ class Commands {
     console.log(input.length);
 
     input = input + "";
-    input = input.toLowerCase();
+    input = input.toUpperCase();
 
     if (Model.isPuzzleOpen) {
       View.showErrorMessage("Game is in progress");
@@ -186,6 +187,7 @@ class Commands {
 
     // Converts pangram into array of letters
     let pangram = input;
+    pangram = pangram.toUpperCase();
     // remove duplicate letters from input
     let pangramLetters = String.prototype.concat
       .call(...new Set(input))
