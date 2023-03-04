@@ -3,6 +3,7 @@ var Commands = require("../classes/Commands.js");
 
 // Used for documentation
 const Model = require("../model/Model.js");
+const Modal = require('modal-vanilla');
 
 class GUI_Controller {
   /**
@@ -45,7 +46,69 @@ class GUI_Controller {
   }
 
   handleNewPuzzleClick() {
-    Commands.newPuzzle(this.Model, this.Model.database, this.View);
+
+    let database = this.Model.database;
+    let Model = this.Model;
+    let View = this.View;
+
+    // Create and show save prompt
+    new Modal({
+      title: 'Save Prompt',
+      content: 'Do you wish to save before starting a new puzzle?',
+      transition: 0,
+      backdropTransition: 0
+    })
+    .show()
+    .once('dismiss', function(modal, ev, button) {
+
+      // Clicked yes for save
+      if (button && button.value) {
+
+        let userData = {
+          words: Model.foundWords,
+          pangram: Model.pangram,
+          requiredLetter: Model.requiredLetter,
+          userPoints: Model.userPoints,
+        };
+        
+        // Convert JSON object to string and save to file
+        const jsonData = JSON.stringify(userData);
+        const fileName = 'SpellingBee.json';
+        const fileData = `data:text/json;charset=utf-8,${encodeURIComponent(jsonData)}`;
+        const linkElement = document.createElement('a');
+        linkElement.setAttribute('href', fileData);
+        linkElement.setAttribute('download', fileName);
+        linkElement.click();
+
+        Commands.newPuzzle(Model, database, View);
+      } 
+      // Clicked no for do not save
+      else if (button && !button.value) {
+        Commands.newPuzzle(Model, database, View);
+      }
+    });
+
+    //Changed button names from the default Modal created above
+    document.getElementsByClassName("btn btn-primary")[0].innerHTML = "YES";
+    document.getElementsByClassName("btn btn-default")[0].innerHTML = "NO";
+  }
+
+  saveFile() {
+    let userData = {
+      words: this.Model.foundWords,
+      pangram: this.Model.pangram,
+      requiredLetter: this.Model.requiredLetter,
+      userPoints: this.Model.userPoints,
+    };
+    
+    // Convert JSON object to string and save to file
+    const jsonData = JSON.stringify(userData);
+    const fileName = 'SpellingBee.json';
+    const fileData = `data:text/json;charset=utf-8,${encodeURIComponent(jsonData)}`;
+    const linkElement = document.createElement('a');
+    linkElement.setAttribute('href', fileData);
+    linkElement.setAttribute('download', fileName);
+    linkElement.click();
   }
 }
 

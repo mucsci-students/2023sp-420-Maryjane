@@ -1,5 +1,6 @@
 //Function to find a specific html tasks by adding an ID for each tasks
 const Commands = require("../classes/Commands.js");
+const Modal = require('modal-vanilla');
 
 //Return the ID of element as a JavaScript object, store all in the array and shuffle and change what they say inside them This.TopLeftBlock
 class GUI_View {
@@ -83,11 +84,60 @@ class GUI_View {
 
     //if i click on the new puzzle button I want to be able to type new word in
     this.newPuzzleFromBaseSubmitBtn.addEventListener("click", () => {
-      Commands.identifyBaseWord(
-        this.inputFieldNewPuzzleFromBase.value,
-        this.Model,
-        this
-      );
+        
+      let inputFieldNewPuzzleFromBaseValue = this.inputFieldNewPuzzleFromBase.value;
+      let Model = this.Model;
+      let View = this;
+
+      // Create and show save prompt
+      new Modal({
+        title: 'Save Prompt',
+        content: 'Do you wish to save before starting a new puzzle?',
+        transition: 0,
+        backdropTransition: 0
+      })
+      .show()
+      .once('dismiss', function(modal, ev, button) {
+
+        // Clicked yes for save
+        if (button && button.value) {
+
+          let userData = {
+            words: Model.foundWords,
+            pangram: Model.pangram,
+            requiredLetter: Model.requiredLetter,
+            userPoints: Model.userPoints,
+          };
+          
+          // Convert JSON object to string and save to file
+          const jsonData = JSON.stringify(userData);
+          const fileName = 'SpellingBee.json';
+          const fileData = `data:text/json;charset=utf-8,${encodeURIComponent(jsonData)}`;
+          const linkElement = document.createElement('a');
+          linkElement.setAttribute('href', fileData);
+          linkElement.setAttribute('download', fileName);
+          linkElement.click();
+
+          Commands.identifyBaseWord(
+            inputFieldNewPuzzleFromBaseValue,
+            Model,
+            View
+          );
+        } 
+        // Clicked no for do not save
+        else if (button && !button.value) {
+          Commands.identifyBaseWord(
+            inputFieldNewPuzzleFromBaseValue,
+            Model,
+            View
+          );
+        }
+      });
+
+      //Changed button names from the default Modal created above
+      document.getElementsByClassName("btn btn-primary")[0].innerHTML = "YES";
+      document.getElementsByClassName("btn btn-default")[0].innerHTML = "NO";
+
       this.textArea.innerHTML = "";
       this.userInput.focus();
     });
@@ -228,6 +278,7 @@ class GUI_View {
       const linkElement = document.createElement('a');
       linkElement.setAttribute('href', fileData);
       linkElement.setAttribute('download', fileName);
+      linkElement.click();
       this.inputFieldSave.value = "";
     });
    
