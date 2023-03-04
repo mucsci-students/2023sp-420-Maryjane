@@ -18,7 +18,7 @@ npm start
 ```
 
 ## Launching the GUI
-Coming soon...
+npm run gui
 
 ## Running the Database Script
 Run the following command in the `2023-420-MARYJANE` folder. Database file is depreciated and will be deleted soon.
