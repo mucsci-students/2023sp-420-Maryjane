@@ -13,5 +13,6 @@ Commands.newPuzzle(Model, Model.database, View);
 module.exports = {
   Controller: Controller,
   View: View,
-  Model: Model
+  Model: Model,
+  Commands: Commands
 };
