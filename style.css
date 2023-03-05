@@ -96,6 +96,7 @@ text {
 
 #textArea {
   resize: none;
+  color: rgb(238, 206, 44);
   border-radius: 9px;
   height: 50%;
   font-family: 'Nunito Sans', sans-serif;
@@ -105,6 +106,7 @@ text {
 #userInput {
   outline: none;
   caret-color: rgb(248, 205, 5);
+  color: rgb(238, 206, 44);
   border: none;
   font-size: 40px;
   text-align: center;
@@ -764,5 +766,27 @@ video {
   color: #337ab7;
   background-color: #fff
 }
+      body {
+        background-color: #f8f8f8; /* set background color to light gray */
+        color: #333333; /* set text color to dark gray */
+        font-family: Arial, sans-serif; /* set font to Arial or a sans-serif font */
+        font-size: 16px; /* set font size to 16 pixels */
+      }
+      
+      .dark-mode {
+        background-color: #1a1a1a; /* set background color to dark gray */
+        color: #f8f8f8; /* set text color to white */
+      }
+      
+      h1 {
+        color: #333333; /* set heading color to dark gray */
+        font-size: 24px; /* set heading font size to 24 pixels */
+        margin-bottom: 20px; /* add margin to the bottom of the heading */
+      }
+      
+      p {
+        line-height: 1.5; /* set line height to 1.5 */
+        margin-bottom: 20px; /* add margin to the bottom of paragraphs */
+      }
 
 /**************************************END OF MODAL STYLES*************************************/

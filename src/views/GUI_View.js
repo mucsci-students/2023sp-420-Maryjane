@@ -239,15 +239,16 @@ class GUI_View {
       reader.addEventListener('load', (event) => {
 
         const jsonData = JSON.parse(event.target.result);
-        // Populate form fields with loaded data
 
-        this.Model.pangram = jsonData.pangram.toUpperCase();
-        this.Model.requiredLetter = jsonData.requiredLetter.toUpperCase();
-        this.Model.foundWords = jsonData.words;
-        this.Model.foundWords = this.Model.foundWords.map(word => word.toUpperCase());
+        // Populate form fields with loaded data
+        this.Model.foundWords = jsonData.GuessedWords.map(element => element.toUpperCase());
+        this.Model.pangram = jsonData.PuzzleLetters.toUpperCase();
+        this.Model.requiredLetter = jsonData.RequiredLetter.toUpperCase();
+        this.Model.userPoints = jsonData.CurrentPoints;
+        this.Model.possibleGuesses = jsonData.WordList.map(element => element.toUpperCase());
+        this.Model.maxPoints = jsonData.MaxPoints;
 
         this.Model.isPuzzleOpen = true;
-        this.Model.userPoints = jsonData.userPoints;
 
         let pangramLetters = String.prototype.concat
           .call(...new Set(this.Model.pangram))
