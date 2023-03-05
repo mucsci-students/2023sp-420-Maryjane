@@ -25,7 +25,6 @@ git clone https://github.com/mucsci-students/2023sp-420-Maryjane.git
 cd 2023sp-420-Maryjane
 ```
 * Before you can run the program, you'll need to install the dependencies. You can do this by using the following command:
-
 ```
 npm install
 ```
@@ -38,32 +37,43 @@ npm start
 ### GUI
 * You can run the GUI either locally or remotely: 
 
-* Hosted Website (Remotely):
+* **Hosted Website (Remotely):**
 
   * Click this link to be sent to the GUI host website: 
 
      [SpellingBee Graphical User Interface 🐝] (https://mucsci-students.github.io/2023sp-420-Maryjane/)
 
-* Through the terminal/command line interface (Locally): 
+
+
+
+* **Through the terminal/command line interface (Locally):** 
 
   * To run the GUI through terminal/command line interface, you'll need to first clone this repository to your local computer. You can do this by using the following command in your terminal or command line interface:
+  
 ```
 git clone https://github.com/mucsci-students/2023sp-420-Maryjane.git
 ```
+
   * After cloning the repository, navigate to the repository using the following command:
+  
 ```
 cd 2023sp-420-Maryjane
 ```
+
   * Before you can run the program, you'll need to install the dependencies. You can do this by using the following command:
 
 ```
 npm install
 ```
-  * Once you've installed the dependencies, you can start up the GUI by using the following command:
+
+  * Once you've installed the dependencies, you can run up the GUI process by using the following command:
+  
 ```
 npm run gui
 ```
-  * This command will make two links appear in the terminal (Picture example below). Use CNTRL-Click (Windows) or cmd-Click (MAC) either of these links to run GUI
+
+  * This command will make two links appear in the terminal under the "Available on" section (Picture example below). Use CNTRL-Click (Windows) or cmd-Click (MAC) on either of these links to start up the GUI:
+  <code><img height="300" src="Screenshot (872).png"></code>
 
 ### Run tests
 * To run the tests, you can use the following command:
