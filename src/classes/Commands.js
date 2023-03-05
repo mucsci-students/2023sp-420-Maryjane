@@ -114,6 +114,8 @@ class Commands {
     Model.requiredLetter =
       pangramLetters[Math.floor(Math.random() * pangramLetters.length)];
 
+    Model.maxPoints = 0;
+
     Model.possibleGuesses = scrabble((pangram + pangram + pangram).toLowerCase()).filter((element) => {
       return (element.length >= 4 && element.includes(Model.requiredLetter.toLowerCase()))
     });
@@ -224,6 +226,8 @@ class Commands {
     Model.possibleGuesses = scrabble((pangram + pangram + pangram).toLowerCase()).filter((element) => {
       return (element.length >= 4 && element.includes(Model.requiredLetter.toLowerCase()))
     });
+
+    Model.maxPoints = 0;
 
     Model.possibleGuesses.forEach(element => {
       Model.maxPoints += Commands.calculatePoints(element, Model);
