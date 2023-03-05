@@ -5,6 +5,8 @@ const prompt = require("prompt-sync")();
 
 const isWord = require("../dict.js");
 
+const scrabble = require('scrabble');
+
 //file system module
 const fs = require("fs");
 
@@ -65,10 +67,10 @@ class Commands {
     // Insert the guess into list of found words and increase user points
     Model.foundWords.push(input);
 
-    Commands.updatePuzzleRank(input, Model);
+    Model.userPoints += Commands.calculatePoints(input, Model);
 
-    if (input === Model.pangram) {
-      View.showPangramMessage(Model.pangram);
+    if (input === Model.pangram || String.prototype.concat.call(...new Set(input)).split("").length === 7) {
+      View.showPangramMessage(input);
     } else {
       View.showSuccessMessage("Success!");
     }
@@ -112,6 +114,14 @@ class Commands {
     Model.requiredLetter =
       pangramLetters[Math.floor(Math.random() * pangramLetters.length)];
 
+    Model.possibleGuesses = scrabble((pangram + pangram + pangram).toLowerCase()).filter((element) => {
+      return (element.length >= 4 && element.includes(Model.requiredLetter.toLowerCase()))
+    });
+
+    Model.possibleGuesses.forEach(element => {
+      Model.maxPoints += Commands.calculatePoints(element, Model);
+    });
+
     View.showSuccessMessage("New puzzle started below! ");
     Model.userPoints = 0;
     Model.foundWords = [];
@@ -123,16 +133,23 @@ class Commands {
    * @param {String} word - the user guess
    * @param {Model} Model - the Model object
    */
-  static updatePuzzleRank(word, Model) {
+  static calculatePoints(word, Model) {
     //Shifts it, so you get 1 point for a 4-letter word, 2 points for 5 letters, etc.
-    let score = word.length - 3;
+    let score = 0;
     let USED_ALL_LETTERS_BONUS = 7;
 
-    if (word === Model.pangram) {
+    if (word.length === 4) {
+      score += 1;
+    } else {
+      score += word.length;
+    }
+
+    // If word is the current pangram on any pangram
+    if (word === Model.pangram || String.prototype.concat.call(...new Set(word)).split("").length === 7) {
       score += USED_ALL_LETTERS_BONUS;
     }
 
-    Model.userPoints += score;
+    return score;
   }
 
   static shuffle(Model, View) {
@@ -203,6 +220,14 @@ class Commands {
     pangramLetters = pangramLetters.filter(
       (element) => !toRemove.includes(element)
     );
+
+    Model.possibleGuesses = scrabble((pangram + pangram + pangram).toLowerCase()).filter((element) => {
+      return (element.length >= 4 && element.includes(Model.requiredLetter.toLowerCase()))
+    });
+
+    Model.possibleGuesses.forEach(element => {
+      Model.maxPoints += Commands.calculatePoints(element, Model);
+    });
 
     Model.isPuzzleOpen = true;
     Model.pangram = pangram;
