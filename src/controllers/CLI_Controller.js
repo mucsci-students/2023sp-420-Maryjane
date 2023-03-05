@@ -73,10 +73,7 @@ class CLI_Controller {
         if (args.baseWord) {
           Commands.identifyBaseWord(args.baseWord.toString(), Model, View);
         } else {
-          if (Model.isPuzzleOpen == true) {
-            promptSave(Model);
-          }
-          await Commands.newPuzzle(Model, Model.database, View);
+         Commands.newPuzzle(Model, Model.database, View);
         }
         callback();
       });

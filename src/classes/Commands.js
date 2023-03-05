@@ -87,7 +87,11 @@ class Commands {
   static async newPuzzle(Model, MongoDB, View) {
     if (Model.isPuzzleOpen) {
       View.showErrorMessage("Game is in progress");
-      //this.promptSave(Model);
+      //CLI case
+      if(typeof window==="undefined")
+      {
+        this.promptSave(Model);
+      }
     }
 
     let pangram = MongoDB.getRandomWord();
@@ -183,14 +187,16 @@ class Commands {
       return;
     }
 
-    console.log(input.length);
-
     input = input + "";
     input = input.toUpperCase();
 
     if (Model.isPuzzleOpen) {
       View.showErrorMessage("Game is in progress");
-      //this.promptSave(Model);
+      //CLI case
+      if(typeof window==="undefined")
+      {
+        this.promptSave(Model);
+      }
     }
     // Checks user's word to have correct length and no spaces
     if (String.prototype.concat.call(...new Set(input)).length !== 7) {
@@ -315,7 +321,7 @@ class Commands {
    */
   static save(fileName, Model) {
     if (!Model.isPuzzleOpen) {
-      console.log("SpellingBee> No puzzle open, you can not save");
+      console.log("SpellingBee> No puzzle open, you cannot save");
       return false;
     }
 
@@ -324,12 +330,16 @@ class Commands {
       return false;
     }
 
+    //{"RequiredLetter": "a", "PuzzleLetters": "acklorw", "CurrentPoints": 0, "MaxPoints": 323, "GuessedWords": [], "WordList": ["acro"]}
+
     if (!fs.existsSync(fileName + ".json")) {
       let table = {
-        words: Model.foundWords,
-        pangram: Model.pangram,
-        requiredLetter: Model.requiredLetter,
-        userPoints: Model.userPoints,
+        RequiredLetter: Model.requiredLetter.toLowerCase(),
+        PuzzleLetters: Model.currentPuzzle.toString().toLowerCase().replace(/,/g, ""),
+        CurrentPoints: Model.userPoints,
+        MaxPoints: Model.maxPoints,
+        GuessedWords: Model.foundWords.map(element => element.toLowerCase()),
+        WordList: Model.possibleGuesses.map(element => element.toLowerCase())
       };
 
       let jsonFile = JSON.stringify(table);
@@ -342,9 +352,12 @@ class Commands {
       return true;
     } else {
       console.log("SpellingBee> File already exists");
-      let fileName = prompt("SpellingBee> Enter another file name: ");
+      let fileName = prompt("SpellingBee> Enter a file name: ");
+      while(fileName === "")
+      {
+        fileName = prompt("SpellingBee> Enter a file name: ");
+      }
       this.save(fileName, Model);
-      //no return value because the function will be called again
     }
   }
 
@@ -370,6 +383,10 @@ class Commands {
 
     if (save === "yes") {
       let fileName = prompt("SpellingBee> Enter a file name: ");
+      while(fileName === "")
+      {
+        fileName = prompt("SpellingBee> Enter a file name: ");
+      }
       this.save(fileName, Model);
     } else {
       console.log("SpellingBee> The game has been discarded");
