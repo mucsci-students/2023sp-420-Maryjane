@@ -421,6 +421,18 @@
         >
           Enter
         </button>
+        <button
+          class="btnStyling DarkModebtn"
+          onclick="toggleDarkMode()">
+          DarkMode
+        </button>
+        <script>
+          function toggleDarkMode() {
+            var body = document.querySelector('body');
+            body.classList.toggle('dark-mode');
+          }
+        </script>
+
       </div>
       <!------------------------------------------  BUTTON CONTAINER ------------------------------------------------------------>
 
