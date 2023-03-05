@@ -88,8 +88,7 @@ class Commands {
     if (Model.isPuzzleOpen) {
       View.showErrorMessage("Game is in progress");
       //CLI case
-      if(typeof window==="undefined")
-      {
+      if (typeof window === "undefined") {
         this.promptSave(Model);
       }
     }
@@ -99,8 +98,8 @@ class Commands {
 
     // Converts pangram into array of letters
     let pangramLetters = String.prototype.concat
-        .call(...new Set(pangram))
-        .split("");
+      .call(...new Set(pangram))
+      .split("");
     Model.currentPuzzle = pangramLetters
       .sort((a, b) => 0.5 - Math.random())
       .sort((a, b) => 0.5 - Math.random());
@@ -193,8 +192,7 @@ class Commands {
     if (Model.isPuzzleOpen) {
       View.showErrorMessage("Game is in progress");
       //CLI case
-      if(typeof window==="undefined")
-      {
+      if (typeof window === "undefined") {
         this.promptSave(Model);
       }
     }
@@ -284,28 +282,33 @@ class Commands {
 
     // Check if the file is a spelling bee file
     if (
-      !parsedFile.hasOwnProperty("words") ||
-      !parsedFile.hasOwnProperty("pangram") ||
-      !parsedFile.hasOwnProperty("requiredLetter") ||
-      !parsedFile.hasOwnProperty("userPoints")
+      !parsedFile.hasOwnProperty("GuessedWords") ||
+      !parsedFile.hasOwnProperty("PuzzleLetters") ||
+      !parsedFile.hasOwnProperty("RequiredLetter") ||
+      !parsedFile.hasOwnProperty("CurrentPoints") ||
+      !parsedFile.hasOwnProperty("MaxPoints") ||
+      !parsedFile.hasOwnProperty("WordList")
     ) {
       console.log("SpellingBee> File is not a valid spelling bee file");
       return;
     }
 
     // If all checks passed, update the Model fields with the loaded data from the file
-    Model.foundWords = parsedFile.words;
-    Model.pangram = parsedFile.pangram;
-    Model.requiredLetter = parsedFile.requiredLetter;
-    Model.userPoints = parsedFile.userPoints;
-    
+    Model.foundWords = parsedFile.GuessedWords.map(element => element.toUpperCase());
+    Model.pangram = parsedFile.PuzzleLetters.toUpperCase();
+    Model.requiredLetter = parsedFile.RequiredLetter.toUpperCase();
+    Model.userPoints = parsedFile.CurrentPoints;
+    Model.possibleGuesses = parsedFile.WordList.map(element => element.toUpperCase());
+    Model.maxPoints = parsedFile.MaxPoints;
+
     let puzzle = String.prototype.concat
-        .call(...new Set(Model.pangram))
-        .split("");
-        
+      .call(...new Set(Model.pangram))
+      .split("");
+
     Model.currentPuzzle = puzzle
       .sort((a, b) => 0.5 - Math.random())
       .sort((a, b) => 0.5 - Math.random());
+
     Model.isPuzzleOpen = true;
     console.log("SpellingBee> File loaded successfully\n");
     console.log("Puzzle is shown below");
@@ -353,8 +356,7 @@ class Commands {
     } else {
       console.log("SpellingBee> File already exists");
       let fileName = prompt("SpellingBee> Enter a file name: ");
-      while(fileName === "")
-      {
+      while (fileName === "") {
         fileName = prompt("SpellingBee> Enter a file name: ");
       }
       this.save(fileName, Model);
@@ -383,8 +385,7 @@ class Commands {
 
     if (save === "yes") {
       let fileName = prompt("SpellingBee> Enter a file name: ");
-      while(fileName === "")
-      {
+      while (fileName === "") {
         fileName = prompt("SpellingBee> Enter a file name: ");
       }
       this.save(fileName, Model);
