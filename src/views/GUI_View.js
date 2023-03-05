@@ -111,7 +111,6 @@ class GUI_View {
               MaxPoints: Model.maxPoints,
               GuessedWords: Model.foundWords.map(element => element.toLowerCase()),
               WordList: Model.possibleGuesses.map(element => element.toLowerCase())
-
             };
 
             // Convert JSON object to string and save to file
@@ -136,13 +135,6 @@ class GUI_View {
               Model,
               View
             );
-            //!!WARNING THIS IS NOT INTENDED--NEEDS TO BE FIXED/FINF OUT WHY IT IS HAPPENING
-            Commands.identifyBaseWord(
-              inputFieldNewPuzzleFromBaseValue,
-              Model,
-              View
-            );
-            //!!WARNING THIS IS NOT INTENDED--NEEDS TO BE FIXED/FINF OUT WHY IT IS HAPPENING
           }
         });
 

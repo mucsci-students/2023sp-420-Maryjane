@@ -86,7 +86,6 @@ class Commands {
    */
   static async newPuzzle(Model, MongoDB, View) {
     if (Model.isPuzzleOpen) {
-      View.showErrorMessage("Game is in progress");
       //CLI case
       if (typeof window === "undefined") {
         this.promptSave(Model);
@@ -105,7 +104,7 @@ class Commands {
       .sort((a, b) => 0.5 - Math.random());
 
     // Method will not choose these letters when finding random required letter
-    let toRemove = ["j", "q", "x", "z"];
+    let toRemove = ["J", "Q", "X", "Z"];
 
     // Filter out letters from above
     pangramLetters = pangramLetters.filter(
@@ -190,7 +189,6 @@ class Commands {
     input = input.toUpperCase();
 
     if (Model.isPuzzleOpen) {
-      View.showErrorMessage("Game is in progress");
       //CLI case
       if (typeof window === "undefined") {
         this.promptSave(Model);
@@ -208,39 +206,41 @@ class Commands {
       return;
     }
 
-    // Converts pangram into array of letters
     let pangram = input;
     pangram = pangram.toUpperCase();
-    // remove duplicate letters from input
+
+    // Converts pangram into array of letters
     let pangramLetters = String.prototype.concat
-      .call(...new Set(input))
-      .split("");
+        .call(...new Set(pangram))
+        .split("");
     Model.currentPuzzle = pangramLetters
       .sort((a, b) => 0.5 - Math.random())
       .sort((a, b) => 0.5 - Math.random());
 
     // Method will not choose these letters when finding random required letter
-    let toRemove = ["j", "q", "x", "z"];
+    let toRemove = ["J", "Q", "X", "Z"];
 
     // Filter out letters from above
     pangramLetters = pangramLetters.filter(
       (element) => !toRemove.includes(element)
     );
 
+    Model.isPuzzleOpen = true;
+    Model.pangram = pangram;
+    Model.requiredLetter =
+      pangramLetters[Math.floor(Math.random() * pangramLetters.length)];
+
+    Model.maxPoints = 0;
+
     Model.possibleGuesses = scrabble((pangram + pangram + pangram).toLowerCase()).filter((element) => {
       return (element.length >= 4 && element.includes(Model.requiredLetter.toLowerCase()))
     });
-
-    Model.maxPoints = 0;
 
     Model.possibleGuesses.forEach(element => {
       Model.maxPoints += Commands.calculatePoints(element, Model);
     });
 
-    Model.isPuzzleOpen = true;
-    Model.pangram = pangram;
-    Model.requiredLetter =
-      pangramLetters[Math.floor(Math.random() * pangramLetters.length)];
+    View.showSuccessMessage("New puzzle started below! ");
     Model.userPoints = 0;
     Model.foundWords = [];
     View.showPuzzle(Model);
