@@ -23,8 +23,11 @@ class Model {
   // Stores the users points
   userPoints = 0;
 
-  //
-  maxPoints = 150;
+  // Possible guesses
+  possibleGuesses = [];
+
+  // Max user points
+  maxPoints = 0;
 
   // Default constructor
   constructor() {

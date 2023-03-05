@@ -340,9 +340,9 @@ class GUI_View {
 
   updateRank() {
     let rank = document.getElementById("displayRank");
-    rank.innerHTML = this.Model.getRankName(this.Model.userPoints / 150);
+    rank.innerHTML = this.Model.getRankName(this.Model.userPoints / this.Model.maxPoints);
     let points = document.getElementById("displayPoints");
-    points.innerHTML = "Points: " + this.Model.userPoints + "/150";
+    points.innerHTML = "Points: " + this.Model.userPoints + "/" + this.Model.maxPoints;
   }
 
   focusOnInputField() { }
