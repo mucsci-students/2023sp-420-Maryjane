@@ -58,11 +58,24 @@ class Commands {
       return false;
     }
 
-    // Check that the guess is a real word
-    if (!isWord(input)) {
+    let found = false;
+
+    Model.possibleGuesses.forEach(element => {
+      if (input.toLowerCase() === element.toLowerCase()) {
+        found = true;
+      }
+    });
+
+    if (!found) {
       View.showErrorMessage(input + " is not a word");
       return false;
     }
+
+    // Check that the guess is a real word
+    // if (!isWord(input)) {
+    //   View.showErrorMessage(input + " is not a word");
+    //   return false;
+    // }
 
     // Insert the guess into list of found words and increase user points
     Model.foundWords.push(input);
