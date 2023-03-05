@@ -8,16 +8,11 @@ A Spelling Bee App made in JavaScript for CSCI 420: Software Enginnerring at Mil
 ## ⚡ Getting Started 
 ### Prequisites
 
-* JavaScript: This app is built with JavaScript, so you'll need to have JavaScript installed on your computer. If you don't have JavaScript installed, you can download it from the official website at https://www.javascript.com/.
 * Node.js: You'll also need to have Node.js installed on your computer. Node.js is an open-source, cross-platform JavaScript runtime environment that allows you to run JavaScript on your computer. You can download Node.js from the official website at https://nodejs.org/.
 * npm: Node.js comes with npm, which is a package manager for JavaScript. npm makes it easy for JavaScript developers to share and reuse code, and it makes it easy to update the code that you're sharing. If some how npm isn't installed, you can install npm by following the instructions on the official website at https://docs.npmjs.com/downloading-and-installing-node-js-and-npm
 * Git: Git is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency. Git is easy to learn and has a tiny footprint with lightning fast performance. You can download Git from the official website at https://git-scm.com/downloads.
 
 ### Executing program
-
-### GUI
-
-[SpellingBee Graphical User Interface 🐝](https://mucsci-students.github.io/2023sp-420-Maryjane/)
 
 ### CLI
 
@@ -39,6 +34,36 @@ npm install
 ```
 npm start
 ```
+
+### GUI
+* You can run the GUI either locally or remotely: 
+
+* Hosted Website (Remotely):
+
+  * Click this link to be sent to the GUI host website: 
+
+     [SpellingBee Graphical User Interface 🐝] (https://mucsci-students.github.io/2023sp-420-Maryjane/)
+
+* Through the terminal/command line interface (Locally): 
+
+  * To run the GUI through terminal/command line interface, you'll need to first clone this repository to your local computer. You can do this by using the following command in your terminal or command line interface:
+```
+git clone https://github.com/mucsci-students/2023sp-420-Maryjane.git
+```
+  * After cloning the repository, navigate to the repository using the following command:
+```
+cd 2023sp-420-Maryjane
+```
+  * Before you can run the program, you'll need to install the dependencies. You can do this by using the following command:
+
+```
+npm install
+```
+  * Once you've installed the dependencies, you can start up the GUI by using the following command:
+```
+npm run gui
+```
+  * This command will make two links appear in the terminal (Picture example below). Use CNTRL-Click (Windows) or cmd-Click (MAC) either of these links to run GUI
 
 ### Run tests
 * To run the tests, you can use the following command:
