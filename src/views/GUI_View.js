@@ -111,7 +111,6 @@ class GUI_View {
               MaxPoints: Model.maxPoints,
               GuessedWords: Model.foundWords.map(element => element.toLowerCase()),
               WordList: Model.possibleGuesses.map(element => element.toLowerCase())
-
             };
 
             // Convert JSON object to string and save to file
@@ -136,13 +135,6 @@ class GUI_View {
               Model,
               View
             );
-            //!!WARNING THIS IS NOT INTENDED--NEEDS TO BE FIXED/FINF OUT WHY IT IS HAPPENING
-            Commands.identifyBaseWord(
-              inputFieldNewPuzzleFromBaseValue,
-              Model,
-              View
-            );
-            //!!WARNING THIS IS NOT INTENDED--NEEDS TO BE FIXED/FINF OUT WHY IT IS HAPPENING
           }
         });
 
@@ -253,9 +245,6 @@ class GUI_View {
         this.Model.requiredLetter = jsonData.requiredLetter.toUpperCase();
         this.Model.foundWords = jsonData.words;
         this.Model.foundWords = this.Model.foundWords.map(word => word.toUpperCase());
-
-
-        console.log(this.Model.foundWords);
 
         this.Model.isPuzzleOpen = true;
         this.Model.userPoints = jsonData.userPoints;

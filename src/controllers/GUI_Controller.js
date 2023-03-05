@@ -95,10 +95,12 @@ class GUI_Controller {
 
   saveFile() {
     let userData = {
-      words: this.Model.foundWords,
-      pangram: this.Model.pangram,
-      requiredLetter: this.Model.requiredLetter,
-      userPoints: this.Model.userPoints,
+      RequiredLetter: Model.requiredLetter.toLowerCase(),
+      PuzzleLetters: Model.currentPuzzle.toString().toLowerCase().replace(/,/g, ""),
+      CurrentPoints: Model.userPoints,
+      MaxPoints: Model.maxPoints,
+      GuessedWords: Model.foundWords.map(element => element.toLowerCase()),
+      WordList: Model.possibleGuesses.map(element => element.toLowerCase())
     };
     
     // Convert JSON object to string and save to file
