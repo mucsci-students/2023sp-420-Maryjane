@@ -96,6 +96,7 @@ text {
 
 #textArea {
   resize: none;
+  color: rgb(238, 206, 44);
   border-radius: 9px;
   height: 50%;
   font-family: 'Nunito Sans', sans-serif;
