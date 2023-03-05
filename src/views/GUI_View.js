@@ -79,12 +79,14 @@ class GUI_View {
     this.newPuzzleFromBaseSubmitBtn = document.getElementById(
       "newPuzzleFromBaseSubmitBtn"
     );
+
+
     this.saveSubmitBtn = document.getElementById("saveSubmitBtn");
     //this.loadSubmitBtn = document.getElementById("loadSubmitBtn");
 
     //if i click on the new puzzle button I want to be able to type new word in
     this.newPuzzleFromBaseSubmitBtn.addEventListener("click", () => {
-        
+
       let inputFieldNewPuzzleFromBaseValue = this.inputFieldNewPuzzleFromBase.value;
       let Model = this.Model;
       let View = this;
@@ -96,43 +98,53 @@ class GUI_View {
         transition: 0,
         backdropTransition: 0
       })
-      .show()
-      .once('dismiss', function(modal, ev, button) {
+        .show()
+        .once('dismiss', function (modal, ev, button) {
 
-        // Clicked yes for save
-        if (button && button.value) {
+          // Clicked yes for save
+          if (button && button.value) {
 
-          let userData = {
-            words: Model.foundWords,
-            pangram: Model.pangram,
-            requiredLetter: Model.requiredLetter,
-            userPoints: Model.userPoints,
-          };
-          
-          // Convert JSON object to string and save to file
-          const jsonData = JSON.stringify(userData);
-          const fileName = 'SpellingBee.json';
-          const fileData = `data:text/json;charset=utf-8,${encodeURIComponent(jsonData)}`;
-          const linkElement = document.createElement('a');
-          linkElement.setAttribute('href', fileData);
-          linkElement.setAttribute('download', fileName);
-          linkElement.click();
+            let userData = {
+              RequiredLetter: Model.requiredLetter.toLowerCase(),
+              PuzzleLetters: Model.currentPuzzle.toString().toLowerCase().replace(/,/g, ""),
+              CurrentPoints: Model.userPoints,
+              MaxPoints: Model.maxPoints,
+              GuessedWords: Model.foundWords.map(element => element.toLowerCase()),
+              WordList: Model.possibleGuesses.map(element => element.toLowerCase())
 
-          Commands.identifyBaseWord(
-            inputFieldNewPuzzleFromBaseValue,
-            Model,
-            View
-          );
-        } 
-        // Clicked no for do not save
-        else if (button && !button.value) {
-          Commands.identifyBaseWord(
-            inputFieldNewPuzzleFromBaseValue,
-            Model,
-            View
-          );
-        }
-      });
+            };
+
+            // Convert JSON object to string and save to file
+            const jsonData = JSON.stringify(userData);
+            const fileName = 'SpellingBee.json';
+            const fileData = `data:text/json;charset=utf-8,${encodeURIComponent(jsonData)}`;
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', fileData);
+            linkElement.setAttribute('download', fileName);
+            linkElement.click();
+
+            Commands.identifyBaseWord(
+              inputFieldNewPuzzleFromBaseValue,
+              Model,
+              View
+            );
+          }
+          // Clicked no for do not save
+          else if (button && !button.value) {
+            Commands.identifyBaseWord(
+              inputFieldNewPuzzleFromBaseValue,
+              Model,
+              View
+            );
+            //!!WARNING THIS IS NOT INTENDED--NEEDS TO BE FIXED/FINF OUT WHY IT IS HAPPENING
+            Commands.identifyBaseWord(
+              inputFieldNewPuzzleFromBaseValue,
+              Model,
+              View
+            );
+            //!!WARNING THIS IS NOT INTENDED--NEEDS TO BE FIXED/FINF OUT WHY IT IS HAPPENING
+          }
+        });
 
       //Changed button names from the default Modal created above
       document.getElementsByClassName("btn btn-primary")[0].innerHTML = "YES";
@@ -236,7 +248,7 @@ class GUI_View {
 
         const jsonData = JSON.parse(event.target.result);
         // Populate form fields with loaded data
-        
+
         this.Model.pangram = jsonData.pangram.toUpperCase();
         this.Model.requiredLetter = jsonData.requiredLetter.toUpperCase();
         this.Model.foundWords = jsonData.words;
@@ -249,8 +261,8 @@ class GUI_View {
         this.Model.userPoints = jsonData.userPoints;
 
         let pangramLetters = String.prototype.concat
-        .call(...new Set(this.Model.pangram))
-        .split("");
+          .call(...new Set(this.Model.pangram))
+          .split("");
 
         this.Model.currentPuzzle = pangramLetters
           .sort((a, b) => 0.5 - Math.random())
@@ -265,15 +277,17 @@ class GUI_View {
 
     this.saveSubmitBtn.addEventListener("click", () => {
       let userData = {
-        words: this.Model.foundWords,
-        pangram: this.Model.pangram,
-        requiredLetter: this.Model.requiredLetter,
-        userPoints: this.Model.userPoints,
+       RequiredLetter: this.Model.requiredLetter.toLowerCase(),
+        PuzzleLetters: this.Model.currentPuzzle.toString().toLowerCase().replace(/,/g, ""),
+        CurrentPoints: this.Model.userPoints,
+        MaxPoints: this.Model.maxPoints,
+        GuessedWords: this.Model.foundWords.map(element => element.toLowerCase()),
+        WordList: this.Model.possibleGuesses.map(element => element.toLowerCase())
       };
-      
+
       // Convert JSON object to string and save to file
       const jsonData = JSON.stringify(userData);
-      const fileName = this.inputFieldSave.value+= '.json';
+      const fileName = this.inputFieldSave.value += '.json';
       const fileData = `data:text/json;charset=utf-8,${encodeURIComponent(jsonData)}`;
       const linkElement = document.createElement('a');
       linkElement.setAttribute('href', fileData);
@@ -281,7 +295,7 @@ class GUI_View {
       linkElement.click();
       this.inputFieldSave.value = "";
     });
-   
+
 
 
     //---------------------------------- SAVE -------------------------------------------------------->
