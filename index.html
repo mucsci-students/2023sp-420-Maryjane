@@ -145,10 +145,7 @@
                   </li>
                   <br />
                   <li class="submenu-item">
-                    <a href="#" class="submenu-link"></a> <!--- TODO: RE-ADD DARK MODE HERE -->
-                  </li>
-                  <li class="submenu-item">
-                    <a href="#" class="submenu-link"></a> <!--- TODO: RE-ADD LIGHT MODE HERE -->
+                    <a href="#" onclick="global.Controller.handleDarkModeClick()" class="submenu-link"> Toggle Dark Mode</a> <!--- TODO: RE-ADD DARK MODE HERE -->
                   </li>
                 </ul>
               </li>
@@ -421,18 +418,6 @@
         >
           Enter
         </button>
-        <button
-          class="btnStyling DarkModebtn"
-          onclick="toggleDarkMode()">
-          DarkMode
-        </button>
-        <script>
-          function toggleDarkMode() {
-            var body = document.querySelector('body');
-            body.classList.toggle('dark-mode');
-          }
-        </script>
-
       </div>
       <!------------------------------------------  BUTTON CONTAINER ------------------------------------------------------------>
 

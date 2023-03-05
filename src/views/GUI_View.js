@@ -288,6 +288,8 @@ class GUI_View {
 
 
 
+
+
     //---------------------------------- SAVE -------------------------------------------------------->
 
   }
@@ -401,6 +403,15 @@ class GUI_View {
       origin: { y: 0.6 },
     });
   }
+
+  toggleDarkMode() {
+    let body = document.querySelector('body');
+    body.classList.toggle('dark-mode');
+    this.userInput.classList.toggle('yellowText');
+    this.textArea.classList.toggle('whiteText');
+    this.userInput.focus();
+  }
+
 }
 
 module.exports = GUI_View;

@@ -28,6 +28,10 @@ class GUI_Controller {
     });
   }
 
+  handleDarkModeClick() {
+    this.View.toggleDarkMode();
+  }
+
   handleShuffleClick() {
     Commands.shuffle(this.Model, this.View);
   }
