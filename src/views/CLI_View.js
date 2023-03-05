@@ -77,7 +77,7 @@ class CLI_View {
       return;
     }
 
-    const MAX_POINTS = 150;
+    const MAX_POINTS = Model.maxPoints;
 
     // Ranking system: https://freebee.fun/api.html
 
@@ -85,8 +85,8 @@ class CLI_View {
 
     let rank = Model.getRankName(scorePercentage);
 
-    console.log(Model.userPoints + `/${MAX_POINTS} points`);
     console.log("Your rank: " + rank);
+    console.log(Model.userPoints + `/${MAX_POINTS} points`);
   }
 
   showPangramMessage(message) {
