@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Nunito Sans"
+      rel="stylesheet"
+    />
+    <title>Spelling Bee</title>
+    <script
+      src="https://kit.fontawesome.com/01e8df5584.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.0.1"></script>
+    <script
+      src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+
+  <body>
+    <div id="test1">
+      <!------------------------------------------ NAV BAR ------------------------------------------------->
+      <header class="header" id="header">
+        <section class="wrapper container">
+          <a
+            href="#"
+            class="brand"
+            style="
+              background-image: linear-gradient(45deg, #fff201, #000000);
+              -webkit-background-clip: text;
+              -webkit-text-fill-color: transparent;
+            "
+            >Spelling Bee</a
+          >
+
+          <div class="burger" id="burger">
+            <span class="burger-line"></span>
+            <span class="burger-line"></span>
+            <span class="burger-line"></span>
+          </div>
+          <span class="overlay"></span>
+          <nav class="navbar" id="navbar">
+            <ul class="menu" id="menu">
+              <li class="menu-item">
+                <a href="#" class="menu-link">
+                    Rank: <div id="displayRank">Newbie</div>
+                </a>
+              </li>
+              <li class="menu-item">
+                <a href="#" class="menu-link">
+                  <div id="displayPoints">Points: 0/150</div>
+                </a>
+              </li>
+              <li class="menu-item menu-dropdown">
+                <span class="menu-link" data-toggle="submenu"
+                  >New Puzzle<i class="fa-sharp fa-solid fa-chevron-down"></i
+                ></span>
+                <ul class="submenu">
+                  <li class="submenu-item">
+                    <button onclick="global.Controller.handleNewPuzzleClick()" class="submenu-link">New Puzzle</button>
+                  </li>
+                  <br />
+                  <li class="submenu-item">
+                    <a href="#" class="submenu-link">
+                      <label>New Puzzle From Base: </label>
+                      <input type="text" id="inputFieldNewPuzzleFromBase" />
+                      <br />
+                      <button id="newPuzzleFromBaseSubmitBtn">Submit</button>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              
+              <li class="menu-item menu-dropdown">
+                <span class="menu-link" data-toggle="submenu"
+                  >How To play<i class="fa-sharp fa-solid fa-chevron-down"></i
+                ></span>
+                <ul class="submenu">
+                    <li class="submenu-item">
+                        <a href="#" class="submenu-link"
+                          >GAME RULES:</a
+                        >
+                      </li>
+                  <li class="submenu-item">
+                    <a href="#" class="submenu-link"
+                      >&#x2022; Words must have at least four letters.</a
+                    >
+                  </li>
+                  <li class="submenu-item">
+                    <a href="#" class="submenu-link"
+                      >&#x2022; Words must include the center letter.</a
+                    >
+                  </li>
+                  <li class="submenu-item">
+                    <a href="#" class="submenu-link"
+                      >&#x2022; Letters can be used more than once.</a
+                    >
+                  </li>
+                  <li class="submenu-item">
+                    <a href="#" class="submenu-link"
+                      >HOW TO EARN POINTS:</a
+                    >
+                  </li>
+                  <li class="submenu-item">
+                    <a href="#" class="submenu-link"
+                      >&#x2022; Four-letter words are worth 1 point.</a
+                    >
+                  </li>
+                  <li class="submenu-item">
+                    <a href="#" class="submenu-link"
+                      >&#x2022; Five-letter words and longer are worth 1 point for each letter.</a
+                    >
+                  </li>
+                  <li class="submenu-item">
+                    <a href="#" class="submenu-link"
+                      >&#x2022; Pangrams — words that use all seven letters — earn an additional bonus of 7 points. There is at least one pangram per puzzle.</a
+                    >
+                  </li>
+                </ul>
+              </li>
+              <li class="menu-item menu-dropdown">
+                <span class="menu-link" data-toggle="submenu"
+                  >Settings<i class="fa-sharp fa-solid fa-chevron-down"></i
+                ></span>
+                <ul class="submenu">
+                  <li class="submenu-item">
+                    <a href="#" class="submenu-link">
+                      <label>Save: </label>
+                      <input type="text" id="inputFieldSave" />
+                      <br>
+                      <button id="saveSubmitBtn">Submit</button>
+                    </a>
+                  </li>
+                  <br />
+                  <li class="submenu-item">
+                    <a href="#" class="submenu-link">
+                      <label>Load: </label>
+                      <input type="file" accept=".json" id="inputFieldLoad" />
+                    </a>
+                  </li>
+                  <br />
+                  <li class="submenu-item">
+                    <a href="#" onclick="global.Controller.handleDarkModeClick()" class="submenu-link"> Toggle Dark Mode</a> <!--- TODO: RE-ADD DARK MODE HERE -->
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </nav>
+        </section>
+      </header>
+      <!------------------------------------------ NAV BAR ------------------------------------------------->
+
+      <!------------------------------------------- INPUT AREA ----------------------------------------------->
+      <br />
+      <div id="errorMessage">&zwnj;</div>
+      <!-- Changes I made for the input field
+        Added onkeydown which checks for all #'s & specail characters
+        Added oninput which translate all characters to Uppercase
+      -->
+      <div class="input">
+        <div class="item1">
+          <input
+            id="userInput"
+            type="text"
+            placeholder=""
+            onkeydown="return (event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 96 || event.keyCode > 105) && (event.keyCode < 186 || event.keyCode > 222)"
+            oninput="this.value = this.value.toUpperCase()"
+          />
+        </div>
+        <div class="item2">
+          <textarea
+            wrap="hard"
+            id="textArea"
+            disabled="yes"
+            readonly="yes"
+            id="text"
+            rows="4"
+            cols="50"
+            placeholder="GUESSED WORDS"
+          ></textarea>
+        </div>
+      </div>
+      <br />
+      <!------------------------------------------- INPUT AREA ----------------------------------------------->
+
+      <!------------------------------------------  HEX CONTAINER ------------------------------------------------------------>
+      <div class="hexGridContainer">
+        <!------------------------------------------ ROW 1 ------------------------------------------------->
+        <div class="topRowContainer">
+          <div>
+            <svg
+              style="cursor: pointer; color: rgb(166, 165, 160)"
+              xmlns="http://www.w3.org/2000/svg"
+              width="100"
+              height="100"
+              fill="currentColor"
+              class="bi bi-hexagon-fill"
+              viewBox="0 0 16 16"
+              onclick="global.Controller.handleHexClick(document.getElementById('TopLeftBlock').innerHTML)"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M8.5.134a1 1 0 0 0-1 0l-6 3.577a1 1 0 0 0-.5.866v6.846a1 1 0 0 0 .5.866l6 3.577a1 1 0 0 0 1 0l6-3.577a1 1 0 0 0 .5-.866V4.577a1 1 0 0 0-.5-.866L8.5.134z"
+                fill="#E6E6E6"
+              ></path>
+              <text
+                font-size="7"
+                text-anchor="middle"
+                x="50%"
+                y="65%"
+                fill="black"
+                id="TopLeftBlock"
+              ></text>
+            </svg>
+          </div>
+
+          <div>
+            <svg
+              style="cursor: pointer; color: rgb(166, 165, 160)"
+              xmlns="http://www.w3.org/2000/svg"
+              width="100"
+              height="100"
+              onclick="global.Controller.handleHexClick(document.getElementById('TopRightBlock').innerHTML)"
+              fill="currentColor"
+              class="bi bi-hexagon-fill"
+              viewBox="0 0 16 16"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M8.5.134a1 1 0 0 0-1 0l-6 3.577a1 1 0 0 0-.5.866v6.846a1 1 0 0 0 .5.866l6 3.577a1 1 0 0 0 1 0l6-3.577a1 1 0 0 0 .5-.866V4.577a1 1 0 0 0-.5-.866L8.5.134z"
+                fill="#E6E6E6"
+              ></path>
+              <text
+                font-size="7"
+                text-anchor="middle"
+                x="50%"
+                y="65%"
+                fill="black"
+                id="TopRightBlock"
+              ></text>
+            </svg>
+          </div>
+        </div>
+        <!------------------------------------------ ROW 1 ------------------------------------------------->
+
+        <!------------------------------------------ ROW 2 ------------------------------------------------->
+        <div class="middleRowContainer">
+          <div>
+            <svg
+              style="cursor: pointer; color: rgb(166, 165, 160)"
+              xmlns="http://www.w3.org/2000/svg"
+              width="100"
+              height="100"
+              onclick="global.Controller.handleHexClick(document.getElementById('MiddleLeftBlock').innerHTML)"
+              fill="currentColor"
+              class="bi bi-hexagon-fill"
+              viewBox="0 0 16 16"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M8.5.134a1 1 0 0 0-1 0l-6 3.577a1 1 0 0 0-.5.866v6.846a1 1 0 0 0 .5.866l6 3.577a1 1 0 0 0 1 0l6-3.577a1 1 0 0 0 .5-.866V4.577a1 1 0 0 0-.5-.866L8.5.134z"
+                fill="#E6E6E6"
+              ></path>
+              <text
+                font-size="7"
+                text-anchor="middle"
+                x="50%"
+                y="65%"
+                fill="black"
+                id="MiddleLeftBlock"
+              ></text>
+            </svg>
+          </div>
+
+          <div>
+            <svg
+              style="cursor: pointer; color: rgb(166, 165, 160)"
+              xmlns="http://www.w3.org/2000/svg"
+              width="100"
+              height="100"
+              onclick="global.Controller.handleHexClick(document.getElementById('Middle').innerHTML)"
+              fill="currentColor"
+              class="bi bi-hexagon-fill"
+              viewBox="0 0 16 16"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M8.5.134a1 1 0 0 0-1 0l-6 3.577a1 1 0 0 0-.5.866v6.846a1 1 0 0 0 .5.866l6 3.577a1 1 0 0 0 1 0l6-3.577a1 1 0 0 0 .5-.866V4.577a1 1 0 0 0-.5-.866L8.5.134z"
+                fill="rgb(238, 206, 44)"
+              ></path>
+              <text
+                font-size="7"
+                text-anchor="middle"
+                x="50%"
+                y="65%"
+                fill="black"
+                id="Middle"
+              ></text>
+            </svg>
+          </div>
+
+          <div>
+            <svg
+              style="cursor: pointer; color: rgb(166, 165, 160)"
+              xmlns="http://www.w3.org/2000/svg"
+              width="100"
+              height="100"
+              onclick="global.Controller.handleHexClick(document.getElementById('MiddleRightBlock').innerHTML)"
+              fill="currentColor"
+              class="bi bi-hexagon-fill"
+              viewBox="0 0 16 16"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M8.5.134a1 1 0 0 0-1 0l-6 3.577a1 1 0 0 0-.5.866v6.846a1 1 0 0 0 .5.866l6 3.577a1 1 0 0 0 1 0l6-3.577a1 1 0 0 0 .5-.866V4.577a1 1 0 0 0-.5-.866L8.5.134z"
+                fill="#E6E6E6"
+              ></path>
+              <text
+                font-size="7"
+                text-anchor="middle"
+                x="50%"
+                y="65%"
+                fill="black"
+                id="MiddleRightBlock"
+              ></text>
+            </svg>
+          </div>
+        </div>
+        <!------------------------------------------ ROW 2 ------------------------------------------------->
+
+        <!------------------------------------------ ROW 3 ------------------------------------------------->
+        <div class="bottomRowContainer">
+          <div>
+            <svg
+              style="cursor: pointer; color: rgb(166, 165, 160)"
+              xmlns="http://www.w3.org/2000/svg"
+              width="100"
+              height="100"
+              onclick="global.Controller.handleHexClick(document.getElementById('BottomLeftBlock').innerHTML)"
+              fill="currentColor"
+              class="bi bi-hexagon-fill"
+              viewBox="0 0 16 16"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M8.5.134a1 1 0 0 0-1 0l-6 3.577a1 1 0 0 0-.5.866v6.846a1 1 0 0 0 .5.866l6 3.577a1 1 0 0 0 1 0l6-3.577a1 1 0 0 0 .5-.866V4.577a1 1 0 0 0-.5-.866L8.5.134z"
+                fill="#E6E6E6"
+              ></path>
+              <text
+                font-size="7"
+                text-anchor="middle"
+                x="50%"
+                y="65%"
+                fill="black"
+                id="BottomLeftBlock"
+              ></text>
+            </svg>
+          </div>
+
+          <div>
+            <svg
+              style="cursor: pointer; color: rgb(166, 165, 160)"
+              xmlns="http://www.w3.org/2000/svg"
+              width="100"
+              height="100"
+              onclick="global.Controller.handleHexClick(document.getElementById('BottomRightBlock').innerHTML)"
+              fill="currentColor"
+              class="bi bi-hexagon-fill"
+              viewBox="0 0 16 16"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M8.5.134a1 1 0 0 0-1 0l-6 3.577a1 1 0 0 0-.5.866v6.846a1 1 0 0 0 .5.866l6 3.577a1 1 0 0 0 1 0l6-3.577a1 1 0 0 0 .5-.866V4.577a1 1 0 0 0-.5-.866L8.5.134z"
+                fill="#E6E6E6"
+              ></path>
+              <text
+                font-size="7"
+                text-anchor="middle"
+                x="50%"
+                y="65%"
+                fill="black"
+                id="BottomRightBlock"
+              ></text>
+            </svg>
+          </div>
+        </div>
+        <!------------------------------------------ ROW 3 ------------------------------------------------->
+      </div>
+      <!------------------------------------------  HEX CONTAINER ------------------------------------------------------------>
+
+      <!------------------------------------------  BUTTON CONTAINER ------------------------------------------------------------>
+      <div class="buttonContainer">
+        <button
+          class="btnStyling Deletebtn"
+          onclick="global.Controller.handleDeleteClick()"
+        >
+          Delete
+        </button>
+
+        <img
+          alt="shuffleBTN"
+          id="shufflebtn"
+          class="Shufflebtn"
+          src="https://em-content.zobj.net/thumbs/120/openmoji/338/shuffle-tracks-button_1f500.png"
+          width="50px"
+          height="50px"
+          onclick="global.Controller.handleShuffleClick()"
+        />
+
+        <button
+          class="btnStyling Enterebtn"
+          onclick="global.Controller.handleEnterClick()"
+        >
+          Enter
+        </button>
+      </div>
+      <!------------------------------------------  BUTTON CONTAINER ------------------------------------------------------------>
+
+      <!--
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="https://github.com/mucsci-students/2023sp-420-Maryjane" target="_blank">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+            </div>
+    </footer>
+    --></div>
+    <script src="bundle.js"></script>
+  </body>
+</html>

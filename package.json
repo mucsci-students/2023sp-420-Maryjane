@@ -1,11 +1,13 @@
 {
   "name": "2023sp-420-maryjane",
   "version": "1.0.0",
-  "description": "Jonathan Rivera\r Justin Stevens",
-  "main": "app.js",
+  "description": "A Spelling Bee App made in JavaScript for CSCI 420: Software Enginnerring at Millersville University.",
+  "main": "initCLI.js",
   "scripts": {
-    "start": "node src/app.js",
-    "test": "jest"
+    "start": "node src/initCLI.js",
+    "test": "jest",
+    "gui": "browserify --standalone global src/initGUI.js -o bundle.js && http-server -p 8081",
+    "build": "browserify --standalone global src/initGUI.js -o bundle.js"
   },
   "repository": {
     "type": "git",
@@ -18,11 +20,14 @@
   },
   "homepage": "https://github.com/mucsci-students/2023sp-420-Maryjane#readme",
   "dependencies": {
-    "check-word": "^1.1.0",
+    "@moleculer/vorpal": "^1.11.5",
+    "browserify": "^17.0.0",
+    "http-server": "^14.1.1",
     "jest": "^29.4.2",
+    "modal-vanilla": "^0.12.0",
     "mongodb": "^4.13.0",
     "prompt-sync": "^4.2.0",
     "scrabble": "^1.0.13",
-    "@moleculer/vorpal": "^1.11.5"
+    "sqlite": "4.1.2"
   }
 }

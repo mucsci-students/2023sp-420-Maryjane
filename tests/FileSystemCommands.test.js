@@ -1,54 +1,104 @@
-const GameManagerClass = require("../src/classes/GameManager.js");
+//const GameManagerClass = require("../src/classes/GameManager.js");
 const Commands = require("../src/classes/Commands.js");
 const fs = require("fs");
-
+const Model = require("../src/model/Model.js");
 //to run this test file run the following command:
-//npm test tests/FileSystemCommands.test.js 
-
+//npm test tests/FileSystemCommands.test.js
 describe("Test Save Function", () => {
+  test("returns false when no puzzle is open", () => {
+    const Model = {
+      // Store whether the player currently has a puzzle open
+      isPuzzleOpen: false,
 
-    test("returns false when no puzzle is open", () => {
+      // Stores all the words found by the user.
+      foundWords: [],
 
-        const GameManager = {
-            isPuzzleOpen: false,
-            foundWords: [],
-            pangram: "",
-            requiredLetter: "",
-            userPoints: 0
-        };
+      // Stores the seven letter puzzle
+      pangram: "",
 
-        expect(Commands.save("Game1", GameManager)).toEqual(false);
-    });
+      // Stores the puzzle as an array of letters in a random order
+      currentPuzzle: [],
 
-    test("creates a new file when it does not exist", () => {
-        const writeFileSpy = jest.spyOn(fs, 'writeFileSync').mockImplementation((path, data, encoding, callback) => {
-            callback();
-        });
+      // Stores the letter that is required in the puzzle
+      requiredLetter: "",
 
-        const GameManager = {
-            isPuzzleOpen: true,
-            foundWords: ["word1", "word2"],
-            pangram: "abcdefg",
-            requiredLetter: "a",
-            userPoints: 10
-        };
+      // Stores the users points
+      userPoints: 0,
 
-        expect(Commands.save("Game1", GameManager)).toEqual(true);
-        expect(writeFileSpy).toHaveBeenCalled();
-        writeFileSpy.mockRestore();
-    });
+      // Possible guesses
+      possibleGuesses: [],
 
-    test("returns false when filename is empty string", () => {
+      // Max user points
+      maxPoints: 0,
+    };
 
-        const GameManager = {
-            isPuzzleOpen: true,
-            foundWords: ["word1", "word2"],
-            pangram: "abcdefg",
-            requiredLetter: "a",
-            userPoints: 10
-        };
+    expect(Commands.save("Game1", Model)).toEqual(false);
+  });
 
-        expect(Commands.save("", GameManager)).toEqual(false);
-    });
+  test("creates a new file when it does not exist", () => {
+    const writeFileSpy = jest
+      .spyOn(fs, "writeFileSync")
+      .mockImplementation((path, data, encoding, callback) => {
+        callback();
+      });
 
+    const Model = {
+      // Store whether the player currently has a puzzle open
+      isPuzzleOpen: true,
+
+      // Stores all the words found by the user.
+      foundWords: ["pine"],
+
+      // Stores the seven letter puzzle
+      pangram: "pinewood",
+
+      // Stores the puzzle as an array of letters in a random order
+      currentPuzzle: ["e", "n", "i", "p", "d", "o", "w"],
+
+      // Stores the letter that is required in the puzzle
+      requiredLetter: "e",
+
+      // Stores the users points
+      userPoints: 0,
+
+      // Possible guesses
+      possibleGuesses: ["pinewood"],
+
+      // Max user points
+      maxPoints: 0,
+    };
+
+    expect(Commands.save("Game1", Model)).toEqual(true);
+    expect(writeFileSpy).toHaveBeenCalled();
+  });
+
+  test("returns false when filename is empty string", () => {
+    const Model = {
+      // Store whether the player currently has a puzzle open
+      isPuzzleOpen: true,
+
+      // Stores all the words found by the user.
+      foundWords: ["pine"],
+
+      // Stores the seven letter puzzle
+      pangram: "pinewood",
+
+      // Stores the puzzle as an array of letters in a random order
+      currentPuzzle: ["e", "n", "i", "p", "d", "o", "w"],
+
+      // Stores the letter that is required in the puzzle
+      requiredLetter: "e",
+
+      // Stores the users points
+      userPoints: 0,
+
+      // Possible guesses
+      possibleGuesses: ["pinewood"],
+
+      // Max user points
+      maxPoints: 0,
+    };
+
+    expect(Commands.save("", Model)).toEqual(false);
+  });
 });
