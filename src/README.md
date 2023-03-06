@@ -106,6 +106,8 @@ Add more here...
 ## Running Tests
 Use `npm test`
 
+Use `npm run test`
+
 ## Generating Code Coverage HTML File
 1. Use `npm test -- --coverage`
 2. Navigate to the `coverage` folder
