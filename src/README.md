@@ -56,17 +56,18 @@ This file is used to organize our node/NPM project. For more information on what
 https://docs.npmjs.com/cli/v9/configuring-npm/package-json
 
 ## Current Dependencies/Packages
--{NOT USED ANY LONGER} [check-word](https://github.com/S0c5/node-check-word) - Used to check if a word is an actual English word
+- {NOT USED ANY LONGER}[check-word](https://github.com/S0c5/node-check-word) - Used to check if a word is an actual English word
 - [jest](https://jestjs.io/) - Testing framework
 - [mongodb](https://mongodb.github.io/node-mongodb-native/4.13/) - Used to query the mongodb database
 - [prompt-sync](https://github.com/heapwolf/prompt-sync) - Used to get user input with Node.js
 - [scrabble](https://www.npmjs.com/package/scrabble) - Used to generate all possible combinations of a group of letters (currently not in use by this project)
 - [@moleculer/vorpal](https://github.com/moleculerjs/vorpal) - Vorpal without the security issues. Used to make the CLI and is highly helpful.
 - [sqlite](https://github.com/kriasoft/node-sqlite) - Database package
-- [browserify]
-- [http-server]
-- [modal-vanilla]
-- [prompt-sync]
+- [browserify](https://github.com/browserify/browserify) - Use a node-style require() to organize your browser code and load modules installed by npm.
+- [http-server](https://github.com/http-party/http-server) - http-server is a simple, zero-configuration command-line static HTTP server. It is powerful enough for production usage, but it's simple and hackable enough to be used for testing, local development and learning.
+- [modal-vanilla](https://github.com/KaneCohen/modal-vanilla) - Modal Dialog window written in raw ES6 JavaScript. Functionally and visually
+compatible with Bootstrap framework.
+- [prompt-sync](https://github.com/heapwolf/prompt-sync) - A sync prompt for node. very simple. no C++ bindings and no bash scripts.
 
 
 # GIT ========================================================================================
