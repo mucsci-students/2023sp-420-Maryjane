@@ -1,58 +1,104 @@
 //const GameManagerClass = require("../src/classes/GameManager.js");
-//const Commands = require("../src/classes/Commands.js");
-//const fs = require("fs");
-
+const Commands = require("../src/classes/Commands.js");
+const fs = require("fs");
+const Model = require("../src/model/Model.js");
 //to run this test file run the following command:
-//npm test tests/FileSystemCommands.test.js 
-
+//npm test tests/FileSystemCommands.test.js
 describe("Test Save Function", () => {
+  test("returns false when no puzzle is open", () => {
+    const Model = {
+      // Store whether the player currently has a puzzle open
+      isPuzzleOpen: false,
 
-  test("reset", () => {
-    expect(1).toEqual(1)
+      // Stores all the words found by the user.
+      foundWords: [],
+
+      // Stores the seven letter puzzle
+      pangram: "",
+
+      // Stores the puzzle as an array of letters in a random order
+      currentPuzzle: [],
+
+      // Stores the letter that is required in the puzzle
+      requiredLetter: "",
+
+      // Stores the users points
+      userPoints: 0,
+
+      // Possible guesses
+      possibleGuesses: [],
+
+      // Max user points
+      maxPoints: 0,
+    };
+
+    expect(Commands.save("Game1", Model)).toEqual(false);
   });
 
-    // test("returns false when no puzzle is open", () => {
+  test("creates a new file when it does not exist", () => {
+    const writeFileSpy = jest
+      .spyOn(fs, "writeFileSync")
+      .mockImplementation((path, data, encoding, callback) => {
+        callback();
+      });
 
-    //     const GameManager = {
-    //         isPuzzleOpen: false,
-    //         foundWords: [],
-    //         pangram: "",
-    //         requiredLetter: "",
-    //         userPoints: 0
-    //     };
+    const Model = {
+      // Store whether the player currently has a puzzle open
+      isPuzzleOpen: true,
 
-    //     expect(Commands.save("Game1", GameManager)).toEqual(false);
-    // });
+      // Stores all the words found by the user.
+      foundWords: ["pine"],
 
-    // test("creates a new file when it does not exist", () => {
-    //     const writeFileSpy = jest.spyOn(fs, 'writeFileSync').mockImplementation((path, data, encoding, callback) => {
-    //         callback();
-    //     });
+      // Stores the seven letter puzzle
+      pangram: "pinewood",
 
-    //     const GameManager = {
-    //         isPuzzleOpen: true,
-    //         foundWords: ["word1", "word2"],
-    //         pangram: "abcdefg",
-    //         requiredLetter: "a",
-    //         userPoints: 10
-    //     };
+      // Stores the puzzle as an array of letters in a random order
+      currentPuzzle: ["e", "n", "i", "p", "d", "o", "w"],
 
-    //     expect(Commands.save("Game1", GameManager)).toEqual(true);
-    //     expect(writeFileSpy).toHaveBeenCalled();
-    //     writeFileSpy.mockRestore();
-    // });
+      // Stores the letter that is required in the puzzle
+      requiredLetter: "e",
 
-    // test("returns false when filename is empty string", () => {
+      // Stores the users points
+      userPoints: 0,
 
-    //     const GameManager = {
-    //         isPuzzleOpen: true,
-    //         foundWords: ["word1", "word2"],
-    //         pangram: "abcdefg",
-    //         requiredLetter: "a",
-    //         userPoints: 10
-    //     };
+      // Possible guesses
+      possibleGuesses: ["pinewood"],
 
-    //     expect(Commands.save("", GameManager)).toEqual(false);
-    // });
+      // Max user points
+      maxPoints: 0,
+    };
 
+    expect(Commands.save("Game1", Model)).toEqual(true);
+    expect(writeFileSpy).toHaveBeenCalled();
+  });
+
+  test("returns false when filename is empty string", () => {
+    const Model = {
+      // Store whether the player currently has a puzzle open
+      isPuzzleOpen: true,
+
+      // Stores all the words found by the user.
+      foundWords: ["pine"],
+
+      // Stores the seven letter puzzle
+      pangram: "pinewood",
+
+      // Stores the puzzle as an array of letters in a random order
+      currentPuzzle: ["e", "n", "i", "p", "d", "o", "w"],
+
+      // Stores the letter that is required in the puzzle
+      requiredLetter: "e",
+
+      // Stores the users points
+      userPoints: 0,
+
+      // Possible guesses
+      possibleGuesses: ["pinewood"],
+
+      // Max user points
+      maxPoints: 0,
+    };
+
+    expect(Commands.save("", Model)).toEqual(false);
+  });
 });
