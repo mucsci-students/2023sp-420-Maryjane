@@ -41,7 +41,7 @@ npm start
 
   * Click this link to be sent to the GUI host website: 
 
-     [SpellingBee Graphical User Interface 🐝] (https://mucsci-students.github.io/2023sp-420-Maryjane/)
+     [SpellingBee Graphical User Interface 🐝](https://mucsci-students.github.io/2023sp-420-Maryjane/)
 
 
 
@@ -82,6 +82,17 @@ npm run gui
 ```
 npm run test
 ```
+
+### Run Test Code Coverage
+* To run the tests, you can use the following command:
+* Note: You'll need to have the dependencies installed before you can run the tests. Refer to the "Executing program" section for more information.
+* Note: You need to be in the root directory of the project to run the tests. (i.e. 2023sp-420-Maryjane)
+```
+npm test -- --coverage
+```
+* This will create a folder in your repo called coverage
+* Go to 2023sp-420-Maryjane/coverage/Icov-report
+* Open the index.html in a browser of your choice
 
 ## 🖊️ Authors
 
