@@ -102,6 +102,10 @@ text {
   font-weight: 700;
 }
 
+.dark-mode {
+  background-color: #1a1a1a;
+}
+
 .yellowText {
   color: rgb(238, 206, 44);
 }
@@ -119,6 +123,9 @@ text {
   background-color: transparent;
   font-family: 'Nunito Sans', sans-serif;
   font-weight: 700;
+  border-bottom: 2px solid rgb(248, 205, 5);
+  margin-bottom: 0.5%;
+  width: 362px;
 }
 
 .input {
@@ -225,11 +232,11 @@ a:visited {
   --color-pink-400: hsl(44, 97%, 50%);
   --color-pink-500: hsl(43, 89%, 48%);
   --shadow-small: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
-     0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    0 1px 2px 0 rgba(0, 0, 0, 0.06);
   --shadow-medium: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-     0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
   --shadow-large: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
-     0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
 *,
@@ -269,9 +276,9 @@ button {
   border: none;
   outline: none;
   -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
   background: none;
   box-shadow: none;
 }
@@ -282,7 +289,7 @@ video {
   max-width: 100%;
   height: auto;
   -o-object-fit: cover;
-     object-fit: cover;
+  object-fit: cover;
 }
 
 .container {
@@ -319,7 +326,7 @@ video {
   align-items: center;
   justify-content: space-between;
   -moz-column-gap: 1rem;
-       column-gap: 1rem;
+  column-gap: 1rem;
   row-gap: 2rem;
   width: 100%;
   height: 3.5rem;
@@ -341,6 +348,7 @@ video {
     background-color: var(--color-white-100);
     transition: all 0.5s ease;
   }
+
   .navbar.active {
     left: 0rem;
     opacity: 1;
@@ -353,12 +361,13 @@ video {
   display: inline-block;
   margin-left: 1.5rem;
 }
+
 .menu-link {
   display: flex;
   justify-content: center;
   align-items: center;
   -moz-column-gap: 0.25rem;
-       column-gap: 0.25rem;
+  column-gap: 0.25rem;
   font-family: inherit;
   font-size: 1rem;
   font-weight: 500;
@@ -368,33 +377,39 @@ video {
   color: var(--color-black-500);
   transition: all 0.3s ease-in-out;
 }
-.menu-link > i.bx {
+
+.menu-link>i.bx {
   font-size: 1.35rem;
   line-height: 1.5;
   color: inherit;
 }
+
 .menu-link:hover {
   outline: none;
   color: var(--color-pink-500);
 }
+
 @media only screen and (min-width: 993px) {
-  .menu-dropdown:hover > .submenu {
+  .menu-dropdown:hover>.submenu {
     display: block;
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
   }
 }
+
 @media only screen and (max-width: 992px) {
   .menu {
     width: 100%;
     height: auto;
     padding: 1rem 0;
   }
+
   .menu-item {
     display: block;
     margin: 0 auto;
   }
+
   .menu-link {
     justify-content: space-between;
     padding: 0.5rem 1.25rem;
@@ -417,10 +432,12 @@ video {
   background-color: var(--color-white-100);
   transition: all 0.3s ease-in-out;
 }
+
 .submenu-item {
   display: block;
   margin-top: 0.75rem;
 }
+
 .submenu-link {
   font-family: inherit;
   font-size: 1rem;
@@ -430,10 +447,12 @@ video {
   color: var(--color-black-500);
   transition: all 0.35s ease;
 }
+
 .submenu-link:hover {
   outline: none;
   color: var(--color-pink-500);
 }
+
 @media only screen and (max-width: 992px) {
   .submenu {
     position: relative;
@@ -458,15 +477,16 @@ video {
   display: none;
   cursor: pointer;
   -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
   width: 1.75rem;
   height: 1rem;
   opacity: 0;
   visibility: hidden;
   background: transparent;
 }
+
 .burger-line {
   position: absolute;
   display: block;
@@ -478,15 +498,19 @@ video {
   outline: none;
   background: var(--color-black-500);
 }
+
 .burger-line:nth-child(1) {
   top: 0px;
 }
+
 .burger-line:nth-child(2) {
   top: 0.5rem;
 }
+
 .burger-line:nth-child(3) {
   top: 1rem;
 }
+
 @media only screen and (max-width: 992px) {
   .burger {
     display: block;
@@ -507,6 +531,7 @@ video {
   transition: all 0.35s ease-in-out;
   background-color: rgba(0, 0, 0, 0.65);
 }
+
 @media only screen and (max-width: 992px) {
   .overlay.active {
     display: block;
@@ -534,10 +559,10 @@ video {
 }
 
 .modal.in .modal-dialog {
-  -webkit-transform: translate(0,0);
-  -ms-transform: translate(0,0);
-  -o-transform: translate(0,0);
-  transform: translate(0,0)
+  -webkit-transform: translate(0, 0);
+  -ms-transform: translate(0, 0);
+  -o-transform: translate(0, 0);
+  transform: translate(0, 0)
 }
 
 .modal-open .modal {
@@ -557,11 +582,11 @@ video {
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
   border: 1px solid #999;
-  border: 1px solid rgba(0,0,0,.2);
+  border: 1px solid rgba(0, 0, 0, .2);
   border-radius: 6px;
   outline: 0;
-  -webkit-box-shadow: 0 3px 9px rgba(0,0,0,.5);
-  box-shadow: 0 3px 9px rgba(0,0,0,.5)
+  -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
+  box-shadow: 0 3px 9px rgba(0, 0, 0, .5)
 }
 
 .modal-backdrop {
@@ -632,23 +657,23 @@ video {
 
 @media (min-width: 768px) {
   .modal-dialog {
-      width:600px;
-      margin: 30px auto
+    width: 600px;
+    margin: 30px auto
   }
 
   .modal-content {
-      -webkit-box-shadow: 0 5px 15px rgba(0,0,0,.5);
-      box-shadow: 0 5px 15px rgba(0,0,0,.5)
+    -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, .5)
   }
 
   .modal-sm {
-      width: 300px
+    width: 300px
   }
 }
 
 @media (min-width: 992px) {
   .modal-lg {
-      width:900px
+    width: 900px
   }
 }
 
@@ -691,7 +716,8 @@ video {
   border-color: #ccc
 }
 
-.btn-default.focus,.btn-default:focus {
+.btn-default.focus,
+.btn-default:focus {
   color: #333;
   background-color: #e6e6e6;
   border-color: #8c8c8c
@@ -703,23 +729,43 @@ video {
   border-color: #adadad
 }
 
-.btn-default.active,.btn-default:active,.open>.dropdown-toggle.btn-default {
+.btn-default.active,
+.btn-default:active,
+.open>.dropdown-toggle.btn-default {
   color: #333;
   background-color: #e6e6e6;
   border-color: #adadad
 }
 
-.btn-default.active.focus,.btn-default.active:focus,.btn-default.active:hover,.btn-default:active.focus,.btn-default:active:focus,.btn-default:active:hover,.open>.dropdown-toggle.btn-default.focus,.open>.dropdown-toggle.btn-default:focus,.open>.dropdown-toggle.btn-default:hover {
+.btn-default.active.focus,
+.btn-default.active:focus,
+.btn-default.active:hover,
+.btn-default:active.focus,
+.btn-default:active:focus,
+.btn-default:active:hover,
+.open>.dropdown-toggle.btn-default.focus,
+.open>.dropdown-toggle.btn-default:focus,
+.open>.dropdown-toggle.btn-default:hover {
   color: #333;
   background-color: #d4d4d4;
   border-color: #8c8c8c
 }
 
-.btn-default.active,.btn-default:active,.open>.dropdown-toggle.btn-default {
+.btn-default.active,
+.btn-default:active,
+.open>.dropdown-toggle.btn-default {
   background-image: none
 }
 
-.btn-default.disabled.focus,.btn-default.disabled:focus,.btn-default.disabled:hover,.btn-default[disabled].focus,.btn-default[disabled]:focus,.btn-default[disabled]:hover,fieldset[disabled] .btn-default.focus,fieldset[disabled] .btn-default:focus,fieldset[disabled] .btn-default:hover {
+.btn-default.disabled.focus,
+.btn-default.disabled:focus,
+.btn-default.disabled:hover,
+.btn-default[disabled].focus,
+.btn-default[disabled]:focus,
+.btn-default[disabled]:hover,
+fieldset[disabled] .btn-default.focus,
+fieldset[disabled] .btn-default:focus,
+fieldset[disabled] .btn-default:hover {
   background-color: #fff;
   border-color: #ccc
 }
@@ -735,7 +781,8 @@ video {
   border-color: #2e6da4
 }
 
-.btn-primary.focus,.btn-primary:focus {
+.btn-primary.focus,
+.btn-primary:focus {
   color: #fff;
   background-color: #286090;
   border-color: #122b40
@@ -747,23 +794,43 @@ video {
   border-color: #204d74
 }
 
-.btn-primary.active,.btn-primary:active,.open>.dropdown-toggle.btn-primary {
+.btn-primary.active,
+.btn-primary:active,
+.open>.dropdown-toggle.btn-primary {
   color: #fff;
   background-color: #286090;
   border-color: #204d74
 }
 
-.btn-primary.active.focus,.btn-primary.active:focus,.btn-primary.active:hover,.btn-primary:active.focus,.btn-primary:active:focus,.btn-primary:active:hover,.open>.dropdown-toggle.btn-primary.focus,.open>.dropdown-toggle.btn-primary:focus,.open>.dropdown-toggle.btn-primary:hover {
+.btn-primary.active.focus,
+.btn-primary.active:focus,
+.btn-primary.active:hover,
+.btn-primary:active.focus,
+.btn-primary:active:focus,
+.btn-primary:active:hover,
+.open>.dropdown-toggle.btn-primary.focus,
+.open>.dropdown-toggle.btn-primary:focus,
+.open>.dropdown-toggle.btn-primary:hover {
   color: #fff;
   background-color: #204d74;
   border-color: #122b40
 }
 
-.btn-primary.active,.btn-primary:active,.open>.dropdown-toggle.btn-primary {
+.btn-primary.active,
+.btn-primary:active,
+.open>.dropdown-toggle.btn-primary {
   background-image: none
 }
 
-.btn-primary.disabled.focus,.btn-primary.disabled:focus,.btn-primary.disabled:hover,.btn-primary[disabled].focus,.btn-primary[disabled]:focus,.btn-primary[disabled]:hover,fieldset[disabled] .btn-primary.focus,fieldset[disabled] .btn-primary:focus,fieldset[disabled] .btn-primary:hover {
+.btn-primary.disabled.focus,
+.btn-primary.disabled:focus,
+.btn-primary.disabled:hover,
+.btn-primary[disabled].focus,
+.btn-primary[disabled]:focus,
+.btn-primary[disabled]:hover,
+fieldset[disabled] .btn-primary.focus,
+fieldset[disabled] .btn-primary:focus,
+fieldset[disabled] .btn-primary:hover {
   background-color: #337ab7;
   border-color: #2e6da4
 }
@@ -772,27 +839,4 @@ video {
   color: #337ab7;
   background-color: #fff
 }
-      body {
-        background-color: #f8f8f8; /* set background color to light gray */
-        color: #333333; /* set text color to dark gray */
-        font-family: Arial, sans-serif; /* set font to Arial or a sans-serif font */
-        font-size: 16px; /* set font size to 16 pixels */
-      }
-      
-      .dark-mode {
-        background-color: #1a1a1a; /* set background color to dark gray */
-        color: #f8f8f8; /* set text color to white */
-      }
-      
-      h1 {
-        color: #333333; /* set heading color to dark gray */
-        font-size: 24px; /* set heading font size to 24 pixels */
-        margin-bottom: 20px; /* add margin to the bottom of the heading */
-      }
-      
-      p {
-        line-height: 1.5; /* set line height to 1.5 */
-        margin-bottom: 20px; /* add margin to the bottom of paragraphs */
-      }
-
 /**************************************END OF MODAL STYLES*************************************/
