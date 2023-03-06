@@ -127,6 +127,7 @@ class GUI_View {
               Model,
               View
             );
+            userInput.focus();
           }
           // Clicked no for do not save
           else if (button && !button.value) {
@@ -135,6 +136,7 @@ class GUI_View {
               Model,
               View
             );
+            userInput.focus();
           }
         });
 
@@ -407,6 +409,7 @@ class GUI_View {
   toggleDarkMode() {
     let body = document.querySelector('body');
     body.classList.toggle('dark-mode');
+
     this.userInput.classList.toggle('yellowText');
     this.textArea.classList.toggle('whiteText');
     this.userInput.focus();
