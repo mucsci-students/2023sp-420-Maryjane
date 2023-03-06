@@ -44,7 +44,7 @@ class Commands {
 
     // Check that all letters of the input are allowed letters determined by the pangram
     for (let i = 0; i < input.length; i++) {
-      if (Model.pangram.search(input.charAt(i)) === -1) {
+      if (Model.pangram.toUpperCase().search(input.charAt(i).toUpperCase()) === -1) {
         View.showErrorMessage(
           input.charAt(i) + " is not in the required letters"
         );
