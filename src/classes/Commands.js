@@ -425,8 +425,15 @@ class Commands {
     //create jagged array.
     let guessTable = [[],[],[],[],[],[],[]];  // a jagged array of size 7 for each unique letter by maxWordLength size.
 
+    //fill 2d array
+    for (let i = 0; i < 7; i++) {
+      for (let j = 4; j < maxWordLength; j++) {
+        //check each possible guess for each starting letter here. then incriment the value up
+        //maybe do hashmap look up here?   
+      }
+      
+    }
 
-    
   }
 
 }
