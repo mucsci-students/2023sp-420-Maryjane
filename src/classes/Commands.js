@@ -414,11 +414,11 @@ class Commands {
    */
   static gernerateHint(Model) {
     let maxWordLength = 0;
-    Model.possibleGuesses.forEach(element => {
-      if (element.length() > maxWordLength) {
-        maxWordLength = element.length();
+    for (let index = 0; index < Model.possibleGuesses.length; index++) {
+      if (Model.possibleGuesses[index].length > maxWordLength) {
+        maxWordLength = Model.possibleGuesses[index].length;
       }
-    });
+    }
     let guessTable = [[],[],[],[],[],[],[]];  // a jagged array of size 7 for each unique letter by maxWordLength size.
 
   }
