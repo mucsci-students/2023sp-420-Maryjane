@@ -413,14 +413,20 @@ class Commands {
    * @param {Model} Model - object used to keep track of the game/player
    */
   static gernerateHint(Model) {
+
+    //calculate max word length for guesses
     let maxWordLength = 0;
     for (let index = 0; index < Model.possibleGuesses.length; index++) {
       if (Model.possibleGuesses[index].length > maxWordLength) {
         maxWordLength = Model.possibleGuesses[index].length;
       }
     }
+
+    //create jagged array.
     let guessTable = [[],[],[],[],[],[],[]];  // a jagged array of size 7 for each unique letter by maxWordLength size.
 
+
+    
   }
 
 }
