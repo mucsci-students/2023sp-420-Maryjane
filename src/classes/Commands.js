@@ -224,8 +224,8 @@ class Commands {
 
     // Converts pangram into array of letters
     let pangramLetters = String.prototype.concat
-        .call(...new Set(pangram))
-        .split("");
+      .call(...new Set(pangram))
+      .split("");
     Model.currentPuzzle = pangramLetters
       .sort((a, b) => 0.5 - Math.random())
       .sort((a, b) => 0.5 - Math.random());
@@ -407,6 +407,22 @@ class Commands {
       Model.isPuzzleOpen = false;
     }
   }
+
+  /**
+   * gernerates the hints information needed to create the bingo board and others.
+   * @param {Model} Model - object used to keep track of the game/player
+   */
+  static gernerateHint(Model) {
+    let maxWordLength = 0;
+    Model.possibleGuesses.forEach(element => {
+      if (element.length() > maxWordLength) {
+        maxWordLength = element.length();
+      }
+    });
+    let guessTable = [[],[],[],[],[],[],[]];  // a jagged array of size 7 for each unique letter by maxWordLength size.
+
+  }
+
 }
 
 module.exports = Commands;
