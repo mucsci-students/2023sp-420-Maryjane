@@ -18,6 +18,10 @@ class Model {
 
   // Stores the hints for the currentPuzzle
   currentPuzzleHints = [[]];
+
+  // Store the two letter hints
+  currentPuzzleTwoLetterHint = [];
+
   // Stores the letter that is required in the puzzle
   requiredLetter = "";
 

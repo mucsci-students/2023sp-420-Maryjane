@@ -516,7 +516,33 @@ class Commands {
     guessTable.push(colTotalCount);
     Model.currentPuzzleHints = guessTable;
     console.log(guessTable);
+
+    Commands.generateTwoLetterHint(Model);
   }
+
+  static generateTwoLetterHint(Model) {
+    let hash = {};
+
+    Model.possibleGuesses.forEach(word => {
+      let firstTwoLetters = word.substring(0, 2).toLowerCase();
+
+      if (hash[firstTwoLetters] === undefined) {
+        // Create new key and set its' value to 1
+        hash[firstTwoLetters] = 1;
+      } else {
+        // Increment value of key by 1
+        hash[firstTwoLetters] = hash[firstTwoLetters] + 1;
+      }
+
+    });
+
+    for (const [key, value] of Object.entries(hash)) {
+      currentPuzzleTwoLetterHint.push(key + ": " + value);
+    }
+
+  }
+
+
 }
 
 module.exports = Commands;
