@@ -5,7 +5,7 @@ const prompt = require("prompt-sync")();
 
 const isWord = require("../dict.js");
 
-const scrabble = require('scrabble');
+const scrabble = require("scrabble");
 
 //file system module
 const fs = require("fs");
@@ -44,7 +44,9 @@ class Commands {
 
     // Check that all letters of the input are allowed letters determined by the pangram
     for (let i = 0; i < input.length; i++) {
-      if (Model.pangram.toUpperCase().search(input.charAt(i).toUpperCase()) === -1) {
+      if (
+        Model.pangram.toUpperCase().search(input.charAt(i).toUpperCase()) === -1
+      ) {
         View.showErrorMessage(
           input.charAt(i) + " is not in the required letters"
         );
@@ -60,7 +62,7 @@ class Commands {
 
     let found = false;
 
-    Model.possibleGuesses.forEach(element => {
+    Model.possibleGuesses.forEach((element) => {
       if (input.toLowerCase() === element.toLowerCase()) {
         found = true;
       }
@@ -82,7 +84,10 @@ class Commands {
 
     Model.userPoints += Commands.calculatePoints(input, Model);
 
-    if (input === Model.pangram || String.prototype.concat.call(...new Set(input)).split("").length === 7) {
+    if (
+      input === Model.pangram ||
+      String.prototype.concat.call(...new Set(input)).split("").length === 7
+    ) {
       View.showPangramMessage(input);
     } else {
       View.showSuccessMessage("Success!");
@@ -131,11 +136,16 @@ class Commands {
 
     Model.maxPoints = 0;
 
-    Model.possibleGuesses = scrabble((pangram + pangram + pangram).toLowerCase()).filter((element) => {
-      return (element.length >= 4 && element.includes(Model.requiredLetter.toLowerCase()))
+    Model.possibleGuesses = scrabble(
+      (pangram + pangram + pangram).toLowerCase()
+    ).filter((element) => {
+      return (
+        element.length >= 4 &&
+        element.includes(Model.requiredLetter.toLowerCase())
+      );
     });
 
-    Model.possibleGuesses.forEach(element => {
+    Model.possibleGuesses.forEach((element) => {
       Model.maxPoints += Commands.calculatePoints(element, Model);
     });
 
@@ -162,7 +172,10 @@ class Commands {
     }
 
     // If word is the current pangram on any pangram
-    if (word === Model.pangram || String.prototype.concat.call(...new Set(word)).split("").length === 7) {
+    if (
+      word === Model.pangram ||
+      String.prototype.concat.call(...new Set(word)).split("").length === 7
+    ) {
       score += USED_ALL_LETTERS_BONUS;
     }
 
@@ -209,7 +222,9 @@ class Commands {
     }
     // Checks user's word to have correct length and no spaces
     if (String.prototype.concat.call(...new Set(input)).length !== 7) {
-      View.showErrorMessage("The new word must have 7 unique letters and no spaces");
+      View.showErrorMessage(
+        "The new word must have 7 unique letters and no spaces"
+      );
       return;
     }
 
@@ -245,11 +260,16 @@ class Commands {
 
     Model.maxPoints = 0;
 
-    Model.possibleGuesses = scrabble((pangram + pangram + pangram).toLowerCase()).filter((element) => {
-      return (element.length >= 4 && element.includes(Model.requiredLetter.toLowerCase()))
+    Model.possibleGuesses = scrabble(
+      (pangram + pangram + pangram).toLowerCase()
+    ).filter((element) => {
+      return (
+        element.length >= 4 &&
+        element.includes(Model.requiredLetter.toLowerCase())
+      );
     });
 
-    Model.possibleGuesses.forEach(element => {
+    Model.possibleGuesses.forEach((element) => {
       Model.maxPoints += Commands.calculatePoints(element, Model);
     });
 
@@ -307,11 +327,15 @@ class Commands {
     }
 
     // If all checks passed, update the Model fields with the loaded data from the file
-    Model.foundWords = parsedFile.GuessedWords.map(element => element.toUpperCase());
+    Model.foundWords = parsedFile.GuessedWords.map((element) =>
+      element.toUpperCase()
+    );
     Model.pangram = parsedFile.PuzzleLetters.toUpperCase();
     Model.requiredLetter = parsedFile.RequiredLetter.toUpperCase();
     Model.userPoints = parsedFile.CurrentPoints;
-    Model.possibleGuesses = parsedFile.WordList.map(element => element.toUpperCase());
+    Model.possibleGuesses = parsedFile.WordList.map((element) =>
+      element.toUpperCase()
+    );
     Model.maxPoints = parsedFile.MaxPoints;
 
     let puzzle = String.prototype.concat
@@ -351,11 +375,14 @@ class Commands {
     if (!fs.existsSync(fileName + ".json")) {
       let table = {
         RequiredLetter: Model.requiredLetter.toLowerCase(),
-        PuzzleLetters: Model.currentPuzzle.toString().toLowerCase().replace(/,/g, ""),
+        PuzzleLetters: Model.currentPuzzle
+          .toString()
+          .toLowerCase()
+          .replace(/,/g, ""),
         CurrentPoints: Model.userPoints,
         MaxPoints: Model.maxPoints,
-        GuessedWords: Model.foundWords.map(element => element.toLowerCase()),
-        WordList: Model.possibleGuesses.map(element => element.toLowerCase())
+        GuessedWords: Model.foundWords.map((element) => element.toLowerCase()),
+        WordList: Model.possibleGuesses.map((element) => element.toLowerCase()),
       };
 
       let jsonFile = JSON.stringify(table);
@@ -413,7 +440,6 @@ class Commands {
    * @param {Model} Model - object used to keep track of the game/player
    */
   static gernerateHint(Model) {
-
     //calculate max word length for guesses
     let maxWordLength = 0;
     for (let index = 0; index < Model.possibleGuesses.length; index++) {
@@ -423,19 +449,74 @@ class Commands {
     }
 
     //create jagged array.
-    let guessTable = [[],[],[],[],[],[],[]];  // a jagged array of size 7 for each unique letter by maxWordLength size.
-
+    let guessTable = [[], [], [], [], [], [], []]; // a jagged array of size 7 for each unique letter by maxWordLength size.
+    let pangram = Model.currentPuzzle;
+    let colTotalCount = [];
     //fill 2d array
+    /** 4   5 6 7
+     * [0,4][][][]
+     * [1,4][][][]
+     * [2,4][][][]
+     * [3,4][][][]
+     * [4,4][][][]
+     * [5,4][][][]
+     * [6,4][][][]
+     * Ex:We have 'abdomen'
+     * 1) First grab first letter which is a
+     * 2) we have to search the word list for all words that begin with a in the wordlist for abdomen
+     * 3) we have to sum up all the words we got
+     * 4) insert that sum into the 2D array in the letter that we grab
+     * 5) Do this entire process per letter unti the we reach end of the word
+     */
+    //check each possible guess for each starting letter here. then incriment the value up
+    //Search word list for legth word - 3
+    //maybe do hashmap look up here?
     for (let i = 0; i < 7; i++) {
-      for (let j = 4; j < maxWordLength; j++) {
-        //check each possible guess for each starting letter here. then incriment the value up
-        //maybe do hashmap look up here?   
+      //1) First grab current letter
+      let searchChar = pangram[i];
+      let rowTotalCount = 0;
+      guessTable[i].push(searchChar);
+      for (let j = 4; j <= maxWordLength; j++) {
+        //search the word list for total amount of words that begin with searchChar
+        let counter = 0;
+        for (let k = 0; k < Model.possibleGuesses.length; k++) {
+          if (
+            Model.possibleGuesses[k]
+              .toUpperCase()
+              .startsWith(searchChar.toUpperCase()) &&
+            Model.possibleGuesses[k].length === j
+          ) {
+            counter++;
+            rowTotalCount++;
+          }
+        }
+        if (i === 0) {
+          colTotalCount.push(counter);
+        } else {
+          colTotalCount[j - 4] += counter;
+        }
+        //insert that sum into the 2D array in the letter that we grab
+        if (counter === 0) {
+          guessTable[i].push("-");
+        } else {
+          guessTable[i].push(counter);
+        }
       }
-      
+
+      guessTable[i].push(rowTotalCount);
+    } //adding the word length row to length
+    let temp = [];
+
+    for (let i = 0; i < guessTable[0].length - 2; i++) {
+      temp.push(i + 4);
     }
-
+    temp.push("Σ");
+    guessTable.unshift(temp);
+    colTotalCount.push(Model.possibleGuesses.length);
+    guessTable.push(colTotalCount);
+    Model.currentPuzzleHints = guessTable;
+    console.log(guessTable);
   }
-
 }
 
 module.exports = Commands;
