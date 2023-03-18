@@ -94,6 +94,11 @@ npm test -- --coverage
 * Go to 2023sp-420-Maryjane/coverage/Icov-report
 * Open the index.html in a browser of your choice
 
+## Design Patterns 
+
+### MVC
+The [model](https://github.com/mucsci-students/2023sp-420-Maryjane/blob/develop/src/model/Model.js) contains all the data relevant to the users' current game, such as the puzzle letters, found words, possible words, and more. The [views](https://github.com/mucsci-students/2023sp-420-Maryjane/tree/develop/src/views) contains everything used to display the model information on either the CLI or GUI. The [controller](https://github.com/mucsci-students/2023sp-420-Maryjane/tree/develop/src/controllers) adds event listerners to the GUI to be able to handle user interaction and handles commands in the CLI.
+
 ## 🖊️ Authors
 
 👤 **Jonathan Rivera**
