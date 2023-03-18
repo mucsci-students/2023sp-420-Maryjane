@@ -524,8 +524,8 @@ class Commands {
     let hash = {};
 
     Model.possibleGuesses.forEach((word) => {
+      //gets the two word letters for each of he found words
       let firstTwoLetters = word.substring(0, 2).toLowerCase();
-
       if (hash[firstTwoLetters] === undefined) {
         // Create new key and set its' value to 1
         hash[firstTwoLetters] = 1;
