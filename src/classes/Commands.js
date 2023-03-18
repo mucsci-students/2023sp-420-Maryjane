@@ -523,7 +523,7 @@ class Commands {
   static generateTwoLetterHint(Model) {
     let hash = {};
 
-    Model.possibleGuesses.forEach(word => {
+    Model.possibleGuesses.forEach((word) => {
       let firstTwoLetters = word.substring(0, 2).toLowerCase();
 
       if (hash[firstTwoLetters] === undefined) {
@@ -533,16 +533,12 @@ class Commands {
         // Increment value of key by 1
         hash[firstTwoLetters] = hash[firstTwoLetters] + 1;
       }
-
     });
 
     for (const [key, value] of Object.entries(hash)) {
-      currentPuzzleTwoLetterHint.push(key + ": " + value);
+      Model.currentPuzzleTwoLetterHint.push(key + ": " + value);
     }
-
   }
-
-
 }
 
 module.exports = Commands;

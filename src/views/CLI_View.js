@@ -119,6 +119,10 @@ class CLI_View {
   showHintMessage(Model) {
     console.log(Model.currentPuzzleHints);
   }
+
+  showTwoLetterHint(Model) {
+    console.log(Model.generateTwoLetterHint);
+  }
 }
 
 module.exports = CLI_View;
