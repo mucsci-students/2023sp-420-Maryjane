@@ -31,7 +31,7 @@ npm install
 * Once you've installed the dependencies, you can run the program by using the following command:
 
 ```
-npm start
+npm start --cli
 ```
 
 ### GUI
@@ -66,10 +66,11 @@ cd 2023sp-420-Maryjane
 npm install
 ```
 
-  * Once you've installed the dependencies, you can run up the GUI process by using the following command:
+  * Once you've installed the dependencies, you can run the GUI by using the following command:
+  
   
 ```
-npm run gui
+npm start
 ```
 
   * This command will make two links appear in the terminal under the "Available on" section (Picture example below). Use CNTRL-Click (Windows) or cmd-Click (MAC) on either of these links to start up the GUI:
