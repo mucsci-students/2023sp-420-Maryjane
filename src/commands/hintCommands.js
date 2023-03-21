@@ -89,4 +89,4 @@ function generateTwoLetterHint(Model) {
         Model.currentPuzzleTwoLetterHint.push(key + ": " + value);
     }
 }
-module.exports = generateHint, generateTwoLetterHint;
+module.exports = {generateHint, generateTwoLetterHint};

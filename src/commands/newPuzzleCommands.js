@@ -170,4 +170,4 @@ function newPuzzleFromBase(input, Model, View) {
     View.showPuzzle(Model);
 }
 
-module.exports = newPuzzle, calculatePoints;
+module.exports = {newPuzzle, calculatePoints};

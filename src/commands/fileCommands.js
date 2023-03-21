@@ -156,4 +156,4 @@ function promptSave(Model) {
         Model.isPuzzleOpen = false;
     }
 }
-module.exports = load, save;
+module.exports = {load, save};
