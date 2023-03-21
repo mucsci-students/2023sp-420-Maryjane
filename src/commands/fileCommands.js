@@ -9,7 +9,7 @@ const prompt = require("prompt-sync")();
 function load(fileName, Model, View) {
     //check if a game is already in progress, if it is dont load a new game
     if (Model.isPuzzleOpen) {
-        this.promptSave(Model);
+        promptSave(Model);
     }
 
     // Append ".json" to the filename if it doesn't already have it
@@ -156,4 +156,4 @@ function promptSave(Model) {
         Model.isPuzzleOpen = false;
     }
 }
-module.exports = {load, save};
+module.exports = {load, save, promptSave};

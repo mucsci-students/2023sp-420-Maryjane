@@ -1,5 +1,7 @@
 const isWord = require("../dict.js");
 const MongoDB = require("../database/lib/mongodb.js");
+const scrabble = require("scrabble");
+const { promptSave } = require("./fileCommands.js");
 
 /**
    * Generates a new puzzle. At the moment, it is always the same puzzle
@@ -11,7 +13,7 @@ function newPuzzle(Model, MongoDB, View) {
     if (Model.isPuzzleOpen) {
         //CLI case
         if (typeof window === "undefined") {
-            this.promptSave(Model);
+            promptSave(Model);
         }
     }
 
@@ -51,7 +53,7 @@ function newPuzzle(Model, MongoDB, View) {
     });
 
     Model.possibleGuesses.forEach((element) => {
-        Model.maxPoints += Commands.calculatePoints(element, Model);
+        Model.maxPoints += calculatePoints(element, Model);
     });
 
     View.showSuccessMessage("New puzzle started below! ");
@@ -108,7 +110,7 @@ function newPuzzleFromBase(input, Model, View) {
     if (Model.isPuzzleOpen) {
         //CLI case
         if (typeof window === "undefined") {
-            this.promptSave(Model);
+            promptSave(Model);
         }
     }
     // Checks user's word to have correct length and no spaces
@@ -161,7 +163,7 @@ function newPuzzleFromBase(input, Model, View) {
     });
 
     Model.possibleGuesses.forEach((element) => {
-        Model.maxPoints += Commands.calculatePoints(element, Model);
+        Model.maxPoints += calculatePoints(element, Model);
     });
 
     View.showSuccessMessage("New puzzle started below! ");
@@ -170,4 +172,4 @@ function newPuzzleFromBase(input, Model, View) {
     View.showPuzzle(Model);
 }
 
-module.exports = {newPuzzle, calculatePoints};
+module.exports = { newPuzzle, calculatePoints };

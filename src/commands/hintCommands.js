@@ -63,7 +63,7 @@ function generateHint(Model) {
     Model.currentPuzzleHints = guessTable;
     console.log(guessTable);
 
-    Commands.generateTwoLetterHint(Model);
+    generateTwoLetterHint(Model);
 }
 
 /**

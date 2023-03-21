@@ -136,7 +136,7 @@ class CLI_Controller {
       "hint",
       "Shows the user the current puzzle's hints and bingo."
     ).action(function (args, callback) {
-      Commands.gernerateHint(Model);
+      Commands.generateHint(Model);
       callback();
     });
 
