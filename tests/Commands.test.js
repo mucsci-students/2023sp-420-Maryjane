@@ -1,6 +1,6 @@
 const ModelClass = require("../src/model/Model.js");
 const ViewClass = require("../src/views/CLI_View");
-const Commands = require("../src/classes/Commands.js");
+const Commands = require("../src/commands/commands.js");
 
 describe ("Test Guess Function", () => {
     

@@ -1,5 +1,4 @@
-//const GameManagerClass = require("../src/classes/GameManager.js");
-const Commands = require("../src/classes/Commands.js");
+const Commands = require("../src/commands/commands.js");
 const fs = require("fs");
 const Model = require("../src/model/Model.js");
 //to run this test file run the following command:
