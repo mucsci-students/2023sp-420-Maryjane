@@ -1,5 +1,5 @@
 //Function to find a specific html tasks by adding an ID for each tasks
-const Commands = require("../classes/Commands.js");
+const Commands = require("../commands/commands.js");
 const Modal = require('modal-vanilla');
 
 //Return the ID of element as a JavaScript object, store all in the array and shuffle and change what they say inside them This.TopLeftBlock
@@ -122,7 +122,7 @@ class GUI_View {
             linkElement.setAttribute('download', fileName);
             linkElement.click();
 
-            Commands.identifyBaseWord(
+            Commands.newPuzzleFromBase(
               inputFieldNewPuzzleFromBaseValue,
               Model,
               View
@@ -131,7 +131,7 @@ class GUI_View {
           }
           // Clicked no for do not save
           else if (button && !button.value) {
-            Commands.identifyBaseWord(
+            Commands.newPuzzleFromBase(
               inputFieldNewPuzzleFromBaseValue,
               Model,
               View

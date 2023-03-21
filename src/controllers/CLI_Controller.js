@@ -3,9 +3,8 @@
  */
 const Vorpal = require("@moleculer/Vorpal")();
 
-const { promptSave } = require("../classes/Commands.js");
 // Commands class
-const Commands = require("../classes/Commands.js");
+const Commands = require("../commands/commands.js");
 
 // Used for documentation
 const Model = require("../Model/Model.js");
@@ -66,7 +65,7 @@ class CLI_Controller {
       .alias("new")
       .action(async function (args, callback) {
         if (args.baseWord) {
-          Commands.identifyBaseWord(args.baseWord.toString(), Model, View);
+          Commands.newPuzzleFromBase(args.baseWord.toString(), Model, View);
         } else {
           Commands.newPuzzle(Model, Model.database, View);
         }
@@ -137,7 +136,7 @@ class CLI_Controller {
       "hint",
       "Shows the user the current puzzle's hints and bingo."
     ).action(function (args, callback) {
-      Commands.gernerateHint(Model);
+      Commands.generateHint(Model);
       callback();
     });
 

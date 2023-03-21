@@ -1,5 +1,5 @@
 // Commands class
-var Commands = require("../classes/Commands.js");
+var Commands = require("../commands/commands.js");
 
 // Used for documentation
 const Model = require("../model/Model.js");
