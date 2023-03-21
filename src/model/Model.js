@@ -1,4 +1,4 @@
-let MongoDB = require("../database/lib/mongodb.js");
+let MongoDB = require("./database/lib/mongodb.js");
 
 // Used to keep track of all things related to the puzzle/game
 class Model {

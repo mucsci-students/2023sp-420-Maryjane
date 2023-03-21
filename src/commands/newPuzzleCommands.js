@@ -1,5 +1,5 @@
-const isWord = require("../dict.js");
-const MongoDB = require("../database/lib/mongodb.js");
+const isWord = require("../model/dict.js");
+const MongoDB = require("../model/database/lib/mongodb.js");
 const scrabble = require("scrabble");
 const { promptSave } = require("./fileCommands.js");
 
@@ -172,4 +172,4 @@ function newPuzzleFromBase(input, Model, View) {
     View.showPuzzle(Model);
 }
 
-module.exports = { newPuzzle, calculatePoints };
+module.exports = { newPuzzle, calculatePoints, newPuzzleFromBase };

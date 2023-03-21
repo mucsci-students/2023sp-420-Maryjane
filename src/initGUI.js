@@ -1,5 +1,5 @@
 
-let Commands = require('./classes/Commands.js');
+let Commands = require('./commands/commands.js');
 
 let Model = new (require('./model/Model.js'))();
 let View = new (require('./views/GUI_View.js'))(Model);
