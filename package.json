@@ -4,10 +4,7 @@
   "description": "A Spelling Bee App made in JavaScript for CSCI 420: Software Enginnerring at Millersville University.",
   "main": "initCLI.js",
   "scripts": {
-    "start": "npm run start:conditional",
-    "start:gui": "browserify --standalone global src/initGUI.js -o bundle.js && http-server -p 8081",
-    "start:cli": "node src/initCLI.js",
-    "start:conditional": "if [ \"$npm_config_cli\" == \"true\" ]; then npm run start:cli; else npm run start:gui; fi",
+    "start": "node src/initCLI.js",
     "test": "jest",
     "build": "browserify --standalone global src/initGUI.js -o bundle.js"
   },

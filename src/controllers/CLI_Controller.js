@@ -3,9 +3,8 @@
  */
 const Vorpal = require("@moleculer/Vorpal")();
 
-const { promptSave } = require("../classes/Commands.js");
 // Commands class
-const Commands = require("../classes/Commands.js");
+const Commands = require("../commands/commands.js");
 
 // Used for documentation
 const Model = require("../Model/Model.js");
@@ -66,7 +65,7 @@ class CLI_Controller {
       .alias("new")
       .action(async function (args, callback) {
         if (args.baseWord) {
-          Commands.identifyBaseWord(args.baseWord.toString(), Model, View);
+          Commands.newPuzzleFromBase(args.baseWord.toString(), Model, View);
         } else {
           Commands.newPuzzle(Model, Model.database, View);
         }
