@@ -293,6 +293,18 @@ class GUI_View {
 
 
     //---------------------------------- SAVE -------------------------------------------------------->
+    const hintModal = document.querySelector("#hintModal");
+    const close = document.querySelector(".close");
+
+    close.addEventListener("click", () => {
+      hintModal.style.display = "none";
+    });
+
+    window.addEventListener("click", (event) => {
+      if (event.target === hintModal) {
+        hintModal.style.display = "none";
+      }
+    });
 
   }
 
@@ -413,6 +425,12 @@ class GUI_View {
     this.userInput.classList.toggle('yellowText');
     this.textArea.classList.toggle('whiteText');
     this.userInput.focus();
+  }
+  
+  getHintBtn() {
+    //alert that the button was pressed
+    //alert("Hint Button Pressed");
+    hintModal.style.display = "block";
   }
 
 }
