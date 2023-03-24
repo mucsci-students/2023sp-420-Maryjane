@@ -31,7 +31,7 @@ npm install
 * Once you've installed the dependencies, you can run the program by using the following command:
 
 ```
-npm start --cli
+npm run cli
 ```
 
 ### GUI
@@ -70,7 +70,7 @@ npm install
   
   
 ```
-npm start
+npm run gui
 ```
 
   * This command will make two links appear in the terminal under the "Available on" section (Picture example below). Use CNTRL-Click (Windows) or cmd-Click (MAC) on either of these links to start up the GUI:
