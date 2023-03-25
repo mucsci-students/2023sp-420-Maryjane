@@ -428,9 +428,55 @@ class GUI_View {
   }
   
   getHintBtn() {
-    //alert that the button was pressed
-    //alert("Hint Button Pressed");
     hintModal.style.display = "block";
+
+    //NOTES: hint command
+      // currently the hint command is not stored in the model when the user presses the new puzzle button (for cli & gui)
+      // hints should be generated when the puzzle is generated not when the hint button is pressed
+      // by doing this we can save the hint in the model and not have to generate it every time the user presses the hint button
+      // this also goes for the two letter hint
+      // also, the twoLetter hint command should not be called inside the hint command it produces a 
+      // slight problem (undefined is printed to the console for some reason - not really a problem but eh)
+
+    //I should not have to make this call I should just be able to access the hint from the model
+    //this call is needed but will print out to the console in the webpage
+
+
+    //grab currPuzzle id and set its innerHTmle to the current puzzle.
+    let currPuzzle = document.getElementById("currPuzzle");
+
+    //get the current puzzle, then get the required letter, then color the required letter in the current puzzle red. space out the letters evenly
+    currPuzzle.innerHTML = "Current Puzzle:&nbsp; " + this.Model.currentPuzzle.join(" ").replace(this.Model.requiredLetter, "<span style='color:red'>" + this.Model.requiredLetter + "</span>");
+
+
+    //grab the puzzleInfo id and set its innerHTML to the amount of words, points, pangrams, and bingo
+    let puzzleInfo = document.getElementById("puzzleInfo");
+
+    let words = this.Model.possibleGuesses.length;
+    puzzleInfo.innerHTML = "Words: " + words + "&nbsp; Points: " + this.Model.maxPoints + "&nbsp; Pangrams: ??" + "&nbsp; Bingo: ??"
+
+
+    Commands.generateHint(this.Model);
+
+    // Format spelling bee grid
+    let formattedGrid = this.Model.currentPuzzleHints
+      .map(row => row.map(cell => String(cell).replace(/[\[\],]/g, '').padStart(3)).join(' '))
+      .join('<br>');
+
+    // Format two-letter hints
+    let hintString = this.Model.currentPuzzleTwoLetterHint
+      .map(hint => hint.replace(':', ': '))
+      .join('  ')
+      .toUpperCase();
+
+    //now grab the hintGrid p tag by id and set the innerHTML to the formatted grid.
+    let hintGrid = document.getElementById("hintGrid");
+    hintGrid.innerHTML = '<pre>' + formattedGrid + '</pre>';
+
+    //now grab the hintGrid p tag by id and set the innerHTML to the formatted grid.
+    let hintWords = document.getElementById("hintTwoLetterList");
+    hintWords.innerHTML = '<textarea wrap="hard"readonly style="font-family: \'Nunito Sans\', sans-serif; font-weight: 700; text-transform: uppercase; resize: none; width: 100%; height: 120px; margin-top: 10px;">' + hintString + '</textarea>';
+
   }
 
 }
