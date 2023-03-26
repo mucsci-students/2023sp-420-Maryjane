@@ -44,6 +44,7 @@ function guess(input, Model, View) {
 
     let found = false;
 
+    //Example of Iterator design pattern
     Model.possibleGuesses.forEach((element) => {
         if (input.toLowerCase() === element.toLowerCase()) {
             found = true;

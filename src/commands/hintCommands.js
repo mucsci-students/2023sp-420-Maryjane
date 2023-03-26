@@ -73,6 +73,7 @@ function generateHint(Model) {
 function generateTwoLetterHint(Model) {
     let hash = {};
 
+    //Example of Iterator design pattern
     Model.possibleGuesses.forEach((word) => {
         //gets the two word letters for each of he found words
         let firstTwoLetters = word.substring(0, 2).toLowerCase();
