@@ -52,6 +52,7 @@ function newPuzzle(Model, MongoDB, View) {
         );
     });
 
+    //Example of Iterator design pattern
     Model.possibleGuesses.forEach((element) => {
         Model.maxPoints += calculatePoints(element, Model);
     });
@@ -162,6 +163,7 @@ function newPuzzleFromBase(input, Model, View) {
         );
     });
 
+    //Example of Iterator design pattern
     Model.possibleGuesses.forEach((element) => {
         Model.maxPoints += calculatePoints(element, Model);
     });
