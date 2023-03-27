@@ -108,6 +108,11 @@ class CLI_View {
     console.log("\x1b[93m" + message.toUpperCase() + "\x1b[0m");
   }
 
+
+  showHintGrid(){
+    
+  }  
+
   showSuccessMessage(string) {
     console.log(string);
   }

@@ -1,3 +1,4 @@
+const CLI_View = require("../views/CLI_View");
 
 /**
    * generates the hints information needed to create the bingo board and others.
@@ -62,6 +63,7 @@ function generateHint(Model) {
     guessTable.push(colTotalCount);
     Model.currentPuzzleHints = guessTable;
     console.log(guessTable);
+    
 
     generateTwoLetterHint(Model);
 }
