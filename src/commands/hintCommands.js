@@ -48,7 +48,7 @@ function generateHint(Model, View) {
             }
         }
 
-        
+
 
         guessTable[i].push(rowTotalCount);
     } //adding the word length row to length
@@ -70,6 +70,8 @@ function generateHint(Model, View) {
 
     View.showHintGrid(Model.currentPuzzleHints);
     View.showTwoLetterHint(Model.currentPuzzleTwoLetterHint);
+
+    generateBingo(Model);
 }
 
 /**
@@ -101,23 +103,52 @@ function generateTwoLetterHint(Model) {
     }
 }
 
-function generateBingo(Model)
-{
+function generateBingo(Model) {
+    let bingoCounter = 0;
+    //column checker
+    for (let i = 1; i < Model.currentPuzzleHints.length - 1; i++) {
+        let isValid = 1;
+        for (let j = 0; j < Model.currentPuzzleHints.length; j++) {
+            const element = Model.currentPuzzleHints[i][j];
+            if (element == '-') {
+                isValid = 0;
+            }
+        }
+        if (isValid == 1) {
+            bingoCounter++;
+        }
+    }
+    console.log(Model.currentPuzzleHints);
+    console.log(bingoCounter);
 
+    //row checker
+    for (let i = 1; i < Model.currentPuzzleHints[0].length - 1; i++) {
+        let isValid = 1;
+        for (let j = 1; j < Model.currentPuzzleHints.length - 1; j++) {
+            const element = Model.currentPuzzleHints[j][i];
+            if (element == '-') {
+                isValid = 0;
+            }
+        }
+        if (isValid == 1) {
+            bingoCounter++;
+        }
+    }
+    console.log(Model.currentPuzzleHints);
+    console.log(bingoCounter);
 }
 
-function generateTotalPangrams(Model)
-{   let maxPangrams = 0;
+function generateTotalPangrams(Model) {
+    let maxPangrams = 0;
 
     //go through models possible guesses and count the amount of 7 letter unique words and add them to maxPangrams in model
     //how to check for unique words for a given puzzle?
 
-    for(let i = 0; i < Model.possibleGuesses.length; i++)
-    {
-        
+    for (let i = 0; i < Model.possibleGuesses.length; i++) {
+
     }
 
-    
+
 }
 
-module.exports = {generateHint, generateTwoLetterHint};
+module.exports = { generateHint, generateTwoLetterHint };
