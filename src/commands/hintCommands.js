@@ -100,4 +100,24 @@ function generateTwoLetterHint(Model) {
         Model.currentPuzzleTwoLetterHint.push(key + ": " + value);
     }
 }
+
+function generateBingo(Model)
+{
+
+}
+
+function generateTotalPangrams(Model)
+{   let maxPangrams = 0;
+
+    //go through models possible guesses and count the amount of 7 letter unique words and add them to maxPangrams in model
+    //how to check for unique words for a given puzzle?
+
+    for(let i = 0; i < Model.possibleGuesses.length; i++)
+    {
+        
+    }
+
+    
+}
+
 module.exports = {generateHint, generateTwoLetterHint};

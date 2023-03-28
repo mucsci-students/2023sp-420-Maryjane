@@ -34,6 +34,9 @@ class Model {
   // Max user points
   maxPoints = 0;
 
+  //max pangrams for the current puzzle
+  maxPangrams = 0;
+
   // Default constructor
   constructor() {
     this.database = new MongoDB();
