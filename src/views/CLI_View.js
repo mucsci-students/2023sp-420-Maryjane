@@ -6,7 +6,7 @@
  * View for the CLI following the MVC Model
  */
 class CLI_View {
-  constructor() {}
+  constructor() { }
 
   /**
    * Shows current found word in puzzle
@@ -108,6 +108,38 @@ class CLI_View {
     console.log("\x1b[93m" + message.toUpperCase() + "\x1b[0m");
   }
 
+  /**
+   * 
+   * @param {*} hintGrid 
+   */
+  showHintGrid(hintGrid) {
+
+    // Format spelling bee grid
+    let formattedGrid = hintGrid
+      .map(row => row.map(cell => String(cell).replace(/[\[\],]/g, '').padStart(3)).join(' '))
+      .join('\n');
+
+    // formattedGrid = "    " + formattedGrid;
+    // let index = formattedGrid.lastIndexOf("\n") + 1;
+    // formattedGrid = formattedGrid.slice(0, index) + "    " + formattedGrid.slice(index);
+    console.log(formattedGrid+"\n");
+  }
+
+  /**
+   * 
+   * @param {*} twoLetterHint 
+   */
+  showTwoLetterHint(twoLetterHint) {
+    // Format two-letter hints
+    let hintString = twoLetterHint
+      .map(hint => hint.replace(': ', '-'))
+      .join('  ')
+      .toUpperCase();
+
+    
+    console.log(hintString);
+  }
+
   showSuccessMessage(string) {
     console.log(string);
   }
@@ -120,9 +152,6 @@ class CLI_View {
     console.log(Model.currentPuzzleHints);
   }
 
-  showTwoLetterHint(Model) {
-    console.log(Model.generateTwoLetterHint);
-  }
 }
 
 module.exports = CLI_View;

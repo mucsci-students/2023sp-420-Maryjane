@@ -1,10 +1,8 @@
-const guess = require("./guessCommands");
-
 /**
    * generates the hints information needed to create the bingo board and others.
    * @param {Model} Model - object used to keep track of the game/player
    */
-function generateHint(Model) {
+function generateHint(Model, View) {
     //calculate max word length for guesses
     let maxWordLength = 0;
     for (let index = 0; index < Model.possibleGuesses.length; index++) {
@@ -62,15 +60,16 @@ function generateHint(Model) {
     temp.push("Σ");
     guessTable.unshift(temp);
     temp.unshift(" "); //add a space to first array cell 0 to line up with the other arrays
-
     colTotalCount.push(Model.possibleGuesses.length);
     guessTable.push(colTotalCount);
     guessTable[8].unshift("Σ");
     Model.currentPuzzleHints = guessTable;
 
-    console.log(Model.currentPuzzleHints[8]);
-
     generateTwoLetterHint(Model);
+    //console.table(Model.currentPuzzleHints, Model.currentPuzzleHints[0]);
+
+    View.showHintGrid(Model.currentPuzzleHints);
+    View.showTwoLetterHint(Model.currentPuzzleTwoLetterHint);
 }
 
 /**
