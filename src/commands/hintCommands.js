@@ -1,5 +1,3 @@
-const CLI_View = require("../views/CLI_View");
-
 /**
    * generates the hints information needed to create the bingo board and others.
    * @param {Model} Model - object used to keep track of the game/player
@@ -50,6 +48,8 @@ function generateHint(Model, View) {
             }
         }
 
+        
+
         guessTable[i].push(rowTotalCount);
     } //adding the word length row to length
     let temp = [];
@@ -77,8 +77,13 @@ function generateHint(Model, View) {
  * @param {Model} Model - object used to keep track of the game/player
  */
 function generateTwoLetterHint(Model) {
+
+    //clear the twoletterhint array before generating new hints
+    Model.currentPuzzleTwoLetterHint = [];
+
     let hash = {};
 
+    //Example of Iterator design pattern
     Model.possibleGuesses.forEach((word) => {
         //gets the two word letters for each of he found words
         let firstTwoLetters = word.substring(0, 2).toLowerCase();

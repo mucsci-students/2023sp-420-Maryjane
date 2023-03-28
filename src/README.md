@@ -16,7 +16,7 @@ node src/app.js
 or from any folder in `2023-420-MARYJANE`
 
 ```
-npm start --cli
+npm run cli
 ```
 
 ## Launching the GUI
