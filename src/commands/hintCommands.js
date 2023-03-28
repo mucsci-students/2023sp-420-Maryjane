@@ -48,7 +48,7 @@ function generateHint(Model, View) {
             }
         }
 
-        
+
 
         guessTable[i].push(rowTotalCount);
     } //adding the word length row to length
@@ -66,10 +66,13 @@ function generateHint(Model, View) {
     Model.currentPuzzleHints = guessTable;
 
     generateTwoLetterHint(Model);
-    //console.table(Model.currentPuzzleHints, Model.currentPuzzleHints[0]);
+    generateBingo(Model);
+    generateTotalPangrams(Model);
 
     View.showHintGrid(Model.currentPuzzleHints);
     View.showTwoLetterHint(Model.currentPuzzleTwoLetterHint);
+
+    generateBingo(Model);
 }
 
 /**
@@ -100,4 +103,64 @@ function generateTwoLetterHint(Model) {
         Model.currentPuzzleTwoLetterHint.push(key + ": " + value);
     }
 }
-module.exports = {generateHint, generateTwoLetterHint};
+
+/**
+ * Generates the total amount of bingos in the current puzzle
+ * 
+ * @param {Model} Model - object used to keep track of the game/player
+ */
+function generateBingo(Model) {
+    let bingoCounter = 0;
+    //column checker
+    for (let i = 1; i < Model.currentPuzzleHints.length - 1; i++) {
+        let isValid = 1;
+        for (let j = 0; j < Model.currentPuzzleHints.length; j++) {
+            const element = Model.currentPuzzleHints[i][j];
+            if (element == '-') {
+                isValid = 0;
+            }
+        }
+        if (isValid == 1) {
+            bingoCounter++;
+        }
+    }
+
+    //row checker
+    for (let i = 1; i < Model.currentPuzzleHints[0].length - 1; i++) {
+        let isValid = 1;
+        for (let j = 1; j < Model.currentPuzzleHints.length - 1; j++) {
+            const element = Model.currentPuzzleHints[j][i];
+            if (element == '-') {
+                isValid = 0;
+            }
+        }
+        if (isValid == 1) {
+            bingoCounter++;
+        }
+    }
+    Model.bingoCount = bingoCounter;
+}
+
+/**
+ * Generates the total amount of pangrams in the current puzzle
+ * @param {Model} Model - object used to keep track of the game/player
+ */
+function generateTotalPangrams(Model)
+{   
+    //¯\_(ツ)_/¯
+
+    let totalPangrams = 0;
+
+    for(let i = 0; i < Model.possibleGuesses.length; i++)
+    {
+        let word = Model.possibleGuesses[i];
+
+        if(word.length === 7 && String.prototype.concat.call(...new Set(word)).length === 7)
+        {
+            totalPangrams++;
+        }    
+    }
+    Model.totalPangrams = totalPangrams;
+}
+
+module.exports = { generateHint, generateTwoLetterHint };
