@@ -435,11 +435,15 @@ class GUI_View {
 
     //get the amount of words, points, pangrams, and bingo
     //TODO: get the amount of pangrams and bingo
-    let words = this.Model.possibleGuesses.length;
-    puzzleInfo.innerHTML = "Words: " + words + "&nbsp; Points: " + this.Model.maxPoints + "&nbsp; Pangrams: ??" + "&nbsp; Bingo: ??"
 
     //Call Commands to generate the hint
-    Commands.generateHint(this.Model);
+    Commands.generateHint(this.Model,this);
+
+    let words = this.Model.possibleGuesses.length;
+    let totalPangrams = this.Model.totalPangrams;
+    let bingoCount = this.Model.bingoCount;
+
+    puzzleInfo.innerHTML = "Words: " + words + "&nbsp; Points: " + this.Model.maxPoints + "&nbsp; Pangrams: "+ totalPangrams + "&nbsp; Bingo: " + bingoCount;
 
     // Format spelling bee grid
     let formattedGrid = this.Model.currentPuzzleHints
@@ -464,6 +468,16 @@ class GUI_View {
     hintWords.innerHTML = '<textarea wrap="hard"readonly style="font-family: \'Nunito Sans\', sans-serif; font-weight: 700; text-transform: uppercase; resize: none; width: 100%; height: 120px; margin-top: 10px;">' + hintString + '</textarea>';
 
   }
+
+  showHintGrid(string)
+  {
+    //console.log(string);
+  }
+
+  showTwoLetterHint(string)
+  {
+    //console.log(string);
+  } 
 
 }
 
