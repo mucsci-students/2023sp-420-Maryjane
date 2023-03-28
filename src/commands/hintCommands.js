@@ -48,7 +48,7 @@ function generateHint(Model, View) {
             }
         }
 
-        
+
 
         guessTable[i].push(rowTotalCount);
     } //adding the word length row to length
@@ -71,6 +71,8 @@ function generateHint(Model, View) {
 
     View.showHintGrid(Model.currentPuzzleHints);
     View.showTwoLetterHint(Model.currentPuzzleTwoLetterHint);
+
+    generateBingo(Model);
 }
 
 /**
@@ -161,4 +163,4 @@ function generateTotalPangrams(Model)
     Model.totalPangrams = totalPangrams;
 }
 
-module.exports = {generateHint, generateTwoLetterHint};
+module.exports = { generateHint, generateTwoLetterHint };
