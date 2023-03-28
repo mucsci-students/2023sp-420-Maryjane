@@ -65,7 +65,7 @@ function generateHint(Model) {
 
     colTotalCount.push(Model.possibleGuesses.length);
     guessTable.push(colTotalCount);
-    guessTable[8].unshift(" ");
+    guessTable[8].unshift("Σ");
     Model.currentPuzzleHints = guessTable;
 
     console.log(Model.currentPuzzleHints[8]);
