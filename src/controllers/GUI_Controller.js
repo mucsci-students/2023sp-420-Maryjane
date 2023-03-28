@@ -28,6 +28,10 @@ class GUI_Controller {
     });
   }
 
+  handleHintClick() {
+    this.View.getHintBtn();
+  }
+
   handleDarkModeClick() {
     this.View.toggleDarkMode();
   }
