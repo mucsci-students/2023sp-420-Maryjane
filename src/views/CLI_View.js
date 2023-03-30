@@ -112,17 +112,19 @@ class CLI_View {
    * 
    * @param {*} hintGrid 
    */
-  showHintGrid(hintGrid) {
+  showHintGrid(Model) {
 
     // Format spelling bee grid
-    let formattedGrid = hintGrid
+    let formattedGrid = Model.currentPuzzleHints
       .map(row => row.map(cell => String(cell).replace(/[\[\],]/g, '').padStart(3)).join(' '))
       .join('\n');
 
-    // formattedGrid = "    " + formattedGrid;
-    // let index = formattedGrid.lastIndexOf("\n") + 1;
-    // formattedGrid = formattedGrid.slice(0, index) + "    " + formattedGrid.slice(index);
-    console.log(formattedGrid+"\n");
+    let isBingo = "";
+    if (Model.bingoCount == 1) {
+      isBingo = ", BINGO";
+    }
+    console.log("Perfect Pangrams: " + Model.totalPangrams + isBingo);
+    console.log(formattedGrid + "\n");
   }
 
   /**
@@ -136,7 +138,7 @@ class CLI_View {
       .join('  ')
       .toUpperCase();
 
-    
+
     console.log(hintString);
   }
 
