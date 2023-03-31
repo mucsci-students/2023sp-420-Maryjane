@@ -104,11 +104,10 @@ The [model](https://github.com/mucsci-students/2023sp-420-Maryjane/blob/develop/
 ## Behavioral Patterns
 
 ### Iterator
-We implement many ForEach loops in our code which satisfy the Iterator behavioral pattern.
+We implement many ForEach loops in our code which iterate through a list of objects. For example, it can be seen in the [guess commands file](https://github.com/mucsci-students/2023sp-420-Maryjane/blob/develop/src/commands/guessCommands.js) where we iterate over the entire possible guesses to see if the users' guess is in that array.
 
-!TODO
 ### Command 
-Our use of Vorpal commands and all commands in commands.js are object-oriented callback functions.
+Our use of Vorpal commands and all commands in commands.js are object-oriented callback functions. These implementations can be found in the [CLI_Controller](https://github.com/mucsci-students/2023sp-420-Maryjane/blob/develop/src/controllers/CLI_Controller.js).
 
 ## 🖊️ Authors
 
