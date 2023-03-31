@@ -81,7 +81,7 @@ npm run gui
 * Note: You'll need to have the dependencies installed before you can run the tests. Refer to the "Executing program" section for more information.
 * Note: You need to be in the root directory of the project to run the tests. (i.e. 2023sp-420-Maryjane)
 ```
-npm run test
+npm test
 ```
 
 ### Run Test Code Coverage

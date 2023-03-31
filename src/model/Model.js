@@ -52,6 +52,12 @@ class Model {
    */
   getRankName(score) {
     //Maybe make this a switch statement sometime? -Michael
+    
+    // Check for out of bounds and incorrect type
+    if (score < 0 || typeof score !== "number") {
+      return "Something went wrong";
+    }
+
     if (score < 0.02) {
       return "Newbie";
     } else if (score < 0.05) {
