@@ -875,3 +875,17 @@ fieldset[disabled] .btn-primary:hover {
   font-family: 'Nunito Sans', sans-serif;
   font-weight: 700; 
 }
+
+#hintTable {
+  border-collapse: collapse;
+  width: 100%;
+  margin: auto;
+  font-size: .9em; /* increase font size */
+}
+
+#hintTable td {
+  border: 1px solid blak;
+  text-align: center;
+  vertical-align: middle;
+  padding: 0.5em 1em; /* increase padding */
+}

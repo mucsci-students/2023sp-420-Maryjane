@@ -441,14 +441,19 @@ class GUI_View {
 
     let words = this.Model.possibleGuesses.length;
     let totalPangrams = this.Model.totalPangrams;
-    let bingoCount = this.Model.bingoCount;
+    //let bingoCount = this.Model.bingoCount;
 
-    puzzleInfo.innerHTML = "Words: " + words + "&nbsp; Points: " + this.Model.maxPoints + "&nbsp; Pangrams: "+ totalPangrams + "&nbsp; Bingo: " + bingoCount;
+    let isBingo = "";
+    if (this.Model.bingoCount == 1) {
+      isBingo = " BINGO";
+    }
+
+    puzzleInfo.innerHTML = "Words: " + words + "&nbsp; Points: " + this.Model.maxPoints + "&nbsp; Perfect Pangrams: "+ totalPangrams + isBingo;
 
     // Format spelling bee grid
     let formattedGrid = this.Model.currentPuzzleHints
-      .map(row => row.map(cell => String(cell).replace(/[\[\],]/g, '').padStart(3)).join(' '))
-      .join('<br>');
+      .map(row => '<tr>' + row.map(cell => `<td>${String(cell).replace(/[\[\],]/g, '')}</td>`).join('') + '</tr>')
+      .join('');
 
     // Format two-letter hints
     let hintString = this.Model.currentPuzzleTwoLetterHint
@@ -458,16 +463,16 @@ class GUI_View {
 
     //grab the hintGrid p tag by id and set the innerHTML to the formatted grid.
     let hintGrid = document.getElementById("hintGrid");
-    hintGrid.innerHTML = '<pre>' + formattedGrid + '</pre>';
+    hintGrid.innerHTML = '<table id="hintTable">' + formattedGrid + '</table>';
 
     //grab the hintGrid p tag by id and set the innerHTML to the formatted grid.
     let hintWords = document.getElementById("hintTwoLetterList");
-    
+
     //clear the hintWords element before setting the innerHTML
     hintWords.innerHTML = "";
     hintWords.innerHTML = '<textarea wrap="hard"readonly style="font-family: \'Nunito Sans\', sans-serif; font-weight: 700; text-transform: uppercase; resize: none; width: 100%; height: 120px; margin-top: 10px;">' + hintString + '</textarea>';
+}
 
-  }
 
   showHintGrid(string)
   {
