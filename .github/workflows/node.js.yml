@@ -40,7 +40,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
       - run: npm ci
-      - run: npm run test -- --coverage --findRelatedTests "tests/Model.test.js"
+      - run: npm run test -- --coverage "tests/Model.test.js"
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v2
         with:
