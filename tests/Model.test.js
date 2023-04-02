@@ -25,4 +25,11 @@ describe("Test Model class", () => {
     expect(Model.getRankName(null)).toEqual("Something went wrong");
     expect(Model.getRankName("string")).toEqual("Something went wrong");
   });
+
+  it('should create only one instance of the Model class', () => {
+    const instance1 = new ModelClass();
+    const instance2 = new ModelClass();
+
+    expect(instance1).toEqual(instance2);
+  });
 });

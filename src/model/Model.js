@@ -39,10 +39,16 @@ class Model {
 
   //total amount of bingos for the puzzle
   bingoCount = 0;
-  
-  // Default constructor
+
+  // Private constructor
   constructor() {
-    this.database = new MongoDB();
+    // Checks null
+    if (!Model.instance) {
+      this.database = new MongoDB();
+      Model.instance = this;
+    }
+
+    return Model.instance;
   }
 
   /**
@@ -52,7 +58,7 @@ class Model {
    */
   getRankName(score) {
     //Maybe make this a switch statement sometime? -Michael
-    
+
     // Check for out of bounds and incorrect type
     if (score < 0 || typeof score !== "number") {
       return "Something went wrong";
@@ -82,5 +88,5 @@ class Model {
   }
 }
 
-// Export class as a module
+// Export the static method instead of the class itself
 module.exports = Model;
