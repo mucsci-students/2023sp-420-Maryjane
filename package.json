@@ -8,7 +8,8 @@
     "gui": "browserify --standalone global src/initGUI.js -o bundle.js && http-server -p 8081",
     "cli": "node src/initCLI.js",
     "test": "jest",
-    "build": "browserify --standalone global src/initGUI.js -o bundle.js"
+    "build": "browserify --standalone global src/initGUI.js -o bundle.js",
+    "coverage": "npm test -- --coverage"
   },
   "repository": {
     "type": "git",

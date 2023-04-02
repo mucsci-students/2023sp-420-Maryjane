@@ -89,7 +89,7 @@ npm test
 * Note: You'll need to have the dependencies installed before you can run the tests. Refer to the "Executing program" section for more information.
 * Note: You need to be in the root directory of the project to run the tests. (i.e. 2023sp-420-Maryjane)
 ```
-npm test -- --coverage
+npm run coverage
 ```
 * This will create a folder in your repo called coverage
 * Go to 2023sp-420-Maryjane/coverage/Icov-report
@@ -99,6 +99,9 @@ npm test -- --coverage
 
 ### MVC
 The [model](https://github.com/mucsci-students/2023sp-420-Maryjane/blob/develop/src/model/Model.js) contains all the data relevant to the users' current game, such as the puzzle letters, found words, possible words, and more. The [views](https://github.com/mucsci-students/2023sp-420-Maryjane/tree/develop/src/views) contains everything used to display the model information on either the CLI or GUI. The [controller](https://github.com/mucsci-students/2023sp-420-Maryjane/tree/develop/src/controllers) adds event listerners to the GUI to be able to handle user interaction and handles commands in the CLI.
+
+### Singleton
+The [model](https://github.com/mucsci-students/2023sp-420-Maryjane/blob/develop/src/model/Model.js) constructor is set up to return a new model if it is the first time the constructor is being called and saves that instance. If not, the constructor will return the previous instance. This design pattern is verified in our model test [file](https://github.com/mucsci-students/2023sp-420-Maryjane/blob/181-singleton-design-pattern/tests/Model.test.js).
 
 
 ## Behavioral Patterns
