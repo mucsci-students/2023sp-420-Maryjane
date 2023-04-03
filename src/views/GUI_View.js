@@ -1,5 +1,5 @@
 //Function to find a specific html tasks by adding an ID for each tasks
-const Commands = require("../classes/Commands.js");
+const Commands = require("../commands/commands.js");
 const Modal = require('modal-vanilla');
 
 //Return the ID of element as a JavaScript object, store all in the array and shuffle and change what they say inside them This.TopLeftBlock
@@ -122,7 +122,7 @@ class GUI_View {
             linkElement.setAttribute('download', fileName);
             linkElement.click();
 
-            Commands.identifyBaseWord(
+            Commands.newPuzzleFromBase(
               inputFieldNewPuzzleFromBaseValue,
               Model,
               View
@@ -131,7 +131,7 @@ class GUI_View {
           }
           // Clicked no for do not save
           else if (button && !button.value) {
-            Commands.identifyBaseWord(
+            Commands.newPuzzleFromBase(
               inputFieldNewPuzzleFromBaseValue,
               Model,
               View
@@ -293,6 +293,18 @@ class GUI_View {
 
 
     //---------------------------------- SAVE -------------------------------------------------------->
+    const hintModal = document.querySelector("#hintModal");
+    const close = document.querySelector(".close");
+
+    close.addEventListener("click", () => {
+      hintModal.style.display = "none";
+    });
+
+    window.addEventListener("click", (event) => {
+      if (event.target === hintModal) {
+        hintModal.style.display = "none";
+      }
+    });
 
   }
 
@@ -329,12 +341,6 @@ class GUI_View {
   }
 
   getEnterBtn() {
-    //NOTE:
-    //different casses for different views
-    //new puzzle from base view
-    //help view
-    //normal view
-
     let input = this.userInput.value;
     let success = Commands.guess(input, this.Model, this);
 
@@ -414,6 +420,69 @@ class GUI_View {
     this.textArea.classList.toggle('whiteText');
     this.userInput.focus();
   }
+  
+  getHintBtn() {
+    hintModal.style.display = "block";
+
+    //grab currPuzzle id and set its innerHTmle to the current puzzle.
+    let currPuzzle = document.getElementById("currPuzzle");
+
+    //get the current puzzle, then get the required letter, then color the required letter in the current puzzle red. space out the letters evenly
+    currPuzzle.innerHTML = "Current Puzzle:&nbsp; " + this.Model.currentPuzzle.join(" ").replace(this.Model.requiredLetter, "<span style='color:red'>" + this.Model.requiredLetter + "</span>");
+
+    //grab the puzzleInfo id and set its innerHTML to the amount of words, points, pangrams, and bingo
+    let puzzleInfo = document.getElementById("puzzleInfo");
+
+    //get the amount of words, points, pangrams, and bingo
+    //TODO: get the amount of pangrams and bingo
+
+    //Call Commands to generate the hint
+    Commands.generateHint(this.Model,this);
+
+    let words = this.Model.possibleGuesses.length;
+    let totalPangrams = this.Model.totalPangrams;
+    //let bingoCount = this.Model.bingoCount;
+
+    let isBingo = "";
+    if (this.Model.bingoCount == 1) {
+      isBingo = " BINGO";
+    }
+
+    puzzleInfo.innerHTML = "Words: " + words + "&nbsp; Points: " + this.Model.maxPoints + "&nbsp; Perfect Pangrams: "+ totalPangrams + isBingo;
+
+    // Format spelling bee grid
+    let formattedGrid = this.Model.currentPuzzleHints
+      .map(row => '<tr>' + row.map(cell => `<td>${String(cell).replace(/[\[\],]/g, '')}</td>`).join('') + '</tr>')
+      .join('');
+
+    // Format two-letter hints
+    let hintString = this.Model.currentPuzzleTwoLetterHint
+      .map(hint => hint.replace(':', ': '))
+      .join('  ')
+      .toUpperCase();
+
+    //grab the hintGrid p tag by id and set the innerHTML to the formatted grid.
+    let hintGrid = document.getElementById("hintGrid");
+    hintGrid.innerHTML = '<table id="hintTable">' + formattedGrid + '</table>';
+
+    //grab the hintGrid p tag by id and set the innerHTML to the formatted grid.
+    let hintWords = document.getElementById("hintTwoLetterList");
+
+    //clear the hintWords element before setting the innerHTML
+    hintWords.innerHTML = "";
+    hintWords.innerHTML = '<textarea wrap="hard"readonly style="font-family: \'Nunito Sans\', sans-serif; font-weight: 700; text-transform: uppercase; resize: none; width: 100%; height: 120px; margin-top: 10px;">' + hintString + '</textarea>';
+}
+
+
+  showHintGrid(string)
+  {
+    //console.log(string);
+  }
+
+  showTwoLetterHint(string)
+  {
+    //console.log(string);
+  } 
 
 }
 

@@ -1,13 +1,12 @@
-let MongoDB = require('../database/lib/mongodb.js');
+let MongoDB = require("./database/lib/mongodb.js");
 
 // Used to keep track of all things related to the puzzle/game
 class Model {
-
   // Class vars
 
   // Store whether the player currently has a puzzle open
   isPuzzleOpen = false;
-  
+
   // Stores all the words found by the user.
   foundWords = [];
 
@@ -16,6 +15,12 @@ class Model {
 
   // Stores the puzzle as an array of letters in a random order
   currentPuzzle = [];
+
+  // Stores the hints for the currentPuzzle
+  currentPuzzleHints = [[]];
+
+  // Store the two letter hints
+  currentPuzzleTwoLetterHint = [];
 
   // Stores the letter that is required in the puzzle
   requiredLetter = "";
@@ -29,9 +34,21 @@ class Model {
   // Max user points
   maxPoints = 0;
 
-  // Default constructor
+  //total pangrams for the current puzzle
+  totalPangrams = 0;
+
+  //total amount of bingos for the puzzle
+  bingoCount = 0;
+
+  // Private constructor
   constructor() {
-    this.database = new MongoDB();
+    // Checks null
+    if (!Model.instance) {
+      this.database = new MongoDB();
+      Model.instance = this;
+    }
+
+    return Model.instance;
   }
 
   /**
@@ -39,7 +56,14 @@ class Model {
    * @param {number} score
    * @returns Your name as rank
    */
-  getRankName(score) {            //Maybe make this a switch statement sometime? -Michael
+  getRankName(score) {
+    //Maybe make this a switch statement sometime? -Michael
+
+    // Check for out of bounds and incorrect type
+    if (score < 0 || typeof score !== "number") {
+      return "Something went wrong";
+    }
+
     if (score < 0.02) {
       return "Newbie";
     } else if (score < 0.05) {
@@ -62,9 +86,7 @@ class Model {
 
     return "Something went wrong";
   }
-
 }
 
-// Export class as a module
+// Export the static method instead of the class itself
 module.exports = Model;
-  

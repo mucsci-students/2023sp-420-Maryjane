@@ -1,4 +1,4 @@
-const DatabaseClass = require("../src/database/lib/mongodb.js");
+const DatabaseClass = require("../src/model/database/lib/mongodb.js");
 
 describe ("Test DataBase Class", () => {
 

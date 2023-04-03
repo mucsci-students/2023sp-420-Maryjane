@@ -4,10 +4,13 @@
   "description": "A Spelling Bee App made in JavaScript for CSCI 420: Software Enginnerring at Millersville University.",
   "main": "initCLI.js",
   "scripts": {
-    "start": "node src/initCLI.js",
-    "test": "jest",
+    "start": "node app.js",
     "gui": "browserify --standalone global src/initGUI.js -o bundle.js && http-server -p 8081",
-    "build": "browserify --standalone global src/initGUI.js -o bundle.js"
+    "cli": "node src/initCLI.js",
+    "test": "jest",
+    "test:single": "jest tests/Model.test.js",
+    "build": "browserify --standalone global src/initGUI.js -o bundle.js",
+    "coverage": "npm test -- --coverage"
   },
   "repository": {
     "type": "git",
