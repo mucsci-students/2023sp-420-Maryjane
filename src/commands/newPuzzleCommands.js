@@ -52,6 +52,10 @@ function newPuzzle(Model, MongoDB, View) {
         );
     });
 
+    if (!Model.possibleGuesses.includes(pangram)) {
+        Model.possibleGuesses.push(pangram);
+    }
+
     //Example of Iterator design pattern
     Model.possibleGuesses.forEach((element) => {
         Model.maxPoints += calculatePoints(element, Model);
@@ -162,6 +166,10 @@ function newPuzzleFromBase(input, Model, View) {
             element.includes(Model.requiredLetter.toLowerCase())
         );
     });
+
+    if (!Model.possibleGuesses.includes(pangram)) {
+        Model.possibleGuesses.push(pangram);
+    }
 
     //Example of Iterator design pattern
     Model.possibleGuesses.forEach((element) => {
