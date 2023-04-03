@@ -37,14 +37,14 @@ class CLI_Controller {
     /*                                Vorpal Commands                            */
     /*****************************************************************************/
 
-    //An example custom Vorpal command that uses 'duck' as the input text
-    //and outputs 'Wabbit' as the response.
-    Vorpal.command("duck", 'Outputs "wumbo", is a example command for testing.')
-      .hidden()
-      .action(function (args, callback) {
-        console.log("wumbo");
-        callback();
-      });
+    // An example custom Vorpal command that uses 'duck' as the input text
+    // and outputs 'Wabbit' as the response.
+    // Vorpal.command("duck", 'Outputs "wumbo", is a example command for testing.')
+    //   .hidden()
+    //   .action(function (args, callback) {
+    //     console.log("wumbo");
+    //     callback();
+    //   });
 
     // The guess command that requires the field <input>
     Vorpal.command(
@@ -72,13 +72,13 @@ class CLI_Controller {
         callback();
       });
 
-    // Hidden command that shows everything related to the Model
-    Vorpal.command("debug", "")
-      .hidden()
-      .action(function (args, callback) {
-        console.log(Model);
-        callback();
-      });
+    //  Hidden command that shows everything related to the Model
+    // Vorpal.command("debug", "")
+    //   .hidden()
+    //   .action(function (args, callback) {
+    //     console.log(Model);
+    //     callback();
+    //   });
 
     // Command to shuffle puzzle
     Vorpal.command(
