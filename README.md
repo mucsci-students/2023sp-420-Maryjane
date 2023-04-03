@@ -101,16 +101,19 @@ npm run coverage
 The [model](https://github.com/mucsci-students/2023sp-420-Maryjane/blob/develop/src/model/Model.js) contains all the data relevant to the users' current game, such as the puzzle letters, found words, possible words, and more. The [views](https://github.com/mucsci-students/2023sp-420-Maryjane/tree/develop/src/views) contains everything used to display the model information on either the CLI or GUI. The [controller](https://github.com/mucsci-students/2023sp-420-Maryjane/tree/develop/src/controllers) adds event listerners to the GUI to be able to handle user interaction and handles commands in the CLI.
 
 ### Singleton
-The [model](https://github.com/mucsci-students/2023sp-420-Maryjane/blob/develop/src/model/Model.js) constructor is set up to return a new model if it is the first time the constructor is being called and saves that instance. If not, the constructor will return the previous instance. This design pattern is verified in our model test [file](https://github.com/mucsci-students/2023sp-420-Maryjane/blob/181-singleton-design-pattern/tests/Model.test.js).
+The [model](https://github.com/mucsci-students/2023sp-420-Maryjane/blob/develop/src/model/Model.js) (around lines 43-52 in Model.js) constructor is set up to return a new model if it is the first time the constructor is being called and saves that instance. If not, the constructor will return the previous instance. This design pattern is verified in our model test [file](https://github.com/mucsci-students/2023sp-420-Maryjane/blob/181-singleton-design-pattern/tests/Model.test.js).
 
 
 ## Behavioral Patterns
 
 ### Iterator
-We implement many ForEach loops in our code which iterate through a list of objects. For example, it can be seen in the [guess commands file](https://github.com/mucsci-students/2023sp-420-Maryjane/blob/develop/src/commands/guessCommands.js) where we iterate over the entire possible guesses to see if the users' guess is in that array.
+We implement many ForEach loops in our code which iterate through a list of objects. For example, it can be seen in the [guess commands file](https://github.com/mucsci-students/2023sp-420-Maryjane/blob/develop/src/commands/guessCommands.js) (Around line 47 in guessCommands.js) where we iterate over the entire possible guesses to see if the users' guess is in that array.
 
 ### Command 
-Our use of Vorpal commands and all commands in commands.js are object-oriented callback functions. These implementations can be found in the [CLI_Controller](https://github.com/mucsci-students/2023sp-420-Maryjane/blob/develop/src/controllers/CLI_Controller.js).
+Our use of Vorpal commands and all commands in [commands.js](https://github.com/mucsci-students/2023sp-420-Maryjane/blob/develop/src/commands/commands.js) are object-oriented callback functions. These implementations can be found in the [CLI_Controller](https://github.com/mucsci-students/2023sp-420-Maryjane/blob/develop/src/controllers/CLI_Controller.js) (For example lines 55-57 in CLI_Controller).
+
+### Observer
+For every button, textField, and menu item in the GUI, we have a certain event listener that listens for a specific action. For example, When you click on any [hexagon button](https://github.com/mucsci-students/2023sp-420-Maryjane/blob/develop/index.html) (Around line 231 in index.html), an onClick event listner calls a function in the [Gui Controller](https://github.com/mucsci-students/2023sp-420-Maryjane/blob/develop/src/controllers/GUI_Controller.js) (Around line 47 in GUI_Controller.js) which will then call a function in the [Gui View](https://github.com/mucsci-students/2023sp-420-Maryjane/blob/develop/src/views/GUI_View) (Around line 48 in GUI_Controller.js) that will update what letter is shown on the screen (Around line 334 in GUI_View.js).
 
 ## 🖊️ Authors
 
