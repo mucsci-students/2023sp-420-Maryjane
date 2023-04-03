@@ -112,6 +112,9 @@ We implement many ForEach loops in our code which iterate through a list of obje
 ### Command 
 Our use of Vorpal commands and all commands in commands.js are object-oriented callback functions. These implementations can be found in the [CLI_Controller](https://github.com/mucsci-students/2023sp-420-Maryjane/blob/develop/src/controllers/CLI_Controller.js).
 
+### Observer
+For every button, textField, and menu item in the GUI, we have a certain event listener that listens for a specific action. For example, When you click on any [hexagon button](https://github.com/mucsci-students/2023sp-420-Maryjane/blob/develop/index.html), an onClick event listner calls a function in the [Gui Controller](https://github.com/mucsci-students/2023sp-420-Maryjane/blob/develop/src/controllers/GUI_Controller.js) which will then call a function in the [Gui View](https://github.com/mucsci-students/2023sp-420-Maryjane/blob/develop/src/views/GUI_View) that will update what letter is shown on the screen.
+
 ## 🖊️ Authors
 
 👤 **Jonathan Rivera**
