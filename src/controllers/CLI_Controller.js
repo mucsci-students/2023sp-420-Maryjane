@@ -141,6 +141,16 @@ class CLI_Controller {
       callback();
     });
 
+    //TODO!!! Fill in actual command once complete
+    //Command to allow high-score to be saved
+    Vorpal.command(
+      "high-score",
+      "Ends current puzzle and allows high score to be saved"
+    ).action(function (args, callback) {
+      Commands.highScore(args.filename.toString(), Model);
+      callback();
+    });
+
     /*****************************************************************************/
     /*                                Exit Function                              */
     /*****************************************************************************/
