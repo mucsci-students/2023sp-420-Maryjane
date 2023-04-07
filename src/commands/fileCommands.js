@@ -1,5 +1,6 @@
 const fs = require("fs");
 const prompt = require("prompt-sync")();
+const aes256 = require("aes256"); //!FIXME 
 
 /**
    * Loads a saved puzzle
@@ -7,6 +8,8 @@ const prompt = require("prompt-sync")();
    * @param {string} fileName - users inputted file name
    */
 function load(fileName, Model, View) {
+    let shouldDecrypt = 0;
+
     //check if a game is already in progress, if it is dont load a new game
     if (Model.isPuzzleOpen) {
         promptSave(Model);
@@ -55,9 +58,10 @@ function load(fileName, Model, View) {
     Model.pangram = parsedFile.PuzzleLetters.toUpperCase();
     Model.requiredLetter = parsedFile.RequiredLetter.toUpperCase();
     Model.userPoints = parsedFile.CurrentPoints;
-    Model.possibleGuesses = parsedFile.WordList.map((element) =>
-        element.toUpperCase()
-    );
+
+    //!FIXME
+    Model.possibleGuesses = 
+    //Model.possibleGuesses = shouldDecrypt ? aes256.decrypt(key, parsedFile.WordList.map((element) => element.toUpperCase())) : parsedFile.WordList.map((element) => element.toUpperCase());
     Model.maxPoints = parsedFile.MaxPoints;
 
     let puzzle = String.prototype.concat
@@ -82,6 +86,8 @@ function load(fileName, Model, View) {
  * @returns null
  */
 function save(fileName, Model) {
+    let shouldEncrypt = 0;
+
     if (!Model.isPuzzleOpen) {
         console.log("SpellingBee> No puzzle open, you cannot save");
         return false;
@@ -104,8 +110,13 @@ function save(fileName, Model) {
             CurrentPoints: Model.userPoints,
             MaxPoints: Model.maxPoints,
             GuessedWords: Model.foundWords.map((element) => element.toLowerCase()),
-            WordList: Model.possibleGuesses.map((element) => element.toLowerCase()),
+
+            //!FIXME
+            //cracked use of ternary operator (?) !!! lol -Michael
+            WordList: shouldEncrypt ? aes256.encrypt(key, Model.possibleGuesses.map((element) => element.toLowerCase())) : Model.possibleGuesses.map((element) => element.toLowerCase())
         };
+
+
 
         let jsonFile = JSON.stringify(table);
 
@@ -156,4 +167,4 @@ function promptSave(Model) {
         Model.isPuzzleOpen = false;
     }
 }
-module.exports = {load, save, promptSave};
+module.exports = { load, save, promptSave };
