@@ -3,6 +3,7 @@
   --topANDbottom-CENTER-row-gap: 1px;
   --middle-CENTER-row-gap: 0.5px;
   --gap-BETWEEN-rows: 2px;
+  --gap-VERTICAL-rows: 15px;
   --btnColor: white;
   --btnColorsOnHover: rgb(238, 206, 44);
   --navBARcolor: #232323;
@@ -194,6 +195,8 @@ a:visited {
   flex-direction: row;
   justify-content: center;
   gap: var(--topANDbottom-CENTER-row-gap);
+  position: relative;
+  top: var(--gap-VERTICAL-rows); /* Adjust this value to control the overlap with the middle row */
 }
 
 .middleRowContainer {
@@ -208,6 +211,8 @@ a:visited {
   flex-direction: row;
   justify-content: center;
   gap: var(--topANDbottom-CENTER-row-gap);
+  position: relative;
+  bottom: var(--gap-VERTICAL-rows); /* Adjust this value to control the overlap with the middle row */
 }
 
 /************************* END OF HEX GRID CONTAINER STYLES ************************************!*/
