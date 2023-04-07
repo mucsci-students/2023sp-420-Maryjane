@@ -8,7 +8,7 @@ const Commands = require("../commands/commands.js");
 
 // Used for documentation
 const Model = require("../Model/Model.js");
-  
+
 /**
  * Controller for the CLI following the MVC Model
  */
@@ -132,6 +132,7 @@ class CLI_Controller {
       callback();
     });
 
+    //Command to show the hint grid and 2 words list
     Vorpal.command(
       "hint",
       "Shows the user the current puzzle's hints and bingo."
