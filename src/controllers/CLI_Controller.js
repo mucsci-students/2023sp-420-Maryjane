@@ -8,7 +8,7 @@ const Commands = require("../commands/commands.js");
 
 // Used for documentation
 const Model = require("../Model/Model.js");
-  
+
 /**
  * Controller for the CLI following the MVC Model
  */
@@ -72,13 +72,13 @@ class CLI_Controller {
         callback();
       });
 
-    //  Hidden command that shows everything related to the Model
-    // Vorpal.command("debug", "")
-    //   .hidden()
-    //   .action(function (args, callback) {
-    //     console.log(Model);
-    //     callback();
-    //   });
+    //Hidden command that shows everything related to the Model
+     Vorpal.command("debug", "")
+       .hidden()
+       .action(function (args, callback) {
+         console.log(Model);
+         callback();
+       });
 
     // Command to shuffle puzzle
     Vorpal.command(
@@ -132,11 +132,21 @@ class CLI_Controller {
       callback();
     });
 
+    //Command to show the hint grid and 2 words list
     Vorpal.command(
       "hint",
       "Shows the user the current puzzle's hints and bingo."
     ).action(function (args, callback) {
       Commands.generateHint(Model, View);
+      callback();
+    });
+
+    //Command to allow high-score to be saved
+    Vorpal.command(
+      "high-score",
+      "Ends current puzzle and allows high score to be saved"
+    ).action(function (args, callback) {
+      Commands.highScore(Model);
       callback();
     });
 
