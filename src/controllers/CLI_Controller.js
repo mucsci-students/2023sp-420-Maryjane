@@ -146,7 +146,7 @@ class CLI_Controller {
       "high-score",
       "Ends current puzzle and allows high score to be saved"
     ).action(function (args, callback) {
-      Commands.highScore(Model);
+      Commands.highScoreCommand(Model);
       callback();
     });
 
