@@ -143,8 +143,8 @@ class CLI_Controller {
 
     //Command to allow high-score to be saved
     Vorpal.command(
-      "high-score",
-      "Ends current puzzle and allows high score to be saved"
+      "view-high-scores",
+      "Shows the current highscores for current puzzle"
     ).action(function (args, callback) {
       Commands.highScoreCommand(Model);
       callback();
