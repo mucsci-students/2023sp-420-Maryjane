@@ -154,7 +154,7 @@ class CLI_Controller {
     //Command to allow high-score to be saved
     Vorpal.command(
       "add-high-score",
-      "Ends the current game and adds highscore to leader board"
+      "Ends the current game and adds highscore to leader board if high enough"
     ).action(function (args, callback) {
       Commands.addHighScore(Model);
       callback();

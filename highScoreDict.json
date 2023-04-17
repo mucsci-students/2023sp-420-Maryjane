@@ -1,11 +1,29 @@
 {
   "highscores": {
-    "CEHNSTY": {
-      "center_letter": "H",
+    "CGIKNOY": {
+      "center_letter": "C",
       "scores": [
         {
-          "user_id": "Jon",
-          "score": 0
+          "user_id": "mitchell",
+          "score": 1
+        }
+      ]
+    },
+    "ACDEILT": {
+      "center_letter": "C",
+      "scores": [
+        {
+          "user_id": "Kujo",
+          "score": 5
+        }
+      ]
+    },
+    "BJNOSTU": {
+      "center_letter": "O",
+      "scores": [
+        {
+          "user_id": "mitchell",
+          "score": 1
         }
       ]
     }

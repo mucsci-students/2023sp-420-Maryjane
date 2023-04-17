@@ -1,7 +1,7 @@
 const fs = require("fs");
 class fileSystem {
   /**
-   * !!!THIS IS A DESIGN PATTERN THAT WE NEED TO PUT IN THE README
+   * !!!THIS IS A DESIGN PATTERN THAT WE NEED TO PUT IN THE README (Adapter)
    * @param {string} fileName
    * @returns
    */
