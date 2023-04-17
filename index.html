@@ -51,6 +51,20 @@
                 </a>
               </li>
               <li class="menu-item">
+                <a href="#" onclick="global.Controller.handleHighScoreClick()" class="submenu-link">HighScore</a>
+                <div id="highScoreModal">
+                  <div class="highScoreModal-content">
+                    <span class="close2">&times;</span>
+                    <br>
+                    <br>
+                    <p id = "highScoreText" class = "highScoreModalText">
+                    </p>
+                    <br>
+                    <br>
+                  </div>
+                </div>
+
+              <li class="menu-item">
                 <a href="#" class="menu-link">
                   <div id="displayPoints">Points: 0/150</div>
                 </a>
@@ -133,6 +147,9 @@
                       <input type="text" id="inputFieldSave" />
                       <br>
                       <button id="saveSubmitBtn">Submit</button>
+                      <br>
+                      <label for="saveCheckBox">Encrypt</label>
+                      <input type="checkbox" id="saveCheckBox" name="saveCheckBox" value="save">
                     </a>
                   </li>
                   <br />
@@ -422,30 +439,39 @@
 
       <!------------------------------------------  BUTTON CONTAINER ------------------------------------------------------------>
       <div class="buttonContainer">
-        <button
-          class="btnStyling Deletebtn"
-          onclick="global.Controller.handleDeleteClick()"
-        >
+        <button class="btnStyling Deletebtn" onclick="global.Controller.handleDeleteClick()">
           Delete
         </button>
+        
+        <img alt="shuffleBTN" id="shufflebtn" class="Shufflebtn"
+          src="https://em-content.zobj.net/thumbs/120/openmoji/338/shuffle-tracks-button_1f500.png" width="50px" height="50px"
+          onclick="global.Controller.handleShuffleClick()" />
 
-        <img
-          alt="shuffleBTN"
-          id="shufflebtn"
-          class="Shufflebtn"
-          src="https://em-content.zobj.net/thumbs/120/openmoji/338/shuffle-tracks-button_1f500.png"
-          width="50px"
-          height="50px"
-          onclick="global.Controller.handleShuffleClick()"
-        />
+          <!--<button class="Shufflebtn" onclick="global.Controller.handleShuffleClick()">
+          <i class="fa-solid fa-shuffle"></i>
+        </button>-->
 
-        <button
-          class="btnStyling Enterebtn"
-          onclick="global.Controller.handleEnterClick()"
-        >
+        <button class="btnStyling Enterebtn" onclick="global.Controller.handleEnterClick()">
           Enter
         </button>
       </div>
+    <div class = "shareContainer">
+      <div id="shareModal">
+        <div class="shareModal-content">
+          <span class="close3">&times;</span>
+          <br>
+          <br>
+          <p id = "shareText" class = "shareText">
+          </p>
+          <br>
+          <br>
+        </div>
+      </div>
+       <!--Share your score button-->
+       <button class="btnStyling Sharebtn" onclick="global.Controller.handleShareClick()">
+        Share <i class="fa-solid fa-arrow-up-from-bracket"></i>
+      </button>
+    </div>
       <!------------------------------------------  BUTTON CONTAINER ------------------------------------------------------------>
 
       <!--
@@ -459,5 +485,6 @@
     </footer>
     --></div>
     <script src="bundle.js"></script>
+    <script src="https://kit.fontawesome.com/01e8df5584.js" crossorigin="anonymous"></script>
   </body>
 </html>
