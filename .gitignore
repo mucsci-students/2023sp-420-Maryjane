@@ -3,3 +3,4 @@ node_modules/*
 *.json
 coverage/*
 .idea/*
+!highScoreDict.json

@@ -2,6 +2,9 @@ const fs = require("fs");
 const prompt = require("prompt-sync")();
 const fileSystem = require("./fileSystem.js");
 
+// //TODO!!! STILL IN PROGRESS (fix the method @)
+// //TODO!! Insert into puzzle alphabetical
+// !!!NOTE: NEED TO CLEAR THE highScoreDict.json before client demo
 function highScoreCommand(Model) {
   //check if a puzzle is open
   if (!Model.isPuzzleOpen) {
