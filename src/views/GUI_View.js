@@ -333,14 +333,17 @@ class GUI_View {
     });
 
     //saveCheckBox
+    //!! TODO ADD ENCRYPTION IMMPLEMENTATION HERE!!!!!!!------------------------------------------------------>
+    //side note: this should probably should be moved down into its own function within controller ...etc I just
+    //put it here to save some time. can be done later lol.
     const saveCheckBox = document.querySelector('#saveCheckBox');
     saveCheckBox.addEventListener('click', function() {
       if (saveCheckBox.checked) {
         // checkbox is selected
-        console.log('Save button is selected');
+        console.log('Encryption is selected');
       } else {
         // checkbox is not selected 
-        console.log('Save button is not selected');
+        console.log('Encryption is not selected');
       }
     });
   }
@@ -458,19 +461,18 @@ class GUI_View {
     this.userInput.focus();
   }
 
-  //TODO
+  //!! TODO ADD SHARE IMMPLEMENTATION HERE!!!!!!!------------------------------------------------------>
   getShareBtn() {
     shareModal.style.display = "block";
     let shareText = document.getElementById("shareText");
     shareText.innerHTML = "test test SHARE test test "
   }
 
-  //TODO
+  //!! TODO ADD HIGHSCORE IMMPLEMENTATION HERE!!!!!!!------------------------------------------------------>
   getHighScoreBtn() {
     highScoreModal.style.display = "block";
 
     let highScoreText = document.getElementById("highScoreText");
-
     // grab highscore from the command and put it in here
     // remember to format it so it looks nice
     highScoreText.innerHTML = "test test HIGHSCORE test test "
