@@ -288,11 +288,9 @@ class GUI_View {
       this.inputFieldSave.value = "";
     });
 
-
-
-
-
     //---------------------------------- SAVE -------------------------------------------------------->
+
+    //hint modal
     const hintModal = document.querySelector("#hintModal");
     const close = document.querySelector(".close");
 
@@ -306,6 +304,45 @@ class GUI_View {
       }
     });
 
+    //highscore modal
+    const highScoreModal = document.querySelector("#highScoreModal");
+    const close2 = document.querySelector(".close2");
+  
+    close2.addEventListener("click", () => {
+      highScoreModal.style.display = "none";
+    });
+  
+    window.addEventListener("click", (event) => {
+      if (event.target === highScoreModal) {
+        highScoreModal.style.display = "none";
+      }
+    });
+
+    //share modal
+    const shareModal = document.querySelector("#shareModal");
+    const close3 = document.querySelector(".close3");
+  
+    close3.addEventListener("click", () => {
+      shareModal.style.display = "none";
+    });
+  
+    window.addEventListener("click", (event) => {
+      if (event.target === shareModal) {
+        shareModal.style.display = "none";
+      }
+    });
+
+    //saveCheckBox
+    const saveCheckBox = document.querySelector('#saveCheckBox');
+    saveCheckBox.addEventListener('click', function() {
+      if (saveCheckBox.checked) {
+        // checkbox is selected
+        console.log('Save button is selected');
+      } else {
+        // checkbox is not selected 
+        console.log('Save button is not selected');
+      }
+    });
   }
 
   showPuzzle() {
@@ -419,6 +456,24 @@ class GUI_View {
     this.userInput.classList.toggle('yellowText');
     this.textArea.classList.toggle('whiteText');
     this.userInput.focus();
+  }
+
+  //TODO
+  getShareBtn() {
+    shareModal.style.display = "block";
+    let shareText = document.getElementById("shareText");
+    shareText.innerHTML = "test test SHARE test test "
+  }
+
+  //TODO
+  getHighScoreBtn() {
+    highScoreModal.style.display = "block";
+
+    let highScoreText = document.getElementById("highScoreText");
+
+    // grab highscore from the command and put it in here
+    // remember to format it so it looks nice
+    highScoreText.innerHTML = "test test HIGHSCORE test test "
   }
   
   getHintBtn() {
