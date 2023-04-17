@@ -73,12 +73,12 @@ class CLI_Controller {
       });
 
     //Hidden command that shows everything related to the Model
-     Vorpal.command("debug", "")
-       .hidden()
-       .action(function (args, callback) {
-         console.log(Model);
-         callback();
-       });
+    Vorpal.command("debug", "")
+      .hidden()
+      .action(function (args, callback) {
+        console.log(Model);
+        callback();
+      });
 
     // Command to shuffle puzzle
     Vorpal.command(
@@ -147,6 +147,16 @@ class CLI_Controller {
       "Shows the current highscores for current puzzle"
     ).action(function (args, callback) {
       Commands.highScoreCommand(Model);
+      callback();
+    });
+
+    //!!! Change to other function when done
+    //Command to allow high-score to be saved
+    Vorpal.command(
+      "add-high-score",
+      "Ends the current game and adds highscore to leader board if high enough"
+    ).action(function (args, callback) {
+      Commands.addHighScore(Model);
       callback();
     });
 

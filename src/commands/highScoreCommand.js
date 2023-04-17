@@ -1,9 +1,9 @@
 const fs = require("fs");
 const prompt = require("prompt-sync")();
 const fileSystem = require("./fileSystem.js");
+const { forEach } = require("scrabble/englishWords.js");
 
 // //TODO!!! STILL IN PROGRESS (fix the method @)
-// //TODO!! Insert into puzzle alphabetical
 // !!!NOTE: NEED TO CLEAR THE highScoreDict.json before client demo
 function highScoreCommand(Model) {
   //check if a puzzle is open
@@ -23,36 +23,107 @@ function highScoreCommand(Model) {
     .toUpperCase();
 
   //check if the puzzle exists in the high score file
-  //if it doesnt exist the we should create a high score entry for it with the center letter
-  //else if it does exist then we should check that a high score entry for it with the center letter exists
-  //if the high score entry for it with the center letter doesnt exist then we should create it
-  //else if it does exist
-  //if the user has a highscore that can be put on the leader board then we should ask them for a user id and then put their score on the leader board
-  //else then we should print the high scores
-
-  //check if the puzzle exists in the high score file
   if (!file.highscores.hasOwnProperty(letters)) {
-    console.log("SpellingBee> No high-scores available for this puzzle first");
+    console.log("SpellingBee> No high-scores available for this puzzle");
     return false;
   }
 
   //now check that the center letter exists in the puzzle
   if (file.highscores[letters].center_letter != Model.requiredLetter) {
-    console.log("SpellingBee> No high-scores available for this puzzle second");
+    console.log("SpellingBee> No high-scores available for this puzzle with this center letter");
     return false;
   }
 
   //now print the high scores
-  for (let i = 0; i <= 4; i++) {
+  for (let i = 0; i <= 9; i++) {
+    if (
+      file.highscores[letters].scores[i] == undefined ||
+      file.highscores[letters].scores[i].user_id == undefined
+    ) {
+      break;
+    }
     console.log(
       "Rank: " +
-        (i + 1) +
-        " " +
-        file.highscores[letters].scores[i].user_id +
-        " " +
-        file.highscores[letters].scores[i].score
+      (i + 1) +
+      " " +
+      file.highscores[letters].scores[i].user_id +
+      " " +
+      file.highscores[letters].scores[i].score
     );
   }
 }
 
-module.exports = { highScoreCommand };
+function addHighScore(Model) {
+  if (!Model.isPuzzleOpen) {
+    console.log("SpellingBee> No puzzle open, no high-scores available");
+    return false;
+  }
+
+  let puzzle = Model.currentPuzzle
+    .sort()
+    .join()
+    .replace(/,/g, "")
+    .toUpperCase();
+
+  let data = fs.readFileSync("highScoreDict.json");
+  let highscores = JSON.parse(data);
+  let centerLetterExists = false;
+
+  // Check if the puzzle already exists in the high score file
+  if (highscores.highscores.hasOwnProperty(puzzle)) {
+    // Check if the center letter is the same
+    if (highscores.highscores[puzzle].center_letter === Model.requiredLetter) {
+      centerLetterExists = true;
+    } else {
+      console.log(
+        "SpellingBee> No high-scores available for this puzzle with this center letter"
+      );
+      return false;
+    }
+  }
+
+  // Check if the user's score is within the top 10 scores for the puzzle
+  let scores;
+  let index;
+  if (!centerLetterExists) {
+    // Create a new leaderboard for the puzzle with the center letter
+    highscores.highscores[puzzle] = {
+      center_letter: Model.requiredLetter,
+      scores: [],
+    };
+    scores = highscores.highscores[puzzle].scores;
+    index = scores.length;
+  } else {
+    // Get the existing leaderboard for the puzzle
+    scores = highscores.highscores[puzzle].scores;
+    index = scores.findIndex((s) => s.score <= Model.userPoints);
+    if (index === -1) {
+      index = scores.length;
+    }
+  }
+
+  if (index < 10) {
+    // Prompt the user for a user ID
+    let userId = prompt("Please enter a user id: ");
+
+    let newHighScore = {
+      user_id: userId,
+      score: Model.userPoints,
+    };
+
+    // Insert the new score into the leaderboard
+    scores.splice(index, 0, newHighScore);
+    scores.splice(10);
+
+    fs.writeFileSync("highScoreDict.json", JSON.stringify(highscores, null, 2));
+
+    console.log("SpellingBee> Your score has been added to the leaderboard:");
+  } else {
+    console.log(
+      "SpellingBee> Your score was not high enough to be added to the leaderboard:"
+    );
+  }
+  
+  process.exit();
+}
+module.exports = { highScoreCommand, addHighScore };
