@@ -1,5 +1,13 @@
 {
   "highscores": {
-    
+    "CEHNSTY": {
+      "center_letter": "H",
+      "scores": [
+        {
+          "user_id": "Jon",
+          "score": 0
+        }
+      ]
+    }
   }
 }
