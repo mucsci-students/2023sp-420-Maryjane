@@ -75,6 +75,17 @@ body {
   cursor: pointer;
 }
 
+.shareContainer{
+  display: flex;
+  justify-content: center;
+  gap: 5%;
+  margin-top: -35px;
+}
+
+.Shufflebtn i.fa-shuffle {
+  font-size: 30px;
+}
+
 
 /*************************   END OF BUTTON STYLES  **********************************!*/
 
@@ -545,6 +556,19 @@ video {
   }
 }
 
+#saveSubmitBtn
+{
+  border: 1px solid #8b8989;
+  background-color: #f0eeee;
+  padding: 2px;
+  border-radius: 2px;
+}
+
+#saveSubmitBtn:hover
+{
+  background-color:#ded9d9;
+}
+
 /**************************************END OF NAVBAR STYLES*************************************/
 
 
@@ -846,6 +870,8 @@ fieldset[disabled] .btn-primary:hover {
 }
 /**************************************END OF MODAL STYLES*************************************/
 
+/**************************************START OF HINT MODAL STYLES*************************************/
+
 #hintModal {
   display: none;
   position: fixed;
@@ -894,3 +920,76 @@ fieldset[disabled] .btn-primary:hover {
   vertical-align: middle;
   padding: 0.5em 1em; /* increase padding */
 }
+/**************************************END OF HINT MODAL STYLE*************************************/
+
+/**************************************START OF HIGHSCORE MODAL STYLES*************************************/
+
+#highScoreModal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2;
+}
+
+.highScoreModal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+}
+
+.close2 {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  cursor: pointer;
+}
+
+.highScoreModalText
+{
+  font-family: 'Nunito Sans', sans-serif;
+  font-weight: 700; 
+}
+
+/**************************************END OF HIGHSCORE MODAL STYLE*************************************/
+
+/**************************************START OF share MODAL STYLES*************************************/
+#shareModal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2;
+}
+
+.shareModal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+}
+
+.close3 {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  cursor: pointer;
+}
+
+/**************************************END OF share MODAL STYLE*************************************/
+

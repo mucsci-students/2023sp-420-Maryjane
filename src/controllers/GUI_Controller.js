@@ -28,6 +28,10 @@ class GUI_Controller {
     });
   }
 
+  handleHighScoreClick() {
+    this.View.getHighScoreBtn();
+  }
+
   handleHintClick() {
     this.View.getHintBtn();
   }
@@ -42,6 +46,10 @@ class GUI_Controller {
 
   handleDeleteClick() {
     this.View.getDeleteBtn();
+  }
+
+  handleShareClick() {
+    this.View.getShareBtn();
   }
 
   handleHexClick(i) {
