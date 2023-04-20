@@ -3,8 +3,8 @@ const Commands = require("../commands/commands.js");
 const Modal = require('modal-vanilla');
 const crypto = require('crypto');
 
-const key = new Uint8Array([ 0x5f, 0x73, 0x3b, 0x44, 0x1f, 0xa2, 0xa0, 0x1b, 0x17, 0xd5, 0xf9, 0x8e, 0x9f, 0x7c, 0xfe, 0xeb, 0x2b, 0x1e, 0x22, 0xc5, 0x48, 0xba, 0xa8, 0x3d, 0x06, 0x2e, 0x3a, 0xb1, 0xb8, 0xc0, 0x6a, 0x32 ]);
-const iv = new Uint8Array([ 0xb8, 0xc3, 0x0f, 0x7a, 0x1d, 0x72, 0xe1, 0xae, 0xbc, 0x10, 0x0e, 0x8a, 0x0d, 0x7b, 0xa5, 0x04 ]);
+const keyArray = new Uint8Array([0x5f, 0x73, 0x3b, 0x44, 0x1f, 0xa2, 0xa0, 0x1b, 0x17, 0xd5, 0xf9, 0x8e, 0x9f, 0x7c, 0xfe, 0xeb, 0x2b, 0x1e, 0x22, 0xc5, 0x48, 0xba, 0xa8, 0x3d, 0x06, 0x2e, 0x3a, 0xb1, 0xb8, 0xc0, 0x6a, 0x32]);
+const iv = new Uint8Array([0xb8, 0xc3, 0x0f, 0x7a, 0x1d, 0x72, 0xe1, 0xae, 0xbc, 0x10, 0x0e, 0x8a, 0x0d, 0x7b, 0xa5, 0x04]);
 
 
 //Return the ID of element as a JavaScript object, store all in the array and shuffle and change what they say inside them This.TopLeftBlock
@@ -293,7 +293,8 @@ class GUI_View {
         CurrentPoints: this.Model.userPoints,
         MaxPoints: this.Model.maxPoints,
         GuessedWords: this.Model.foundWords.map(element => element.toLowerCase()),
-        WordList: saveCheckBox.checked ? encrypt(this.Model.possibleGuesses) : this.Model.possibleGuesses.map(element => element.toLowerCase())
+        WordList: this.Model.possibleGuesses.map(element => element.toLowerCase())
+        // WordList: saveCheckBox.checked ? encrypt(this.Model.possibleGuesses) : this.Model.possibleGuesses.map(element => element.toLowerCase())
       };
 
 
@@ -313,9 +314,27 @@ class GUI_View {
     //----------------------------------ENCRYPTION---------------------------------------------------->  
 
     // encrypt the JSON string using the fixed key and IV
-    async function encrypt(jsonStr) {
+    // your plaintext string
+    // plaintext = this.Model.possibleGuesses.stringify();
 
-      const data = new TextEncoder().encode(jsonStr);
+    // create a CryptoKey from the key array
+    async function importKey(keyArray) {
+      const key = await window.crypto.subtle.importKey(
+        'raw', // format of the key
+        keyArray,
+        { // algorithm options
+          name: 'AES-CBC'
+        },
+        false, // non-extractable
+        ['encrypt', 'decrypt'] // key usages
+      );
+
+      return key;
+    }
+
+    // encrypt the plaintext using the key and IV
+    async function encrypt(plaintext, key, iv) {
+      const data = new TextEncoder().encode(plaintext);
 
       const cipher = await window.crypto.subtle.encrypt(
         {
@@ -326,8 +345,16 @@ class GUI_View {
         data
       );
 
-      return Array.from(new Uint8Array(cipher)).map(b => ('00' + b.toString(16)).slice(-2)).join('');
+      const ciphertext = Array.from(new Uint8Array(cipher)).map(b => ('00' + b.toString(16)).slice(-2)).join('');
+      return ciphertext;
     }
+
+    // call the functions and log the result
+    // importKey(keyArray)
+    //   .then(key => encrypt(plaintext, key, iv))
+    //   .then(ciphertext => console.log(ciphertext))
+    //   .catch(error => console.error(error));
+
 
     //----------------------------------ENCRYPTION---------------------------------------------------->
 
