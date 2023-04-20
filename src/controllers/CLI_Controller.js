@@ -99,21 +99,33 @@ class CLI_Controller {
     });
 
     // Command to load the game
-    Vorpal.command("load <filename>", "Loads the specified save file.").action(
-      function (args, callback) {
-        Commands.load(args.filename.toString(), Model, View);
-        callback();
-      }
-    );
+    Vorpal.command("load <filename>")
+      .option('-d', 'for decrypting encrypted files.')
+      .description("Loads the specified save file.")
+      .action(
+        function (args, callback) {
+          if (args.options.d) {
+            Commands.load(args.filename.toString(), Model, View, 1);
+          } else {
+            Commands.load(args.filename.toString(), Model, View, 0);
+          }
+          callback();
+        }
+      );
 
     // Command to save the game
     Vorpal.command(
       "save <filename>",
-      "Saves the current game. Allows user to name save files."
-    ).action(function (args, callback) {
-      Commands.save(args.filename.toString(), Model);
-      callback();
-    });
+    ).option('-e', 'for encrypting the save file.')
+      .description("Saves the current game. Allows user to name save files.")
+      .action(function (args, callback) {
+        if (args.options.e) {
+          Commands.save(args.filename.toString(), Model, 1);
+        } else {
+          Commands.save(args.filename.toString(), Model, 0);
+        }
+        callback();
+      });
 
     // Command to show user puzzle rank
     Vorpal.command("rank", "Shows the user their puzzle rank.").action(
