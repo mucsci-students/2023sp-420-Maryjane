@@ -1,6 +1,11 @@
 //Function to find a specific html tasks by adding an ID for each tasks
 const Commands = require("../commands/commands.js");
 const Modal = require('modal-vanilla');
+const crypto = require('crypto');
+
+const key = new Uint8Array([ 0x5f, 0x73, 0x3b, 0x44, 0x1f, 0xa2, 0xa0, 0x1b, 0x17, 0xd5, 0xf9, 0x8e, 0x9f, 0x7c, 0xfe, 0xeb, 0x2b, 0x1e, 0x22, 0xc5, 0x48, 0xba, 0xa8, 0x3d, 0x06, 0x2e, 0x3a, 0xb1, 0xb8, 0xc0, 0x6a, 0x32 ]);
+const iv = new Uint8Array([ 0xb8, 0xc3, 0x0f, 0x7a, 0x1d, 0x72, 0xe1, 0xae, 0xbc, 0x10, 0x0e, 0x8a, 0x0d, 0x7b, 0xa5, 0x04 ]);
+
 
 //Return the ID of element as a JavaScript object, store all in the array and shuffle and change what they say inside them This.TopLeftBlock
 class GUI_View {
@@ -267,15 +272,30 @@ class GUI_View {
 
     //---------------------------------- SAVE -------------------------------------------------------->
 
+    //saveCheckBox
+    const saveCheckBox = document.querySelector('#saveCheckBox');
+    // saveCheckBox.addEventListener('click', function () {
+    //   if (saveCheckBox.checked) {
+    //     // checkbox is selected
+    //     console.log('Encryption is selected');
+    //   } else {
+    //     // checkbox is not selected 
+    //     console.log('Encryption is not selected');
+    //   }
+    // });
+
+
     this.saveSubmitBtn.addEventListener("click", () => {
+
       let userData = {
-       RequiredLetter: this.Model.requiredLetter.toLowerCase(),
+        RequiredLetter: this.Model.requiredLetter.toLowerCase(),
         PuzzleLetters: this.Model.currentPuzzle.toString().toLowerCase().replace(/,/g, ""),
         CurrentPoints: this.Model.userPoints,
         MaxPoints: this.Model.maxPoints,
         GuessedWords: this.Model.foundWords.map(element => element.toLowerCase()),
-        WordList: this.Model.possibleGuesses.map(element => element.toLowerCase())
+        WordList: saveCheckBox.checked ? encrypt(this.Model.possibleGuesses) : this.Model.possibleGuesses.map(element => element.toLowerCase())
       };
+
 
       // Convert JSON object to string and save to file
       const jsonData = JSON.stringify(userData);
@@ -289,6 +309,27 @@ class GUI_View {
     });
 
     //---------------------------------- SAVE -------------------------------------------------------->
+
+    //----------------------------------ENCRYPTION---------------------------------------------------->  
+
+    // encrypt the JSON string using the fixed key and IV
+    async function encrypt(jsonStr) {
+
+      const data = new TextEncoder().encode(jsonStr);
+
+      const cipher = await window.crypto.subtle.encrypt(
+        {
+          name: 'AES-CBC',
+          iv: iv
+        },
+        key,
+        data
+      );
+
+      return Array.from(new Uint8Array(cipher)).map(b => ('00' + b.toString(16)).slice(-2)).join('');
+    }
+
+    //----------------------------------ENCRYPTION---------------------------------------------------->
 
     //hint modal
     const hintModal = document.querySelector("#hintModal");
@@ -307,11 +348,11 @@ class GUI_View {
     //highscore modal
     const highScoreModal = document.querySelector("#highScoreModal");
     const close2 = document.querySelector(".close2");
-  
+
     close2.addEventListener("click", () => {
       highScoreModal.style.display = "none";
     });
-  
+
     window.addEventListener("click", (event) => {
       if (event.target === highScoreModal) {
         highScoreModal.style.display = "none";
@@ -321,31 +362,18 @@ class GUI_View {
     //share modal
     const shareModal = document.querySelector("#shareModal");
     const close3 = document.querySelector(".close3");
-  
+
     close3.addEventListener("click", () => {
       shareModal.style.display = "none";
     });
-  
+
     window.addEventListener("click", (event) => {
       if (event.target === shareModal) {
         shareModal.style.display = "none";
       }
     });
 
-    //saveCheckBox
-    //!! TODO ADD ENCRYPTION IMMPLEMENTATION HERE!!!!!!!------------------------------------------------------>
-    //side note: this should probably should be moved down into its own function within controller ...etc I just
-    //put it here to save some time. can be done later lol.
-    const saveCheckBox = document.querySelector('#saveCheckBox');
-    saveCheckBox.addEventListener('click', function() {
-      if (saveCheckBox.checked) {
-        // checkbox is selected
-        console.log('Encryption is selected');
-      } else {
-        // checkbox is not selected 
-        console.log('Encryption is not selected');
-      }
-    });
+
   }
 
   showPuzzle() {
@@ -463,9 +491,9 @@ class GUI_View {
 
   drawHexagon(canvas, x, y, sideLength, color, letter = 'a', textColor = "white") {
     const ctx = canvas.getContext('2d');
-  
+
     let rotationAngle = 90 * Math.PI / 180;
-  
+
     // calculate the coordinates of the hexagon vertices
     const angle = Math.PI / 3; // the angle between each vertex
     const x1 = x + Math.cos(0 + rotationAngle) * sideLength;
@@ -480,7 +508,7 @@ class GUI_View {
     const y5 = y + Math.sin(4 * angle + rotationAngle) * sideLength;
     const x6 = x + Math.cos(5 * angle + rotationAngle) * sideLength;
     const y6 = y + Math.sin(5 * angle + rotationAngle) * sideLength;
-    
+
     ctx.beginPath();
     ctx.moveTo(x1, y1);
     ctx.lineTo(x2, y2);
@@ -489,11 +517,11 @@ class GUI_View {
     ctx.lineTo(x5, y5);
     ctx.lineTo(x6, y6);
     ctx.closePath();
-  
+
     ctx.fillStyle = color; // set the fill color
     ctx.fill(); // fill the hexagon
     ctx.stroke(); // draw the hexagon border
-  
+
     // draw the letter
     ctx.fillStyle = textColor; // set the fill color for the letter
     ctx.font = 'bold 30px sans-serif'; // set the font for the letter
@@ -572,7 +600,7 @@ class GUI_View {
     // remember to format it so it looks nice
     highScoreText.innerHTML = this.Model.highScores;
   }
-  
+
   getHintBtn() {
     hintModal.style.display = "block";
 
@@ -589,7 +617,7 @@ class GUI_View {
     //TODO: get the amount of pangrams and bingo
 
     //Call Commands to generate the hint
-    Commands.generateHint(this.Model,this);
+    Commands.generateHint(this.Model, this);
 
     let words = this.Model.possibleGuesses.length;
     let totalPangrams = this.Model.totalPangrams;
@@ -600,7 +628,7 @@ class GUI_View {
       isBingo = " BINGO";
     }
 
-    puzzleInfo.innerHTML = "Words: " + words + "&nbsp; Points: " + this.Model.maxPoints + "&nbsp; Perfect Pangrams: "+ totalPangrams + isBingo;
+    puzzleInfo.innerHTML = "Words: " + words + "&nbsp; Points: " + this.Model.maxPoints + "&nbsp; Perfect Pangrams: " + totalPangrams + isBingo;
 
     // Format spelling bee grid
     let formattedGrid = this.Model.currentPuzzleHints
@@ -623,18 +651,16 @@ class GUI_View {
     //clear the hintWords element before setting the innerHTML
     hintWords.innerHTML = "";
     hintWords.innerHTML = '<textarea wrap="hard"readonly style="font-family: \'Nunito Sans\', sans-serif; font-weight: 700; text-transform: uppercase; resize: none; width: 100%; height: 120px; margin-top: 10px;">' + hintString + '</textarea>';
-}
+  }
 
 
-  showHintGrid(string)
-  {
+  showHintGrid(string) {
     //console.log(string);
   }
 
-  showTwoLetterHint(string)
-  {
+  showTwoLetterHint(string) {
     //console.log(string);
-  } 
+  }
 
 }
 
