@@ -7,13 +7,14 @@ class fileSystem {
    */
   static readJSONFile(fileName) {
     if (typeof window !== "undefined") {
-      const reader = new FileReader();
-      reader.addEventListener("load",
-        (event) => {
-          const jsonData = JSON.parse(event.target.result);
-          return jsonData;
+      let x;
+      fetch(fileName)
+        .then(response => response.json())
+        .then(highScores => {
+          console.log(highScores);
+          x = highScores;
         });
-      reader.readAsText(fileName);
+      return x;
     } else {
       let fileContents = fs.readFileSync(fileName, "utf-8");
 
@@ -26,4 +27,4 @@ class fileSystem {
     }
   }
 }
-module.exports = fileSystem ;
+module.exports = fileSystem;

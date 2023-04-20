@@ -26,6 +26,15 @@
           "score": 1
         }
       ]
+    },
+    "AEGLNSU": {
+      "center_letter": "S",
+      "scores": [
+        {
+          "user_id": "jon",
+          "score": 0
+        }
+      ]
     }
   }
 }

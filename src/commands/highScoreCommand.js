@@ -14,7 +14,7 @@ function highScoreCommand(Model) {
 
   //read the high score file
   let file = fileSystem.readJSONFile("highScoreDict.json");
-
+  console.log(file);
   //the current puzzle string in alphabetical order
   let letters = Model.currentPuzzle
     .sort()
@@ -56,7 +56,7 @@ for (let i = 0; i <= 9; i++) {
 
 //console.log(highscores); // this will print the highscores to the console
 Model.highscores = highscores; // this will store the highscores in the model
-console.log(highscores);   
+console.log(highscores);  
 }
 
 function addHighScore(Model) {
