@@ -56,34 +56,34 @@ class Model {
 
   /**
    * Calculates the users rank name based on scorePercentage
-   * @param {number} score
+   * @param {number} scorePercentage
    * @returns Your name as rank
    */
-  getRankName(score) {
+  getRankName(scorePercentage) {
     //Maybe make this a switch statement sometime? -Michael
 
     // Check for out of bounds and incorrect type
-    if (score < 0 || typeof score !== "number") {
+    if (scorePercentage < 0 || typeof scorePercentage !== "number") {
       return "Something went wrong";
     }
 
-    if (score < 0.02) {
+    if (scorePercentage < 0.02) {
       return "Newbie";
-    } else if (score < 0.05) {
+    } else if (scorePercentage < 0.05) {
       return "Novice";
-    } else if (score < 0.08) {
+    } else if (scorePercentage < 0.08) {
       return "Fine";
-    } else if (score < 0.15) {
+    } else if (scorePercentage < 0.15) {
       return "Skilled";
-    } else if (score < 0.25) {
+    } else if (scorePercentage < 0.25) {
       return "Excellent";
-    } else if (score < 0.4) {
+    } else if (scorePercentage < 0.4) {
       return "Superb";
-    } else if (score < 0.5) {
+    } else if (scorePercentage < 0.5) {
       return "Marvellous";
-    } else if (score < 0.7) {
+    } else if (scorePercentage < 0.7) {
       return "Outstanding";
-    } else if (score <= 1) {
+    } else if (scorePercentage <= 1) {
       return "Queen Bee";
     }
 
