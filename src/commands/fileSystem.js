@@ -7,14 +7,12 @@ class fileSystem {
    */
   static readJSONFile(fileName) {
     if (typeof window !== "undefined") {
-      let x;
-      fetch(fileName)
+      return fetch(fileName)
         .then(response => response.json())
         .then(highScores => {
           console.log(highScores);
-          x = highScores;
+          return highScores;
         });
-      return x;
     } else {
       let fileContents = fs.readFileSync(fileName, "utf-8");
 

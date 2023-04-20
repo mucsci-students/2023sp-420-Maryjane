@@ -1,11 +1,10 @@
 const fs = require("fs");
 const prompt = require("prompt-sync")();
 const fileSystem = require("./fileSystem.js");
-const { forEach } = require("scrabble/englishWords.js");
 
 // //TODO!!! STILL IN PROGRESS (fix the method @)
 // !!!NOTE: NEED TO CLEAR THE highScoreDict.json before client demo
-function highScoreCommand(Model) {
+async function highScoreCommand(Model) {
   //check if a puzzle is open
   if (!Model.isPuzzleOpen) {
     console.log("SpellingBee> No puzzle open, no high-scores available");
@@ -13,8 +12,9 @@ function highScoreCommand(Model) {
   }
 
   //read the high score file
-  let file = fileSystem.readJSONFile("highScoreDict.json");
+  let file = await fileSystem.readJSONFile("highScoreDict.json");
   console.log(file);
+
   //the current puzzle string in alphabetical order
   let letters = Model.currentPuzzle
     .sort()
@@ -35,28 +35,28 @@ function highScoreCommand(Model) {
   }
 
   //stores the high scores for the current puzzle
-let highscores = "";
+  let highscores = "";
 
-// now print the high scores
-for (let i = 0; i <= 9; i++) {
-  if (
-    file.highscores[letters].scores[i] == undefined ||
-    file.highscores[letters].scores[i].user_id == undefined
-  ) {
-    break;
+  // now print the high scores
+  for (let i = 0; i < 10; i++) {
+    if (
+      file.highscores[letters].scores[i] == undefined ||
+      file.highscores[letters].scores[i].user_id == undefined
+    ) {
+      break;
+    }
+    highscores += "Rank: " +
+      (i + 1) +
+      " " +
+      file.highscores[letters].scores[i].user_id +
+      " " +
+      file.highscores[letters].scores[i].score +
+      "\n";
   }
-  highscores += "Rank: " +
-    (i + 1) +
-    " " +
-    file.highscores[letters].scores[i].user_id +
-    " " +
-    file.highscores[letters].scores[i].score +
-    "\n";
-}
 
-//console.log(highscores); // this will print the highscores to the console
-Model.highscores = highscores; // this will store the highscores in the model
-console.log(highscores);  
+  //console.log(highscores); // this will print the highscores to the console
+  Model.highScores = highscores; // this will store the highscores in the model
+  console.log(Model.highScores);  
 }
 
 function addHighScore(Model) {

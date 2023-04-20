@@ -506,6 +506,7 @@ class GUI_View {
   getShareBtn(Model) {
     // Create a new canvas element
     const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
 
     canvas.width = 500;
     canvas.height = 500;
@@ -518,15 +519,33 @@ class GUI_View {
       x: canvas.width / 2,
       y: canvas.height / 2
     };
+
+    ctx.fillStyle = "white"; // set the fill color
+    ctx.fill();
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    let rankString = "Rank: " + this.Model.getRankName(this.Model.userPoints / this.Model.maxPoints);
+    let pointsString = "Points: " + this.Model.userPoints + "/" + this.Model.maxPoints;
+
+    ctx.fillStyle = "black"; // set the fill color
+    ctx.fill();
+    const fontSize = 36;
+    const fontFamily = "Times New Roman";
+    ctx.font = `${fontSize}px ${fontFamily}`;
+    ctx.fillText(rankString, center.x - (ctx.measureText(rankString).width / 2), 36);
+    ctx.fillText(pointsString, center.x - (ctx.measureText(pointsString).width / 2), (36 * 2) + 20);
+
     const colors = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet'];
     let x, y;
     let colorIndex = 0;
 
+    let offsetX = 25;
+    let offsetY = 75;
+
     // first row with 2 hexagons
     const row1 = 2;
-    let helperArray = []
-    x = center.x - hexagonSideLength - (hexagonSideLength / 2);
-    y = center.y - (hexagonRadius * 2);
+    x = center.x - hexagonSideLength - (hexagonSideLength / 2) + offsetX;
+    y = center.y - (hexagonRadius * 2) + offsetY;
     for (let i = 0; i < row1; i++) {
       this.drawHexagon(canvas, x, y, hexagonSideLength - 1, 'grey', Model.currentPuzzle[i]);
       x += hexagonSideLength + hexagonSideLength;
@@ -535,8 +554,8 @@ class GUI_View {
 
     // second row with three hexagons
     const row2 = 3;
-    x = center.x - (hexagonSideLength * 2) - (hexagonSideLength / 2);
-    y = center.y - hexagonRadius / 2;
+    x = center.x - (hexagonSideLength * 2) - (hexagonSideLength / 2)  + offsetX;
+    y = center.y - hexagonRadius / 2 + offsetY;
     for (let i = 0; i < row2; i++) {
       this.drawHexagon(canvas, x, y, hexagonSideLength - 1, i % 2 == 0 ? 'grey' : 'yellow', Model.currentPuzzle[i + row1], i % 2 == 0 ? 'white' : 'black');
       x += hexagonSideLength + hexagonSideLength;
@@ -545,8 +564,8 @@ class GUI_View {
 
     // third row with 2 hexagons
     const row3 = 2;
-    x = center.x - hexagonSideLength - (hexagonSideLength / 2);
-    y = center.y + hexagonRadius;
+    x = center.x - hexagonSideLength - (hexagonSideLength / 2) + offsetX;
+    y = center.y + hexagonRadius + offsetY;
     for (let i = 0; i < row3; i++) {
       this.drawHexagon(canvas, x, y, hexagonSideLength - 1, 'grey', Model.currentPuzzle[i + row1 + row2]);
       x += hexagonSideLength + hexagonSideLength;
@@ -562,18 +581,19 @@ class GUI_View {
   }
 
   //!! TODO ADD HIGHSCORE IMMPLEMENTATION HERE!!!!!!!------------------------------------------------------>
-  getHighScoreBtn() {
+  async getHighScoreBtn() {
     highScoreModal.style.display = "block";
 
     let highScoreText = document.getElementById("highScoreText");
 
-    Commands.highScoreCommand(this.Model);
+    await Commands.highScoreCommand(this.Model);
 
     console.log();
 
     //read the json file from local files
+    let formattedHighScores = this.Model.highScores.replace("\n", "<br>");
 
-    highScoreText.innerHTML = this.model.highScore;
+    highScoreText.innerHTML = this.Model.highScores == "" ? "No highscores for current puzzles" : formattedHighScores;
   }
   
   getHintBtn() {

@@ -35,6 +35,19 @@
           "score": 0
         }
       ]
+    },
+    "DEINOPW": {
+      "center_letter": "D",
+      "scores": [
+        {
+          "user_id": "123",
+          "score": 1
+        },
+        {
+          "user_id": "123",
+          "score": 1
+        }
+      ]
     }
   }
 }
