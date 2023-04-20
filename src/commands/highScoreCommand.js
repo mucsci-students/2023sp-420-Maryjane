@@ -34,23 +34,29 @@ function highScoreCommand(Model) {
     return false;
   }
 
-  //now print the high scores
-  for (let i = 0; i <= 9; i++) {
-    if (
-      file.highscores[letters].scores[i] == undefined ||
-      file.highscores[letters].scores[i].user_id == undefined
-    ) {
-      break;
-    }
-    console.log(
-      "Rank: " +
-      (i + 1) +
-      " " +
-      file.highscores[letters].scores[i].user_id +
-      " " +
-      file.highscores[letters].scores[i].score
-    );
+  //stores the high scores for the current puzzle
+let highscores = "";
+
+// now print the high scores
+for (let i = 0; i <= 9; i++) {
+  if (
+    file.highscores[letters].scores[i] == undefined ||
+    file.highscores[letters].scores[i].user_id == undefined
+  ) {
+    break;
   }
+  highscores += "Rank: " +
+    (i + 1) +
+    " " +
+    file.highscores[letters].scores[i].user_id +
+    " " +
+    file.highscores[letters].scores[i].score +
+    "\n";
+}
+
+//console.log(highscores); // this will print the highscores to the console
+Model.highscores = highscores; // this will store the highscores in the model
+console.log(highscores);   
 }
 
 function addHighScore(Model) {
