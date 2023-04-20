@@ -172,6 +172,14 @@ class CLI_Controller {
       callback();
     });
 
+    Vorpal.command(
+      "share-img",
+      "Saves a shareable image to your computer"
+    ).action(function (args, callback) {
+      View.shareImg(Model);
+      callback();
+    });
+
     /*****************************************************************************/
     /*                                Exit Function                              */
     /*****************************************************************************/
