@@ -34,7 +34,9 @@ function highScoreCommand(Model) {
     return false;
   }
 
-  //now print the high scores
+  let highscores = "";
+
+  // now print the high scores
   for (let i = 0; i <= 9; i++) {
     if (
       file.highscores[letters].scores[i] == undefined ||
@@ -42,15 +44,18 @@ function highScoreCommand(Model) {
     ) {
       break;
     }
-    console.log(
-      "Rank: " +
+    highscores += "Rank: " +
       (i + 1) +
       " " +
       file.highscores[letters].scores[i].user_id +
       " " +
-      file.highscores[letters].scores[i].score
-    );
+      file.highscores[letters].scores[i].score +
+      "\n";
   }
+  
+  //console.log(highscores); // this will print the highscores to the console
+  Model.highscores = highscores; // this will store the highscores in the model
+  console.log(highscores);  
 }
 
 function addHighScore(Model) {

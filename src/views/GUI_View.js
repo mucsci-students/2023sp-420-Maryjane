@@ -473,9 +473,15 @@ class GUI_View {
     highScoreModal.style.display = "block";
 
     let highScoreText = document.getElementById("highScoreText");
+
+
+    //get highscore from the command and put it in here
+
+    Commands.highScoreCommand(this.Model);
+
     // grab highscore from the command and put it in here
     // remember to format it so it looks nice
-    highScoreText.innerHTML = "test test HIGHSCORE test test "
+    highScoreText.innerHTML = this.Model.highScores;
   }
   
   getHintBtn() {

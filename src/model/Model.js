@@ -40,6 +40,9 @@ class Model {
   //total amount of bingos for the puzzle
   bingoCount = 0;
 
+  //stores the high scores for the current puzzle
+  highScores = "";
+
   // Private constructor
   constructor() {
     // Checks null
