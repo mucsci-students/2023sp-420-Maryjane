@@ -64,7 +64,7 @@ function load(fileName, Model, View, shouldDecrypt) {
   Model.userPoints = parsedFile.CurrentPoints;
   Model.maxPoints = parsedFile.MaxPoints;
 
-
+try {
   if (shouldDecrypt) {
 
 
@@ -89,6 +89,11 @@ function load(fileName, Model, View, shouldDecrypt) {
   } else {
     Model.possibleGuesses = parsedFile.WordList.map((element) => element.toUpperCase());
   }
+} catch (error) {
+  console.log("Problem loading file. Most likely trying to load an encrypted file without proper arguments.");
+  return;
+}
+  
 
   let puzzle = String.prototype.concat
     .call(...new Set(Model.pangram))
