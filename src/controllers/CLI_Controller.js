@@ -72,13 +72,13 @@ class CLI_Controller {
         callback();
       });
 
-    //  Hidden command that shows everything related to the Model
-    // Vorpal.command("debug", "")
-    //   .hidden()
-    //   .action(function (args, callback) {
-    //     console.log(Model);
-    //     callback();
-    //   });
+    //Hidden command that shows everything related to the Model
+    Vorpal.command("debug", "")
+      .hidden()
+      .action(function (args, callback) {
+        console.log(Model);
+        callback();
+      });
 
     // Command to shuffle puzzle
     Vorpal.command(
@@ -144,11 +144,31 @@ class CLI_Controller {
       callback();
     });
 
+    //Command to show the hint grid and 2 words list
     Vorpal.command(
       "hint",
       "Shows the user the current puzzle's hints and bingo."
     ).action(function (args, callback) {
       Commands.generateHint(Model, View);
+      callback();
+    });
+
+    //Command to allow high-score to be saved
+    Vorpal.command(
+      "view-high-scores",
+      "Shows the current highscores for current puzzle"
+    ).action(function (args, callback) {
+      Commands.highScoreCommand(Model);
+      callback();
+    });
+
+    //!!! Change to other function when done
+    //Command to allow high-score to be saved
+    Vorpal.command(
+      "add-high-score",
+      "Ends the current game and adds highscore to leader board if high enough"
+    ).action(function (args, callback) {
+      Commands.addHighScore(Model);
       callback();
     });
 

@@ -288,11 +288,9 @@ class GUI_View {
       this.inputFieldSave.value = "";
     });
 
-
-
-
-
     //---------------------------------- SAVE -------------------------------------------------------->
+
+    //hint modal
     const hintModal = document.querySelector("#hintModal");
     const close = document.querySelector(".close");
 
@@ -306,23 +304,65 @@ class GUI_View {
       }
     });
 
+    //highscore modal
+    const highScoreModal = document.querySelector("#highScoreModal");
+    const close2 = document.querySelector(".close2");
+  
+    close2.addEventListener("click", () => {
+      highScoreModal.style.display = "none";
+    });
+  
+    window.addEventListener("click", (event) => {
+      if (event.target === highScoreModal) {
+        highScoreModal.style.display = "none";
+      }
+    });
+
+    //share modal
+    const shareModal = document.querySelector("#shareModal");
+    const close3 = document.querySelector(".close3");
+  
+    close3.addEventListener("click", () => {
+      shareModal.style.display = "none";
+    });
+  
+    window.addEventListener("click", (event) => {
+      if (event.target === shareModal) {
+        shareModal.style.display = "none";
+      }
+    });
+
+    //saveCheckBox
+    //!! TODO ADD ENCRYPTION IMMPLEMENTATION HERE!!!!!!!------------------------------------------------------>
+    //side note: this should probably should be moved down into its own function within controller ...etc I just
+    //put it here to save some time. can be done later lol.
+    const saveCheckBox = document.querySelector('#saveCheckBox');
+    saveCheckBox.addEventListener('click', function() {
+      if (saveCheckBox.checked) {
+        // checkbox is selected
+        console.log('Encryption is selected');
+      } else {
+        // checkbox is not selected 
+        console.log('Encryption is not selected');
+      }
+    });
   }
 
   showPuzzle() {
     let word = this.Model.currentPuzzle;
     let pos = this.Model.currentPuzzle.indexOf(this.Model.requiredLetter);
 
-    let temp = word[2];
-    word[2] = this.Model.requiredLetter;
+    let temp = word[3];
+    word[3] = this.Model.requiredLetter;
     word[pos] = temp;
 
-    this.MiddleLeftBlock.innerHTML = word[0];
-    this.TopLeftBlock.innerHTML = word[1];
-    this.Middle.innerHTML = word[2];
-    this.TopRightBlock.innerHTML = word[3];
-    this.BottomRightBlock.innerHTML = word[4];
+    this.TopLeftBlock.innerHTML = word[0];
+    this.TopRightBlock.innerHTML = word[1];
+    this.MiddleLeftBlock.innerHTML = word[2];
+    this.Middle.innerHTML = word[3];
+    this.MiddleRightBlock.innerHTML = word[4];
     this.BottomLeftBlock.innerHTML = word[5];
-    this.MiddleRightBlock.innerHTML = word[6];
+    this.BottomRightBlock.innerHTML = word[6];
 
     this.updateRank();
     this.textArea.innerHTML = this.Model.foundWords.join("  ").toUpperCase();
@@ -419,6 +459,118 @@ class GUI_View {
     this.userInput.classList.toggle('yellowText');
     this.textArea.classList.toggle('whiteText');
     this.userInput.focus();
+  }
+
+  drawHexagon(canvas, x, y, sideLength, color, letter = 'a', textColor = "white") {
+    const ctx = canvas.getContext('2d');
+  
+    let rotationAngle = 90 * Math.PI / 180;
+  
+    // calculate the coordinates of the hexagon vertices
+    const angle = Math.PI / 3; // the angle between each vertex
+    const x1 = x + Math.cos(0 + rotationAngle) * sideLength;
+    const y1 = y + Math.sin(0 + rotationAngle) * sideLength;
+    const x2 = x + Math.cos(angle + rotationAngle) * sideLength;
+    const y2 = y + Math.sin(angle + rotationAngle) * sideLength;
+    const x3 = x + Math.cos(2 * angle + rotationAngle) * sideLength;
+    const y3 = y + Math.sin(2 * angle + rotationAngle) * sideLength;
+    const x4 = x + Math.cos(3 * angle + rotationAngle) * sideLength;
+    const y4 = y + Math.sin(3 * angle + rotationAngle) * sideLength;
+    const x5 = x + Math.cos(4 * angle + rotationAngle) * sideLength;
+    const y5 = y + Math.sin(4 * angle + rotationAngle) * sideLength;
+    const x6 = x + Math.cos(5 * angle + rotationAngle) * sideLength;
+    const y6 = y + Math.sin(5 * angle + rotationAngle) * sideLength;
+    
+    ctx.beginPath();
+    ctx.moveTo(x1, y1);
+    ctx.lineTo(x2, y2);
+    ctx.lineTo(x3, y3);
+    ctx.lineTo(x4, y4);
+    ctx.lineTo(x5, y5);
+    ctx.lineTo(x6, y6);
+    ctx.closePath();
+  
+    ctx.fillStyle = color; // set the fill color
+    ctx.fill(); // fill the hexagon
+    ctx.stroke(); // draw the hexagon border
+  
+    // draw the letter
+    ctx.fillStyle = textColor; // set the fill color for the letter
+    ctx.font = 'bold 30px sans-serif'; // set the font for the letter
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(letter, x, y);
+  }
+
+  //!! TODO ADD SHARE IMMPLEMENTATION HERE!!!!!!!------------------------------------------------------>
+  getShareBtn(Model) {
+    // Create a new canvas element
+    const canvas = document.createElement('canvas');
+
+    canvas.width = 500;
+    canvas.height = 500;
+
+    // get the canvas element and draw the big hexagon from small hexagons
+    //const canvas = document.getElementById('canvas');
+    const hexagonSideLength = 50;
+    const hexagonRadius = hexagonSideLength / Math.cos(Math.PI / 6); // calculate the radius of the big hexagon so that the small hexagons don't overlap
+    const center = {
+      x: canvas.width / 2,
+      y: canvas.height / 2
+    };
+    const colors = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet'];
+    let x, y;
+    let colorIndex = 0;
+
+    // first row with 2 hexagons
+    const row1 = 2;
+    let helperArray = []
+    x = center.x - hexagonSideLength - (hexagonSideLength / 2);
+    y = center.y - (hexagonRadius * 2);
+    for (let i = 0; i < row1; i++) {
+      this.drawHexagon(canvas, x, y, hexagonSideLength - 1, 'grey', Model.currentPuzzle[i]);
+      x += hexagonSideLength + hexagonSideLength;
+      colorIndex = (colorIndex + 1) % colors.length;
+    }
+
+    // second row with three hexagons
+    const row2 = 3;
+    x = center.x - (hexagonSideLength * 2) - (hexagonSideLength / 2);
+    y = center.y - hexagonRadius / 2;
+    for (let i = 0; i < row2; i++) {
+      this.drawHexagon(canvas, x, y, hexagonSideLength - 1, i % 2 == 0 ? 'grey' : 'yellow', Model.currentPuzzle[i + row1], i % 2 == 0 ? 'white' : 'black');
+      x += hexagonSideLength + hexagonSideLength;
+      colorIndex = (colorIndex + 1) % colors.length;
+    }
+
+    // third row with 2 hexagons
+    const row3 = 2;
+    x = center.x - hexagonSideLength - (hexagonSideLength / 2);
+    y = center.y + hexagonRadius;
+    for (let i = 0; i < row3; i++) {
+      this.drawHexagon(canvas, x, y, hexagonSideLength - 1, 'grey', Model.currentPuzzle[i + row1 + row2]);
+      x += hexagonSideLength + hexagonSideLength;
+    }
+
+    const dataURL = canvas.toDataURL('image/png');
+    const link = document.createElement('a');
+    link.download = 'hexagon.png';
+    link.href = dataURL;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  //!! TODO ADD HIGHSCORE IMMPLEMENTATION HERE!!!!!!!------------------------------------------------------>
+  getHighScoreBtn() {
+    highScoreModal.style.display = "block";
+
+    let highScoreText = document.getElementById("highScoreText");
+    Commands.highScoreCommand(this.Model);
+
+    // grab highscore from the command and put it in here
+    // remember to format it so it looks nice
+    highScoreText.innerHTML = this.Model.highScores;
   }
   
   getHintBtn() {

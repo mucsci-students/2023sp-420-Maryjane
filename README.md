@@ -122,6 +122,11 @@ Our use of Vorpal commands and all commands in [commands.js](https://github.com/
 ### Observer
 For every button, textField, and menu item in the GUI, we have a certain event listener that listens for a specific action. For example, When you click on any [hexagon button](https://github.com/mucsci-students/2023sp-420-Maryjane/blob/develop/index.html) (Around line 231 in index.html), an onClick event listner calls a function in the [Gui Controller](https://github.com/mucsci-students/2023sp-420-Maryjane/blob/develop/src/controllers/GUI_Controller.js) (Around line 47 in GUI_Controller.js) which will then call a function in the [Gui View](https://github.com/mucsci-students/2023sp-420-Maryjane/blob/develop/src/views/GUI_View) (Around line 48 in GUI_Controller.js) that will update what letter is shown on the screen (Around line 334 in GUI_View.js).
 
+### Structural Behavior
+
+### Adapter
+We created a file system class called [fileSystem.js](https://github.com/mucsci-students/2023sp-420-Maryjane/blob/develop/src/commands/fileCommands.js) to read a JSON file and parse the contents together. Then, we created [highScoreCommand.js] (https://github.com/mucsci-students/2023sp-420-Maryjane/blob/develop/src/commands/highScoreCommand.js) that inherits the file system class in order to read the JSON file. Both classes use the 'const fs = require('fs') (On Line 1 for both fileSystem.js and highScoreCommand.js) to provide file system-related functionality such as reading and writing files.
+
 ## 🖊️ Authors
 
 👤 **Jonathan Rivera**
