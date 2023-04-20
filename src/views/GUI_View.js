@@ -475,7 +475,16 @@ class GUI_View {
     let highScoreText = document.getElementById("highScoreText");
     // grab highscore from the command and put it in here
     // remember to format it so it looks nice
-    highScoreText.innerHTML = "test test HIGHSCORE test test "
+
+
+    //stores the high scores for the current puzzle
+    //get highscore from the command and put it in here
+
+    Commands.highScoreCommand(this.Model);
+
+    // grab highscore from the command and put it in here
+    // remember to format it so it looks nice
+    highScoreText.innerHTML = this.Model.highScores;
   }
   
   getHintBtn() {

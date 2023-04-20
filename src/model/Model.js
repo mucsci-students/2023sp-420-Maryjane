@@ -31,6 +31,9 @@ class Model {
   // Possible guesses
   possibleGuesses = [];
 
+  //stores the high scores for the current puzzle
+  highScores = "";
+
   // Max user points
   maxPoints = 0;
 
