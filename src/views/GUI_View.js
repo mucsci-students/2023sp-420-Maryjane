@@ -588,8 +588,6 @@ class GUI_View {
 
     await Commands.highScoreCommand(this.Model);
 
-    console.log();
-
     //read the json file from local files
     let formattedHighScores = this.Model.highScores.replace("\n", "<br>");
 

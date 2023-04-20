@@ -10,7 +10,6 @@ class fileSystem {
       return fetch(fileName)
         .then(response => response.json())
         .then(highScores => {
-          console.log(highScores);
           return highScores;
         });
     } else {

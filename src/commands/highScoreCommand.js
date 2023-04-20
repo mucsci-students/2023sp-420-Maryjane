@@ -13,7 +13,6 @@ async function highScoreCommand(Model) {
 
   //read the high score file
   let file = await fileSystem.readJSONFile("highScoreDict.json");
-  console.log(file);
 
   //the current puzzle string in alphabetical order
   let letters = Model.currentPuzzle
@@ -54,8 +53,9 @@ async function highScoreCommand(Model) {
       "\n";
   }
 
-  //console.log(highscores); // this will print the highscores to the console
   Model.highScores = highscores; // this will store the highscores in the model
+
+  // TODO: Move to the View
   console.log(Model.highScores);  
 }
 
