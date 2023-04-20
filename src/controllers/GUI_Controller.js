@@ -49,7 +49,7 @@ class GUI_Controller {
   }
 
   handleShareClick() {
-    this.View.getShareBtn();
+    this.View.getShareBtn(this.Model);
   }
 
   handleHexClick(i) {
