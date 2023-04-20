@@ -1,7 +1,7 @@
 {
   "highscores": {
     "CGIKNOY": {
-      "center_letter": "C",
+      "center_letter": "a",
       "scores": [
         {
           "user_id": "mitchell",
@@ -23,6 +23,28 @@
       "scores": [
         {
           "user_id": "mitchell",
+          "score": 1
+        }
+      ]
+    },
+    "AEGLNSU": {
+      "center_letter": "S",
+      "scores": [
+        {
+          "user_id": "jon",
+          "score": 0
+        }
+      ]
+    },
+    "DEINOPW": {
+      "center_letter": "D",
+      "scores": [
+        {
+          "user_id": "123",
+          "score": 1
+        },
+        {
+          "user_id": "123",
           "score": 1
         }
       ]
