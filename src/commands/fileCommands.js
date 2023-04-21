@@ -99,9 +99,8 @@ try {
     .call(...new Set(Model.pangram))
     .split("");
 
-  Model.currentPuzzle = puzzle
-    .sort((a, b) => 0.5 - Math.random())
-    .sort((a, b) => 0.5 - Math.random());
+  Model.currentPuzzle = puzzle;
+  Model.shufflePuzzle();
 
   Model.isPuzzleOpen = true;
   console.log("SpellingBee> File loaded successfully\n");

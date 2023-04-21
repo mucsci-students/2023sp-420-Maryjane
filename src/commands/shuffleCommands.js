@@ -6,15 +6,13 @@
  */
 function shuffle(Model, View) {
   if (!Model.isPuzzleOpen) {
-    console.log("game is not in progess");
+    console.log("No puzzle in progress");
     return;
   }
 
-  // Converts pangram into array of letters
-  Model.currentPuzzle = Model.currentPuzzle
-    .sort((a, b) => 0.5 - Math.random())
-    .sort((a, b) => 0.5 - Math.random());
+  Model.shufflePuzzle();
 
   View.showPuzzle(Model);
 }
+
 module.exports = shuffle;

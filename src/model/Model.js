@@ -89,6 +89,25 @@ class Model {
 
     return "Something went wrong";
   }
+
+  /**
+   * Shuffles the current puzzle
+   * @returns {boolean} - Returns true if the shuffle was successful, false if no shuffle was performed.
+   */
+  shufflePuzzle() {
+    if (!this.isPuzzleOpen) {
+      return false;
+    }
+
+    // Using the Fisher-Yates shuffle algorithm for a more uniform shuffle
+    for (let i = this.currentPuzzle.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [this.currentPuzzle[i], this.currentPuzzle[j]] = [this.currentPuzzle[j], this.currentPuzzle[i]];
+    }
+
+    return true;
+  }
+
 }
 
 // Export the static method instead of the class itself
