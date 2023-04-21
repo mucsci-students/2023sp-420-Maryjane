@@ -1,5 +1,6 @@
 
 const ModelClass = require("../src/model/Model.js");
+const isWord = require("../src/model/dict.js");
 
 describe("Test Model class", () => {
   
@@ -31,5 +32,58 @@ describe("Test Model class", () => {
     const instance2 = new ModelClass();
 
     expect(instance1).toEqual(instance2);
+  });
+
+  test('shufflePuzzle should shuffle the puzzle when the puzzle is open', () => {
+    Model.isPuzzleOpen = true;
+    Model.currentPuzzle = ["P", "I", "N", "E", "W", "O", "D"];
+
+    const originalPuzzle = [...Model.currentPuzzle];
+
+    expect(Model.shufflePuzzle()).toBe(true);
+
+    // Check if the array has been modified (shuffled)
+    expect(Model.currentPuzzle).not.toEqual(originalPuzzle);
+
+    // Check if the array still contains the same elements after shuffling
+    expect(Model.currentPuzzle.sort()).toEqual(originalPuzzle.sort());
+  });
+
+  test('shufflePuzzle should not shuffle the puzzle when the puzzle is closed', () => {
+    Model.isPuzzleOpen = false;
+    Model.currentPuzzle = ["P", "I", "N", "E", "W", "O", "D"];
+
+    const originalPuzzle = [...Model.currentPuzzle];
+
+    expect(Model.shufflePuzzle()).toBe(false);
+
+    // Check if the array has not been modified (not shuffled)
+    expect(Model.currentPuzzle).toEqual(originalPuzzle);
+  });
+});
+
+describe('Test dict.js', () => {
+  test('should return true for words found in the English dictionary', () => {
+    expect(isWord('apple')).toBe(true);
+    expect(isWord('banana')).toBe(true);
+    expect(isWord('orange')).toBe(true);
+    expect(isWord('blueberry')).toBe(true);
+  });
+
+  test('should return false for words not found in the English dictionary', () => {
+    expect(isWord('nonexistentword')).toBe(false);
+    expect(isWord('aklsdfj')).toBe(false);
+  });
+
+  test('should be case-insensitive', () => {
+    expect(isWord('Apple')).toBe(true);
+    expect(isWord('BANANA')).toBe(true);
+    expect(isWord('OrAnGe')).toBe(true);
+  });
+
+  test('should return false for non-string inputs', () => {
+    expect(isWord(123)).toBe(false);
+    expect(isWord(null)).toBe(false);
+    expect(isWord(undefined)).toBe(false);
   });
 });
