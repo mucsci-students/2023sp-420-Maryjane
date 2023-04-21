@@ -1,6 +1,8 @@
 
 const ModelClass = require("../src/model/Model.js");
 const isWord = require("../src/model/dict.js");
+const MongoDBClass = require("../src/model/database/lib/mongodb.js");
+const { type } = require("os");
 
 describe("Test Model class", () => {
   
@@ -86,4 +88,24 @@ describe('Test dict.js', () => {
     expect(isWord(null)).toBe(false);
     expect(isWord(undefined)).toBe(false);
   });
+});
+
+describe('Test MongoDB.js', () => {
+  let MongoDB = new MongoDBClass();
+
+  test('database should be undefined before connecting', () => {
+    expect(MongoDB.database).toBeUndefined();
+  });
+
+  test('database should be defined after connecting', () => {
+    MongoDB.connect()
+    expect(MongoDB.database).toBeDefined();
+  });
+
+  test('database should return random words that are in the English Dictionary', () => {
+    MongoDB.connect()
+    expect(isWord(MongoDB.getRandomWord())).toBeDefined();
+  });
+
+
 });
