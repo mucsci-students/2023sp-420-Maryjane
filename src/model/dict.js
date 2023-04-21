@@ -11,6 +11,11 @@ for (let i = 0; i < word.length; i++) {
  * @return {boolean} - Returns true if the word is found in the English Dictionary, false if not
  */
 function isWord(word) {
+    // Check if the input is a string, return false if not
+    if (typeof word !== 'string') {
+        return false;
+    }
+
     return dict[word.toLowerCase()] === true;
 }
 

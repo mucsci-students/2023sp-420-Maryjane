@@ -5,4 +5,4 @@ const { newPuzzle, calculatePoints, newPuzzleFromBase } = require("./newPuzzleCo
 const shuffle = require("./shuffleCommands.js");
 const { highScoreCommand, addHighScore } = require("./highScoreCommand.js");
 
-module.exports = { load, save, promptSave, guess, generateHint, generateTwoLetterHint, newPuzzle, calculatePoints,newPuzzleFromBase, highScoreCommand, addHighScore, shuffle };
+module.exports = { load, save, promptSave, guess, generateHint, generateTwoLetterHint, newPuzzle, calculatePoints, newPuzzleFromBase, highScoreCommand, addHighScore, shuffle };
