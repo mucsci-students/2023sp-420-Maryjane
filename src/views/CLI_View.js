@@ -145,7 +145,7 @@ class CLI_View {
     console.log(hintString);
   }
 
-  drawHexagon(canvas, x, y, sideLength, color, letter = 'a', textColor = "white") {
+  drawHexagon(canvas, x, y, sideLength, color, letter = 'a', textColor = 'black') {
     const ctx = canvas.getContext('2d');
 
     let rotationAngle = 90 * Math.PI / 180;
@@ -176,7 +176,7 @@ class CLI_View {
 
     ctx.fillStyle = color; // set the fill color
     ctx.fill(); // fill the hexagon
-    ctx.stroke(); // draw the hexagon border
+    //ctx.stroke(); // draw the hexagon border
 
     // draw the letter
     ctx.fillStyle = textColor; // set the fill color for the letter
@@ -235,7 +235,7 @@ class CLI_View {
     x = center.x - hexagonSideLength - (hexagonSideLength / 2) + offsetX;
     y = center.y - (hexagonRadius * 2) + offsetY;
     for (let i = 0; i < row1; i++) {
-      this.drawHexagon(canvas, x, y, hexagonSideLength - 1, 'grey', Model.currentPuzzle[i]);
+      this.drawHexagon(canvas, x, y, hexagonSideLength - 1, '#E6E6E6', Model.currentPuzzle[i]);
       x += hexagonSideLength + hexagonSideLength;
       colorIndex = (colorIndex + 1) % colors.length;
     }
@@ -245,7 +245,7 @@ class CLI_View {
     x = center.x - (hexagonSideLength * 2) - (hexagonSideLength / 2)  + offsetX;
     y = center.y - hexagonRadius / 2 + offsetY;
     for (let i = 0; i < row2; i++) {
-      this.drawHexagon(canvas, x, y, hexagonSideLength - 1, i % 2 == 0 ? 'grey' : 'yellow', Model.currentPuzzle[i + row1], i % 2 == 0 ? 'white' : 'black');
+      this.drawHexagon(canvas, x, y, hexagonSideLength - 1, i % 2 == 0 ? '#E6E6E6' : 'rgb(238, 206, 44)', Model.currentPuzzle[i + row1]);
       x += hexagonSideLength + hexagonSideLength;
       colorIndex = (colorIndex + 1) % colors.length;
     }
@@ -255,7 +255,7 @@ class CLI_View {
     x = center.x - hexagonSideLength - (hexagonSideLength / 2) + offsetX;
     y = center.y + hexagonRadius + offsetY;
     for (let i = 0; i < row3; i++) {
-      this.drawHexagon(canvas, x, y, hexagonSideLength - 1, 'grey', Model.currentPuzzle[i + row1 + row2]);
+      this.drawHexagon(canvas, x, y, hexagonSideLength - 1, '#E6E6E6', Model.currentPuzzle[i + row1 + row2]);
       x += hexagonSideLength + hexagonSideLength;
     }
 
