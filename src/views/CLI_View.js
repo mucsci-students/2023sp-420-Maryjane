@@ -218,7 +218,7 @@ class CLI_View {
     ctx.fillStyle = "black"; // set the fill color
     ctx.fill();
     const fontSize = 36;
-    const fontFamily = "Times New Roman";
+    const fontFamily = "sans-serif";
     ctx.font = `${fontSize}px ${fontFamily}`;
     ctx.fillText(rankString, center.x - (ctx.measureText(rankString).width / 2), 36);
     ctx.fillText(pointsString, center.x - (ctx.measureText(pointsString).width / 2), (36 * 2) + 20);
