@@ -243,7 +243,7 @@ class GUI_View {
     this.inputFieldLoad.addEventListener('change', () => {
       const file = this.inputFieldLoad.files[0];
       const reader = new FileReader();
-      reader.addEventListener('load', (event) => {
+      reader.addEventListener('load', async (event) => {
 
         const jsonData = JSON.parse(event.target.result);
 
@@ -252,8 +252,14 @@ class GUI_View {
         this.Model.pangram = jsonData.PuzzleLetters.toUpperCase();
         this.Model.requiredLetter = jsonData.RequiredLetter.toUpperCase();
         this.Model.userPoints = jsonData.CurrentPoints;
-        this.Model.possibleGuesses = jsonData.WordList.map(element => element.toUpperCase());
         this.Model.maxPoints = jsonData.MaxPoints;
+
+        // No encryption case
+        if (typeof jsonData.WordList === "object") {
+          this.Model.possibleGuesses = jsonData.WordList.map(element => element.toUpperCase());
+        } else {
+          this.Model.possibleGuesses = JSON.parse(await decrypt(jsonData.WordList));
+        }
 
         this.Model.isPuzzleOpen = true;
 
@@ -285,7 +291,16 @@ class GUI_View {
     // });
 
 
-    this.saveSubmitBtn.addEventListener("click", () => {
+    this.saveSubmitBtn.addEventListener("click", async () => {
+      let secretData;
+
+      await encrypt(this.Model.possibleGuesses)
+        .then(encryptedData => {
+          secretData = encryptedData;
+        })
+        .catch(error => {
+          console.error('Encryption error:', error);
+        });
 
       let userData = {
         RequiredLetter: this.Model.requiredLetter.toLowerCase(),
@@ -293,8 +308,8 @@ class GUI_View {
         CurrentPoints: this.Model.userPoints,
         MaxPoints: this.Model.maxPoints,
         GuessedWords: this.Model.foundWords.map(element => element.toLowerCase()),
-        WordList: this.Model.possibleGuesses.map(element => element.toLowerCase())
-        // WordList: saveCheckBox.checked ? encrypt(this.Model.possibleGuesses) : this.Model.possibleGuesses.map(element => element.toLowerCase())
+        //WordList: this.Model.possibleGuesses.map(element => element.toLowerCase())
+        WordList: saveCheckBox.checked ? secretData : this.Model.possibleGuesses.map(element => element.toLowerCase())
       };
 
 
@@ -317,36 +332,27 @@ class GUI_View {
     // your plaintext string
     // plaintext = this.Model.possibleGuesses.stringify();
 
-    // create a CryptoKey from the key array
-    async function importKey(keyArray) {
-      const key = await window.crypto.subtle.importKey(
-        'raw', // format of the key
-        keyArray,
-        { // algorithm options
-          name: 'AES-CBC'
-        },
-        false, // non-extractable
-        ['encrypt', 'decrypt'] // key usages
-      );
-
-      return key;
+    // encrypt the plaintext using the key and IV
+    async function encrypt(plaintext) {
+      const algorithm = { name: 'AES-CBC', length: 256 };
+      const key = await window.crypto.subtle.importKey('raw', keyArray, algorithm, false, ['encrypt', 'decrypt']);
+    
+      const messageBuffer = new TextEncoder().encode(JSON.stringify(plaintext));
+      const encryptedBuffer = await window.crypto.subtle.encrypt({ name: 'AES-CBC', iv }, key, messageBuffer);
+      const encryptedData = Array.from(new Uint8Array(encryptedBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
+    
+      return encryptedData;
     }
 
-    // encrypt the plaintext using the key and IV
-    async function encrypt(plaintext, key, iv) {
-      const data = new TextEncoder().encode(plaintext);
+    async function decrypt(encryptedData) {
+      const algorithm = { name: 'AES-CBC', length: 256 };
+      const key = await window.crypto.subtle.importKey('raw', keyArray, algorithm, false, ['encrypt', 'decrypt']);
+    
+      const encryptedBuffer = new Uint8Array(encryptedData.match(/.{1,2}/g).map(byte => parseInt(byte, 16)));
+      const decryptedBuffer = await window.crypto.subtle.decrypt({ name: 'AES-CBC', iv }, key, encryptedBuffer);
+      const decryptedData = new TextDecoder().decode(decryptedBuffer);
 
-      const cipher = await window.crypto.subtle.encrypt(
-        {
-          name: 'AES-CBC',
-          iv: iv
-        },
-        key,
-        data
-      );
-
-      const ciphertext = Array.from(new Uint8Array(cipher)).map(b => ('00' + b.toString(16)).slice(-2)).join('');
-      return ciphertext;
+      return decryptedData;
     }
 
     // call the functions and log the result
