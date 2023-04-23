@@ -1,4 +1,6 @@
 const {calculatePoints} = require("./newPuzzleCommands");
+const highScore = require("./highScoreCommand.js");
+const { promptSave } = require("./fileCommands");
 /**
    * Used to check if a users guess is valid. If it is, the word gets inserted into Model.foundWords
    * @param {string} input - The input/guess the user made.
@@ -67,7 +69,13 @@ function guess(input, Model, View) {
     ) {
         View.showPangramMessage(input);
     } else {
-        View.showSuccessMessage("Success!");
+        if ((Model.userPoints === Model.maxPoints)){
+            View.showSuccessMessage("You have found all the words! You are QUEEN BEE!\n")
+            promptSave(Model);
+            
+        }
+          View.showSuccessMessage("Success!");
+
     }
 
     return true;

@@ -48,6 +48,91 @@
           "score": 1
         }
       ]
+    },
+    "AFGILNY": {
+      "center_letter": "A",
+      "scores": [
+        {
+          "user_id": "mitchell",
+          "score": 1000
+        },
+        {
+          "user_id": "mitchell",
+          "score": 900
+        },
+        {
+          "user_id": "mitchell",
+          "score": 800
+        },
+        {
+          "user_id": "no",
+          "score": 661
+        },
+        {
+          "user_id": "n",
+          "score": 661
+        },
+        {
+          "user_id": "n",
+          "score": 661
+        },
+        {
+          "user_id": "john",
+          "score": 661
+        },
+        {
+          "user_id": "john",
+          "score": 661
+        },
+        {
+          "user_id": "mitchell",
+          "score": 600
+        },
+        {
+          "user_id": "mitchell",
+          "score": 500
+        }
+      ]
+    },
+    "AEINOST": {
+      "center_letter": "T",
+      "scores": [
+        {
+          "user_id": "quit",
+          "score": 0
+        }
+      ]
+    },
+    "DEILMST": {
+      "center_letter": "L",
+      "scores": [
+        {
+          "user_id": "no",
+          "score": 0
+        },
+        {
+          "user_id": "eeeeeeeeeee",
+          "score": 0
+        }
+      ]
+    },
+    "AEFMOUW": {
+      "center_letter": "E",
+      "scores": [
+        {
+          "user_id": "john",
+          "score": 0
+        }
+      ]
+    },
+    "ADFNOST": {
+      "center_letter": "T",
+      "scores": [
+        {
+          "user_id": "no",
+          "score": 0
+        }
+      ]
     }
   }
 }

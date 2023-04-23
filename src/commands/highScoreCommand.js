@@ -37,6 +37,7 @@ async function highScoreCommand(Model) {
   let highscores = "";
 
   // now print the high scores
+  highscores += "\nRank  |  Name  |  Score\n"
   for (let i = 0; i < 10; i++) {
     if (
       file.highscores[letters].scores[i] == undefined ||
@@ -44,8 +45,8 @@ async function highScoreCommand(Model) {
     ) {
       break;
     }
-    highscores += "Rank: " +
-      (i + 1) +
+    highscores +=
+      Model.getRankName(Model.userPoints) +
       " " +
       file.highscores[letters].scores[i].user_id +
       " " +
@@ -56,7 +57,7 @@ async function highScoreCommand(Model) {
   Model.highScores = highscores; // this will store the highscores in the model
 
   // TODO: Move to the View
-  console.log(Model.highScores);  
+  console.log(Model.highScores);
 }
 
 function addHighScore(Model) {
@@ -124,12 +125,6 @@ function addHighScore(Model) {
     fs.writeFileSync("highScoreDict.json", JSON.stringify(highscores, null, 2));
 
     console.log("SpellingBee> Your score has been added to the leaderboard:");
-  } else {
-    console.log(
-      "SpellingBee> Your score was not high enough to be added to the leaderboard:"
-    );
-  }
-  
-  process.exit();
+  } 
 }
 module.exports = { highScoreCommand, addHighScore };

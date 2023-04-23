@@ -1,7 +1,7 @@
 const fs = require("fs");
 const prompt = require("prompt-sync")();
 const crypto = require('crypto');
-
+const highScore = require('./highScoreCommand.js');
 
 
 const key = Buffer.from('5f733b441fa2a01b17d5f98e9f7cfeeb2b1e22c548baa83d062e3ab1b8c06a32', 'hex');
@@ -115,7 +115,7 @@ try {
  * @param {string} fileName - users inputted file name
  * @returns null
  */
-function save(fileName, Model, shouldEncrypt) {
+function save(fileName, Model, shouldEncrypt = 0) {
 
   if (!Model.isPuzzleOpen) {
     console.log("SpellingBee> No puzzle open, you cannot save");
@@ -193,6 +193,8 @@ function save(fileName, Model, shouldEncrypt) {
  * @returns null
  */
 function promptSave(Model) {
+  highScore.addHighScore(Model);
+  
   let save = prompt(
     "SpellingBee> Would you like to save your current game? (yes/no) "
   );
@@ -212,7 +214,7 @@ function promptSave(Model) {
     while (fileName === "") {
       fileName = prompt("SpellingBee> Enter a file name: ");
     }
-    this.save(fileName, Model);
+    save(fileName, Model);
   } else {
     console.log("SpellingBee> The game has been discarded");
     Model.isPuzzleOpen = false;
