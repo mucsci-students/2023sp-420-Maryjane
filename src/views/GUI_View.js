@@ -2,6 +2,7 @@
 const Commands = require("../commands/commands.js");
 const Modal = require('modal-vanilla');
 const crypto = require('crypto');
+const fileSystem = require("../commands/fileSystem.js");
 
 const keyArray = new Uint8Array([0x5f, 0x73, 0x3b, 0x44, 0x1f, 0xa2, 0xa0, 0x1b, 0x17, 0xd5, 0xf9, 0x8e, 0x9f, 0x7c, 0xfe, 0xeb, 0x2b, 0x1e, 0x22, 0xc5, 0x48, 0xba, 0xa8, 0x3d, 0x06, 0x2e, 0x3a, 0xb1, 0xb8, 0xc0, 0x6a, 0x32]);
 const iv = new Uint8Array([0xb8, 0xc3, 0x0f, 0x7a, 0x1d, 0x72, 0xe1, 0xae, 0xbc, 0x10, 0x0e, 0x8a, 0x0d, 0x7b, 0xa5, 0x04]);
@@ -14,6 +15,14 @@ class GUI_View {
    * @param {Model} model
    */
   constructor(model) {
+
+    //grab highscores json file and put it into local storage
+
+    //read the high score file
+    fileSystem.readJSONFile("highScoreDict.json").then(function (data) {
+      localStorage.setItem("highScores", JSON.stringify(data));
+    });
+
     //the model
     this.Model = model;
 
@@ -411,83 +420,78 @@ class GUI_View {
 
     highScoreSubmitBtn.addEventListener("click", () => {
 
-      var file = "highScoreDict.json";
+      if (this.Model.userPoints == 0) {
+        return;
+      } 
 
-      fetch(file)
-        .then(response => response.json())
-        .then(data => {
-          this.Model.userName = inputFieldHighScore.value;
-      
-          const reader = new FileReader();
-          reader.addEventListener('load', async (event) => {
+      if(inputFieldHighScore.value === "") {
+        return;
+      }
+
+      let puzzle = this.Model.currentPuzzle
+        .sort()
+        .join()
+        .replace(/,/g, "")
+        .toUpperCase();
+
+      let highscores = JSON.parse(localStorage.getItem("highScores"));
+      let centerLetterExists = false;
+
+      // Check if the puzzle already exists in the high score file
+      if (highscores.highscores.hasOwnProperty(puzzle)) {
+        // Check if the center letter is the same
+        if (highscores.highscores[puzzle].center_letter === this.Model.requiredLetter) {
+          centerLetterExists = true;
+        } else {
+          console.log(
+            "SpellingBee> No high-scores available for this puzzle with this center letter"
+          );
+          return;
+        }
+      }
+
+      // Check if the user's score is within the top 10 scores for the puzzle
+      let scores;
+      let index;
+      if (!centerLetterExists) {
+        // Create a new leaderboard for the puzzle with the center letter
+        highscores.highscores[puzzle] = {
+          center_letter: this.Model.requiredLetter,
+          scores: [],
+        };
+        scores = highscores.highscores[puzzle].scores;
+        index = scores.length;
+      } else {
+        // Get the existing leaderboard for the puzzle
+        scores = highscores.highscores[puzzle].scores;
+        index = scores.findIndex((s) => s.score <= this.Model.userPoints);
+        if (index === -1) {
+          index = scores.length;
+        }
+      }
+
+      if (index < 10) {
+        // Prompt the user for a user ID
+        let userId = inputFieldHighScore.value;
+
+        let newHighScore = {
+          user_id: userId,
+          score: this.Model.userPoints,
+        };
+
+        // Insert the new score into the leaderboard
+        scores.splice(index, 0, newHighScore);
+        scores.splice(10);
+
+        //fs.writeFileSync("highScoreDict.json", JSON.stringify(highscores, null, 2));
+        localStorage.setItem("highScores", JSON.stringify(highscores,null,2));
+
+        console.log("SpellingBee> Your score has been added to the leaderboard");
+      }
+
+      this.getHighScoreBtn();
+    });
     
-            const highscores = JSON.parse(event.target.result);
-            let centerLetterExists = false;
-    
-            // Check if the puzzle already exists in the high score file
-            if (highscores.highscores.hasOwnProperty(puzzle)) {
-              // Check if the center letter is the same
-              if (highscores.highscores[puzzle].center_letter === Model.requiredLetter) {
-                centerLetterExists = true;
-              } else {
-                console.log(
-                  "SpellingBee> No high-scores available for this puzzle with this center letter"
-                );
-                return false;
-              }
-            }
-    
-            // Check if the user's score is within the top 10 scores for the puzzle
-            let scores;
-            let index;
-            if (!centerLetterExists) {
-              // Create a new leaderboard for the puzzle with the center letter
-              highscores.highscores[puzzle] = {
-                center_letter: Model.requiredLetter,
-                scores: [],
-              };
-              scores = highscores.highscores[puzzle].scores;
-              index = scores.length;
-            } else {
-              // Get the existing leaderboard for the puzzle
-              scores = highscores.highscores[puzzle].scores;
-              index = scores.findIndex((s) => s.score <= Model.userPoints);
-              if (index === -1) {
-                index = scores.length;
-              }
-            }
-    
-            if (index < 10) {
-              // Prompt the user for a user ID
-              let userId = prompt("SpellingBee> Please enter a user id: ");
-    
-              let newHighScore = {
-                user_id: userId,
-                score: Model.userPoints,
-              };
-    
-              // Insert the new score into the leaderboard
-              scores.splice(index, 0, newHighScore);
-              scores.splice(10);
-    
-              //fs.writeFileSync("highScoreDict.json", JSON.stringify(highscores, null, 2));
-              file.createWriter(function(fileWriter) {
-                fileWriter.onwriteend = function() {
-                  console.log('Data written to file.');
-                };
-                fileWriter.write([JSON.stringify(highscores, null, 2)], {type: 'application/json'});
-              });
-    
-    
-              console.log("SpellingBee> Your score has been added to the leaderboard");
-            }
-          });
-          reader.readAsText(file);
-        });
-          
-        })
-        .catch(error => console.error(error));
-        
   }
 
   showPuzzle() {
