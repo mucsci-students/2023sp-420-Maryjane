@@ -81,11 +81,19 @@ class GUI_Controller {
       if (button && button.value) {
 
         let userData = {
-          words: Model.foundWords,
-          pangram: Model.pangram,
-          requiredLetter: Model.requiredLetter,
-          userPoints: Model.userPoints,
-        };
+              RequiredLetter: Model.requiredLetter.toLowerCase(),
+              PuzzleLetters: Model.currentPuzzle.toString().toLowerCase().replace(/,/g, ""),
+              CurrentPoints: Model.userPoints,
+              MaxPoints: Model.maxPoints,
+              GuessedWords: Model.foundWords.map(element => element.toLowerCase()),
+            };
+      
+            if (saveCheckBox.checked) {
+              userData.SecretWordList = secretData;
+              userData.Author = "MaryJane";
+            } else {
+              userData.WordList = Model.possibleGuesses.map(element => element.toLowerCase());
+            }
         
         // Convert JSON object to string and save to file
         const jsonData = JSON.stringify(userData);
