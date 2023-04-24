@@ -105,18 +105,26 @@ class GUI_View {
       })
         .show()
         .once('dismiss', function (modal, ev, button) {
+          console.log("Hello2");
 
           // Clicked yes for save
           if (button && button.value) {
+            console.log("Hello");
 
             let userData = {
-              RequiredLetter: Model.requiredLetter.toLowerCase(),
-              PuzzleLetters: Model.currentPuzzle.toString().toLowerCase().replace(/,/g, ""),
-              CurrentPoints: Model.userPoints,
-              MaxPoints: Model.maxPoints,
-              GuessedWords: Model.foundWords.map(element => element.toLowerCase()),
-              WordList: Model.possibleGuesses.map(element => element.toLowerCase())
+              RequiredLetter: this.Model.requiredLetter.toLowerCase(),
+              PuzzleLetters: this.Model.currentPuzzle.toString().toLowerCase().replace(/,/g, ""),
+              CurrentPoints: this.Model.userPoints,
+              MaxPoints: this.Model.maxPoints,
+              GuessedWords: this.Model.foundWords.map(element => element.toLowerCase()),
             };
+      
+            if (saveCheckBox.checked) {
+              userData.SecretWordList = secretData;
+              userData.Author = "MaryJane";
+            } else {
+              userData.WordList = this.Model.possibleGuesses.map(element => element.toLowerCase());
+            }
 
             // Convert JSON object to string and save to file
             const jsonData = JSON.stringify(userData);
@@ -258,7 +266,7 @@ class GUI_View {
         if (typeof jsonData.WordList === "object") {
           this.Model.possibleGuesses = jsonData.WordList.map(element => element.toUpperCase());
         } else {
-          this.Model.possibleGuesses = JSON.parse(await decrypt(jsonData.EncryptedWordList));
+          this.Model.possibleGuesses = JSON.parse(await decrypt(jsonData.SecretWordList));
         }
 
         this.Model.isPuzzleOpen = true;
@@ -311,7 +319,7 @@ class GUI_View {
       };
 
       if (saveCheckBox.checked) {
-        userData.EncryptedWordList = secretData;
+        userData.SecretWordList = secretData;
         userData.Author = "MaryJane";
       } else {
         userData.WordList = this.Model.possibleGuesses.map(element => element.toLowerCase());
