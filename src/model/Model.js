@@ -108,26 +108,6 @@ class Model {
     return true;
   }
 
-  /**
-   * 
-   */
-  calculateHighScore() {
-    // Get the user's score
-    let score = this.userPoints;
-
-    // Check if the score is greater than the current high score
-    if (score > this.highScore) {
-      // Update the high score
-      this.highScore = score;
-
-      // Log a success message
-      score += score;
-    } else {
-      // Log a message indicating no new high score was achieved
-      score -= score;
-    }
-  }
-
 
 }
 
