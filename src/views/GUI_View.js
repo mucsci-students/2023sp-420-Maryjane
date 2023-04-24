@@ -308,9 +308,12 @@ class GUI_View {
         CurrentPoints: this.Model.userPoints,
         MaxPoints: this.Model.maxPoints,
         GuessedWords: this.Model.foundWords.map(element => element.toLowerCase()),
-        //WordList: this.Model.possibleGuesses.map(element => element.toLowerCase())
         WordList: saveCheckBox.checked ? secretData : this.Model.possibleGuesses.map(element => element.toLowerCase())
       };
+
+      if (saveCheckBox.checked) {
+        userData.Author = "MaryJane";
+      }
 
 
       // Convert JSON object to string and save to file
@@ -336,18 +339,18 @@ class GUI_View {
     async function encrypt(plaintext) {
       const algorithm = { name: 'AES-CBC', length: 256 };
       const key = await window.crypto.subtle.importKey('raw', keyArray, algorithm, false, ['encrypt', 'decrypt']);
-    
+
       const messageBuffer = new TextEncoder().encode(JSON.stringify(plaintext));
       const encryptedBuffer = await window.crypto.subtle.encrypt({ name: 'AES-CBC', iv }, key, messageBuffer);
       const encryptedData = Array.from(new Uint8Array(encryptedBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
-    
+
       return encryptedData;
     }
 
     async function decrypt(encryptedData) {
       const algorithm = { name: 'AES-CBC', length: 256 };
       const key = await window.crypto.subtle.importKey('raw', keyArray, algorithm, false, ['encrypt', 'decrypt']);
-    
+
       const encryptedBuffer = new Uint8Array(encryptedData.match(/.{1,2}/g).map(byte => parseInt(byte, 16)));
       const decryptedBuffer = await window.crypto.subtle.decrypt({ name: 'AES-CBC', iv }, key, encryptedBuffer);
       const decryptedData = new TextDecoder().decode(decryptedBuffer);
@@ -615,7 +618,7 @@ class GUI_View {
 
     // second row with three hexagons
     const row2 = 3;
-    x = center.x - (hexagonSideLength * 2) - (hexagonSideLength / 2)  + offsetX;
+    x = center.x - (hexagonSideLength * 2) - (hexagonSideLength / 2) + offsetX;
     y = center.y - hexagonRadius / 2 + offsetY;
     for (let i = 0; i < row2; i++) {
       this.drawHexagon(canvas, x, y, hexagonSideLength - 1, i % 2 == 0 ? '#E6E6E6' : 'rgb(238, 206, 44)', Model.currentPuzzle[i + row1]);

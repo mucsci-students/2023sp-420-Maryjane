@@ -164,6 +164,10 @@ function save(fileName, Model, shouldEncrypt = 0) {
         ? encrypted
         : Model.possibleGuesses.map((element) => element.toLowerCase()),
     };
+
+    if (shouldEncrypt) {
+      table.Author = "MaryJane";
+    }
     // console.log(atob(table.WordList));
     // console.log(table.WordList);
 
