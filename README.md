@@ -28,12 +28,31 @@ This is needed because Mac does not support jpeg nativally, in the terminal.
 npm install
 ```
 * Once you've installed the dependencies, you can run the program by using the following command:
-	@@ -62,15 +69,6 @@ cd 2023sp-420-Maryjane
+```
+npm run cli
+```
 
-  * Before you can run the program, you'll need to install the dependencies. You can do this by using the following command:
+### GUI
+* You can run the GUI either locally or remotely: 
+
+* **Hosted Website (Remotely):**
+
+  * Click this link to be sent to the GUI host website: 
+
+     [SpellingBee Graphical User Interface 🐝](https://mucsci-students.github.io/2023sp-420-Maryjane/)
+
+
+
+
+* **Through the terminal/command line interface (Locally):** 
+
+  * To run the GUI through terminal/command line interface, you'll need to first clone this repository to your local computer. You can do this by using the following command in your terminal or command line interface:
 
 ```
+git clone https://github.com/mucsci-students/2023sp-420-Maryjane.git
 ```
+
+* Before you can run the program, you'll need to install the dependencies. You can do this by using the following command:
 
 ```
 npm install
@@ -44,19 +63,23 @@ npm install
 ```
 npm start
 ```
+
   * This command will make two links appear in the terminal under the "Available on" section (Picture example below). Use CNTRL-Click (Windows) or cmd-Click (MAC) on either of these links to start up the GUI:
   <code><img height="300" src="Screenshot (872).png"></code>
 ### Run tests
 * To run the tests, you can use the following command:
 * Note: You'll need to have the dependencies installed before you can run the tests. Refer to the "Executing program" section for more information.
 * Note: You need to be in the root directory of the project to run the tests. (i.e. 2023sp-420-Maryjane)
+
 ```
 npm test
 ```
+
 ### Run Test Code Coverage
 * To run the tests, you can use the following command:
 * Note: You'll need to have the dependencies installed before you can run the tests. Refer to the "Executing program" section for more information.
 * Note: You need to be in the root directory of the project to run the tests. (i.e. 2023sp-420-Maryjane)
+
 ```
 npm run coverage
 ```
