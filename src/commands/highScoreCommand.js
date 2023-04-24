@@ -127,6 +127,8 @@ function addHighScore(Model) {
     fs.writeFileSync("highScoreDict.json", JSON.stringify(highscores, null, 2));
 
     console.log("SpellingBee> Your score has been added to the leaderboard");
+    return true;
   }
+  return false;
 }
 module.exports = { highScoreCommand, addHighScore };

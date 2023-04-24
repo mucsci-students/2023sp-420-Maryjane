@@ -191,9 +191,10 @@ function save(fileName, Model, shouldEncrypt = 0) {
  * @param {Model} Model - object used to keep track of the game/player
  * @returns null
  */
-function promptSave(Model) {
-  if (!Model.userPoints == 0) {
-    highScore.addHighScore(Model);
+function promptSave(Model, fromNewPuzzle = false) {
+  if (!Model.userPoints == 0 && highScore.addHighScore(Model) && !fromNewPuzzle) {
+    process.exit(0);
+  } else if (fromNewPuzzle) {
     return;
   }
 
