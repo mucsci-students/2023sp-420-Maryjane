@@ -125,7 +125,7 @@ For every button, textField, and menu item in the GUI, we have a certain event l
 ### Structural Behavior
 
 ### Adapter
-We created a file system class called [fileSystem.js](https://github.com/mucsci-students/2023sp-420-Maryjane/blob/develop/src/commands/fileCommands.js) to read a JSON file and parse the contents together. Then, we created [highScoreCommand.js] (https://github.com/mucsci-students/2023sp-420-Maryjane/blob/develop/src/commands/highScoreCommand.js) that inherits the file system class in order to read the JSON file. Both classes use the 'const fs = require('fs') (On Line 1 for both fileSystem.js and highScoreCommand.js) to provide file system-related functionality such as reading and writing files.
+We created a file system class called [fileSystem.js](https://github.com/mucsci-students/2023sp-420-Maryjane/blob/develop/src/commands/fileCommands.js) to read a JSON file and parse the contents together.  We can read a json file inside the CLI and GUI regardless of enviorment. Then, we created [highScoreCommand.js](https://github.com/mucsci-students/2023sp-420-Maryjane/blob/develop/src/commands/highScoreCommand.js) that inherits the file system class in order to read the JSON file. Both classes use the 'const fs = require('fs') (On Line 1 for both fileSystem.js and highScoreCommand.js) to provide file system-related functionality such as reading and writing files.
 
 ## 🖊️ Authors
 
