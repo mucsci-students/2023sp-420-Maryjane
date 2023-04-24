@@ -26,6 +26,13 @@ cd 2023sp-420-Maryjane
 ```
 * Before you can run the program, you'll need to install the dependencies. You can do this by using the following command:
 ```
+For OS X
+run this with bre installed:
+
+brew install pkg-config cairo pango libpng jpeg giflib librsvg pixman
+
+This is needed because Mac does not support jpeg nativally, in the terminal. 
+
 npm install
 ```
 * Once you've installed the dependencies, you can run the program by using the following command:
@@ -62,15 +69,6 @@ cd 2023sp-420-Maryjane
 
   * Before you can run the program, you'll need to install the dependencies. You can do this by using the following command:
 
-```
-For OS X
-run this with bre installed:
-
-brew install pkg-config cairo pango libpng jpeg giflib librsvg pixman
-```
-
-```
-npm install
 ```
 
   * Once you've installed the dependencies, you can run the GUI by using the following command:
