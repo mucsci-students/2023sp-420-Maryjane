@@ -167,6 +167,7 @@ function save(fileName, Model, shouldEncrypt = 0) {
 
     if (shouldEncrypt) {
       table.Author = "MaryJane";
+      
     }
     // console.log(atob(table.WordList));
     // console.log(table.WordList);

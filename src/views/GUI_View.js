@@ -313,6 +313,7 @@ class GUI_View {
 
       if (saveCheckBox.checked) {
         userData.Author = "MaryJane";
+        
       }
 
 
