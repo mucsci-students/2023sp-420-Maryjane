@@ -108,6 +108,7 @@ class Model {
     return true;
   }
 
+
 }
 
 // Export the static method instead of the class itself
