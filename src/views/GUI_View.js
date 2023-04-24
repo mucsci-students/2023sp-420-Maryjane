@@ -114,18 +114,26 @@ class GUI_View {
       })
         .show()
         .once('dismiss', function (modal, ev, button) {
+          console.log("Hello2");
 
           // Clicked yes for save
           if (button && button.value) {
+            console.log("Hello");
 
             let userData = {
-              RequiredLetter: Model.requiredLetter.toLowerCase(),
-              PuzzleLetters: Model.currentPuzzle.toString().toLowerCase().replace(/,/g, ""),
-              CurrentPoints: Model.userPoints,
-              MaxPoints: Model.maxPoints,
-              GuessedWords: Model.foundWords.map(element => element.toLowerCase()),
-              WordList: Model.possibleGuesses.map(element => element.toLowerCase())
+              RequiredLetter: this.Model.requiredLetter.toLowerCase(),
+              PuzzleLetters: this.Model.currentPuzzle.toString().toLowerCase().replace(/,/g, ""),
+              CurrentPoints: this.Model.userPoints,
+              MaxPoints: this.Model.maxPoints,
+              GuessedWords: this.Model.foundWords.map(element => element.toLowerCase()),
             };
+      
+            if (saveCheckBox.checked) {
+              userData.SecretWordList = secretData;
+              userData.Author = "MaryJane";
+            } else {
+              userData.WordList = this.Model.possibleGuesses.map(element => element.toLowerCase());
+            }
 
             // Convert JSON object to string and save to file
             const jsonData = JSON.stringify(userData);
@@ -267,7 +275,7 @@ class GUI_View {
         if (typeof jsonData.WordList === "object") {
           this.Model.possibleGuesses = jsonData.WordList.map(element => element.toUpperCase());
         } else {
-          this.Model.possibleGuesses = JSON.parse(await decrypt(jsonData.WordList));
+          this.Model.possibleGuesses = JSON.parse(await decrypt(jsonData.SecretWordList));
         }
 
         this.Model.isPuzzleOpen = true;
@@ -317,9 +325,14 @@ class GUI_View {
         CurrentPoints: this.Model.userPoints,
         MaxPoints: this.Model.maxPoints,
         GuessedWords: this.Model.foundWords.map(element => element.toLowerCase()),
-        //WordList: this.Model.possibleGuesses.map(element => element.toLowerCase())
-        WordList: saveCheckBox.checked ? secretData : this.Model.possibleGuesses.map(element => element.toLowerCase())
       };
+
+      if (saveCheckBox.checked) {
+        userData.SecretWordList = secretData;
+        userData.Author = "MaryJane";
+      } else {
+        userData.WordList = this.Model.possibleGuesses.map(element => element.toLowerCase());
+      }
 
 
       // Convert JSON object to string and save to file
@@ -345,18 +358,18 @@ class GUI_View {
     async function encrypt(plaintext) {
       const algorithm = { name: 'AES-CBC', length: 256 };
       const key = await window.crypto.subtle.importKey('raw', keyArray, algorithm, false, ['encrypt', 'decrypt']);
-    
+
       const messageBuffer = new TextEncoder().encode(JSON.stringify(plaintext));
       const encryptedBuffer = await window.crypto.subtle.encrypt({ name: 'AES-CBC', iv }, key, messageBuffer);
       const encryptedData = Array.from(new Uint8Array(encryptedBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
-    
+
       return encryptedData;
     }
 
     async function decrypt(encryptedData) {
       const algorithm = { name: 'AES-CBC', length: 256 };
       const key = await window.crypto.subtle.importKey('raw', keyArray, algorithm, false, ['encrypt', 'decrypt']);
-    
+
       const encryptedBuffer = new Uint8Array(encryptedData.match(/.{1,2}/g).map(byte => parseInt(byte, 16)));
       const decryptedBuffer = await window.crypto.subtle.decrypt({ name: 'AES-CBC', iv }, key, encryptedBuffer);
       const decryptedData = new TextDecoder().decode(decryptedBuffer);
@@ -700,7 +713,7 @@ class GUI_View {
 
     // second row with three hexagons
     const row2 = 3;
-    x = center.x - (hexagonSideLength * 2) - (hexagonSideLength / 2)  + offsetX;
+    x = center.x - (hexagonSideLength * 2) - (hexagonSideLength / 2) + offsetX;
     y = center.y - hexagonRadius / 2 + offsetY;
     for (let i = 0; i < row2; i++) {
       this.drawHexagon(canvas, x, y, hexagonSideLength - 1, i % 2 == 0 ? '#E6E6E6' : 'rgb(238, 206, 44)', Model.currentPuzzle[i + row1]);
