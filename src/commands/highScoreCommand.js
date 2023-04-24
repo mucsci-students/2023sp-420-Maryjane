@@ -48,7 +48,7 @@ async function highScoreCommand(Model) {
       break;
     }
     highscores +=
-      Model.getRankName(Model.userPoints) +
+      Model.getRankName(Model.userPoints/Model.maxPoints) +
       " " +
       file.highscores[letters].scores[i].user_id +
       " " +

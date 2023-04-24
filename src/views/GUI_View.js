@@ -406,7 +406,88 @@ class GUI_View {
       }
     });
 
+    const highScoreSubmitBtn = document.getElementById("HighScoreSubmitBtn");
+    const inputFieldHighScore = document.getElementById("inputFieldHighScore");
 
+    highScoreSubmitBtn.addEventListener("click", () => {
+
+      var file = "highScoreDict.json";
+
+      fetch(file)
+        .then(response => response.json())
+        .then(data => {
+          this.Model.userName = inputFieldHighScore.value;
+      
+          const reader = new FileReader();
+          reader.addEventListener('load', async (event) => {
+    
+            const highscores = JSON.parse(event.target.result);
+            let centerLetterExists = false;
+    
+            // Check if the puzzle already exists in the high score file
+            if (highscores.highscores.hasOwnProperty(puzzle)) {
+              // Check if the center letter is the same
+              if (highscores.highscores[puzzle].center_letter === Model.requiredLetter) {
+                centerLetterExists = true;
+              } else {
+                console.log(
+                  "SpellingBee> No high-scores available for this puzzle with this center letter"
+                );
+                return false;
+              }
+            }
+    
+            // Check if the user's score is within the top 10 scores for the puzzle
+            let scores;
+            let index;
+            if (!centerLetterExists) {
+              // Create a new leaderboard for the puzzle with the center letter
+              highscores.highscores[puzzle] = {
+                center_letter: Model.requiredLetter,
+                scores: [],
+              };
+              scores = highscores.highscores[puzzle].scores;
+              index = scores.length;
+            } else {
+              // Get the existing leaderboard for the puzzle
+              scores = highscores.highscores[puzzle].scores;
+              index = scores.findIndex((s) => s.score <= Model.userPoints);
+              if (index === -1) {
+                index = scores.length;
+              }
+            }
+    
+            if (index < 10) {
+              // Prompt the user for a user ID
+              let userId = prompt("SpellingBee> Please enter a user id: ");
+    
+              let newHighScore = {
+                user_id: userId,
+                score: Model.userPoints,
+              };
+    
+              // Insert the new score into the leaderboard
+              scores.splice(index, 0, newHighScore);
+              scores.splice(10);
+    
+              //fs.writeFileSync("highScoreDict.json", JSON.stringify(highscores, null, 2));
+              file.createWriter(function(fileWriter) {
+                fileWriter.onwriteend = function() {
+                  console.log('Data written to file.');
+                };
+                fileWriter.write([JSON.stringify(highscores, null, 2)], {type: 'application/json'});
+              });
+    
+    
+              console.log("SpellingBee> Your score has been added to the leaderboard");
+            }
+          });
+          reader.readAsText(file);
+        });
+          
+        })
+        .catch(error => console.error(error));
+        
   }
 
   showPuzzle() {
@@ -643,6 +724,7 @@ class GUI_View {
 
   //!! TODO ADD HIGHSCORE IMMPLEMENTATION HERE!!!!!!!------------------------------------------------------>
   async getHighScoreBtn() {
+
     highScoreModal.style.display = "block";
 
     let highScoreText = document.getElementById("highScoreText");
@@ -653,6 +735,7 @@ class GUI_View {
     let formattedHighScores = this.Model.highScores.replace("\n", "<br>");
 
     highScoreText.innerHTML = this.Model.highScores == "" ? "No highscores for current puzzles" : formattedHighScores;
+
   }
 
   getHintBtn() {
