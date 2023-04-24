@@ -65,20 +65,26 @@ function load(fileName, Model, View, shouldDecrypt) {
   Model.userPoints = parsedFile.CurrentPoints;
   Model.maxPoints = parsedFile.MaxPoints;
 
+  try {
+    if (shouldDecrypt) {
+      const decryptedData = decrypt(parsedFile.WordList, key, iv);
 
-try {
-  if (shouldDecrypt) {
+      // parse the decrypted JSON string back into an object
+      const json = JSON.parse(decryptedData);
 
-    const decryptedData = decrypt(parsedFile.WordList, key, iv);
-
-    // parse the decrypted JSON string back into an object
-    const json = JSON.parse(decryptedData);
-
-    // output the decrypted JSON object
-    // console.log('Decrypted JSON:', json);
-    Model.possibleGuesses = json;
-  } else {
-    Model.possibleGuesses = parsedFile.WordList.map((element) => element.toUpperCase());
+      // output the decrypted JSON object
+      // console.log('Decrypted JSON:', json);
+      Model.possibleGuesses = json;
+    } else {
+      Model.possibleGuesses = parsedFile.WordList.map((element) =>
+        element.toUpperCase()
+      );
+    }
+  } catch (error) {
+    console.log(
+      "Problem loading file. Most likely trying to load an encrypted file without proper arguments."
+    );
+    return;
   }
 
   let puzzle = String.prototype.concat
@@ -95,12 +101,11 @@ try {
   View.showPuzzle(Model);
 }
 
-
 function decrypt(encryptedData, key, iv) {
-  const decipher = crypto.createDecipheriv('aes-256-cbc', key, iv);
+  const decipher = crypto.createDecipheriv("aes-256-cbc", key, iv);
 
-  let decrypted = decipher.update(encryptedData, 'hex', 'utf8');
-  decrypted += decipher.final('utf8');
+  let decrypted = decipher.update(encryptedData, "hex", "utf8");
+  decrypted += decipher.final("utf8");
 
   return decrypted;
 }
@@ -186,7 +191,11 @@ function save(fileName, Model, shouldEncrypt = 0) {
  * @returns null
  */
 function promptSave(Model, fromNewPuzzle = false) {
-  if (!Model.userPoints == 0 && highScore.addHighScore(Model) && !fromNewPuzzle) {
+  if (
+    !Model.userPoints == 0 &&
+    highScore.addHighScore(Model) &&
+    !fromNewPuzzle
+  ) {
     process.exit(0);
   } else if (fromNewPuzzle) {
     return;
