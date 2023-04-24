@@ -1,6 +1,6 @@
-const fs = require("fs");
 const prompt = require("prompt-sync")();
 const fileSystem = require("./fileSystem.js");
+const fs = require("fs");
 
 // //TODO!!! STILL IN PROGRESS (fix the method @)
 // !!!NOTE: NEED TO CLEAR THE highScoreDict.json before client demo
@@ -29,7 +29,9 @@ async function highScoreCommand(Model) {
 
   //now check that the center letter exists in the puzzle
   if (file.highscores[letters].center_letter != Model.requiredLetter) {
-    console.log("SpellingBee> No high-scores available for this puzzle with this center letter");
+    console.log(
+      "SpellingBee> No high-scores available for this puzzle with this center letter"
+    );
     return false;
   }
 
@@ -37,7 +39,7 @@ async function highScoreCommand(Model) {
   let highscores = "";
 
   // now print the high scores
-  highscores += "\nRank  |  Name  |  Score\n"
+  highscores += "\nRank  |  Name  |  Score\n";
   for (let i = 0; i < 10; i++) {
     if (
       file.highscores[letters].scores[i] == undefined ||
@@ -111,7 +113,7 @@ function addHighScore(Model) {
 
   if (index < 10) {
     // Prompt the user for a user ID
-    let userId = prompt("Please enter a user id: ");
+    let userId = prompt("SpellingBee> Please enter a user id: ");
 
     let newHighScore = {
       user_id: userId,
@@ -124,7 +126,7 @@ function addHighScore(Model) {
 
     fs.writeFileSync("highScoreDict.json", JSON.stringify(highscores, null, 2));
 
-    console.log("SpellingBee> Your score has been added to the leaderboard:");
-  } 
+    console.log("SpellingBee> Your score has been added to the leaderboard");
+  }
 }
 module.exports = { highScoreCommand, addHighScore };
