@@ -12,8 +12,14 @@ async function highScoreCommand(Model) {
   }
 
   //read the high score file
-  let file = await fileSystem.readJSONFile("highScoreDict.json");
 
+  let file;
+  if(typeof window === 'undefined') {
+    file = await fileSystem.readJSONFile("highScoreDict.json");
+  } else {
+     file = JSON.parse(localStorage.getItem("highScores"));
+     console.log(file);
+  }
   //the current puzzle string in alphabetical order
   let letters = Model.currentPuzzle
     .sort()
@@ -48,7 +54,7 @@ async function highScoreCommand(Model) {
       break;
     }
     highscores +=
-      Model.getRankName(Model.userPoints) +
+      Model.getRankName(Model.userPoints/Model.maxPoints) +
       " " +
       file.highscores[letters].scores[i].user_id +
       " " +
