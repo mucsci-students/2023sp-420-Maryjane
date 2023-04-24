@@ -108,6 +108,28 @@ class Model {
     return true;
   }
 
+  /**
+   * 
+   * @param {*} model 
+   */
+  calculateHighScore(model) {
+    // Get the user's score
+    let score = model.userPoints;
+
+    // Check if the score is greater than the current high score
+    if (score > model.highScore) {
+      // Update the high score
+      model.highScore = score;
+
+      // Log a success message
+      score += score;
+    } else {
+      // Log a message indicating no new high score was achieved
+      score -= score;
+    }
+  }
+
+
 }
 
 // Export the static method instead of the class itself
