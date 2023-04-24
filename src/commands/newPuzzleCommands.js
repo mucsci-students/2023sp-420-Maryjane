@@ -13,7 +13,7 @@ function newPuzzle(Model, MongoDB, View) {
     if (Model.isPuzzleOpen) {
         //CLI case
         if (typeof window === "undefined") {
-            promptSave(Model);
+            promptSave(Model, true);
         }
     }
 

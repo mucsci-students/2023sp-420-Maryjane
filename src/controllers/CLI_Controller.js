@@ -162,16 +162,6 @@ class CLI_Controller {
       callback();
     });
 
-    //!!! Change to other function when done
-    //Command to allow high-score to be saved
-    Vorpal.command(
-      "add-high-score",
-      "Ends the current game and adds highscore to leader board if high enough"
-    ).action(function (args, callback) {
-      Commands.addHighScore(Model);
-      callback();
-    });
-
     Vorpal.command(
       "share-img",
       "Saves a shareable image to your computer"
