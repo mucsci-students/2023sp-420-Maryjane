@@ -65,36 +65,20 @@ function load(fileName, Model, View, shouldDecrypt) {
   Model.userPoints = parsedFile.CurrentPoints;
   Model.maxPoints = parsedFile.MaxPoints;
 
-  try {
-    if (shouldDecrypt) {
-      // the encrypted JSON string and key/IV from earlier
-      const encrypted = parsedFile.WordList;
-      const key2 = Buffer.from(key, "hex");
-      const iv2 = Buffer.from(iv, "hex");
 
-      // create a decipher object with the key and IV
-      const decipher = crypto.createDecipheriv("aes-256-cbc", key2, iv2);
+try {
+  if (shouldDecrypt) {
 
-      // decrypt the encrypted data
-      let decrypted = decipher.update(encrypted, "hex", "utf8");
-      decrypted += decipher.final("utf8");
+    const decryptedData = decrypt(parsedFile.WordList, key, iv);
 
-      // parse the decrypted JSON string back into an object
-      const json = JSON.parse(decrypted);
+    // parse the decrypted JSON string back into an object
+    const json = JSON.parse(decryptedData);
 
-      // output the decrypted JSON object
-      // console.log('Decrypted JSON:', json);
-      Model.possibleGuesses = json;
-    } else {
-      Model.possibleGuesses = parsedFile.WordList.map((element) =>
-        element.toUpperCase()
-      );
-    }
-  } catch (error) {
-    console.log(
-      "Problem loading file. Most likely trying to load an encrypted file without proper arguments."
-    );
-    return;
+    // output the decrypted JSON object
+    // console.log('Decrypted JSON:', json);
+    Model.possibleGuesses = json;
+  } else {
+    Model.possibleGuesses = parsedFile.WordList.map((element) => element.toUpperCase());
   }
 
   let puzzle = String.prototype.concat
@@ -109,6 +93,16 @@ function load(fileName, Model, View, shouldDecrypt) {
   console.log("Puzzle is shown below");
 
   View.showPuzzle(Model);
+}
+
+
+function decrypt(encryptedData, key, iv) {
+  const decipher = crypto.createDecipheriv('aes-256-cbc', key, iv);
+
+  let decrypted = decipher.update(encryptedData, 'hex', 'utf8');
+  decrypted += decipher.final('utf8');
+
+  return decrypted;
 }
 
 /**
