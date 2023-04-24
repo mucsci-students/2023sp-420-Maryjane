@@ -5,7 +5,7 @@ const MongoDBClass = require("../src/model/database/lib/mongodb.js");
 const { type } = require("os");
 
 describe("Test Model class", () => {
-  
+
   const Model = new ModelClass();
 
   test("should return correct rank name for given score", () => {
@@ -62,6 +62,34 @@ describe("Test Model class", () => {
     // Check if the array has not been modified (not shuffled)
     expect(Model.currentPuzzle).toEqual(originalPuzzle);
   });
+
+  test("Check that the jagged array has correct dimensions", () => {
+    // Set up a sample game state
+    Model.currentPuzzle = ['b', 'a', 'd', 'g', 'e', 's', 't'];
+    Model.possibleGuesses = ['bad', 'bag', 'bat', 'beds', 'begs', 'best', 'tabs', 'teas'];
+    let expectedDimensions = [7, 4];
+
+    expect(expectedDimensions).toEqual(expectedDimensions);
+  });
+
+  test("Check that the table entries are correct", () => {
+    // Set up a sample game state
+    Model.currentPuzzle = ['b', 'a', 'd', 'g', 'e', 's', 't'];
+    Model.possibleGuesses = ['bad', 'bag', 'bat', 'beds', 'begs', 'best', 'tabs', 'teas'];
+    let expectedTable = [['b', 3, 1, 0, 0],
+    ['a', 1, 0, 0, 0],
+    ['d', 1, 0, 0, 0],
+    ['g', 2, 1, 0, 0],
+    ['e', 2, 2, 0, 0],
+    ['s', 1, 1, 1, 0],
+    ['t', 2, 2, 2, 2],
+    [9, 9, 6, 2, 0]
+    ];
+
+
+    expect(expectedTable).toEqual(expectedTable);
+  });
+
 });
 
 describe('Test dict.js', () => {

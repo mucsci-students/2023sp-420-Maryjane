@@ -110,16 +110,15 @@ class Model {
 
   /**
    * 
-   * @param {*} model 
    */
-  calculateHighScore(model) {
+  calculateHighScore() {
     // Get the user's score
-    let score = model.userPoints;
+    let score = this.userPoints;
 
     // Check if the score is greater than the current high score
-    if (score > model.highScore) {
+    if (score > this.highScore) {
       // Update the high score
-      model.highScore = score;
+      this.highScore = score;
 
       // Log a success message
       score += score;
