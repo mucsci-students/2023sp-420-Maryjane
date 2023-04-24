@@ -258,7 +258,7 @@ class GUI_View {
         if (typeof jsonData.WordList === "object") {
           this.Model.possibleGuesses = jsonData.WordList.map(element => element.toUpperCase());
         } else {
-          this.Model.possibleGuesses = JSON.parse(await decrypt(jsonData.WordList));
+          this.Model.possibleGuesses = JSON.parse(await decrypt(jsonData.EncryptedWordList));
         }
 
         this.Model.isPuzzleOpen = true;
@@ -308,12 +308,13 @@ class GUI_View {
         CurrentPoints: this.Model.userPoints,
         MaxPoints: this.Model.maxPoints,
         GuessedWords: this.Model.foundWords.map(element => element.toLowerCase()),
-        WordList: saveCheckBox.checked ? secretData : this.Model.possibleGuesses.map(element => element.toLowerCase())
       };
 
       if (saveCheckBox.checked) {
+        userData.EncryptedWordList = secretData;
         userData.Author = "MaryJane";
-        
+      } else {
+        userData.WordList = this.Model.possibleGuesses.map(element => element.toLowerCase());
       }
 
 

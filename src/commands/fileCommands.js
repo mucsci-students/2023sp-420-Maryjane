@@ -50,7 +50,13 @@ function load(fileName, Model, View, shouldDecrypt) {
     !parsedFile.hasOwnProperty("RequiredLetter") ||
     !parsedFile.hasOwnProperty("CurrentPoints") ||
     !parsedFile.hasOwnProperty("MaxPoints") ||
-    !parsedFile.hasOwnProperty("WordList")
+
+    !(parsedFile.hasOwnProperty("WordList") ||
+      (
+        parsedFile.hasOwnProperty("EncryptedWordList") ||
+        parsedFile.hasOwnProperty("Author")
+      )
+    )
   ) {
     console.log("SpellingBee> File is not a valid spelling bee file");
     return;
@@ -67,7 +73,7 @@ function load(fileName, Model, View, shouldDecrypt) {
 
   try {
     if (shouldDecrypt) {
-      const decryptedData = decrypt(parsedFile.WordList, key, iv);
+      const decryptedData = decrypt(parsedFile.EncryptedWordList, key, iv);
 
       // parse the decrypted JSON string back into an object
       const json = JSON.parse(decryptedData);
@@ -158,16 +164,13 @@ function save(fileName, Model, shouldEncrypt = 0) {
       CurrentPoints: Model.userPoints,
       MaxPoints: Model.maxPoints,
       GuessedWords: Model.foundWords.map((element) => element.toLowerCase()),
-
-      //cracked use of ternary operator (?) !!! lol -Michael
-      WordList: shouldEncrypt
-        ? encrypted
-        : Model.possibleGuesses.map((element) => element.toLowerCase()),
     };
 
     if (shouldEncrypt) {
       table.Author = "MaryJane";
-      
+      table.EncryptedWordList = encrypted;
+    } else {
+      table.WordList = Model.possibleGuesses.map((element) => element.toLowerCase());
     }
     // console.log(atob(table.WordList));
     // console.log(table.WordList);
