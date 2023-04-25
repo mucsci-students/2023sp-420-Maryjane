@@ -1,0 +1,13 @@
+{
+  "highscores": {
+    "BDEGHIT": {
+      "center_letter": "T",
+      "scores": [
+        {
+          "user_id": "jon",
+          "score": 1
+        }
+      ]
+    }
+  }
+}

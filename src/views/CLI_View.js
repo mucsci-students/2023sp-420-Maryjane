@@ -1,3 +1,6 @@
+const { createCanvas, loadImage } = require('canvas')
+const fs = require('fs');
+
 /**
  * Stores CLI View class
  */
@@ -140,6 +143,126 @@ class CLI_View {
 
 
     console.log(hintString);
+  }
+
+  drawHexagon(canvas, x, y, sideLength, color, letter = 'a', textColor = 'black') {
+    const ctx = canvas.getContext('2d');
+
+    let rotationAngle = 90 * Math.PI / 180;
+
+    // calculate the coordinates of the hexagon vertices
+    const angle = Math.PI / 3; // the angle between each vertex
+    const x1 = x + Math.cos(0 + rotationAngle) * sideLength;
+    const y1 = y + Math.sin(0 + rotationAngle) * sideLength;
+    const x2 = x + Math.cos(angle + rotationAngle) * sideLength;
+    const y2 = y + Math.sin(angle + rotationAngle) * sideLength;
+    const x3 = x + Math.cos(2 * angle + rotationAngle) * sideLength;
+    const y3 = y + Math.sin(2 * angle + rotationAngle) * sideLength;
+    const x4 = x + Math.cos(3 * angle + rotationAngle) * sideLength;
+    const y4 = y + Math.sin(3 * angle + rotationAngle) * sideLength;
+    const x5 = x + Math.cos(4 * angle + rotationAngle) * sideLength;
+    const y5 = y + Math.sin(4 * angle + rotationAngle) * sideLength;
+    const x6 = x + Math.cos(5 * angle + rotationAngle) * sideLength;
+    const y6 = y + Math.sin(5 * angle + rotationAngle) * sideLength;
+
+    ctx.beginPath();
+    ctx.moveTo(x1, y1);
+    ctx.lineTo(x2, y2);
+    ctx.lineTo(x3, y3);
+    ctx.lineTo(x4, y4);
+    ctx.lineTo(x5, y5);
+    ctx.lineTo(x6, y6);
+    ctx.closePath();
+
+    ctx.fillStyle = color; // set the fill color
+    ctx.fill(); // fill the hexagon
+    //ctx.stroke(); // draw the hexagon border
+
+    // draw the letter
+    ctx.fillStyle = textColor; // set the fill color for the letter
+    ctx.font = 'bold 30px sans-serif'; // set the font for the letter
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(letter, x, y);
+  }
+
+  shareImg(Model) {
+    if (!Model.isPuzzleOpen) {
+      console.log("No puzzle open");
+      return;
+    }
+
+    // Create a new canvas element
+    const canvas = createCanvas(500, 500)
+    const ctx = canvas.getContext('2d')
+
+    canvas.width = 500;
+    canvas.height = 500;
+
+    // get the canvas element and draw the big hexagon from small hexagons
+    //const canvas = document.getElementById('canvas');
+    const hexagonSideLength = 50;
+    const hexagonRadius = hexagonSideLength / Math.cos(Math.PI / 6); // calculate the radius of the big hexagon so that the small hexagons don't overlap
+    const center = {
+      x: canvas.width / 2,
+      y: canvas.height / 2
+    };
+
+    ctx.fillStyle = "white"; // set the fill color
+    ctx.fill();
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    let rankString = "Rank: " + Model.getRankName(Model.userPoints / Model.maxPoints);
+    let pointsString = "Points: " + Model.userPoints + "/" + Model.maxPoints;
+
+    ctx.fillStyle = "black"; // set the fill color
+    ctx.fill();
+    const fontSize = 36;
+    const fontFamily = "sans-serif";
+    ctx.font = `${fontSize}px ${fontFamily}`;
+    ctx.fillText(rankString, center.x - (ctx.measureText(rankString).width / 2), 36);
+    ctx.fillText(pointsString, center.x - (ctx.measureText(pointsString).width / 2), (36 * 2) + 20);
+
+    const colors = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet'];
+    let x, y;
+    let colorIndex = 0;
+
+    let offsetX = 25;
+    let offsetY = 75;
+
+    // first row with 2 hexagons
+    const row1 = 2;
+    x = center.x - hexagonSideLength - (hexagonSideLength / 2) + offsetX;
+    y = center.y - (hexagonRadius * 2) + offsetY;
+    for (let i = 0; i < row1; i++) {
+      this.drawHexagon(canvas, x, y, hexagonSideLength - 1, '#E6E6E6', Model.currentPuzzle[i]);
+      x += hexagonSideLength + hexagonSideLength;
+      colorIndex = (colorIndex + 1) % colors.length;
+    }
+
+    // second row with three hexagons
+    const row2 = 3;
+    x = center.x - (hexagonSideLength * 2) - (hexagonSideLength / 2)  + offsetX;
+    y = center.y - hexagonRadius / 2 + offsetY;
+    for (let i = 0; i < row2; i++) {
+      this.drawHexagon(canvas, x, y, hexagonSideLength - 1, i % 2 == 0 ? '#E6E6E6' : 'rgb(238, 206, 44)', Model.currentPuzzle[i + row1]);
+      x += hexagonSideLength + hexagonSideLength;
+      colorIndex = (colorIndex + 1) % colors.length;
+    }
+
+    // third row with 2 hexagons
+    const row3 = 2;
+    x = center.x - hexagonSideLength - (hexagonSideLength / 2) + offsetX;
+    y = center.y + hexagonRadius + offsetY;
+    for (let i = 0; i < row3; i++) {
+      this.drawHexagon(canvas, x, y, hexagonSideLength - 1, '#E6E6E6', Model.currentPuzzle[i + row1 + row2]);
+      x += hexagonSideLength + hexagonSideLength;
+    }
+
+    const buffer = canvas.toBuffer('image/png');
+    fs.writeFileSync('output.png', buffer);
+
+    console.log("Created image");
   }
 
   showSuccessMessage(string) {

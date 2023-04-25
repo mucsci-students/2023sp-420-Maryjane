@@ -1,6 +1,12 @@
 //Function to find a specific html tasks by adding an ID for each tasks
 const Commands = require("../commands/commands.js");
 const Modal = require('modal-vanilla');
+const crypto = require('crypto');
+const fileSystem = require("../commands/fileSystem.js");
+
+const keyArray = new Uint8Array([0x5f, 0x73, 0x3b, 0x44, 0x1f, 0xa2, 0xa0, 0x1b, 0x17, 0xd5, 0xf9, 0x8e, 0x9f, 0x7c, 0xfe, 0xeb, 0x2b, 0x1e, 0x22, 0xc5, 0x48, 0xba, 0xa8, 0x3d, 0x06, 0x2e, 0x3a, 0xb1, 0xb8, 0xc0, 0x6a, 0x32]);
+const iv = new Uint8Array([0xb8, 0xc3, 0x0f, 0x7a, 0x1d, 0x72, 0xe1, 0xae, 0xbc, 0x10, 0x0e, 0x8a, 0x0d, 0x7b, 0xa5, 0x04]);
+
 
 //Return the ID of element as a JavaScript object, store all in the array and shuffle and change what they say inside them This.TopLeftBlock
 class GUI_View {
@@ -9,6 +15,14 @@ class GUI_View {
    * @param {Model} model
    */
   constructor(model) {
+
+    //grab highscores json file and put it into local storage
+
+    //read the high score file
+    fileSystem.readJSONFile("highScoreDict.json").then(function (data) {
+      localStorage.setItem("highScores", JSON.stringify(data));
+    });
+
     //the model
     this.Model = model;
 
@@ -100,18 +114,26 @@ class GUI_View {
       })
         .show()
         .once('dismiss', function (modal, ev, button) {
+          console.log("Hello2");
 
           // Clicked yes for save
           if (button && button.value) {
+            console.log("Hello");
 
             let userData = {
-              RequiredLetter: Model.requiredLetter.toLowerCase(),
-              PuzzleLetters: Model.currentPuzzle.toString().toLowerCase().replace(/,/g, ""),
-              CurrentPoints: Model.userPoints,
-              MaxPoints: Model.maxPoints,
-              GuessedWords: Model.foundWords.map(element => element.toLowerCase()),
-              WordList: Model.possibleGuesses.map(element => element.toLowerCase())
+              RequiredLetter: this.Model.requiredLetter.toLowerCase(),
+              PuzzleLetters: this.Model.currentPuzzle.toString().toLowerCase().replace(/,/g, ""),
+              CurrentPoints: this.Model.userPoints,
+              MaxPoints: this.Model.maxPoints,
+              GuessedWords: this.Model.foundWords.map(element => element.toLowerCase()),
             };
+      
+            if (saveCheckBox.checked) {
+              userData.SecretWordList = secretData;
+              userData.Author = "MaryJane";
+            } else {
+              userData.WordList = this.Model.possibleGuesses.map(element => element.toLowerCase());
+            }
 
             // Convert JSON object to string and save to file
             const jsonData = JSON.stringify(userData);
@@ -238,7 +260,7 @@ class GUI_View {
     this.inputFieldLoad.addEventListener('change', () => {
       const file = this.inputFieldLoad.files[0];
       const reader = new FileReader();
-      reader.addEventListener('load', (event) => {
+      reader.addEventListener('load', async (event) => {
 
         const jsonData = JSON.parse(event.target.result);
 
@@ -247,8 +269,14 @@ class GUI_View {
         this.Model.pangram = jsonData.PuzzleLetters.toUpperCase();
         this.Model.requiredLetter = jsonData.RequiredLetter.toUpperCase();
         this.Model.userPoints = jsonData.CurrentPoints;
-        this.Model.possibleGuesses = jsonData.WordList.map(element => element.toUpperCase());
         this.Model.maxPoints = jsonData.MaxPoints;
+
+        // No encryption case
+        if (typeof jsonData.WordList === "object") {
+          this.Model.possibleGuesses = jsonData.WordList.map(element => element.toUpperCase());
+        } else {
+          this.Model.possibleGuesses = JSON.parse(await decrypt(jsonData.SecretWordList));
+        }
 
         this.Model.isPuzzleOpen = true;
 
@@ -267,15 +295,45 @@ class GUI_View {
 
     //---------------------------------- SAVE -------------------------------------------------------->
 
-    this.saveSubmitBtn.addEventListener("click", () => {
+    //saveCheckBox
+    const saveCheckBox = document.querySelector('#saveCheckBox');
+    // saveCheckBox.addEventListener('click', function () {
+    //   if (saveCheckBox.checked) {
+    //     // checkbox is selected
+    //     console.log('Encryption is selected');
+    //   } else {
+    //     // checkbox is not selected 
+    //     console.log('Encryption is not selected');
+    //   }
+    // });
+
+
+    this.saveSubmitBtn.addEventListener("click", async () => {
+      let secretData;
+
+      await encrypt(this.Model.possibleGuesses)
+        .then(encryptedData => {
+          secretData = encryptedData;
+        })
+        .catch(error => {
+          console.error('Encryption error:', error);
+        });
+
       let userData = {
-       RequiredLetter: this.Model.requiredLetter.toLowerCase(),
+        RequiredLetter: this.Model.requiredLetter.toLowerCase(),
         PuzzleLetters: this.Model.currentPuzzle.toString().toLowerCase().replace(/,/g, ""),
         CurrentPoints: this.Model.userPoints,
         MaxPoints: this.Model.maxPoints,
         GuessedWords: this.Model.foundWords.map(element => element.toLowerCase()),
-        WordList: this.Model.possibleGuesses.map(element => element.toLowerCase())
       };
+
+      if (saveCheckBox.checked) {
+        userData.SecretWordList = secretData;
+        userData.Author = "MaryJane";
+      } else {
+        userData.WordList = this.Model.possibleGuesses.map(element => element.toLowerCase());
+      }
+
 
       // Convert JSON object to string and save to file
       const jsonData = JSON.stringify(userData);
@@ -288,11 +346,47 @@ class GUI_View {
       this.inputFieldSave.value = "";
     });
 
-
-
-
-
     //---------------------------------- SAVE -------------------------------------------------------->
+
+    //----------------------------------ENCRYPTION---------------------------------------------------->  
+
+    // encrypt the JSON string using the fixed key and IV
+    // your plaintext string
+    // plaintext = this.Model.possibleGuesses.stringify();
+
+    // encrypt the plaintext using the key and IV
+    async function encrypt(plaintext) {
+      const algorithm = { name: 'AES-CBC', length: 256 };
+      const key = await window.crypto.subtle.importKey('raw', keyArray, algorithm, false, ['encrypt', 'decrypt']);
+
+      const messageBuffer = new TextEncoder().encode(JSON.stringify(plaintext));
+      const encryptedBuffer = await window.crypto.subtle.encrypt({ name: 'AES-CBC', iv }, key, messageBuffer);
+      const encryptedData = Array.from(new Uint8Array(encryptedBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
+
+      return encryptedData;
+    }
+
+    async function decrypt(encryptedData) {
+      const algorithm = { name: 'AES-CBC', length: 256 };
+      const key = await window.crypto.subtle.importKey('raw', keyArray, algorithm, false, ['encrypt', 'decrypt']);
+
+      const encryptedBuffer = new Uint8Array(encryptedData.match(/.{1,2}/g).map(byte => parseInt(byte, 16)));
+      const decryptedBuffer = await window.crypto.subtle.decrypt({ name: 'AES-CBC', iv }, key, encryptedBuffer);
+      const decryptedData = new TextDecoder().decode(decryptedBuffer);
+
+      return decryptedData;
+    }
+
+    // call the functions and log the result
+    // importKey(keyArray)
+    //   .then(key => encrypt(plaintext, key, iv))
+    //   .then(ciphertext => console.log(ciphertext))
+    //   .catch(error => console.error(error));
+
+
+    //----------------------------------ENCRYPTION---------------------------------------------------->
+
+    //hint modal
     const hintModal = document.querySelector("#hintModal");
     const close = document.querySelector(".close");
 
@@ -306,23 +400,128 @@ class GUI_View {
       }
     });
 
+    //highscore modal
+    const highScoreModal = document.querySelector("#highScoreModal");
+    const close2 = document.querySelector(".close2");
+
+    close2.addEventListener("click", () => {
+      highScoreModal.style.display = "none";
+    });
+
+    window.addEventListener("click", (event) => {
+      if (event.target === highScoreModal) {
+        highScoreModal.style.display = "none";
+      }
+    });
+
+    //share modal
+    const shareModal = document.querySelector("#shareModal");
+    const close3 = document.querySelector(".close3");
+
+    close3.addEventListener("click", () => {
+      shareModal.style.display = "none";
+    });
+
+    window.addEventListener("click", (event) => {
+      if (event.target === shareModal) {
+        shareModal.style.display = "none";
+      }
+    });
+
+    const highScoreSubmitBtn = document.getElementById("HighScoreSubmitBtn");
+    const inputFieldHighScore = document.getElementById("inputFieldHighScore");
+
+    highScoreSubmitBtn.addEventListener("click", () => {
+
+      if (this.Model.userPoints == 0) {
+        return;
+      } 
+
+      if(inputFieldHighScore.value === "") {
+        return;
+      }
+
+      let puzzle = this.Model.currentPuzzle
+        .sort()
+        .join()
+        .replace(/,/g, "")
+        .toUpperCase();
+
+      let highscores = JSON.parse(localStorage.getItem("highScores"));
+      let centerLetterExists = false;
+
+      // Check if the puzzle already exists in the high score file
+      if (highscores.highscores.hasOwnProperty(puzzle)) {
+        // Check if the center letter is the same
+        if (highscores.highscores[puzzle].center_letter === this.Model.requiredLetter) {
+          centerLetterExists = true;
+        } else {
+          console.log(
+            "SpellingBee> No high-scores available for this puzzle with this center letter"
+          );
+          return;
+        }
+      }
+
+      // Check if the user's score is within the top 10 scores for the puzzle
+      let scores;
+      let index;
+      if (!centerLetterExists) {
+        // Create a new leaderboard for the puzzle with the center letter
+        highscores.highscores[puzzle] = {
+          center_letter: this.Model.requiredLetter,
+          scores: [],
+        };
+        scores = highscores.highscores[puzzle].scores;
+        index = scores.length;
+      } else {
+        // Get the existing leaderboard for the puzzle
+        scores = highscores.highscores[puzzle].scores;
+        index = scores.findIndex((s) => s.score <= this.Model.userPoints);
+        if (index === -1) {
+          index = scores.length;
+        }
+      }
+
+      if (index < 10) {
+        // Prompt the user for a user ID
+        let userId = inputFieldHighScore.value;
+
+        let newHighScore = {
+          user_id: userId,
+          score: this.Model.userPoints,
+        };
+
+        // Insert the new score into the leaderboard
+        scores.splice(index, 0, newHighScore);
+        scores.splice(10);
+
+        //fs.writeFileSync("highScoreDict.json", JSON.stringify(highscores, null, 2));
+        localStorage.setItem("highScores", JSON.stringify(highscores,null,2));
+
+        console.log("SpellingBee> Your score has been added to the leaderboard");
+      }
+
+      this.getHighScoreBtn();
+    });
+    
   }
 
   showPuzzle() {
     let word = this.Model.currentPuzzle;
     let pos = this.Model.currentPuzzle.indexOf(this.Model.requiredLetter);
 
-    let temp = word[2];
-    word[2] = this.Model.requiredLetter;
+    let temp = word[3];
+    word[3] = this.Model.requiredLetter;
     word[pos] = temp;
 
-    this.MiddleLeftBlock.innerHTML = word[0];
-    this.TopLeftBlock.innerHTML = word[1];
-    this.Middle.innerHTML = word[2];
-    this.TopRightBlock.innerHTML = word[3];
-    this.BottomRightBlock.innerHTML = word[4];
+    this.TopLeftBlock.innerHTML = word[0];
+    this.TopRightBlock.innerHTML = word[1];
+    this.MiddleLeftBlock.innerHTML = word[2];
+    this.Middle.innerHTML = word[3];
+    this.MiddleRightBlock.innerHTML = word[4];
     this.BottomLeftBlock.innerHTML = word[5];
-    this.MiddleRightBlock.innerHTML = word[6];
+    this.BottomRightBlock.innerHTML = word[6];
 
     this.updateRank();
     this.textArea.innerHTML = this.Model.foundWords.join("  ").toUpperCase();
@@ -420,7 +619,142 @@ class GUI_View {
     this.textArea.classList.toggle('whiteText');
     this.userInput.focus();
   }
-  
+
+  drawHexagon(canvas, x, y, sideLength, color, letter = 'a', textColor = 'black') {
+    const ctx = canvas.getContext('2d');
+
+    let rotationAngle = 90 * Math.PI / 180;
+
+    // calculate the coordinates of the hexagon vertices
+    const angle = Math.PI / 3; // the angle between each vertex
+    const x1 = x + Math.cos(0 + rotationAngle) * sideLength;
+    const y1 = y + Math.sin(0 + rotationAngle) * sideLength;
+    const x2 = x + Math.cos(angle + rotationAngle) * sideLength;
+    const y2 = y + Math.sin(angle + rotationAngle) * sideLength;
+    const x3 = x + Math.cos(2 * angle + rotationAngle) * sideLength;
+    const y3 = y + Math.sin(2 * angle + rotationAngle) * sideLength;
+    const x4 = x + Math.cos(3 * angle + rotationAngle) * sideLength;
+    const y4 = y + Math.sin(3 * angle + rotationAngle) * sideLength;
+    const x5 = x + Math.cos(4 * angle + rotationAngle) * sideLength;
+    const y5 = y + Math.sin(4 * angle + rotationAngle) * sideLength;
+    const x6 = x + Math.cos(5 * angle + rotationAngle) * sideLength;
+    const y6 = y + Math.sin(5 * angle + rotationAngle) * sideLength;
+
+    ctx.beginPath();
+    ctx.moveTo(x1, y1);
+    ctx.lineTo(x2, y2);
+    ctx.lineTo(x3, y3);
+    ctx.lineTo(x4, y4);
+    ctx.lineTo(x5, y5);
+    ctx.lineTo(x6, y6);
+    ctx.closePath();
+
+    ctx.fillStyle = color; // set the fill color
+    ctx.fill(); // fill the hexagon
+    //ctx.stroke(); // draw the hexagon border
+
+    // draw the letter
+    ctx.fillStyle = textColor; // set the fill color for the letter
+    ctx.font = 'bold 30px sans-serif'; // set the font for the letter
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(letter, x, y);
+  }
+
+  //!! TODO ADD SHARE IMMPLEMENTATION HERE!!!!!!!------------------------------------------------------>
+  getShareBtn(Model) {
+    // Create a new canvas element
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = 500;
+    canvas.height = 500;
+
+    // get the canvas element and draw the big hexagon from small hexagons
+    //const canvas = document.getElementById('canvas');
+    const hexagonSideLength = 50;
+    const hexagonRadius = hexagonSideLength / Math.cos(Math.PI / 6); // calculate the radius of the big hexagon so that the small hexagons don't overlap
+    const center = {
+      x: canvas.width / 2,
+      y: canvas.height / 2
+    };
+
+    ctx.fillStyle = "white"; // set the fill color
+    ctx.fill();
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    let rankString = "Rank: " + this.Model.getRankName(this.Model.userPoints / this.Model.maxPoints);
+    let pointsString = "Points: " + this.Model.userPoints + "/" + this.Model.maxPoints;
+
+    ctx.fillStyle = "black"; // set the fill color
+    ctx.fill();
+    const fontSize = 36;
+    const fontFamily = "sans-serif";
+    ctx.font = `${fontSize}px ${fontFamily}`;
+    ctx.fillText(rankString, center.x - (ctx.measureText(rankString).width / 2), 36);
+    ctx.fillText(pointsString, center.x - (ctx.measureText(pointsString).width / 2), (36 * 2) + 20);
+
+    const colors = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet'];
+    let x, y;
+    let colorIndex = 0;
+
+    let offsetX = 25;
+    let offsetY = 75;
+
+    // first row with 2 hexagons
+    const row1 = 2;
+    x = center.x - hexagonSideLength - (hexagonSideLength / 2) + offsetX;
+    y = center.y - (hexagonRadius * 2) + offsetY;
+    for (let i = 0; i < row1; i++) {
+      this.drawHexagon(canvas, x, y, hexagonSideLength - 1, '#E6E6E6', Model.currentPuzzle[i]);
+      x += hexagonSideLength + hexagonSideLength;
+      colorIndex = (colorIndex + 1) % colors.length;
+    }
+
+    // second row with three hexagons
+    const row2 = 3;
+    x = center.x - (hexagonSideLength * 2) - (hexagonSideLength / 2) + offsetX;
+    y = center.y - hexagonRadius / 2 + offsetY;
+    for (let i = 0; i < row2; i++) {
+      this.drawHexagon(canvas, x, y, hexagonSideLength - 1, i % 2 == 0 ? '#E6E6E6' : 'rgb(238, 206, 44)', Model.currentPuzzle[i + row1]);
+      x += hexagonSideLength + hexagonSideLength;
+      colorIndex = (colorIndex + 1) % colors.length;
+    }
+
+    // third row with 2 hexagons
+    const row3 = 2;
+    x = center.x - hexagonSideLength - (hexagonSideLength / 2) + offsetX;
+    y = center.y + hexagonRadius + offsetY;
+    for (let i = 0; i < row3; i++) {
+      this.drawHexagon(canvas, x, y, hexagonSideLength - 1, '#E6E6E6', Model.currentPuzzle[i + row1 + row2]);
+      x += hexagonSideLength + hexagonSideLength;
+    }
+
+    const dataURL = canvas.toDataURL('image/png');
+    const link = document.createElement('a');
+    link.download = 'hexagon.png';
+    link.href = dataURL;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
+  //!! TODO ADD HIGHSCORE IMMPLEMENTATION HERE!!!!!!!------------------------------------------------------>
+  async getHighScoreBtn() {
+
+    highScoreModal.style.display = "block";
+
+    let highScoreText = document.getElementById("highScoreText");
+
+    await Commands.highScoreCommand(this.Model);
+
+    //read the json file from local files
+    let formattedHighScores = this.Model.highScores.replace("\n", "<br>");
+
+    highScoreText.innerHTML = this.Model.highScores == "" ? "No highscores for current puzzles" : formattedHighScores;
+
+  }
+
   getHintBtn() {
     hintModal.style.display = "block";
 
@@ -437,7 +771,7 @@ class GUI_View {
     //TODO: get the amount of pangrams and bingo
 
     //Call Commands to generate the hint
-    Commands.generateHint(this.Model,this);
+    Commands.generateHint(this.Model, this);
 
     let words = this.Model.possibleGuesses.length;
     let totalPangrams = this.Model.totalPangrams;
@@ -448,7 +782,7 @@ class GUI_View {
       isBingo = " BINGO";
     }
 
-    puzzleInfo.innerHTML = "Words: " + words + "&nbsp; Points: " + this.Model.maxPoints + "&nbsp; Perfect Pangrams: "+ totalPangrams + isBingo;
+    puzzleInfo.innerHTML = "Words: " + words + "&nbsp; Points: " + this.Model.maxPoints + "&nbsp; Perfect Pangrams: " + totalPangrams + isBingo;
 
     // Format spelling bee grid
     let formattedGrid = this.Model.currentPuzzleHints
@@ -471,18 +805,16 @@ class GUI_View {
     //clear the hintWords element before setting the innerHTML
     hintWords.innerHTML = "";
     hintWords.innerHTML = '<textarea wrap="hard"readonly style="font-family: \'Nunito Sans\', sans-serif; font-weight: 700; text-transform: uppercase; resize: none; width: 100%; height: 120px; margin-top: 10px;">' + hintString + '</textarea>';
-}
+  }
 
 
-  showHintGrid(string)
-  {
+  showHintGrid(string) {
     //console.log(string);
   }
 
-  showTwoLetterHint(string)
-  {
+  showTwoLetterHint(string) {
     //console.log(string);
-  } 
+  }
 
 }
 

@@ -13,7 +13,7 @@ function newPuzzle(Model, MongoDB, View) {
     if (Model.isPuzzleOpen) {
         //CLI case
         if (typeof window === "undefined") {
-            promptSave(Model);
+            promptSave(Model, true);
         }
     }
 
@@ -24,9 +24,9 @@ function newPuzzle(Model, MongoDB, View) {
     let pangramLetters = String.prototype.concat
         .call(...new Set(pangram))
         .split("");
-    Model.currentPuzzle = pangramLetters
-        .sort((a, b) => 0.5 - Math.random())
-        .sort((a, b) => 0.5 - Math.random());
+
+    Model.currentPuzzle = pangramLetters;
+    Model.shufflePuzzle();
 
     // Method will not choose these letters when finding random required letter
     let toRemove = ["J", "Q", "X", "Z"];
@@ -139,9 +139,8 @@ function newPuzzleFromBase(input, Model, View) {
     let pangramLetters = String.prototype.concat
         .call(...new Set(pangram))
         .split("");
-    Model.currentPuzzle = pangramLetters
-        .sort((a, b) => 0.5 - Math.random())
-        .sort((a, b) => 0.5 - Math.random());
+    Model.currentPuzzle = pangramLetters;
+    Model.shufflePuzzle();
 
     // Method will not choose these letters when finding random required letter
     let toRemove = ["J", "Q", "X", "Z"];

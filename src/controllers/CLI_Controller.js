@@ -8,7 +8,7 @@ const Commands = require("../commands/commands.js");
 
 // Used for documentation
 const Model = require("../Model/Model.js");
-  
+
 /**
  * Controller for the CLI following the MVC Model
  */
@@ -72,13 +72,13 @@ class CLI_Controller {
         callback();
       });
 
-    //  Hidden command that shows everything related to the Model
-    // Vorpal.command("debug", "")
-    //   .hidden()
-    //   .action(function (args, callback) {
-    //     console.log(Model);
-    //     callback();
-    //   });
+    //Hidden command that shows everything related to the Model
+    Vorpal.command("debug", "")
+      .hidden()
+      .action(function (args, callback) {
+        console.log(Model);
+        callback();
+      });
 
     // Command to shuffle puzzle
     Vorpal.command(
@@ -99,21 +99,33 @@ class CLI_Controller {
     });
 
     // Command to load the game
-    Vorpal.command("load <filename>", "Loads the specified save file.").action(
-      function (args, callback) {
-        Commands.load(args.filename.toString(), Model, View);
-        callback();
-      }
-    );
+    Vorpal.command("load <filename>")
+      .option('-d', 'for decrypting encrypted files.')
+      .description("Loads the specified save file.")
+      .action(
+        function (args, callback) {
+          if (args.options.d) {
+            Commands.load(args.filename.toString(), Model, View, 1);
+          } else {
+            Commands.load(args.filename.toString(), Model, View, 0);
+          }
+          callback();
+        }
+      );
 
     // Command to save the game
     Vorpal.command(
       "save <filename>",
-      "Saves the current game. Allows user to name save files."
-    ).action(function (args, callback) {
-      Commands.save(args.filename.toString(), Model);
-      callback();
-    });
+    ).option('-e', 'for encrypting the save file.')
+      .description("Saves the current game. Allows user to name save files.")
+      .action(function (args, callback) {
+        if (args.options.e) {
+          Commands.save(args.filename.toString(), Model, 1);
+        } else {
+          Commands.save(args.filename.toString(), Model, 0);
+        }
+        callback();
+      });
 
     // Command to show user puzzle rank
     Vorpal.command("rank", "Shows the user their puzzle rank.").action(
@@ -132,11 +144,29 @@ class CLI_Controller {
       callback();
     });
 
+    //Command to show the hint grid and 2 words list
     Vorpal.command(
       "hint",
       "Shows the user the current puzzle's hints and bingo."
     ).action(function (args, callback) {
       Commands.generateHint(Model, View);
+      callback();
+    });
+
+    //Command to allow high-score to be saved
+    Vorpal.command(
+      "view-high-scores",
+      "Shows the current highscores for current puzzle"
+    ).action(function (args, callback) {
+      Commands.highScoreCommand(Model);
+      callback();
+    });
+
+    Vorpal.command(
+      "share-img",
+      "Saves a shareable image to your computer"
+    ).action(function (args, callback) {
+      View.shareImg(Model);
       callback();
     });
 
