@@ -7,7 +7,7 @@ const Vorpal = require("@moleculer/vorpal")();
 const Commands = require("../commands/commands.js");
 
 // Used for documentation
-const Model = require("../Model/Model.js");
+const Model = require("../model/Model.js");
 
 /**
  * Controller for the CLI following the MVC Model
