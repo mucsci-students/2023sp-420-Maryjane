@@ -1,7 +1,7 @@
 /**
  * Stores CLI Controller class
  */
-const Vorpal = require("@moleculer/Vorpal")();
+const Vorpal = require("@moleculer/vorpal")();
 
 // Commands class
 const Commands = require("../commands/commands.js");
