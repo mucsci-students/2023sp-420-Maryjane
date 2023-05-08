@@ -8,6 +8,10 @@ A Spelling Bee App made in JavaScript for CSCI 420: Software Enginnerring at Mil
 * npm: Node.js comes with npm, which is a package manager for JavaScript. npm makes it easy for JavaScript developers to share and reuse code, and it makes it easy to update the code that you're sharing. If some how npm isn't installed, you can install npm by following the instructions on the official website at https://docs.npmjs.com/downloading-and-installing-node-js-and-npm
 * Git: Git is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency. Git is easy to learn and has a tiny footprint with lightning fast performance. You can download Git from the official website at https://git-scm.com/downloads.
 * Homebrew: ONLY NEEDED FOR MAC OS, this is used to install specific kinds of packages for this specific OS. You can download it from the official website at https://brew.sh/
+* ONLY FOR MAC OS X - run this with brew installed:
+```
+brew install pkg-config cairo pango libpng jpeg giflib librsvg pixman
+```
 ### Executing program
 ### CLI
 * To run the program, you'll need to clone this repository to your local computer. You can do this by using the following command in your terminal or command line interface:
@@ -19,13 +23,6 @@ git clone https://github.com/mucsci-students/2023sp-420-Maryjane.git
 cd 2023sp-420-Maryjane
 ```
 * Before you can run the program, you'll need to install the dependencies. You can do this by using the following command:
-
-For OS X
-run this with bre installed:
-```
-brew install pkg-config cairo pango libpng jpeg giflib librsvg pixman
-```
-This is needed because Mac does not support jpeg nativally, in the terminal.
 ```
 npm install
 ```
@@ -63,7 +60,7 @@ npm install
   
   
 ```
-npm start
+npm run gui
 ```
 
   * This command will make two links appear in the terminal under the "Available on" section (Picture example below). Use CNTRL-Click (Windows) or cmd-Click (MAC) on either of these links to start up the GUI:
@@ -103,12 +100,25 @@ For every button, textField, and menu item in the GUI, we have a certain event l
 ### Structural Behavior
 ### Adapter
 We created a file system class called [fileSystem.js](https://github.com/mucsci-students/2023sp-420-Maryjane/blob/develop/src/commands/fileCommands.js) to read a JSON file and parse the contents together.  We can read a json file inside the CLI and GUI regardless of enviorment. Then, we created [highScoreCommand.js](https://github.com/mucsci-students/2023sp-420-Maryjane/blob/develop/src/commands/highScoreCommand.js) that inherits the file system class in order to read the JSON file regardless of enviorment. 
+
 ## 🖊️ Authors
-* Github 🤖: [@jjriver1](https://github.com/jjriver1) 👤 **Jonathan Rivera**
-* Github 🤖: [@JSteve0](https://github.com/JSteve0) 👤 **Justin Stevens**
-* Github 🤖: [@mharrison7787](https://github.com/mharrison7787) 👤 **Mitchell Harrison**
-* Github 🤖: [@OhMyDayz2023](https://github.com/OhMyDayz2023) 👤 **Jayson Gayle**
-* Github 🤖: [@mjlewis-millersville](https://github.com/mjlewis-millersville) 👤 **Michael Lewis**
+👤 **Jonathan Rivera**
+
+* Github 🤖: [@jjriver1](https://github.com/jjriver1)
+
+👤 **Justin Stevens**
+
+* Github 🤖: [@JSteve0](https://github.com/JSteve0)
+
+👤 **Mitchell Harrison**
+
+* Github 🤖: [@mharrison7787](https://github.com/mharrison7787)
+
+👤 **Jayson Gayle**
+
+* Github 🤖: [@OhMyDayz2023](https://github.com/OhMyDayz2023)
+
+👤 **Michael Lewis**
 ## 🤝 Contributing
 Contributions, issues and feature requests are welcome! Feel free to check the [issues page](https://github.com/mucsci-students/2023sp-420-Maryjane/issues) 
 ## Show your support

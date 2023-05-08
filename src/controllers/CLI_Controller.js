@@ -1,13 +1,13 @@
 /**
  * Stores CLI Controller class
  */
-const Vorpal = require("@moleculer/Vorpal")();
+const Vorpal = require("@moleculer/vorpal")();
 
 // Commands class
 const Commands = require("../commands/commands.js");
 
 // Used for documentation
-const Model = require("../Model/Model.js");
+const Model = require("../model/Model.js");
 
 /**
  * Controller for the CLI following the MVC Model
